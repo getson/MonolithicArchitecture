@@ -13,7 +13,10 @@ namespace SPA.Controllers
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
-
+        /// <summary>
+        /// get a list of Weather forecasts
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("[action]")]
         public IEnumerable<WeatherForecast> WeatherForecasts()
         {
