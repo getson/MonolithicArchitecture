@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using MyApp.Core;
+using MyApp.Core.Domain;
 
-namespace MyApp.Data
+namespace MyApp.Infrastructure.Data
 {
     /// <summary>
     /// Represents DB context

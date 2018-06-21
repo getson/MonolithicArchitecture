@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MyApp.Data.Mapping
+namespace MyApp.Infrastructure.Data.Mapping
 {
     /// <summary>
     /// Represents base query type mapping configuration

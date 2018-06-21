@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MyApp.Core;
+using MyApp.Core.Domain;
 
-namespace MyApp.Data.Mapping
+namespace MyApp.Infrastructure.Data.Mapping
 {
     /// <summary>
     /// Represents base entity mapping configuration

@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Newtonsoft.Json;
-using MyApp.Core.ComponentModel;
 using MyApp.Core.Configuration;
 using MyApp.Core.Infrastructure;
+using MyApp.Core.Infrastructure.Common;
 
 //Contributor: Umbraco (http://www.umbraco.com). Thanks a lot! 
 //SEE THIS POST for full details of what this does - http://shazwazza.com/post/Developing-a-plugin-framework-in-ASPNET-with-medium-trust.aspx

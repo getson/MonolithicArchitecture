@@ -1,4 +1,4 @@
-﻿namespace MyApp.Core
+﻿namespace MyApp.Core.Infrastructure.Common
 {
     /// <summary>
     /// Collection of MimeType Constants for using to avoid Typos

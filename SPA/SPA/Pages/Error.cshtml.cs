@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace SPA.Pages
 {
+    /// <inheritdoc />
     public class ErrorModel : PageModel
     {
         public string RequestId { get; set; }

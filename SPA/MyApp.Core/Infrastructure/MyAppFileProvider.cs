@@ -8,7 +8,7 @@ using System.Threading;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
 
-namespace MyApp.Core.Infrastructure
+namespace MyApp.Core.Infrastructure.Common
 {
     /// <summary>
     /// IO functions using the on-disk file system

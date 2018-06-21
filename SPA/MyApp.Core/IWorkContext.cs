@@ -1,5 +1,6 @@
 ﻿
 using MyApp.Core.Domain.Localization;
+using MyApp.Core.Domain.User;
 
 namespace MyApp.Core
 {
@@ -16,5 +17,7 @@ namespace MyApp.Core
         /// Gets or sets value indicating whether we're in admin area
         /// </summary>
         bool IsAdmin { get; set; }
+
+        User CurrentUser { get; set; }
     }
 }

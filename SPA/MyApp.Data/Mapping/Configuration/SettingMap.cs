@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyApp.Core.Domain.Configuration;
 
-namespace MyApp.Data.Mapping.Configuration
+namespace MyApp.Infrastructure.Data.Mapping.Configuration
 {
     /// <summary>
     /// Represents a setting mapping configuration

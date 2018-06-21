@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using MyApp.Core;
-using MyApp.Core.Data;
+using MyApp.Core.Domain;
+using MyApp.Core.Interfaces.Data;
 
-namespace MyApp.Data
+namespace MyApp.Infrastructure.Data
 {
     /// <summary>
     /// Represents the Entity Framework repository

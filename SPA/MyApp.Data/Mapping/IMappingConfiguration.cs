@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace MyApp.Data.Mapping
+namespace MyApp.Infrastructure.Data.Mapping
 {
     /// <summary>
     /// Represents database context model mapping configuration

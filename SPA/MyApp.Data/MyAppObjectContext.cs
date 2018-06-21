@@ -4,10 +4,10 @@ using System.Data.Common;
 using System.Linq;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using MyApp.Core;
-using MyApp.Data.Mapping;
+using MyApp.Core.Domain;
+using MyApp.Infrastructure.Data.Mapping;
 
-namespace MyApp.Data
+namespace MyApp.Infrastructure.Data
 {
     /// <summary>
     /// Represents base object context

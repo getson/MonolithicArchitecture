@@ -7,9 +7,8 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
-using MyApp.Core.Infrastructure;
 
-namespace MyApp.Core
+namespace MyApp.Core.Infrastructure.Common
 {
     /// <summary>
     /// Represents a common helper

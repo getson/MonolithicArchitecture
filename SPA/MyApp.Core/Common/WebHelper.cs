@@ -10,10 +10,8 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
 using MyApp.Core.Configuration;
-using MyApp.Core.Data;
-using MyApp.Core.Infrastructure;
 
-namespace MyApp.Core
+namespace MyApp.Core.Infrastructure.Common
 {
     /// <summary>
     /// Represents a web helper
@@ -185,7 +183,7 @@ namespace MyApp.Core
         {
             if (!IsRequestAvailable())
                 return string.Empty;
-            
+
             //get store location
             var storeLocation = GetStoreLocation(useSsl ?? IsCurrentConnectionSecured());
 
@@ -195,7 +193,7 @@ namespace MyApp.Core
             //add query string to the URL
             if (includeQueryString)
                 pageUrl = $"{pageUrl}{_httpContextAccessor.HttpContext.Request.QueryString}";
-            
+
             //whether to convert the URL to lower case
             if (lowercaseUrl)
                 pageUrl = pageUrl.ToLowerInvariant();
@@ -241,7 +239,7 @@ namespace MyApp.Core
 
             //add scheme to the URL
             var storeHost = $"{(useSsl ? Uri.UriSchemeHttps : Uri.UriSchemeHttp)}://{hostHeader.FirstOrDefault()}";
-            
+
             //ensure that host is ended with slash
             storeHost = $"{storeHost.TrimEnd('/')}/";
 
@@ -264,21 +262,9 @@ namespace MyApp.Core
                 //add application path base if exists
                 storeLocation = IsRequestAvailable() ? $"{storeHost.TrimEnd('/')}{_httpContextAccessor.HttpContext.Request.PathBase}" : storeHost;
             }
-
-            //if host is empty (it is possible only when HttpContext is not available), use URL of a store entity configured in admin area
-            if (string.IsNullOrEmpty(storeHost) && DataSettingsManager.DatabaseIsInstalled)
-            {
-                //do not inject IWorkContext via constructor because it'll cause circular references
-                storeLocation = EngineContext.Current.Resolve<IStoreContext>().CurrentStore?.Url
-                    ?? throw new Exception("Current store cannot be loaded");
-            }
-
-            //ensure that URL is ended with slash
-            storeLocation = $"{storeLocation.TrimEnd('/')}/";
-
             return storeLocation;
         }
-        
+
         /// <summary>
         /// Returns true if the requested resource is one of the typical resources that needn't be processed by the cms engine.
         /// </summary>
@@ -347,11 +333,11 @@ namespace MyApp.Core
             var queryParameters = QueryHelpers.ParseQuery(uri.Query)
                 .SelectMany(parameter => parameter.Value, (parameter, queryValue) => new KeyValuePair<string, string>(parameter.Key, queryValue))
                 .ToList();
-           
+
             if (!string.IsNullOrEmpty(value))
             {
                 //remove a specific query parameter value if it's passed
-                queryParameters.RemoveAll(parameter => parameter.Key.Equals(key, StringComparison.InvariantCultureIgnoreCase) 
+                queryParameters.RemoveAll(parameter => parameter.Key.Equals(key, StringComparison.InvariantCultureIgnoreCase)
                     && parameter.Value.Equals(value, StringComparison.InvariantCultureIgnoreCase));
             }
             else
@@ -359,7 +345,7 @@ namespace MyApp.Core
                 //or remove query parameter by the key
                 queryParameters.RemoveAll(parameter => parameter.Key.Equals(key, StringComparison.InvariantCultureIgnoreCase));
             }
-            
+
             //create new URL without passed query parameters
             url = $"{uri.GetLeftPart(UriPartial.Path)}{new QueryBuilder(queryParameters).ToQueryString()}{uri.Fragment}";
 

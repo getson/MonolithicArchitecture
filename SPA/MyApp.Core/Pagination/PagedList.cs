@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MyApp.Core
+namespace MyApp.Core.Pagination
 {
     /// <summary>
     /// Paged list

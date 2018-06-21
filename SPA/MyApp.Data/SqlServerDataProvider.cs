@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
-using MyApp.Core.Data;
+using MyApp.Core.Common;
 using MyApp.Core.Domain.Common;
 using MyApp.Core.Infrastructure;
-using MyApp.Data.Extensions;
+using MyApp.Core.Interfaces.Data;
+using MyApp.Infrastructure.Data.Extensions;
 
-namespace MyApp.Data
+namespace MyApp.Infrastructure.Data
 {
     /// <summary>
     /// Represents SQL Server data provider
@@ -24,7 +25,7 @@ namespace MyApp.Data
         {
             var context = EngineContext.Current.Resolve<IDbContext>();
 
-            //check some of table names to ensure that we have MyAppCommerce 2.00+ installed
+            //check some of table names to ensure that we have MyApp 2.00+ installed
             var tableNamesToValidate = new List<string> { "Customer", "Discount", "Order", "Product", "ShoppingCartItem" };
             var existingTableNames = context
                 .QueryFromSql<StringQueryType>("SELECT table_name AS Value FROM INFORMATION_SCHEMA.TABLES WHERE table_type = 'BASE TABLE'")

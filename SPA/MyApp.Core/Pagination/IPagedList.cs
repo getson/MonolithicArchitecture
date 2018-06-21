@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MyApp.Core
+namespace MyApp.Core.Pagination
 {
     /// <summary>
     /// Paged list interface

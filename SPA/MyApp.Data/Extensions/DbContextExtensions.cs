@@ -8,9 +8,9 @@ using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
-using MyApp.Core;
+using MyApp.Core.Domain;
 
-namespace MyApp.Data.Extensions
+namespace MyApp.Infrastructure.Data.Extensions
 {
     /// <summary>
     /// Represents database context extensions

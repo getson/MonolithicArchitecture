@@ -3,12 +3,13 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Xml;
-using MyApp.Core.Extensions;
+using MyApp.Core.Common.Extensions;
+using MyApp.Core.Pagination;
 
 namespace MyApp.Core.Plugins
 {
     /// <summary>
-    /// Official feed manager (official plugins from www.MyAppCommerce.com site)
+    /// Official feed manager (official plugins from www.MyApp.com site)
     /// </summary>
     public partial class OfficialFeedManager : IOfficialFeedManager
     {

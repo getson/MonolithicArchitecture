@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyApp.Core.Domain.Localization;
 
-namespace MyApp.Data.Mapping.Localization
+namespace MyApp.Infrastructure.Data.Mapping.Localization
 {
     /// <summary>
     /// Represents a locale string resource mapping configuration

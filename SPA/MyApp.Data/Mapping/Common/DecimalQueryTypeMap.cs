@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MyApp.Core.Domain.Common;
+using MyApp.Core.Common;
 
-namespace MyApp.Data.Mapping.Common
+namespace MyApp.Infrastructure.Data.Mapping.Common
 {
     /// <summary>
     /// Represents a decimal query type mapping configuration

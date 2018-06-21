@@ -1,7 +1,7 @@
-﻿using MyApp.Core;
-using MyApp.Core.Data;
+﻿using MyApp.Core.Infrastructure.Common;
+using MyApp.Core.Interfaces.Data;
 
-namespace MyApp.Data
+namespace MyApp.Infrastructure.Data
 {
     /// <summary>
     /// Represents the Entity Framework data provider manager

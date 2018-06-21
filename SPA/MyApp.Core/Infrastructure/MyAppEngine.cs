@@ -12,9 +12,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyApp.Core.Configuration;
-using MyApp.Core.Infrastructure.DependencyManagement;
+using MyApp.Core.Infrastructure.Common;
 using MyApp.Core.Infrastructure.Mapper;
-using MyApp.Core.Plugins;
+using MyApp.Core.Mapper;
 using MyApp.Core.Plugins;
 
 namespace MyApp.Core.Infrastructure
