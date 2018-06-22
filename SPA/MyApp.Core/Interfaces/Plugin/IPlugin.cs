@@ -1,4 +1,6 @@
-﻿namespace MyApp.Core.Plugins
+﻿using MyApp.Core.Plugins;
+
+namespace MyApp.Core.Interfaces.Plugin
 {
     /// <summary>
     /// Interface denoting plug-in attributes that are displayed throughout 

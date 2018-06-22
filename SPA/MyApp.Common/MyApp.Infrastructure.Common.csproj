@@ -10,4 +10,8 @@
     <ProjectReference Include="..\MyApp.Services\MyApp.Core.Domain.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Http\" />
+  </ItemGroup>
+
 </Project>

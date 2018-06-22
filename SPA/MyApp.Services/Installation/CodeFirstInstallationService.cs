@@ -8,7 +8,7 @@ using MyApp.Core.Domain.Services.Configuration;
 using MyApp.Core.Domain.Services.Localization;
 using MyApp.Core.Domain.Services.Logging;
 using MyApp.Core.Infrastructure;
-using MyApp.Core.Infrastructure.Common;
+using MyApp.Core.Infrastructure.Interfaces;
 using MyApp.Core.Interfaces.Data;
 
 namespace MyApp.Core.Domain.Services.Installation

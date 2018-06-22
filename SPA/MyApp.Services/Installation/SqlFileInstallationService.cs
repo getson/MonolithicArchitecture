@@ -6,7 +6,7 @@ using System.Text;
 using MyApp.Core.Domain.Localization;
 using MyApp.Core.Domain.Services.Localization;
 using MyApp.Core.Infrastructure;
-using MyApp.Core.Infrastructure.Common;
+using MyApp.Core.Infrastructure.Interfaces;
 using MyApp.Core.Interfaces.Data;
 using MyApp.Infrastructure.Data;
 

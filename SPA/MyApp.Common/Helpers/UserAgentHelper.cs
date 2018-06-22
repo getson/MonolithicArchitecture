@@ -3,10 +3,11 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
+using MyApp.Core.Common;
 using MyApp.Core.Configuration;
-using MyApp.Core.Infrastructure;
+using MyApp.Core.Infrastructure.Interfaces;
 
-namespace MyApp.Services.Helpers
+namespace MyApp.Infrastructure.Common.Helpers
 {
     /// <summary>
     /// User agent helper

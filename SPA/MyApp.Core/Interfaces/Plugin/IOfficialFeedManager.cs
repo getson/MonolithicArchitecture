@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using MyApp.Core.Pagination;
+using MyApp.Core.Plugins;
 
-namespace MyApp.Core.Plugins
+namespace MyApp.Core.Interfaces.Plugin
 {
     ///TODO plugin service should be implemented outside of this project, because this project is for infrastructure. In this class must be only interface as we have done for Data and caching
     /// <summary>

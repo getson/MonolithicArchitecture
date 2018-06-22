@@ -1,4 +1,6 @@
-﻿namespace MyApp.Core.Plugins
+﻿using MyApp.Core.Interfaces.Plugin;
+
+namespace MyApp.Core.Plugins
 {
     /// <summary>
     /// Base plugin

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
+using MyApp.Core.Interfaces.Plugin;
 using MyApp.Core.Plugins;
 
 namespace MyApp.Core.Domain.Services.Plugins

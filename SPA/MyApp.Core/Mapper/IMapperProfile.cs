@@ -1,4 +1,4 @@
-﻿namespace MyApp.Core.Infrastructure.Mapper
+﻿namespace MyApp.Core.Mapper
 {
     /// <summary>
     /// Mapper profile registrar interface

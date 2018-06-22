@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Xml;
 using MyApp.Core.Common.Extensions;
+using MyApp.Core.Interfaces.Plugin;
 using MyApp.Core.Pagination;
 
 namespace MyApp.Core.Plugins

@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace MyApp.Core.Infrastructure.Common
+namespace MyApp.Core.Common
 {
     /// <summary>
     /// XML helper class

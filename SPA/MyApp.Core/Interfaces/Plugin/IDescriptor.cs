@@ -1,4 +1,4 @@
-﻿namespace MyApp.Core.Plugins
+﻿namespace MyApp.Core.Interfaces.Plugin
 {
     /// <summary>
     /// Represents descriptor of the application extension (plugin or theme)

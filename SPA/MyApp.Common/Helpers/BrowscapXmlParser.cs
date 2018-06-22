@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using MyApp.Core.Infrastructure;
+using MyApp.Core.Infrastructure.Interfaces;
 
-namespace MyApp.Services.Helpers
+namespace MyApp.Infrastructure.Common.Helpers
 {
     /// <summary>
     /// Helper class for working with XML file of Browser Capabilities Project (http://browscap.org/)

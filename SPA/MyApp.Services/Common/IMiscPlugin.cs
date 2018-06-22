@@ -1,3 +1,4 @@
+using MyApp.Core.Interfaces.Plugin;
 using MyApp.Core.Plugins;
 
 namespace MyApp.Core.Domain.Services.Common

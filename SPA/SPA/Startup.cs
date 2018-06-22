@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MyApp.Web.Framework.Infrastructure.Extensions;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace SPA
@@ -14,13 +15,19 @@ namespace SPA
 /// </summary>
     public class Startup
     {
-        /// <inheritdoc />
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
 
-        public IConfiguration Configuration { get; }
+        public IConfigurationRoot Configuration { get; }
+        /// <inheritdoc />
+        public Startup(IHostingEnvironment environment)
+        {
+            //Configuration = configuration;
+            //create configuration
+            Configuration = new ConfigurationBuilder()
+                .SetBasePath(environment.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddEnvironmentVariables()
+                .Build();
+        }
         /// <summary>
         /// This method gets called by the runtime. Use this method to add services to the container.
         /// </summary>
@@ -28,31 +35,7 @@ namespace SPA
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-            // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info
-                {
-                    Version = "v1",
-                    Title = "AspNetCore2Ang6Template API",
-                    Description = "A simple example ASP.NET Core Web API",
-                    Contact = new Contact
-                    {
-                        Name = "Getson Cela",
-                        Email = "cela.getson@gmail.com"
-                    },
-                });
-                // Set the comments path for the Swagger JSON and UI.
-                var basePath = AppContext.BaseDirectory;
-                var xmlPath = Path.Combine(basePath, "SPA.xml");
-                c.IncludeXmlComments(xmlPath);
-            });
+            services.ConfigureApplicationServices(Configuration);
         }
         /// <summary>
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,22 +52,6 @@ namespace SPA
                 app.UseExceptionHandler("/Error");
             }
 
-            app.UseStaticFiles();
-            app.UseSpaStaticFiles();
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
-            });
 
             app.UseSpa(spa =>
             {
@@ -98,6 +65,9 @@ namespace SPA
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+            app.ConfigureRequestPipeline();
+            app.UseMvc
+
         }
     }
 }

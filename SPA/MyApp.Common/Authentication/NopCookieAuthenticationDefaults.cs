@@ -25,7 +25,7 @@ namespace MyApp.Infrastructure.Common.Authentication
         /// <summary>
         /// The issuer that should be used for any claims that are created
         /// </summary>
-        public static readonly string ClaimsIssuer = "MyAppCommerce";
+        public static readonly string ClaimsIssuer = "MyApp";
 
         /// <summary>
         /// The default value for the login path

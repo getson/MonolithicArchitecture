@@ -2,12 +2,13 @@ using System;
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
+using MyApp.Core.Common;
 using MyApp.Core.Domain.Common;
 using MyApp.Core.Domain.Localization;
 using MyApp.Core.Domain.Security;
 using MyApp.Core.Domain.Services.Configuration;
 using MyApp.Core.Infrastructure;
-using MyApp.Core.Infrastructure.Common;
+using MyApp.Core.Interfaces.Plugin;
 using MyApp.Core.Plugins;
 using MyApp.Infrastructure.Data.Extensions;
 

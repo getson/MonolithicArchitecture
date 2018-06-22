@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MyApp.Core.Infrastructure
+namespace MyApp.Core.Common
 {
     /// <summary>
     /// Provides a singleton dictionary for a certain key and vlaue type.

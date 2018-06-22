@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using MyApp.Core.Infrastructure.Common;
+using MyApp.Core.Common;
+using MyApp.Core.Infrastructure.Interfaces;
 
 namespace MyApp.Core.Infrastructure
 {

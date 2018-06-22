@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace MyApp.Core.Infrastructure.Common
+namespace MyApp.Core.Infrastructure
 {
     /// <summary>
     /// Represents errors that occur during application execution

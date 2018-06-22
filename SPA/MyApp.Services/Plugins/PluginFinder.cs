@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MyApp.Core.Domain.Services.Events;
+using MyApp.Core.Interfaces.Plugin;
 using MyApp.Core.Plugins;
 
 namespace MyApp.Core.Domain.Services.Plugins

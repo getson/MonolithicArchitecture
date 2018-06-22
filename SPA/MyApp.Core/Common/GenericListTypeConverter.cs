@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 
-namespace MyApp.Core.Infrastructure.Common
+namespace MyApp.Core.Common
 {
     /// <summary>
     /// Generic List type converted

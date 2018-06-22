@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MyApp.Core.Domain.Common;
-using MyApp.Core.Infrastructure.Common;
+using MyApp.Core.Infrastructure.Interfaces;
 using MyApp.Core.Interfaces.Data;
 using MyApp.Core.Pagination;
 using MyApp.Infrastructure.Data;

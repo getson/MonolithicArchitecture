@@ -6,6 +6,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using Microsoft.AspNetCore.Http;
 using MyApp.Core.Infrastructure;
+using MyApp.Core.Infrastructure.Interfaces;
+using MyApp.Core.Interfaces.Plugin;
 using MyApp.Core.Plugins;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;

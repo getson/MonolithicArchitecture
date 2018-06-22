@@ -53,6 +53,7 @@
     <ProjectReference Include="..\MyApp.Core.Domain\MyApp.Core.Domain.csproj" />
     <ProjectReference Include="..\MyApp.Core\MyApp.Core.csproj" />
     <ProjectReference Include="..\MyApp.Services\MyApp.Core.Domain.Services.csproj" />
+    <ProjectReference Include="..\MyApp.Web.Framework\MyApp.Web.Framework.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

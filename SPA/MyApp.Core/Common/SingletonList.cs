@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MyApp.Core.Infrastructure
+namespace MyApp.Core.Common
 {
     /// <summary>
     /// Provides a singleton list for a certain type.

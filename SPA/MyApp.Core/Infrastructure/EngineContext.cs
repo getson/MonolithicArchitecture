@@ -1,4 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
+using MyApp.Core.Common;
+using MyApp.Core.Infrastructure.Implementation;
+using MyApp.Core.Infrastructure.Interfaces;
 
 namespace MyApp.Core.Infrastructure
 {

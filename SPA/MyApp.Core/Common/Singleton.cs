@@ -1,4 +1,4 @@
-﻿namespace MyApp.Core.Infrastructure
+﻿namespace MyApp.Core.Common
 {
     /// <summary>
     /// A statically compiled "singleton" used to store objects throughout the 

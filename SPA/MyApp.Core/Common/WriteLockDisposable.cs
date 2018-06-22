@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace MyApp.Core.Infrastructure.Common
+namespace MyApp.Core.Common
 {
     /// <summary>
     /// Provides a convenience methodology for implementing locked access to resources. 

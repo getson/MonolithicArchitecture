@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using MyApp.Core.Common;
 using MyApp.Core.Infrastructure;
-using MyApp.Core.Infrastructure.Common;
+using MyApp.Core.Infrastructure.Interfaces;
 using Newtonsoft.Json;
 
 namespace MyApp.Infrastructure.Data

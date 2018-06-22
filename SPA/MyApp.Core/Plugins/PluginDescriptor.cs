@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Newtonsoft.Json;
 using MyApp.Core.Infrastructure;
+using MyApp.Core.Interfaces.Plugin;
 
 namespace MyApp.Core.Plugins
 {

@@ -1,4 +1,4 @@
-namespace MyApp.Services.Helpers
+namespace MyApp.Infrastructure.Common.Helpers
 {
     /// <summary>
     /// User agent helper interface
