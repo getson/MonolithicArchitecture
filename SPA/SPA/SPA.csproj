@@ -28,6 +28,8 @@
   <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.1" />
   <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.1" />
   <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.1.1" />
+  <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.1.1" />
+  <PackageReference Include="Microsoft.AspNetCore.Routing.Abstractions" Version="2.1.1" />
   <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.1.1" />
   <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="2.1.1" />
   <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />

@@ -131,29 +131,22 @@ namespace MyApp.Web.Framework.Infrastructure
             //});
 
             //check whether requested page is keep alive page
-            application.UseKeepAlive();
+            // application.UseKeepAlive();
 
             //check whether database is installed
-            application.UseInstallUrl();
+            //application.UseInstallUrl();
 
             //use HTTP session
-            //application.UseSession();
+            application.UseSession();
 
             //use request localization
-            application.UseRequestLocalization();
+            //application.UseRequestLocalization();
 
             //add MiniProfiler
             application.UseMiniProfiler();
 
             //MVC routing
             application.UseMyAppMvc();
-
-            //application.UseMvc(routes =>
-            //{
-            //    routes.MapRoute(
-            //        name: "default",
-            //        template: "{controller}/{action=Index}/{id?}");
-            //});
 
         }
 

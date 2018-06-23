@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace SPA.Controllers
 {
  
+    [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
         private static readonly string[] Summaries ={
@@ -16,6 +17,7 @@ namespace SPA.Controllers
         /// get a list of Weather forecasts
         /// </summary>
         /// <returns></returns>
+        [HttpGet("[action]")]
         public IEnumerable<WeatherForecast> WeatherForecasts()
         {
             var rng = new Random();

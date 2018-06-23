@@ -51,7 +51,7 @@ namespace SPA
             {
                 app.UseExceptionHandler("/Error");
             }
-
+            app.ConfigureRequestPipeline();
 
             app.UseSpa(spa =>
             {
@@ -65,8 +65,8 @@ namespace SPA
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
-            app.ConfigureRequestPipeline();
-            app.UseMvc
+           
+            
 
         }
     }
