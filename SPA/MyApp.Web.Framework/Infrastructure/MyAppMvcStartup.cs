@@ -13,7 +13,6 @@ using MyApp.Core.Common;
 using MyApp.Core.Configuration;
 using MyApp.Core.Domain.Security;
 using MyApp.Core.Infrastructure;
-using MyApp.Core.Infrastructure.Interfaces;
 using MyApp.Infrastructure.Data;
 using MyApp.Web.Framework.Infrastructure.Extensions;
 
@@ -58,9 +57,7 @@ namespace MyApp.Web.Framework.Infrastructure
             //add and configure MVC feature
             services.AddMyAppMvc();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-   
+  
         }
 
         /// <summary>

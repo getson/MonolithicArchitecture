@@ -7,7 +7,7 @@ using MyApp.Core;
 using MyApp.Core.Configuration;
 using MyApp.Core.Domain.Services.Logging;
 using MyApp.Core.Infrastructure;
-using MyApp.Core.Infrastructure.Interfaces;
+using MyApp.Core.Interfaces.Web;
 using MyApp.Infrastructure.Data;
 using MyApp.Web.Framework.Middleware;
 using MyApp.Web.Framework.Routing;

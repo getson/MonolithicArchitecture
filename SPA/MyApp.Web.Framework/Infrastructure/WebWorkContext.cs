@@ -6,7 +6,7 @@ using MyApp.Core;
 using MyApp.Core.Domain.Localization;
 using MyApp.Core.Domain.Services.Localization;
 using MyApp.Core.Domain.User;
-using MyApp.Infrastructure.Common.Helpers;
+using MyApp.Core.Interfaces.Web;
 using MyApp.Web.Framework.Extensions;
 
 namespace MyApp.Web.Framework.Infrastructure

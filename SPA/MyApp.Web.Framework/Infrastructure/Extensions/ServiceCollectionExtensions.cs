@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -103,8 +104,6 @@ namespace MyApp.Web.Framework.Infrastructure.Extensions
             services.AddAntiforgery(options =>
             {
                 options.Cookie.Name = ".MyApp.Antiforgery";
-
-                //whether to allow the use of anti-forgery cookies from SSL protected page on the other store pages which are not
                 options.Cookie.SecurePolicy = DataSettingsManager.DatabaseIsInstalled && EngineContext.Current.Resolve<SecuritySettings>().ForceSslForAllPages
                     ? CookieSecurePolicy.SameAsRequest : CookieSecurePolicy.None;
             });
@@ -120,8 +119,6 @@ namespace MyApp.Web.Framework.Infrastructure.Extensions
             {
                 options.Cookie.Name = ".MyApp.Session";
                 options.Cookie.HttpOnly = true;
-
-                //whether to allow the use of session values from SSL protected page on the other store pages which are not
                 options.Cookie.SecurePolicy = DataSettingsManager.DatabaseIsInstalled && EngineContext.Current.Resolve<SecuritySettings>().ForceSslForAllPages
                     ? CookieSecurePolicy.SameAsRequest : CookieSecurePolicy.None;
             });
@@ -163,6 +160,8 @@ namespace MyApp.Web.Framework.Infrastructure.Extensions
         {
             //add basic MVC feature
             var mvcBuilder = services.AddMvc();
+
+            mvcBuilder.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //TODO tocheck getson this option
             //MVC now serializes JSON with camel case names by default, use this code to avoid it
             //mvcBuilder.AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());

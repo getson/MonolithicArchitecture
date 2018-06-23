@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using MyApp.Core.Pagination;
+using MyApp.Core.Interfaces.Pagination;
 
 namespace MyApp.Core.Domain.Services.Logging
 {
     /// <summary>
     /// user activity service interface
     /// </summary>
-    public partial interface IuserActivityService
+    public partial interface IUserActivityService
     {
         /// <summary>
         /// Inserts an activity log type item

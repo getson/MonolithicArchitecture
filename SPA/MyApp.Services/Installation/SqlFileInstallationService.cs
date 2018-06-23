@@ -6,7 +6,6 @@ using System.Text;
 using MyApp.Core.Domain.Localization;
 using MyApp.Core.Domain.Services.Localization;
 using MyApp.Core.Infrastructure;
-using MyApp.Core.Infrastructure.Interfaces;
 using MyApp.Core.Interfaces.Data;
 using MyApp.Infrastructure.Data;
 
@@ -32,8 +31,6 @@ namespace MyApp.Core.Domain.Services.Installation
         /// Ctor
         /// </summary>
         /// <param name="languageRepository">Language repository</param>
-        /// <param name="userRepository">user repository</param>
-        /// <param name="storeRepository">Store repository</param>
         /// <param name="dbContext">DB context</param>
         /// <param name="webHelper">Web helper</param>
         /// <param name="fileProvider">File provider</param>
@@ -61,7 +58,7 @@ namespace MyApp.Core.Domain.Services.Installation
             var language = _languageRepository.Table.Single(l => l.Name == "English");
 
             //save resources
-            foreach (var filePath in _fileProvider.EnumerateFiles(_fileProvider.MapPath("~/App_Data/Localization/"), "*.MyAppRes.xml"))
+            foreach (var filePath in _fileProvider.EnumerateFiles(_fileProvider.MapPath("~/App_Data/Localization/"), "*.myappres.xml"))
             {
                 var localesXml = _fileProvider.ReadAllText(filePath, Encoding.UTF8);
                 var localizationService = EngineContext.Current.Resolve<ILocalizationService>();

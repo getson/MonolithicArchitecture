@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MyApp.Core.Infrastructure;
-using MyApp.Core.Infrastructure.Interfaces;
 
 namespace MyApp.Core.Plugins
 {

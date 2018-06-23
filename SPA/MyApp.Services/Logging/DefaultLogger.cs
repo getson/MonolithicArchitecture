@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MyApp.Core.Common;
 using MyApp.Core.Domain.Common;
-using MyApp.Core.Infrastructure.Interfaces;
+using MyApp.Core.Infrastructure;
 using MyApp.Core.Interfaces.Data;
-using MyApp.Core.Pagination;
+using MyApp.Core.Interfaces.Pagination;
 using MyApp.Infrastructure.Data;
 using MyApp.Infrastructure.Data.Extensions;
 

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using MyApp.Web.Framework.Localization;
 
-namespace MyApp.Web.Framework.Localization
+namespace MyApp.Web.Framework.Extensions
 {
     /// <summary>
     /// Represents extensions of LocalizedRoute

@@ -17,15 +17,16 @@ using MyApp.Core.Domain.Services.Installation;
 using MyApp.Core.Domain.Services.Localization;
 using MyApp.Core.Domain.Services.Logging;
 using MyApp.Core.Domain.Services.Plugins;
+using MyApp.Core.Infrastructure;
 using MyApp.Core.Infrastructure.Implementation;
-using MyApp.Core.Infrastructure.Interfaces;
 using MyApp.Core.Interfaces.Caching;
 using MyApp.Core.Interfaces.Data;
 using MyApp.Core.Interfaces.Plugin;
+using MyApp.Core.Interfaces.Web;
 using MyApp.Core.Plugins;
 using MyApp.Infrastructure.Cache;
-using MyApp.Infrastructure.Common.Helpers;
 using MyApp.Infrastructure.Data;
+using MyApp.Infrastructure.ExternalServices.Plugins;
 using MyApp.Web.Framework.Common;
 using MyApp.Web.Framework.Routing;
 
@@ -95,22 +96,13 @@ namespace MyApp.Web.Framework.Infrastructure
             builder.RegisterType<LocalizationService>().As<ILocalizationService>().InstancePerLifetimeScope();
             builder.RegisterType<LocalizedEntityService>().As<ILocalizedEntityService>().InstancePerLifetimeScope();
             builder.RegisterType<LanguageService>().As<ILanguageService>().InstancePerLifetimeScope();
-            //builder.RegisterType<DownloadService>().As<IDownloadService>().InstancePerLifetimeScope();
-           
-            //builder.RegisterType<EmailSender>().As<IEmailSender>().InstancePerLifetimeScope();
-       
-            
+
             builder.RegisterType<DefaultLogger>().As<ILogger>().InstancePerLifetimeScope();
             
             builder.RegisterType<DateTimeHelper>().As<IDateTimeHelper>().InstancePerLifetimeScope();
-            //builder.RegisterType<ScheduleTaskService>().As<IScheduleTaskService>().InstancePerLifetimeScope();
-            //builder.RegisterType<ExportManager>().As<IExportManager>().InstancePerLifetimeScope();
-            //builder.RegisterType<ImportManager>().As<IImportManager>().InstancePerLifetimeScope();
-            //builder.RegisterType<PdfService>().As<IPdfService>().InstancePerLifetimeScope();
+
             builder.RegisterType<UploadService>().As<IUploadService>().InstancePerLifetimeScope();
-            //builder.RegisterType<ThemeProvider>().As<IThemeProvider>().InstancePerLifetimeScope();
-            //builder.RegisterType<ThemeContext>().As<IThemeContext>().InstancePerLifetimeScope();
-            //builder.RegisterType<ExternalAuthenticationService>().As<IExternalAuthenticationService>().InstancePerLifetimeScope();
+
             builder.RegisterType<RoutePublisher>().As<IRoutePublisher>().SingleInstance();
             builder.RegisterType<EventPublisher>().As<IEventPublisher>().SingleInstance();
             builder.RegisterType<SubscriptionService>().As<ISubscriptionService>().SingleInstance();
@@ -118,13 +110,6 @@ namespace MyApp.Web.Framework.Infrastructure
 
 
             builder.RegisterType<ActionContextAccessor>().As<IActionContextAccessor>().InstancePerLifetimeScope();
-
-
-            //picture service
-            //if (!string.IsNullOrEmpty(config.AzureBlobStorageConnectionString))
-            //    builder.RegisterType<AzurePictureService>().As<IPictureService>().InstancePerLifetimeScope();
-            //else
-            //    builder.RegisterType<PictureService>().As<IPictureService>().InstancePerLifetimeScope();
 
             //installation service
             if (!DataSettingsManager.DatabaseIsInstalled)

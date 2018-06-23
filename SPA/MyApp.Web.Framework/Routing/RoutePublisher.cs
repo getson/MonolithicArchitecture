@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.AspNetCore.Routing;
-using MyApp.Core.Infrastructure.Interfaces;
+using MyApp.Core.Infrastructure;
 using MyApp.Core.Plugins;
 
 namespace MyApp.Web.Framework.Routing

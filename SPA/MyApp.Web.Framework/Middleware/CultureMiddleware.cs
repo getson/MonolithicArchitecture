@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using MyApp.Core;
 using MyApp.Core.Common;
-using MyApp.Core.Infrastructure.Interfaces;
+using MyApp.Core.Infrastructure;
+using MyApp.Core.Interfaces.Web;
 using MyApp.Infrastructure.Data;
 
 namespace MyApp.Web.Framework.Middleware

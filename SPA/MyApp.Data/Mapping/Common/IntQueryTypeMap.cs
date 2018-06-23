@@ -1,4 +1,5 @@
 using MyApp.Core.Common;
+using MyApp.Core.Domain.Common;
 
 namespace MyApp.Infrastructure.Data.Mapping.Common
 {

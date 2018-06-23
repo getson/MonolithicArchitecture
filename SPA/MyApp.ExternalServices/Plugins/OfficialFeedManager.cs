@@ -3,9 +3,10 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Xml;
-using MyApp.Core.Common.Extensions;
+using MyApp.Core.Common;
+using MyApp.Core.Extensions;
+using MyApp.Core.Interfaces.Pagination;
 using MyApp.Core.Interfaces.Plugin;
-using MyApp.Core.Pagination;
 using MyApp.Core.Plugins;
 
 namespace MyApp.Infrastructure.ExternalServices.Plugins
@@ -17,7 +18,7 @@ namespace MyApp.Infrastructure.ExternalServices.Plugins
     {
         private static string MakeUrl(string query, params object[] args)
         {
-            var url = "https://www.MyApp.com/extensionsxml.aspx?" + query;
+            var url = $"https://www.MyApp.com/extensionsxml.aspx?{query}";
 
             return string.Format(url, args);
         }

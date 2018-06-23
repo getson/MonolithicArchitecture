@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MyApp.Core.Infrastructure.Interfaces;
+using MyApp.Core.Infrastructure;
 using MyApp.Web.Framework.Infrastructure.Extensions;
 
 namespace MyApp.Web.Framework.Infrastructure

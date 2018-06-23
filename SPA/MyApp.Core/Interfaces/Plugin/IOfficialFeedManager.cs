@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using MyApp.Core.Pagination;
+using MyApp.Core.Interfaces.Pagination;
 using MyApp.Core.Plugins;
 
 namespace MyApp.Core.Interfaces.Plugin

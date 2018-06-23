@@ -1,7 +1,7 @@
 ﻿namespace MyApp.Core.Plugins
 {
     /// <summary>
-    /// Feed of plugins from MyAppCommerce.com marketplace
+    /// Feed of plugins from MyApp.com marketplace
     /// </summary>
     public class OfficialFeedPlugin
     {

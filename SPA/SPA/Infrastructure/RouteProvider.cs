@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Routing;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Routing;
 using MyApp.Web.Framework.Routing;
 
-namespace SPA.Routing
+namespace SPA.Infrastructure
 {
     /// <inheritdoc />
     public partial class RouteProvider : IRouteProvider

@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyApp.Common\MyApp.Infrastructure.Common.csproj" />
     <ProjectReference Include="..\MyApp.Core\MyApp.Core.csproj" />
+    <ProjectReference Include="..\MyApp.ExternalServices\MyApp.Infrastructure.ExternalServices.csproj" />
     <ProjectReference Include="..\MyApp.Services\MyApp.Core.Domain.Services.csproj" />
   </ItemGroup>
 

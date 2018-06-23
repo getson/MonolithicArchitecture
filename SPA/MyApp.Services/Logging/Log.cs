@@ -59,6 +59,6 @@ namespace MyApp.Core.Domain.Services.Logging
         /// <summary>
         /// Gets or sets the user
         /// </summary>
-        public virtual object user { get; set; }
+        public virtual object User { get; set; }
     }
 }

@@ -11,6 +11,7 @@ using MyApp.Core.Domain.Services.Events;
 using MyApp.Core.Domain.Services.Logging;
 using MyApp.Core.Interfaces.Caching;
 using MyApp.Core.Interfaces.Data;
+using MyApp.Core.Interfaces.Web;
 using MyApp.Infrastructure.Cache;
 using MyApp.Infrastructure.Data;
 

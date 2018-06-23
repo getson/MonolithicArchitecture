@@ -1,11 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Hosting
 @using MyApp.IdentityServer.Models.Home
 @model ErrorViewModel
-@inject IHostingEnvironment host
+@inject IHostingEnvironment Host
 
 @{
     var error = Model?.Error?.Error;
-    var errorDescription = host.IsDevelopment() ? Model?.Error?.ErrorDescription : null;
+    var errorDescription = Host.IsDevelopment() ? Model?.Error?.ErrorDescription : null;
     var request_id = Model?.Error?.RequestId;
 }
 

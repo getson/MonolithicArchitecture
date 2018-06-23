@@ -8,7 +8,6 @@ using MyApp.Core.Domain.Services.Configuration;
 using MyApp.Core.Domain.Services.Localization;
 using MyApp.Core.Domain.Services.Logging;
 using MyApp.Core.Infrastructure;
-using MyApp.Core.Infrastructure.Interfaces;
 using MyApp.Core.Interfaces.Data;
 
 namespace MyApp.Core.Domain.Services.Installation
@@ -31,7 +30,6 @@ namespace MyApp.Core.Domain.Services.Installation
         #region Ctor
 
         public CodeFirstInstallationService(IRepository<Language> languageRepository,
-                IRepository<SearchTerm> searchTermRepository,
                 IWebHelper webHelper,
                 IHostingEnvironment hostingEnvironment,
                 IMyAppFileProvider fileProvider,
@@ -68,7 +66,7 @@ namespace MyApp.Core.Domain.Services.Installation
             var language = _languageRepository.Table.Single(l => l.Name == "English");
 
             //save resources
-            foreach (var filePath in _fileProvider.EnumerateFiles(_fileProvider.MapPath("~/App_Data/Localization/"), "*.nopres.xml"))
+            foreach (var filePath in _fileProvider.EnumerateFiles(_fileProvider.MapPath("~/App_Data/Localization/"), "*.myappres.xml"))
             {
                 var localesXml = _fileProvider.ReadAllText(filePath, Encoding.UTF8);
                 var localizationService = EngineContext.Current.Resolve<ILocalizationService>();
@@ -80,15 +78,7 @@ namespace MyApp.Core.Domain.Services.Installation
         protected virtual void InstallSettings(bool installSampleData)
         {
             var settingService = EngineContext.Current.Resolve<ISettingService>();
-            settingService.SaveSetting(new PdfSettings
-            {
-                LogoPictureId = 0,
-                LetterPageSizeEnabled = false,
-                RenderOrderNotes = true,
-                FontFileName = "FreeSerif.ttf",
-                InvoiceFooterTextColumn1 = null,
-                InvoiceFooterTextColumn2 = null,
-            });
+
 
             settingService.SaveSetting(new CommonSettings
             {
@@ -102,7 +92,6 @@ namespace MyApp.Core.Domain.Services.Installation
                 SitemapIncludeProductTags = false,
                 DisplayJavaScriptDisabledWarning = false,
                 UseFullTextSearch = false,
-                FullTextMode = FulltextSearchMode.ExactMatch,
                 Log404Errors = true,
                 BreadcrumbDelimiter = "/",
                 RenderXuaCompatible = false,
@@ -124,47 +113,6 @@ namespace MyApp.Core.Domain.Services.Installation
                 LoadAllUrlRecordsOnStartup = false,
                 IgnoreRtlPropertyForAdminArea = false
             });
-
-
-
-
-            //settingService.SaveSetting(new ExternalAuthenticationSettings
-            //{
-            //    RequireEmailValidation = false,
-            //    AllowusersToRemoveAssociations = true
-            //});
-
-
-
-
-            //settingService.SaveSetting(new SecuritySettings
-            //{
-            //    ForceSslForAllPages = true,
-            //    EncryptionKey = CommonHelper.GenerateRandomDigitCode(16),
-            //    AdminAreaAllowedIpAddresses = null,
-            //    EnableXsrfProtectionForAdminArea = true,
-            //    EnableXsrfProtectionForPublicStore = true,
-            //    HoneypotEnabled = false,
-            //    HoneypotInputName = "hpinput",
-            //    AllowNonAsciiCharactersInHeaders = true
-            //});
-
-
-            settingService.SaveSetting(new DisplayDefaultMenuItemSettings
-            {
-                DisplayHomePageMenuItem = !installSampleData,
-                DisplayNewProductsMenuItem = !installSampleData,
-                DisplayProductSearchMenuItem = !installSampleData,
-                DisplayUserInfoMenuItem = !installSampleData,
-                DisplayBlogMenuItem = !installSampleData,
-                DisplayForumsMenuItem = !installSampleData,
-                DisplayContactUsMenuItem = !installSampleData
-            });
-            //settingService.SaveSetting(new CaptchaSettings
-            //{
-            //    ReCaptchaDefaultLanguage = "",
-            //    AutomaticallyChooseLanguage = true
-            //});
         }
 
         protected virtual void InstallActivityLogTypes()
@@ -204,7 +152,6 @@ namespace MyApp.Core.Domain.Services.Installation
             if (installSampleData)
             {
                 //InstallActivityLog(defaultUserEmail);
-                //InstallSearchTerms();
             }
         }
 

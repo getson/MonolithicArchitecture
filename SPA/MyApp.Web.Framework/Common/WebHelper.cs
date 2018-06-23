@@ -12,7 +12,6 @@ using Microsoft.Net.Http.Headers;
 using MyApp.Core.Common;
 using MyApp.Core.Configuration;
 using MyApp.Core.Infrastructure;
-using MyApp.Core.Infrastructure.Interfaces;
 
 namespace MyApp.Web.Framework.Common
 {

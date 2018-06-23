@@ -6,7 +6,6 @@ using System.Linq;
 using MyApp.Core.Common;
 using MyApp.Core.Domain.Common;
 using MyApp.Core.Infrastructure;
-using MyApp.Core.Infrastructure.Interfaces;
 using MyApp.Core.Interfaces.Data;
 using MyApp.Infrastructure.Data.Extensions;
 

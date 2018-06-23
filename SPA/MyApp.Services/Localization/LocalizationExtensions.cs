@@ -9,6 +9,7 @@ using MyApp.Core.Domain.Security;
 using MyApp.Core.Domain.Services.Configuration;
 using MyApp.Core.Infrastructure;
 using MyApp.Core.Interfaces.Plugin;
+using MyApp.Core.Interfaces.Web;
 using MyApp.Core.Plugins;
 using MyApp.Infrastructure.Data.Extensions;
 

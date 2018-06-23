@@ -7,11 +7,12 @@
   <ItemGroup>
     <ProjectReference Include="..\MyApp.Core\MyApp.Core.csproj" />
     <ProjectReference Include="..\MyApp.Data\MyApp.Infrastructure.Data.csproj" />
-    <ProjectReference Include="..\MyApp.Services\MyApp.Core.Domain.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Helpers\" />
     <Folder Include="Http\" />
+    <Folder Include="Datetime\" />
   </ItemGroup>
 
 </Project>

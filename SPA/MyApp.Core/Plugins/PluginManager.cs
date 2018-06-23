@@ -12,7 +12,6 @@ using MyApp.Core.Common;
 using Newtonsoft.Json;
 using MyApp.Core.Configuration;
 using MyApp.Core.Infrastructure;
-using MyApp.Core.Infrastructure.Interfaces;
 using MyApp.Core.Interfaces.Plugin;
 
 //Contributor: Umbraco (http://www.umbraco.com). Thanks a lot! 
@@ -35,8 +34,8 @@ namespace MyApp.Core.Plugins
         #region Fields
 
         private static readonly ReaderWriterLockSlim Locker = new ReaderWriterLockSlim();
-        private static readonly List<string> _baseAppLibraries;
-        private static readonly IMyAppFileProvider _fileProvider;
+        private static readonly List<string> BaseAppLibraries;
+        private static readonly IMyAppFileProvider FileProvider;
         private static string _shadowCopyFolder;
         private static string _reserveShadowCopyFolder;
 
@@ -47,19 +46,19 @@ namespace MyApp.Core.Plugins
         static PluginManager()
         {
             //we use the default file provider, since the DI isn't initialized yet
-            _fileProvider = CommonHelper.DefaultFileProvider;
+            FileProvider = CommonHelper.DefaultFileProvider;
 
             //get all libraries from /bin/{version}/ directory
-            _baseAppLibraries = _fileProvider.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll").Select(fi => _fileProvider.GetFileName(fi)).ToList();
+            BaseAppLibraries = FileProvider.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll").Select(fi => FileProvider.GetFileName(fi)).ToList();
 
             //get all libraries from base site directory
             if (!AppDomain.CurrentDomain.BaseDirectory.Equals(Environment.CurrentDirectory, StringComparison.InvariantCultureIgnoreCase))
-                _baseAppLibraries.AddRange(_fileProvider.GetFiles(Environment.CurrentDirectory, "*.dll").Select(fi => _fileProvider.GetFileName(fi)));
+                BaseAppLibraries.AddRange(FileProvider.GetFiles(Environment.CurrentDirectory, "*.dll").Select(fi => FileProvider.GetFileName(fi)));
 
             //get all libraries from refs directory
-            var refsPathName = _fileProvider.Combine(Environment.CurrentDirectory, RefsPathName);
-            if (_fileProvider.DirectoryExists(refsPathName))
-                _baseAppLibraries.AddRange(_fileProvider.GetFiles(refsPathName, "*.dll").Select(fi => _fileProvider.GetFileName(fi)));
+            var refsPathName = FileProvider.Combine(Environment.CurrentDirectory, RefsPathName);
+            if (FileProvider.DirectoryExists(refsPathName))
+                BaseAppLibraries.AddRange(FileProvider.GetFiles(refsPathName, "*.dll").Select(fi => FileProvider.GetFileName(fi)));
         }
 
         #endregion
@@ -80,9 +79,9 @@ namespace MyApp.Core.Plugins
             var result = new List<KeyValuePair<string, PluginDescriptor>>();
 
             //add display order and path to list
-            foreach (var descriptionFile in _fileProvider.GetFiles(pluginFolder, PluginDescriptionFileName, false))
+            foreach (var descriptionFile in FileProvider.GetFiles(pluginFolder, PluginDescriptionFileName, false))
             {
-                if (!IsPackagePluginFolder(_fileProvider.GetDirectoryName(descriptionFile)))
+                if (!IsPackagePluginFolder(FileProvider.GetDirectoryName(descriptionFile)))
                     continue;
 
                 //parse file
@@ -106,16 +105,16 @@ namespace MyApp.Core.Plugins
         private static IList<string> GetInstalledPluginNames(string filePath)
         {
             //check whether file exists
-            if (!_fileProvider.FileExists(filePath))
+            if (!FileProvider.FileExists(filePath))
             {
                 //if not, try to parse the file that was used in previous MyAppCommerce versions
-                filePath = _fileProvider.MapPath(ObsoleteInstalledPluginsFilePath);
-                if (!_fileProvider.FileExists(filePath))
+                filePath = FileProvider.MapPath(ObsoleteInstalledPluginsFilePath);
+                if (!FileProvider.FileExists(filePath))
                     return new List<string>();
 
                 //get plugin system names from the old txt file
                 var pluginSystemNames = new List<string>();
-                using (var reader = new StringReader(_fileProvider.ReadAllText(filePath, Encoding.UTF8)))
+                using (var reader = new StringReader(FileProvider.ReadAllText(filePath, Encoding.UTF8)))
                 {
                     string pluginName;
                     while ((pluginName = reader.ReadLine()) != null)
@@ -126,15 +125,15 @@ namespace MyApp.Core.Plugins
                 }
 
                 //save system names of installed plugins to the new file
-                SaveInstalledPluginNames(pluginSystemNames, _fileProvider.MapPath(InstalledPluginsFilePath));
+                SaveInstalledPluginNames(pluginSystemNames, FileProvider.MapPath(InstalledPluginsFilePath));
 
                 //and delete the old one
-                _fileProvider.DeleteFile(filePath);
+                FileProvider.DeleteFile(filePath);
 
                 return pluginSystemNames;
             }
 
-            var text = _fileProvider.ReadAllText(filePath, Encoding.UTF8);
+            var text = FileProvider.ReadAllText(filePath, Encoding.UTF8);
             if (string.IsNullOrEmpty(text))
                 return new List<string>();
 
@@ -151,7 +150,7 @@ namespace MyApp.Core.Plugins
         {
             //save the file
             var text = JsonConvert.SerializeObject(pluginSystemNames, Formatting.Indented);
-            _fileProvider.WriteAllText(filePath, text, Encoding.UTF8);
+            FileProvider.WriteAllText(filePath, text, Encoding.UTF8);
         }
 
         /// <summary>
@@ -163,7 +162,7 @@ namespace MyApp.Core.Plugins
         {
             //search library file name in base directory to ignore already existing (loaded) libraries
             //(we do it because not all libraries are loaded immediately after application start)
-            if (_baseAppLibraries.Any(sli => sli.Equals(_fileProvider.GetFileName(filePath), StringComparison.InvariantCultureIgnoreCase)))
+            if (BaseAppLibraries.Any(sli => sli.Equals(FileProvider.GetFileName(filePath), StringComparison.InvariantCultureIgnoreCase)))
                 return true;
 
             //compare full assembly name
@@ -178,9 +177,9 @@ namespace MyApp.Core.Plugins
             //do not compare the full assembly name, just filename
             try
             {
-                var fileNameWithoutExt = _fileProvider.GetFileNameWithoutExtension(filePath);
+                var fileNameWithoutExt = FileProvider.GetFileNameWithoutExtension(filePath);
                 if (string.IsNullOrEmpty(fileNameWithoutExt))
-                    throw new Exception($"Cannot get file extension for {_fileProvider.GetFileName(filePath)}");
+                    throw new Exception($"Cannot get file extension for {FileProvider.GetFileName(filePath)}");
 
                 foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
                 {
@@ -207,10 +206,10 @@ namespace MyApp.Core.Plugins
         /// <returns>Assembly</returns>
         private static Assembly PerformFileDeploy(string plug, ApplicationPartManager applicationPartManager, MyAppConfig config, string shadowCopyPath = "")
         {
-            var parent = string.IsNullOrEmpty(plug) ? string.Empty : _fileProvider.GetParentDirectory(plug);
+            var parent = string.IsNullOrEmpty(plug) ? string.Empty : FileProvider.GetParentDirectory(plug);
 
             if (string.IsNullOrEmpty(parent))
-                throw new InvalidOperationException($"The plugin directory for the {_fileProvider.GetFileName(plug)} file exists in a folder outside of the allowed MyAppCommerce folder hierarchy");
+                throw new InvalidOperationException($"The plugin directory for the {FileProvider.GetFileName(plug)} file exists in a folder outside of the allowed MyAppCommerce folder hierarchy");
 
             if (!config.UsePluginsShadowCopy)
                 return RegisterPluginDefinition(config, applicationPartManager, plug);
@@ -219,7 +218,7 @@ namespace MyApp.Core.Plugins
             if (string.IsNullOrEmpty(shadowCopyPath))
                 shadowCopyPath = _shadowCopyFolder;
 
-            _fileProvider.CreateDirectory(shadowCopyPath);
+            FileProvider.CreateDirectory(shadowCopyPath);
             var shadowCopiedPlug = ShadowCopyFile(plug, shadowCopyPath);
 
             Assembly shadowCopiedAssembly = null;
@@ -285,17 +284,17 @@ namespace MyApp.Core.Plugins
         private static string ShadowCopyFile(string pluginFilePath, string shadowCopyPlugFolder)
         {
             var shouldCopy = true;
-            var shadowCopiedPlug = _fileProvider.Combine(shadowCopyPlugFolder, _fileProvider.GetFileName(pluginFilePath));
+            var shadowCopiedPlug = FileProvider.Combine(shadowCopyPlugFolder, FileProvider.GetFileName(pluginFilePath));
 
             //check if a shadow copied file already exists and if it does, check if it's updated, if not don't copy
-            if (_fileProvider.FileExists(shadowCopiedPlug))
+            if (FileProvider.FileExists(shadowCopiedPlug))
             {
                 //it's better to use LastWriteTimeUTC, but not all file systems have this property
                 //maybe it is better to compare file hash?
-                var areFilesIdentical = _fileProvider.GetCreationTime(shadowCopiedPlug).ToUniversalTime().Ticks >= _fileProvider.GetCreationTime(pluginFilePath).ToUniversalTime().Ticks;
+                var areFilesIdentical = FileProvider.GetCreationTime(shadowCopiedPlug).ToUniversalTime().Ticks >= FileProvider.GetCreationTime(pluginFilePath).ToUniversalTime().Ticks;
                 if (areFilesIdentical)
                 {
-                    Debug.WriteLine("Not copying; files appear identical: '{0}'", _fileProvider.GetFileName(shadowCopiedPlug));
+                    Debug.WriteLine("Not copying; files appear identical: '{0}'", FileProvider.GetFileName(shadowCopiedPlug));
                     shouldCopy = false;
                 }
                 else
@@ -303,8 +302,8 @@ namespace MyApp.Core.Plugins
                     //delete an existing file
 
                     //More info: https://www.MyAppcommerce.com/boards/t/11511/access-error-MyAppplugindiscountrulesbillingcountrydll.aspx?p=4#60838
-                    Debug.WriteLine("New plugin found; Deleting the old file: '{0}'", _fileProvider.GetFileName(shadowCopiedPlug));
-                    _fileProvider.DeleteFile(shadowCopiedPlug);
+                    Debug.WriteLine("New plugin found; Deleting the old file: '{0}'", FileProvider.GetFileName(shadowCopiedPlug));
+                    FileProvider.DeleteFile(shadowCopiedPlug);
                 }
             }
 
@@ -313,7 +312,7 @@ namespace MyApp.Core.Plugins
 
             try
             {
-                _fileProvider.FileCopy(pluginFilePath, shadowCopiedPlug, true);
+                FileProvider.FileCopy(pluginFilePath, shadowCopiedPlug, true);
             }
             catch (IOException)
             {
@@ -324,14 +323,14 @@ namespace MyApp.Core.Plugins
                 try
                 {
                     var oldFile = shadowCopiedPlug + Guid.NewGuid().ToString("N") + ".old";
-                    _fileProvider.FileMove(shadowCopiedPlug, oldFile);
+                    FileProvider.FileMove(shadowCopiedPlug, oldFile);
                 }
                 catch (IOException exc)
                 {
                     throw new IOException(shadowCopiedPlug + " rename failed, cannot initialize plugin", exc);
                 }
                 //OK, we've made it this far, now retry the shadow copy
-                _fileProvider.FileCopy(pluginFilePath, shadowCopiedPlug, true);
+                FileProvider.FileCopy(pluginFilePath, shadowCopiedPlug, true);
             }
 
             return shadowCopiedPlug;
@@ -347,12 +346,12 @@ namespace MyApp.Core.Plugins
             if (string.IsNullOrEmpty(folder))
                 return false;
 
-            var parent = _fileProvider.GetParentDirectory(folder);
+            var parent = FileProvider.GetParentDirectory(folder);
 
             if (string.IsNullOrEmpty(parent))
                 return false;
 
-            if (!_fileProvider.GetDirectoryNameOnly(parent).Equals(PluginsPathName, StringComparison.InvariantCultureIgnoreCase))
+            if (!FileProvider.GetDirectoryNameOnly(parent).Equals(PluginsPathName, StringComparison.InvariantCultureIgnoreCase))
                 return false;
 
             return true;
@@ -379,41 +378,41 @@ namespace MyApp.Core.Plugins
             {
                 // TODO: Add verbose exception handling / raising here since this is happening on app startup and could
                 // prevent app from starting altogether
-                var pluginFolder = _fileProvider.MapPath(PluginsPath);
-                _shadowCopyFolder = _fileProvider.MapPath(ShadowCopyPath);
-                _reserveShadowCopyFolder = _fileProvider.Combine(_fileProvider.MapPath(ShadowCopyPath), $"{RESERVE_SHADOW_COPY_FOLDER_NAME}{DateTime.Now.ToFileTimeUtc()}");
+                var pluginFolder = FileProvider.MapPath(PluginsPath);
+                _shadowCopyFolder = FileProvider.MapPath(ShadowCopyPath);
+                _reserveShadowCopyFolder = FileProvider.Combine(FileProvider.MapPath(ShadowCopyPath), $"{RESERVE_SHADOW_COPY_FOLDER_NAME}{DateTime.Now.ToFileTimeUtc()}");
                 
                 var referencedPlugins = new List<PluginDescriptor>();
                 var incompatiblePlugins = new List<string>();
 
                 try
                 {
-                    var installedPluginSystemNames = GetInstalledPluginNames(_fileProvider.MapPath(InstalledPluginsFilePath));
+                    var installedPluginSystemNames = GetInstalledPluginNames(FileProvider.MapPath(InstalledPluginsFilePath));
 
                     Debug.WriteLine("Creating shadow copy folder and querying for DLLs");
                     //ensure folders are created
-                    _fileProvider.CreateDirectory(pluginFolder);
-                    _fileProvider.CreateDirectory(_shadowCopyFolder);
+                    FileProvider.CreateDirectory(pluginFolder);
+                    FileProvider.CreateDirectory(_shadowCopyFolder);
                     
                     //get list of all files in bin
-                    var binFiles = _fileProvider.GetFiles(_shadowCopyFolder, "*", false);
+                    var binFiles = FileProvider.GetFiles(_shadowCopyFolder, "*", false);
                     if (config.ClearPluginShadowDirectoryOnStartup)
                     {
                         //clear out shadow copied plugins
                         foreach (var f in binFiles)
                         {
-                            if (_fileProvider.GetFileName(f).Equals("placeholder.txt", StringComparison.InvariantCultureIgnoreCase))
+                            if (FileProvider.GetFileName(f).Equals("placeholder.txt", StringComparison.InvariantCultureIgnoreCase))
                                 continue;
 
                             Debug.WriteLine("Deleting " + f);
                             try
                             {
                                 //ignore index.htm
-                                var fileName = _fileProvider.GetFileName(f);
+                                var fileName = FileProvider.GetFileName(f);
                                 if (fileName.Equals("index.htm", StringComparison.InvariantCultureIgnoreCase))
                                     continue;
 
-                                _fileProvider.DeleteFile(f);
+                                FileProvider.DeleteFile(f);
                             }
                             catch (Exception exc)
                             {
@@ -422,11 +421,11 @@ namespace MyApp.Core.Plugins
                         }
 
                         //delete all reserve folders
-                        foreach (var directory in _fileProvider.GetDirectories(_shadowCopyFolder, RESERVE_SHADOW_COPY_FOLDER_NAME_PATTERN))
+                        foreach (var directory in FileProvider.GetDirectories(_shadowCopyFolder, RESERVE_SHADOW_COPY_FOLDER_NAME_PATTERN))
                         {
                             try
                             {
-                                _fileProvider.DeleteDirectory(directory);
+                                FileProvider.DeleteDirectory(directory);
                             }
                             catch
                             {
@@ -460,20 +459,20 @@ namespace MyApp.Core.Plugins
 
                         try
                         {
-                            var directoryName = _fileProvider.GetDirectoryName(descriptionFile);
+                            var directoryName = FileProvider.GetDirectoryName(descriptionFile);
                             if (string.IsNullOrEmpty(directoryName))
-                                throw new Exception($"Directory cannot be resolved for '{_fileProvider.GetFileName(descriptionFile)}' description file");
+                                throw new Exception($"Directory cannot be resolved for '{FileProvider.GetFileName(descriptionFile)}' description file");
 
                             //get list of all DLLs in plugins (not in bin!)
-                            var pluginFiles = _fileProvider.GetFiles(directoryName, "*.dll", false)
+                            var pluginFiles = FileProvider.GetFiles(directoryName, "*.dll", false)
                                 //just make sure we're not registering shadow copied plugins
                                 .Where(x => !binFiles.Select(q => q).Contains(x))
-                                .Where(x => IsPackagePluginFolder(_fileProvider.GetDirectoryName(x)))
+                                .Where(x => IsPackagePluginFolder(FileProvider.GetDirectoryName(x)))
                                 .ToList();
 
                             //other plugin description info
                             var mainPluginFile = pluginFiles
-                                .FirstOrDefault(x => _fileProvider.GetFileName(x).Equals(pluginDescriptor.AssemblyFileName, StringComparison.InvariantCultureIgnoreCase));
+                                .FirstOrDefault(x => FileProvider.GetFileName(x).Equals(pluginDescriptor.AssemblyFileName, StringComparison.InvariantCultureIgnoreCase));
                             
                             //plugin have wrong directory
                             if (mainPluginFile == null)
@@ -489,7 +488,7 @@ namespace MyApp.Core.Plugins
 
                             //load all other referenced assemblies now
                             foreach (var plugin in pluginFiles
-                                .Where(x => !_fileProvider.GetFileName(x).Equals(_fileProvider.GetFileName(mainPluginFile), StringComparison.InvariantCultureIgnoreCase))
+                                .Where(x => !FileProvider.GetFileName(x).Equals(FileProvider.GetFileName(mainPluginFile), StringComparison.InvariantCultureIgnoreCase))
                                 .Where(x => !IsAlreadyLoaded(x)))
                                     PerformFileDeploy(plugin, applicationPartManager, config);
                             
@@ -549,10 +548,10 @@ namespace MyApp.Core.Plugins
             if (string.IsNullOrEmpty(systemName))
                 throw new ArgumentNullException(nameof(systemName));
 
-            var filePath = _fileProvider.MapPath(InstalledPluginsFilePath);
+            var filePath = FileProvider.MapPath(InstalledPluginsFilePath);
 
             //create file if not exists
-            _fileProvider.CreateFile(filePath);
+            FileProvider.CreateFile(filePath);
 
             //get installed plugin names
             var installedPluginSystemNames = GetInstalledPluginNames(filePath);
@@ -575,10 +574,10 @@ namespace MyApp.Core.Plugins
             if (string.IsNullOrEmpty(systemName))
                 throw new ArgumentNullException(nameof(systemName));
 
-            var filePath = _fileProvider.MapPath(InstalledPluginsFilePath);
+            var filePath = FileProvider.MapPath(InstalledPluginsFilePath);
 
             //create file if not exists
-            _fileProvider.CreateFile(filePath);
+            FileProvider.CreateFile(filePath);
 
             //get installed plugin names
             var installedPluginSystemNames = GetInstalledPluginNames(filePath);
@@ -597,9 +596,9 @@ namespace MyApp.Core.Plugins
         /// </summary>
         public static void MarkAllPluginsAsUninstalled()
         {
-            var filePath = _fileProvider.MapPath(InstalledPluginsFilePath);
-            if (_fileProvider.FileExists(filePath))
-                _fileProvider.DeleteFile(filePath);
+            var filePath = FileProvider.MapPath(InstalledPluginsFilePath);
+            if (FileProvider.FileExists(filePath))
+                FileProvider.DeleteFile(filePath);
         }
 
         /// <summary>
@@ -624,7 +623,7 @@ namespace MyApp.Core.Plugins
         /// <returns>Plugin descriptor</returns>
         public static PluginDescriptor GetPluginDescriptorFromFile(string filePath)
         {
-            var text = _fileProvider.ReadAllText(filePath, Encoding.UTF8);
+            var text = FileProvider.ReadAllText(filePath, Encoding.UTF8);
 
             return GetPluginDescriptorFromText(text);
         }
@@ -662,13 +661,13 @@ namespace MyApp.Core.Plugins
             if (pluginDescriptor.OriginalAssemblyFile == null)
                 throw new Exception($"Cannot load original assembly path for {pluginDescriptor.SystemName} plugin.");
 
-            var filePath = _fileProvider.Combine(_fileProvider.GetDirectoryName(pluginDescriptor.OriginalAssemblyFile), PluginDescriptionFileName);
-            if (!_fileProvider.FileExists(filePath))
+            var filePath = FileProvider.Combine(FileProvider.GetDirectoryName(pluginDescriptor.OriginalAssemblyFile), PluginDescriptionFileName);
+            if (!FileProvider.FileExists(filePath))
                 throw new Exception($"Description file for {pluginDescriptor.SystemName} plugin does not exist. {filePath}");
 
             //save the file
             var text = JsonConvert.SerializeObject(pluginDescriptor, Formatting.Indented);
-            _fileProvider.WriteAllText(filePath, text, Encoding.UTF8);
+            FileProvider.WriteAllText(filePath, text, Encoding.UTF8);
         }
 
         /// <summary>
@@ -686,10 +685,10 @@ namespace MyApp.Core.Plugins
             if (pluginDescriptor.Installed)
                 return false;
 
-            var directoryName = _fileProvider.GetDirectoryName(pluginDescriptor.OriginalAssemblyFile);
+            var directoryName = FileProvider.GetDirectoryName(pluginDescriptor.OriginalAssemblyFile);
 
-            if (_fileProvider.DirectoryExists(directoryName))
-                _fileProvider.DeleteDirectory(directoryName);
+            if (FileProvider.DirectoryExists(directoryName))
+                FileProvider.DeleteDirectory(directoryName);
 
             return true;
         }

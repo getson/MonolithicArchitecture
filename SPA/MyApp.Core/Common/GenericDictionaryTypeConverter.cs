@@ -16,23 +16,23 @@ namespace MyApp.Core.Common
         /// <summary>
         /// Type converter
         /// </summary>
-        protected readonly TypeConverter typeConverterKey;
+        protected readonly TypeConverter TypeConverterKey;
 
         /// <summary>
         /// Type converter
         /// </summary>
-        protected readonly TypeConverter typeConverterValue;
+        protected readonly TypeConverter TypeConverterValue;
 
         /// <summary>
         /// Ctor
         /// </summary>
         public GenericDictionaryTypeConverter()
         {
-            typeConverterKey = TypeDescriptor.GetConverter(typeof(K));
-            if (typeConverterKey == null)
+            TypeConverterKey = TypeDescriptor.GetConverter(typeof(K));
+            if (TypeConverterKey == null)
                 throw new InvalidOperationException("No type converter exists for type " + typeof(K).FullName);
-            typeConverterValue = TypeDescriptor.GetConverter(typeof(V));
-            if (typeConverterValue == null)
+            TypeConverterValue = TypeDescriptor.GetConverter(typeof(V));
+            if (TypeConverterValue == null)
                 throw new InvalidOperationException("No type converter exists for type " + typeof(V).FullName);
         }
 
@@ -74,8 +74,8 @@ namespace MyApp.Core.Common
                 if (keyValueStr.Length != 2) 
                     return;
 
-                object dictionaryKey = (K)typeConverterKey.ConvertFromInvariantString(keyValueStr[0]);
-                object dictionaryValue = (V)typeConverterValue.ConvertFromInvariantString(keyValueStr[1]);
+                object dictionaryKey = (K)TypeConverterKey.ConvertFromInvariantString(keyValueStr[0]);
+                object dictionaryValue = (V)TypeConverterValue.ConvertFromInvariantString(keyValueStr[1]);
                 if (dictionaryKey == null || dictionaryValue == null) 
                     return;
 

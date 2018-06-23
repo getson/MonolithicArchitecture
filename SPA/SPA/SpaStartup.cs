@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MyApp.Core.Infrastructure.Interfaces;
+using MyApp.Core.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace SPA
