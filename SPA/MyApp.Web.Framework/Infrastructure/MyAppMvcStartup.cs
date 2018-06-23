@@ -30,6 +30,13 @@ namespace MyApp.Web.Framework.Infrastructure
         /// <param name="configuration">Configuration root of the application</param>
         public void ConfigureServices(IServiceCollection services, IConfigurationRoot configuration)
         {
+            //add object context
+            services.AddMyAppObjectContext();
+
+            //add EF services
+            services.AddEntityFrameworkSqlServer();
+            services.AddEntityFrameworkProxies();
+
             //compression
             services.AddResponseCompression();
 

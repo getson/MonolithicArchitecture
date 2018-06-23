@@ -50,6 +50,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove=".gitignore" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MyApp.Cache\MyApp.Infrastructure.Cache.csproj" />
     <ProjectReference Include="..\MyApp.Core.Domain\MyApp.Core.Domain.csproj" />
     <ProjectReference Include="..\MyApp.Core\MyApp.Core.csproj" />
