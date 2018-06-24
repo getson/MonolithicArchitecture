@@ -21,12 +21,12 @@ namespace MyApp.Core.Domain.Configuration
         /// </summary>
         /// <param name="name">Name</param>
         /// <param name="value">Value</param>
-        /// <param name="storeId">Store identifier</param>
-        public Setting(string name, string value, int storeId = 0) 
+        /// <param name="tenantId">Tenant identifier</param>
+        public Setting(string name, string value, int tenantId = 0) 
         {
             Name = name;
             Value = value;
-            StoreId = storeId;
+            TenantId = tenantId;
         }
         
         /// <summary>
@@ -40,9 +40,9 @@ namespace MyApp.Core.Domain.Configuration
         public string Value { get; set; }
 
         /// <summary>
-        /// Gets or sets the store for which this setting is valid. 0 is set when the setting is for all stores
+        /// Gets or sets the Tenant for which this setting is valid. 0 is set when the setting is for all Tenants
         /// </summary>
-        public int StoreId { get; set; }
+        public int TenantId { get; set; }
 
         /// <summary>
         /// To string

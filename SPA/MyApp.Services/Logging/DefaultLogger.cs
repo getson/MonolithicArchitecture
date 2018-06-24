@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using MyApp.Core.Common;
 using MyApp.Core.Domain.Common;
+using MyApp.Core.Domain.Configuration;
+using MyApp.Core.Domain.Logging;
 using MyApp.Core.Infrastructure;
 using MyApp.Core.Interfaces.Data;
 using MyApp.Core.Interfaces.Pagination;
@@ -188,15 +190,9 @@ namespace MyApp.Core.Domain.Services.Logging
                         where logIds.Contains(l.Id)
                         select l;
             var logItems = query.ToList();
+
             //sort by passed identifiers
-            var sortedLogItems = new List<Log>();
-            foreach (var id in logIds)
-            {
-                var log = logItems.Find(x => x.Id == id);
-                if (log != null)
-                    sortedLogItems.Add(log);
-            }
-            return sortedLogItems;
+            return logIds.Select(id => logItems.Find(x => x.Id == id)).Where(log => log != null).ToList();
         }
 
         /// <summary>
@@ -207,7 +203,7 @@ namespace MyApp.Core.Domain.Services.Logging
         /// <param name="fullMessage">The full message</param>
         /// <param name="user">The user to associate log record with</param>
         /// <returns>A log item</returns>
-        public virtual Log InsertLog(LogLevel logLevel, string shortMessage, string fullMessage = "")
+        public virtual Log InsertLog(LogLevel logLevel, string shortMessage, string fullMessage = "",User.User user=null)
         {
             //check ignore word/phrase list?
             if (IgnoreLog(shortMessage) || IgnoreLog(fullMessage))
@@ -221,7 +217,8 @@ namespace MyApp.Core.Domain.Services.Logging
                 IpAddress = _webHelper.GetCurrentIpAddress(),
                 PageUrl = _webHelper.GetThisPageUrl(true),
                 ReferrerUrl = _webHelper.GetUrlReferrer(),
-                CreatedOnUtc = DateTime.UtcNow
+                CreatedOnUtc = DateTime.UtcNow,
+                User = user
             };
 
             _logRepository.Insert(log);

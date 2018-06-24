@@ -89,9 +89,6 @@ namespace MyApp.Web.Framework.Common
         {
             if (_httpContextAccessor == null || _httpContextAccessor.HttpContext == null)
                 return false;
-
-            //we put required logic in try-catch block
-            //more info: https://www.MyAppcommerce.com/boards/t/17711/unhandled-exception-request-is-not-available-in-this-context.aspx
             try
             {
                 var browscapXmlHelper = GetBrowscapXmlHelper();
@@ -120,7 +117,6 @@ namespace MyApp.Web.Framework.Common
                 return false;
 
             //we put required logic in try-catch block
-            //more info: https://www.MyAppcommerce.com/boards/t/17711/unhandled-exception-request-is-not-available-in-this-context.aspx
             try
             {
                 //we don't parse browscap library here

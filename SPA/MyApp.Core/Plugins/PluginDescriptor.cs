@@ -20,7 +20,7 @@ namespace MyApp.Core.Plugins
         public PluginDescriptor()
         {
             SupportedVersions = new List<string>();
-            LimitedToStores = new List<int>();
+            LimitedToTenants = new List<int>();
             LimitedToCustomerRoles = new List<int>();
         }
 
@@ -176,10 +176,10 @@ namespace MyApp.Core.Plugins
         public virtual string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the list of store identifiers in which this plugin is available. If empty, then this plugin is available in all stores
+        /// Gets or sets the list of Tenant identifiers in which this plugin is available. If empty, then this plugin is available in all Tenants
         /// </summary>
-        [JsonProperty(PropertyName = "LimitedToStores")]
-        public virtual IList<int> LimitedToStores { get; set; }
+        [JsonProperty(PropertyName = "LimitedToTenants")]
+        public virtual IList<int> LimitedToTenants { get; set; }
 
         /// <summary>
         /// Gets or sets the list of customer role identifiers for which this plugin is available. If empty, then this plugin is available for all ones.

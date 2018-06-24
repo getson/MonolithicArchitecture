@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace MyApp.Core.Common
 {
     /// <summary>
-    /// Provides access to all "singletons" stored by <see cref="Singleton{T}"/>.
+    /// Provides access to all "singletons" Tenantd by <see cref="Singleton{T}"/>.
     /// </summary>
     public class BaseSingleton
     {

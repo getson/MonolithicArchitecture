@@ -43,7 +43,7 @@ namespace MyApp.Web.Framework.Middleware
             //whether database is installed
             if (!DataSettingsManager.DatabaseIsInstalled)
             {
-                var installUrl = $"{webHelper.GetStoreLocation()}install";
+                var installUrl = $"{webHelper.GetTenantLocation()}install";
                 if (!webHelper.GetThisPageUrl(false).StartsWith(installUrl, StringComparison.InvariantCultureIgnoreCase))
                 {
                     //redirect

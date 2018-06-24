@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using MyApp.Core.Domain.Common;
+using MyApp.Core.Domain.Configuration;
 using MyApp.Core.Domain.Localization;
 using MyApp.Core.Domain.Services.Events;
 using MyApp.Core.Domain.Services.Logging;
@@ -30,21 +31,21 @@ namespace MyApp.Core.Domain.Services.Localization
         /// <remarks>
         /// {0} : language ID
         /// </remarks>
-        private const string LOCALSTRINGRESOURCES_ALL_PUBLIC_KEY = "Nop.lsr.all.public-{0}";
+        private const string LOCALSTRINGRESOURCES_ALL_PUBLIC_KEY = "MyApp.lsr.all.public-{0}";
         /// <summary>
         /// Key for caching
         /// </summary>
         /// <remarks>
         /// {0} : language ID
         /// </remarks>
-        private const string LOCALSTRINGRESOURCES_ALL_KEY = "Nop.lsr.all-{0}";
+        private const string LOCALSTRINGRESOURCES_ALL_KEY = "MyApp.lsr.all-{0}";
         /// <summary>
         /// Key for caching
         /// </summary>
         /// <remarks>
         /// {0} : language ID
         /// </remarks>
-        private const string LOCALSTRINGRESOURCES_ALL_ADMIN_KEY = "Nop.lsr.all.admin-{0}";
+        private const string LOCALSTRINGRESOURCES_ALL_ADMIN_KEY = "MyApp.lsr.all.admin-{0}";
         /// <summary>
         /// Key for caching
         /// </summary>
@@ -52,11 +53,11 @@ namespace MyApp.Core.Domain.Services.Localization
         /// {0} : language ID
         /// {1} : resource key
         /// </remarks>
-        private const string LOCALSTRINGRESOURCES_BY_RESOURCENAME_KEY = "Nop.lsr.{0}-{1}";
+        private const string LOCALSTRINGRESOURCES_BY_RESOURCENAME_KEY = "MyApp.lsr.{0}-{1}";
         /// <summary>
         /// Key pattern to clear cache
         /// </summary>
-        private const string LOCALSTRINGRESOURCES_PATTERN_KEY = "Nop.lsr.";
+        private const string LOCALSTRINGRESOURCES_PATTERN_KEY = "MyApp.lsr.";
         /// <summary>
         /// Key pattern to split resource by group
         /// </summary>
@@ -298,7 +299,7 @@ namespace MyApp.Core.Domain.Services.Localization
         /// Gets all locale string resources by language identifier
         /// </summary>
         /// <param name="languageId">Language identifier</param>
-        /// <param name="loadPublicLocales">A value indicating whether to load data for the public store only (if "false", then for admin area only. If null, then load all locales. We use it for performance optimization of the site startup</param>
+        /// <param name="loadPublicLocales">A value indicating whether to load data for the public Tenant only (if "false", then for admin area only. If null, then load all locales. We use it for performance optimization of the site startup</param>
         /// <returns>Locale string resources</returns>
         public virtual Dictionary<string, KeyValuePair<int,string>> GetAllResourceValues(int languageId, bool? loadPublicLocales)
         {
@@ -476,7 +477,7 @@ namespace MyApp.Core.Domain.Services.Localization
             outDoc.LoadXml(sb.ToString());
             xml = outDoc.OuterXml;
 
-            //stored procedures are enabled and supported by the database.
+            //Tenantd procedures are enabled and supported by the database.
             var pLanguageId = _dataProvider.GetParameter();
             pLanguageId.ParameterName = "LanguageId";
             pLanguageId.Value = language.Id;

@@ -1,4 +1,6 @@
 using System;
+using MyApp.Core.Domain.Logging;
+
 namespace MyApp.Core.Domain.Services.Logging
 {
     /// <summary>
@@ -37,9 +39,9 @@ namespace MyApp.Core.Domain.Services.Logging
         /// <param name="message">Message</param>
         /// <param name="exception">Exception</param>
         /// <param name="user">user</param>
-        public static void Warning(this ILogger logger, string message, Exception exception = null)
+        public static void Warning(this ILogger logger, string message, Exception exception = null, User.User user = null)
         {
-            FilteredLog(logger, LogLevel.Warning, message, exception);
+            FilteredLog(logger, LogLevel.Warning, message, exception,user);
         }
 
         /// <summary>
@@ -49,9 +51,9 @@ namespace MyApp.Core.Domain.Services.Logging
         /// <param name="message">Message</param>
         /// <param name="exception">Exception</param>
         /// <param name="user">user</param>
-        public static void Error(this ILogger logger, string message, Exception exception = null)
+        public static void Error(this ILogger logger, string message, Exception exception = null,User.User user=null)
         {
-            FilteredLog(logger, LogLevel.Error, message, exception);
+            FilteredLog(logger, LogLevel.Error, message, exception,user);
         }
 
         /// <summary>
@@ -83,7 +85,7 @@ namespace MyApp.Core.Domain.Services.Logging
             if (logger.IsEnabled(level))
             {
                 var fullMessage = exception?.ToString() ?? string.Empty;
-                logger.InsertLog(level, message, fullMessage);
+                logger.InsertLog(level, message, fullMessage,user);
             }
         }
     }

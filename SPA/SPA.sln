@@ -11,19 +11,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Core.Domain.Services"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Infrastructure.Data", "MyApp.Data\MyApp.Infrastructure.Data.csproj", "{3FD84021-22E3-4D8D-8859-4571FAD198CD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{CE379C94-4B48-432E-9AA7-E0D96BC0C837}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application.Plugins", "Application.Plugins", "{CE379C94-4B48-432E-9AA7-E0D96BC0C837}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Plugins.Api", "Plugins\MyApp.Plugins.Api\MyApp.Plugins.Api.csproj", "{97BAF821-15AA-482B-8FD1-3FFE2C91F382}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.IdentityServer", "MyApp.IdentityServer\MyApp.IdentityServer.csproj", "{504060EF-8791-4A95-90A2-C7898B995EEE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{F57A6907-7979-4A6A-80D8-B59DA6FDAA87}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application.Core", "Application.Core", "{F57A6907-7979-4A6A-80D8-B59DA6FDAA87}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{B85B3CC0-2839-451C-9FAA-4FED2AEB133B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application.Infrastructure", "Application.Infrastructure", "{B85B3CC0-2839-451C-9FAA-4FED2AEB133B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Infrastructure.Cache", "MyApp.Cache\MyApp.Infrastructure.Cache.csproj", "{00D090EC-E222-435F-8C9B-EEAA9173C4CF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{C498E528-94C9-430F-989E-674EA42FBFC5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{C498E528-94C9-430F-989E-674EA42FBFC5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Infrastructure.ExternalServices", "MyApp.ExternalServices\MyApp.Infrastructure.ExternalServices.csproj", "{92DEA619-ED59-4C69-A9B7-9E9A7A3326E7}"
 EndProject

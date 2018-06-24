@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MyApp.Core.Domain.Services.Logging
+namespace MyApp.Core.Domain.Logging
 {
     /// <summary>
     /// Represents an activity log record
@@ -25,7 +25,7 @@ namespace MyApp.Core.Domain.Services.Logging
         /// <summary>
         /// Gets or sets the user identifier
         /// </summary>
-        public int userId { get; set; }
+        public int UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the activity comment

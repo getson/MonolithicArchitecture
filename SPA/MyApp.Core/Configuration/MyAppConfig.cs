@@ -45,7 +45,7 @@ namespace MyApp.Core.Configuration
         /// <summary>
         /// Gets or sets a value indicating whether the data protection system should be configured to persist keys in the Redis database
         /// </summary>
-        public bool PersistDataProtectionKeysToRedis { get; set; }
+        public bool PersistDataProtectionKeyTenantdis { get; set; }
 
         /// <summary>
         /// Gets or sets path to database with user agent strings
@@ -62,7 +62,7 @@ namespace MyApp.Core.Configuration
         public bool SupportPreviousMyAppVersions { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether a store owner can install sample data during installation
+        /// Gets or sets a value indicating whether a Tenant owner can install sample data during installation
         /// </summary>
         public bool DisableSampleDataDuringInstallation { get; set; }
         /// <summary>

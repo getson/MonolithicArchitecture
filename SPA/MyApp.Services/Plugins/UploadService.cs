@@ -153,7 +153,7 @@ namespace MyApp.Core.Domain.Services.Plugins
                     if (!item.Type.HasValue)
                         continue;
 
-                    //ensure that the current version of nopCommerce is supported
+                    //ensure that the current version of MyApp is supported
                     if (!item.SupportedVersions?.Contains(MyAppVersion.CurrentVersion) ?? true)
                         continue;
 
@@ -315,7 +315,7 @@ namespace MyApp.Core.Domain.Services.Plugins
             public string SystemName { get; set; }
 
             /// <summary>
-            /// Gets or sets supported versions of nopCommerce
+            /// Gets or sets supported versions of MyApp
             /// </summary>
             [JsonProperty(PropertyName = "SupportedVersion")]
             public string SupportedVersions { get; set; }

@@ -1,4 +1,4 @@
-namespace MyApp.Core.Domain.Services.Logging
+namespace MyApp.Core.Domain.Logging
 {
     /// <summary>
     /// Represents a log level

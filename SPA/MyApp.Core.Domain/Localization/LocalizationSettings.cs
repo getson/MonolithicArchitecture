@@ -45,7 +45,7 @@ namespace MyApp.Core.Domain.Localization
 
         /// <summary>
         /// A value indicating whether to we should ignore RTL language property for admin area.
-        /// It's useful for store owners with RTL languages for public store but preferring LTR for admin area
+        /// It's useful for Tenant owners with RTL languages for public Tenant but preferring LTR for admin area
         /// </summary>
         public bool IgnoreRtlPropertyForAdminArea { get; set; }
     }

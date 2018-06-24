@@ -1,4 +1,5 @@
 ﻿using MyApp.Core.Domain.Common;
+using MyApp.Core.Domain.Configuration;
 
 namespace MyApp.Web.Framework.Common
 {
@@ -8,9 +9,9 @@ namespace MyApp.Web.Framework.Common
     public class DateTimeSettings : ISettings
     {
         /// <summary>
-        /// Gets or sets a default store time zone identifier
+        /// Gets or sets a default Tenant time zone identifier
         /// </summary>
-        public string DefaultStoreTimeZoneId { get; set; }
+        public string DefaultTenantTimeZoneId { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether customers are allowed to select theirs time zone

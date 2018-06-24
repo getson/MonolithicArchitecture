@@ -3,7 +3,9 @@ using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Hosting;
 using MyApp.Core.Domain.Common;
+using MyApp.Core.Domain.Configuration;
 using MyApp.Core.Domain.Localization;
+using MyApp.Core.Domain.Logging;
 using MyApp.Core.Domain.Services.Configuration;
 using MyApp.Core.Domain.Services.Localization;
 using MyApp.Core.Domain.Services.Logging;
@@ -82,22 +84,14 @@ namespace MyApp.Core.Domain.Services.Installation
 
             settingService.SaveSetting(new CommonSettings
             {
-                UseSystemEmailForContactUsForm = true,
-                UseStoredProcedureForLoadingCategories = true,
-                SitemapEnabled = true,
-                SitemapPageSize = 200,
-                SitemapIncludeCategories = true,
-                SitemapIncludeManufacturers = true,
-                SitemapIncludeProducts = false,
-                SitemapIncludeProductTags = false,
                 DisplayJavaScriptDisabledWarning = false,
                 UseFullTextSearch = false,
                 Log404Errors = true,
-                BreadcrumbDelimiter = "/",
                 RenderXuaCompatible = false,
                 XuaCompatibleValue = "IE=edge",
                 BbcodeEditorOpenLinksInNewWindow = false,
-                PopupForTermsOfServiceLinks = true
+                PopupForTermsOfServiceLinks = true,
+                ForceSslForAllPages = false
             });
 
 

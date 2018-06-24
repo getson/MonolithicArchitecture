@@ -11,7 +11,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Net.Http.Headers;
 using MyApp.Core.Common;
 using MyApp.Core.Configuration;
-using MyApp.Core.Domain.Security;
+using MyApp.Core.Domain.Configuration;
 using MyApp.Core.Infrastructure;
 using MyApp.Infrastructure.Data;
 using MyApp.Web.Framework.Infrastructure.Extensions;
@@ -64,7 +64,7 @@ namespace MyApp.Web.Framework.Infrastructure
             //add and configure MVC feature
             services.AddMyAppMvc();
 
-  
+
         }
 
         /// <summary>
@@ -100,23 +100,9 @@ namespace MyApp.Web.Framework.Infrastructure
             //whether database is installed
             if (DataSettingsManager.DatabaseIsInstalled)
             {
-                var securitySettings = EngineContext.Current.Resolve<SecuritySettings>();
+                var fileExtensionContentTypeProvider = new FileExtensionContentTypeProvider();
+                staticFileOptions.ContentTypeProvider = fileExtensionContentTypeProvider;
 
-                if (!string.IsNullOrEmpty(securitySettings.PluginStaticFileExtensionsBlacklist))
-                {
-                    var fileExtensionContentTypeProvider = new FileExtensionContentTypeProvider();
-
-                    foreach (var ext in securitySettings.PluginStaticFileExtensionsBlacklist
-                        .Split(';', ',')
-                        .Select(e => e.Trim().ToLower())
-                        .Select(e => $"{(e.StartsWith(".") ? string.Empty : ".")}{e}")
-                        .Where(fileExtensionContentTypeProvider.Mappings.ContainsKey))
-                    {
-                        fileExtensionContentTypeProvider.Mappings.Remove(ext);
-                    }
-
-                    staticFileOptions.ContentTypeProvider = fileExtensionContentTypeProvider;
-                }
             }
 
             application.UseStaticFiles(staticFileOptions);

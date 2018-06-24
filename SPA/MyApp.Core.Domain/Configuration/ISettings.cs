@@ -1,4 +1,4 @@
-﻿namespace MyApp.Core.Domain.Common
+﻿namespace MyApp.Core.Domain.Configuration
 {
     /// <summary>
     /// Setting interface

@@ -34,7 +34,7 @@ namespace MyApp.Core.Domain.Services.Localization
             UniqueSeoCode = l.UniqueSeoCode;
             FlagImageFileName = l.FlagImageFileName;
             Rtl = l.Rtl;
-            LimitedToStores = l.LimitedToStores;
+            LimitedToTenants = l.LimitedToTenants;
             DefaultCurrencyId = l.DefaultCurrencyId;
             Published = l.Published;
             DisplayOrder = l.DisplayOrder;

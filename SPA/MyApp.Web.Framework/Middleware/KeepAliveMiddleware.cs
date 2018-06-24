@@ -46,7 +46,7 @@ namespace MyApp.Web.Framework.Middleware
             if (!DataSettingsManager.DatabaseIsInstalled)
             {
                 //keep alive page requested (we ignore it to prevent creating a guest customer records)
-                var keepAliveUrl = $"{webHelper.GetStoreLocation()}keepalive/index";
+                var keepAliveUrl = $"{webHelper.GetTenantLocation()}keepalive/index";
                 if (webHelper.GetThisPageUrl(false).StartsWith(keepAliveUrl, StringComparison.InvariantCultureIgnoreCase))
                     return;
             }

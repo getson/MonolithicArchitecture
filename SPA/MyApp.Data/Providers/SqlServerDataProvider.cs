@@ -37,19 +37,17 @@ namespace MyApp.Infrastructure.Data
             var fileProvider = EngineContext.Current.Resolve<IMyAppFileProvider>();
 
             //create tables
-            //EngineContext.Current.Resolve<IRelationalDatabaseCreator>().CreateTables();
-            //(context as DbContext).Database.EnsureCreated();
             context.ExecuteSqlScript(context.GenerateCreateScript());
 
             //create indexes
             context.ExecuteSqlScriptFromFile(fileProvider.MapPath(SqlServerIndexesFilePath));
 
-            //create stored procedures 
-            context.ExecuteSqlScriptFromFile(fileProvider.MapPath(SqlServerStoredProceduresFilePath));
+            //create Tenantd procedures 
+            context.ExecuteSqlScriptFromFile(fileProvider.MapPath(SqlServerTenantdProceduresFilePath));
         }
 
         /// <summary>
-        /// Get a support database parameter object (used by stored procedures)
+        /// Get a support database parameter object (used by Tenantd procedures)
         /// </summary>
         /// <returns>Parameter</returns>
         public virtual DbParameter GetParameter()
@@ -77,9 +75,9 @@ namespace MyApp.Infrastructure.Data
         protected virtual string SqlServerIndexesFilePath => "~/App_Data/Install/SqlServer.Indexes.sql";
 
         /// <summary>
-        /// Gets a path to the file that contains script to create SQL Server stored procedures
+        /// Gets a path to the file that contains script to create SQL Server Tenantd procedures
         /// </summary>
-        protected virtual string SqlServerStoredProceduresFilePath => "~/App_Data/Install/SqlServer.StoredProcedures.sql";
+        protected virtual string SqlServerTenantdProceduresFilePath => "~/App_Data/Install/SqlServer.TenantdProcedures.sql";
 
         #endregion
     }

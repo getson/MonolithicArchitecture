@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using MyApp.Core.Configuration;
 using MyApp.Core.Domain.Common;
+using MyApp.Core.Domain.Configuration;
 
 namespace MyApp.Core.Domain.Services.Configuration
 {
@@ -12,7 +13,7 @@ namespace MyApp.Core.Domain.Services.Configuration
     public static class SettingExtensions
     {
         /// <summary>
-        /// Get setting key (stored into database)
+        /// Get setting key (Tenantd into database)
         /// </summary>
         /// <typeparam name="T">Type</typeparam>
         /// <typeparam name="TPropType">Property type</typeparam>

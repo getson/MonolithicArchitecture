@@ -17,11 +17,11 @@ namespace MyApp.Core.Domain.Services.Localization
         /// <summary>
         /// Gets all languages
         /// </summary>
-        /// <param name="storeId">Load records allowed only in a specified store; pass 0 to load all records</param>
+        /// <param name="tenantId">Load records allowed only in a specified Tenant; pass 0 to load all records</param>
         /// <param name="showHidden">A value indicating whether to show hidden records</param>
         /// <param name="loadCacheableCopy">A value indicating whether to load a copy that could be cached (workaround until Entity Framework supports 2-level caching)</param>
         /// <returns>Languages</returns>
-        IList<Language> GetAllLanguages(bool showHidden = false, int storeId = 0, bool loadCacheableCopy = true);
+        IList<Language> GetAllLanguages(bool showHidden = false, int tenantId = 0, bool loadCacheableCopy = true);
 
         /// <summary>
         /// Gets a language

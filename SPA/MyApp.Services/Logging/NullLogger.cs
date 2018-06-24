@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using MyApp.Core.Common;
+using MyApp.Core.Domain.Logging;
 using MyApp.Core.Interfaces.Pagination;
 
 namespace MyApp.Core.Domain.Services.Logging
@@ -88,7 +89,7 @@ namespace MyApp.Core.Domain.Services.Logging
         /// <param name="fullMessage">The full message</param>
         /// <param name="user">The user to associate log record with</param>
         /// <returns>A log item</returns>
-        public virtual Log InsertLog(LogLevel logLevel, string shortMessage, string fullMessage = "")
+        public virtual Log InsertLog(LogLevel logLevel, string shortMessage, string fullMessage = "",User.User user=null)
         {
             return null;
         }

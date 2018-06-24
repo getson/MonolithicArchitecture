@@ -49,7 +49,7 @@ namespace MyApp.Web.Framework.Middleware
             if (webHelper.IsStaticResource())
                 return;
 
-            var adminAreaUrl = $"{webHelper.GetStoreLocation()}admin";
+            var adminAreaUrl = $"{webHelper.GetTenantLocation()}admin";
             if (webHelper.GetThisPageUrl(false).StartsWith(adminAreaUrl, StringComparison.InvariantCultureIgnoreCase))
             {
                 //we set culture of admin area to 'en-US' because current implementation of Telerik grid doesn't work well in other cultures

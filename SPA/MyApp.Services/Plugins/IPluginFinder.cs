@@ -10,12 +10,12 @@ namespace MyApp.Core.Domain.Services.Plugins
     public interface IPluginFinder
     {
         /// <summary>
-        /// Check whether the plugin is available in a certain store
+        /// Check whether the plugin is available in a certain Tenant
         /// </summary>
         /// <param name="pluginDescriptor">Plugin descriptor to check</param>
-        /// <param name="storeId">Store identifier to check</param>
+        /// <param name="TenantId">Tenant identifier to check</param>
         /// <returns>true - available; false - no</returns>
-        bool AuthenticateStore(PluginDescriptor pluginDescriptor, int storeId);
+        bool AuthenticateTenant(PluginDescriptor pluginDescriptor, int TenantId);
 
         /// <summary>
         /// Check that plugin is authorized for the specified User
@@ -37,22 +37,22 @@ namespace MyApp.Core.Domain.Services.Plugins
         /// <typeparam name="T">The type of plugins to get.</typeparam>
         /// <param name="loadMode">Load plugins mode</param>
         /// <param name="user">Load records allowed only to a specified User; pass null to ignore ACL permissions</param>
-        /// <param name="storeId">Load records allowed only in a specified store; pass 0 to load all records</param>
+        /// <param name="TenantId">Load records allowed only in a specified Tenant; pass 0 to load all records</param>
         /// <param name="group">Filter by plugin group; pass null to load all records</param>
         /// <returns>Plugins</returns>
         IEnumerable<T> GetPlugins<T>(LoadPluginsMode loadMode = LoadPluginsMode.InstalledOnly,
-            User.User user = null, int storeId = 0, string group = null) where T : class, IPlugin;
+            User.User user = null, int TenantId = 0, string group = null) where T : class, IPlugin;
 
         /// <summary>
         /// Get plugin descriptors
         /// </summary>
         /// <param name="loadMode">Load plugins mode</param>
         /// <param name="user">Load records allowed only to a specified User; pass null to ignore ACL permissions</param>
-        /// <param name="storeId">Load records allowed only in a specified store; pass 0 to load all records</param>
+        /// <param name="TenantId">Load records allowed only in a specified Tenant; pass 0 to load all records</param>
         /// <param name="group">Filter by plugin group; pass null to load all records</param>
         /// <returns>Plugin descriptors</returns>
         IEnumerable<PluginDescriptor> GetPluginDescriptors(LoadPluginsMode loadMode = LoadPluginsMode.InstalledOnly,
-            User.User user = null, int storeId = 0, string group = null);
+            User.User user = null, int TenantId = 0, string group = null);
 
         /// <summary>
         /// Get plugin descriptors
@@ -60,11 +60,11 @@ namespace MyApp.Core.Domain.Services.Plugins
         /// <typeparam name="T">The type of plugin to get.</typeparam>
         /// <param name="loadMode">Load plugins mode</param>
         /// <param name="user">Load records allowed only to a specified User; pass null to ignore ACL permissions</param>
-        /// <param name="storeId">Load records allowed only in a specified store; pass 0 to load all records</param>
+        /// <param name="TenantId">Load records allowed only in a specified Tenant; pass 0 to load all records</param>
         /// <param name="group">Filter by plugin group; pass null to load all records</param>
         /// <returns>Plugin descriptors</returns>
         IEnumerable<PluginDescriptor> GetPluginDescriptors<T>(LoadPluginsMode loadMode = LoadPluginsMode.InstalledOnly,
-            User.User user = null, int storeId = 0, string group = null) where T : class, IPlugin;
+            User.User user = null, int TenantId = 0, string group = null) where T : class, IPlugin;
 
         /// <summary>
         /// Get a plugin descriptor by its system name

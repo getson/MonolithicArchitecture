@@ -35,18 +35,18 @@ namespace MyApp.Core.Infrastructure
         bool IsCurrentConnectionSecured();
 
         /// <summary>
-        /// Gets store host location
+        /// Gets Tenant host location
         /// </summary>
         /// <param name="useSsl">Whether to get SSL secured URL</param>
-        /// <returns>Store host location</returns>
-        string GetStoreHost(bool useSsl);
+        /// <returns>Tenant host location</returns>
+        string GetTenantHost(bool useSsl);
 
         /// <summary>
-        /// Gets store location
+        /// Gets Tenant location
         /// </summary>
         /// <param name="useSsl">Whether to get SSL secured URL; pass null to determine automatically</param>
-        /// <returns>Store location</returns>
-        string GetStoreLocation(bool? useSsl = null);
+        /// <returns>Tenant location</returns>
+        string GetTenantLocation(bool? useSsl = null);
 
         /// <summary>
         /// Returns true if the requested resource is one of the typical resources that needn't be processed by the CMS engine.

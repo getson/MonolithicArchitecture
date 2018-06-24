@@ -23,18 +23,18 @@ namespace MyApp.Core.Domain.Services.Localization
         /// <remarks>
         /// {0} : language ID
         /// </remarks>
-        private const string LANGUAGES_BY_ID_KEY = "Nop.language.id-{0}";
+        private const string LANGUAGES_BY_ID_KEY = "MyApp.language.id-{0}";
         /// <summary>
         /// Key for caching
         /// </summary>
         /// <remarks>
         /// {0} : show hidden records?
         /// </remarks>
-        private const string LANGUAGES_ALL_KEY = "Nop.language.all-{0}";
+        private const string LANGUAGES_ALL_KEY = "MyApp.language.all-{0}";
         /// <summary>
         /// Key pattern to clear cache
         /// </summary>
-        private const string LANGUAGES_PATTERN_KEY = "Nop.language.";
+        private const string LANGUAGES_PATTERN_KEY = "MyApp.language.";
 
         #endregion
 
@@ -55,7 +55,6 @@ namespace MyApp.Core.Domain.Services.Localization
         /// </summary>
         /// <param name="cacheManager">Cache manager</param>
         /// <param name="languageRepository">Language repository</param>
-        /// <param name="storeMappingService">Store mapping service</param>
         /// <param name="settingService">Setting service</param>
         /// <param name="localizationSettings">Localization settings</param>
         /// <param name="eventPublisher">Event publisher</param>
@@ -114,11 +113,11 @@ namespace MyApp.Core.Domain.Services.Localization
         /// <summary>
         /// Gets all languages
         /// </summary>
-        /// <param name="storeId">Load records allowed only in a specified store; pass 0 to load all records</param>
+        /// <param name="tenantId">Load records allowed only in a specified Tenant; pass 0 to load all records</param>
         /// <param name="showHidden">A value indicating whether to show hidden records</param>
         /// <param name="loadCacheableCopy">A value indicating whether to load a copy that could be cached (workaround until Entity Framework supports 2-level caching)</param>
         /// <returns>Languages</returns>
-        public virtual IList<Language> GetAllLanguages(bool showHidden = false, int storeId = 0, bool loadCacheableCopy = true)
+        public virtual IList<Language> GetAllLanguages(bool showHidden = false, int tenantId = 0, bool loadCacheableCopy = true)
         {
             Func<IList<Language>> loadLanguagesFunc = () =>
             {

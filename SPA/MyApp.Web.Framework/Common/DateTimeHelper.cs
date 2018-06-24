@@ -175,23 +175,23 @@ namespace MyApp.Web.Framework.Common
 
             //default timezone
             if (timeZoneInfo == null)
-                timeZoneInfo = DefaultStoreTimeZone;
+                timeZoneInfo = DefaultTenantTimeZone;
 
             return timeZoneInfo;
         }
 
         /// <summary>
-        /// Gets or sets a default store time zone
+        /// Gets or sets a default Tenant time zone
         /// </summary>
-        public virtual TimeZoneInfo DefaultStoreTimeZone
+        public virtual TimeZoneInfo DefaultTenantTimeZone
         {
             get
             {
                 TimeZoneInfo timeZoneInfo = null;
                 try
                 {
-                    if (!string.IsNullOrEmpty(_dateTimeSettings.DefaultStoreTimeZoneId))
-                        timeZoneInfo = FindTimeZoneById(_dateTimeSettings.DefaultStoreTimeZoneId);
+                    if (!string.IsNullOrEmpty(_dateTimeSettings.DefaultTenantTimeZoneId))
+                        timeZoneInfo = FindTimeZoneById(_dateTimeSettings.DefaultTenantTimeZoneId);
                 }
                 catch (Exception exc)
                 {
@@ -211,7 +211,7 @@ namespace MyApp.Web.Framework.Common
                     defaultTimeZoneId = value.Id;
                 }
 
-                _dateTimeSettings.DefaultStoreTimeZoneId = defaultTimeZoneId;
+                _dateTimeSettings.DefaultTenantTimeZoneId = defaultTimeZoneId;
                 _settingService.SaveSetting(_dateTimeSettings);
             }
         }

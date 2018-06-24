@@ -93,7 +93,7 @@ namespace MyApp.Web.Framework.Infrastructure.Extensions
                         var originalPath = context.HttpContext.Request.Path;
                         var originalQueryString = context.HttpContext.Request.QueryString;
 
-                        //store the original paths in special feature, so we can use it later
+                        //Tenant the original paths in special feature, so we can use it later
                         context.HttpContext.Features.Set<IStatusCodeReExecuteFeature>(new StatusCodeReExecuteFeature()
                         {
                             OriginalPathBase = context.HttpContext.Request.PathBase.Value,

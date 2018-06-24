@@ -186,11 +186,11 @@ namespace MyApp.Web.Framework.Common
             if (!IsRequestAvailable())
                 return string.Empty;
 
-            //get store location
-            var storeLocation = GetStoreLocation(useSsl ?? IsCurrentConnectionSecured());
+            //get Tenant location
+            var TenantLocation = GetTenantLocation(useSsl ?? IsCurrentConnectionSecured());
 
             //add local path to the URL
-            var pageUrl = $"{storeLocation.TrimEnd('/')}{_httpContextAccessor.HttpContext.Request.Path}";
+            var pageUrl = $"{TenantLocation.TrimEnd('/')}{_httpContextAccessor.HttpContext.Request.Path}";
 
             //add query string to the URL
             if (includeQueryString)
@@ -225,11 +225,11 @@ namespace MyApp.Web.Framework.Common
         }
 
         /// <summary>
-        /// Gets store host location
+        /// Gets Tenant host location
         /// </summary>
         /// <param name="useSsl">Whether to get SSL secured URL</param>
-        /// <returns>Store host location</returns>
-        public virtual string GetStoreHost(bool useSsl)
+        /// <returns>Tenant host location</returns>
+        public virtual string GetTenantHost(bool useSsl)
         {
             if (!IsRequestAvailable())
                 return string.Empty;
@@ -240,31 +240,31 @@ namespace MyApp.Web.Framework.Common
                 return string.Empty;
 
             //add scheme to the URL
-            var storeHost = $"{(useSsl ? Uri.UriSchemeHttps : Uri.UriSchemeHttp)}://{hostHeader.FirstOrDefault()}";
+            var TenantHost = $"{(useSsl ? Uri.UriSchemeHttps : Uri.UriSchemeHttp)}://{hostHeader.FirstOrDefault()}";
 
             //ensure that host is ended with slash
-            storeHost = $"{storeHost.TrimEnd('/')}/";
+            TenantHost = $"{TenantHost.TrimEnd('/')}/";
 
-            return storeHost;
+            return TenantHost;
         }
 
         /// <summary>
-        /// Gets store location
+        /// Gets Tenant location
         /// </summary>
         /// <param name="useSsl">Whether to get SSL secured URL; pass null to determine automatically</param>
-        /// <returns>Store location</returns>
-        public virtual string GetStoreLocation(bool? useSsl = null)
+        /// <returns>Tenant location</returns>
+        public virtual string GetTenantLocation(bool? useSsl = null)
         {
-            var storeLocation = string.Empty;
+            var TenantLocation = string.Empty;
 
-            //get store host
-            var storeHost = GetStoreHost(useSsl ?? IsCurrentConnectionSecured());
-            if (!string.IsNullOrEmpty(storeHost))
+            //get Tenant host
+            var TenantHost = GetTenantHost(useSsl ?? IsCurrentConnectionSecured());
+            if (!string.IsNullOrEmpty(TenantHost))
             {
                 //add application path base if exists
-                storeLocation = IsRequestAvailable() ? $"{storeHost.TrimEnd('/')}{_httpContextAccessor.HttpContext.Request.PathBase}" : storeHost;
+                TenantLocation = IsRequestAvailable() ? $"{TenantHost.TrimEnd('/')}{_httpContextAccessor.HttpContext.Request.PathBase}" : TenantHost;
             }
-            return storeLocation;
+            return TenantLocation;
         }
 
         /// <summary>
@@ -384,7 +384,7 @@ namespace MyApp.Web.Framework.Common
             var success = TryWriteWebConfig();
             if (!success)
             {
-                throw new MyAppException("MyAppCommerce needs to be restarted due to a configuration change, but was unable to do so." + Environment.NewLine +
+                throw new MyAppException("MyApp needs to be restarted due to a configuration change, but was unable to do so." + Environment.NewLine +
                     "To prevent this issue in the future, a change to the web server configuration is required:" + Environment.NewLine +
                     "- run the application in a full trust environment, or" + Environment.NewLine +
                     "- give the application write access to the 'web.config' file.");

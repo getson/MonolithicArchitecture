@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyApp.Core.Common;
 using MyApp.Core.Configuration;
-using MyApp.Core.Domain.Security;
+using MyApp.Core.Domain.Configuration;
 using MyApp.Core.Domain.Services.Logging;
 using MyApp.Core.Infrastructure;
 using MyApp.Core.Interfaces.Caching;
@@ -104,7 +104,7 @@ namespace MyApp.Web.Framework.Infrastructure.Extensions
             services.AddAntiforgery(options =>
             {
                 options.Cookie.Name = ".MyApp.Antiforgery";
-                options.Cookie.SecurePolicy = DataSettingsManager.DatabaseIsInstalled && EngineContext.Current.Resolve<SecuritySettings>().ForceSslForAllPages
+                options.Cookie.SecurePolicy = DataSettingsManager.DatabaseIsInstalled && EngineContext.Current.Resolve<CommonSettings>().ForceSslForAllPages
                     ? CookieSecurePolicy.SameAsRequest : CookieSecurePolicy.None;
             });
         }
@@ -119,7 +119,7 @@ namespace MyApp.Web.Framework.Infrastructure.Extensions
             {
                 options.Cookie.Name = ".MyApp.Session";
                 options.Cookie.HttpOnly = true;
-                options.Cookie.SecurePolicy = DataSettingsManager.DatabaseIsInstalled && EngineContext.Current.Resolve<SecuritySettings>().ForceSslForAllPages
+                options.Cookie.SecurePolicy = DataSettingsManager.DatabaseIsInstalled && EngineContext.Current.Resolve<CommonSettings>().ForceSslForAllPages
                     ? CookieSecurePolicy.SameAsRequest : CookieSecurePolicy.None;
             });
         }
@@ -132,9 +132,9 @@ namespace MyApp.Web.Framework.Infrastructure.Extensions
         {
             //check whether to persist data protection in Redis
             var myAppConfig = services.BuildServiceProvider().GetRequiredService<MyAppConfig>();
-            if (myAppConfig.RedisCachingEnabled && myAppConfig.PersistDataProtectionKeysToRedis)
+            if (myAppConfig.RedisCachingEnabled && myAppConfig.PersistDataProtectionKeyTenantdis)
             {
-                //store keys in Redis
+                //Tenant keys in Redis
                 services.AddDataProtection().PersistKeysToRedis(() =>
                 {
                     var redisConnectionWrapper = EngineContext.Current.Resolve<IRedisConnectionWrapper>();

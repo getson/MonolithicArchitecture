@@ -2,6 +2,7 @@
 
 namespace MyApp.Infrastructure.Data
 {
+   
     /// <summary>
     /// Represents data provider type enumeration
     /// </summary>

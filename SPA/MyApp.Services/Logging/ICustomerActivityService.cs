@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MyApp.Core.Domain.Logging;
 using MyApp.Core.Interfaces.Pagination;
 
 namespace MyApp.Core.Domain.Services.Logging
