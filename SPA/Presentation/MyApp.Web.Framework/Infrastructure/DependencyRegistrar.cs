@@ -13,6 +13,8 @@ using MyApp.Core.Interfaces.Infrastructure;
 using MyApp.Core.Interfaces.Plugin;
 using MyApp.Core.Interfaces.Web;
 using MyApp.Infrastructure.Cache;
+using MyApp.Infrastructure.Cache.Providers;
+using MyApp.Infrastructure.Cache.Providers.Redis;
 using MyApp.Infrastructure.Data;
 using MyApp.Infrastructure.ExternalServices.Plugins;
 using MyApp.Services.Installation;
