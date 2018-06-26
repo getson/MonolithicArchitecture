@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using MyApp.Core.Interfaces.Plugin;
 
-namespace MyApp.Core.Domain.Services.Plugins
+namespace MyApp.Services.Plugins
 {
     /// <summary>
     /// Represents a service for uploading application extensions (plugins or themes)

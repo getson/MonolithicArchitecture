@@ -5,13 +5,14 @@ using System.IO.Compression;
 using System.Linq;
 using System.Runtime.Serialization;
 using Microsoft.AspNetCore.Http;
+using MyApp.Core;
 using MyApp.Core.Interfaces.Infrastructure;
 using MyApp.Core.Interfaces.Plugin;
 using MyApp.Core.Plugins;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace MyApp.Core.Domain.Services.Plugins
+namespace MyApp.Services.Plugins
 {
     /// <summary>
     /// Represents the implementation of a service for uploading application extensions (plugins or themes)

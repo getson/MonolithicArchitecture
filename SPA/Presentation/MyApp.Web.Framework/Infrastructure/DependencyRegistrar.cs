@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using MyApp.Core.Configuration;
 using MyApp.Core.Domain.Services.Events;
 using MyApp.Core.Domain.Services.Logging;
-using MyApp.Core.Domain.Services.Plugins;
 using MyApp.Core.Interfaces.Caching;
 using MyApp.Core.Interfaces.Data;
 using MyApp.Core.Interfaces.Infrastructure;
@@ -18,6 +17,7 @@ using MyApp.Infrastructure.Cache.Providers.Redis;
 using MyApp.Infrastructure.Data;
 using MyApp.Infrastructure.ExternalServices.Plugins;
 using MyApp.Services.Installation;
+using MyApp.Services.Plugins;
 using MyApp.Web.Framework.Common;
 using MyApp.Web.Framework.Routing;
 

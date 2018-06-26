@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Design;
 using MyApp.Infrastructure.Data;
 
-namespace SPA
+namespace SPA.Migrations
 {
     /// <summary>
     /// factory for implementing design time creation of db context

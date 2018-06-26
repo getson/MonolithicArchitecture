@@ -2,7 +2,7 @@
 using MyApp.Core.Interfaces.Plugin;
 using MyApp.Core.Plugins;
 
-namespace MyApp.Core.Domain.Services.Plugins
+namespace MyApp.Services.Plugins
 {
     /// <summary>
     /// Plugin finder
@@ -23,7 +23,7 @@ namespace MyApp.Core.Domain.Services.Plugins
         /// <param name="pluginDescriptor">Plugin descriptor to check</param>
         /// <param name="user">User</param>
         /// <returns>True if authorized; otherwise, false</returns>
-        bool AuthorizedForUser(PluginDescriptor pluginDescriptor, User.User user);
+        bool AuthorizedForUser(PluginDescriptor pluginDescriptor, Core.Domain.User.User user);
 
         /// <summary>
         /// Gets plugin groups
@@ -41,7 +41,7 @@ namespace MyApp.Core.Domain.Services.Plugins
         /// <param name="group">Filter by plugin group; pass null to load all records</param>
         /// <returns>Plugins</returns>
         IEnumerable<T> GetPlugins<T>(LoadPluginsMode loadMode = LoadPluginsMode.InstalledOnly,
-            User.User user = null, int TenantId = 0, string group = null) where T : class, IPlugin;
+            Core.Domain.User.User user = null, int TenantId = 0, string group = null) where T : class, IPlugin;
 
         /// <summary>
         /// Get plugin descriptors
@@ -52,7 +52,7 @@ namespace MyApp.Core.Domain.Services.Plugins
         /// <param name="group">Filter by plugin group; pass null to load all records</param>
         /// <returns>Plugin descriptors</returns>
         IEnumerable<PluginDescriptor> GetPluginDescriptors(LoadPluginsMode loadMode = LoadPluginsMode.InstalledOnly,
-            User.User user = null, int TenantId = 0, string group = null);
+            Core.Domain.User.User user = null, int TenantId = 0, string group = null);
 
         /// <summary>
         /// Get plugin descriptors
@@ -64,7 +64,7 @@ namespace MyApp.Core.Domain.Services.Plugins
         /// <param name="group">Filter by plugin group; pass null to load all records</param>
         /// <returns>Plugin descriptors</returns>
         IEnumerable<PluginDescriptor> GetPluginDescriptors<T>(LoadPluginsMode loadMode = LoadPluginsMode.InstalledOnly,
-            User.User user = null, int TenantId = 0, string group = null) where T : class, IPlugin;
+            Core.Domain.User.User user = null, int TenantId = 0, string group = null) where T : class, IPlugin;
 
         /// <summary>
         /// Get a plugin descriptor by its system name
