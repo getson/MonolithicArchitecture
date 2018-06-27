@@ -4,7 +4,7 @@
     /// A container for entities that are updated.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class EntityUpdatedEvent<T> where T : BaseEntity
+    public class EntityUpdatedEvent<T> where T : BaseEntity, IDomainEvent
     {
         /// <summary>
         /// Ctor

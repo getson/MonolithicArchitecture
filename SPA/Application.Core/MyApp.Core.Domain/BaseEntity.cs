@@ -15,13 +15,11 @@ namespace MyApp.Core.Domain
         /// <summary>
         /// Is transient
         /// </summary>
-        /// <param name="obj">Object</param>
         /// <returns>Result</returns>
-        private static bool IsTransient(BaseEntity obj)
+        public  bool IsTransient()
         {
-            return obj != null && Equals(obj.Id, default(int));
+            return  Equals(Id, default(int));
         }
-
         /// <summary>
         /// Get unproxied type
         /// </summary>
@@ -54,7 +52,7 @@ namespace MyApp.Core.Domain
             if (ReferenceEquals(this, other))
                 return true;
 
-            if (IsTransient(this) || IsTransient(other) || !Equals(Id, other.Id)) 
+            if (IsTransient() || other.IsTransient() || !Equals(Id, other.Id)) 
                 return false;
 
             var otherType = other.GetUnproxiedType();

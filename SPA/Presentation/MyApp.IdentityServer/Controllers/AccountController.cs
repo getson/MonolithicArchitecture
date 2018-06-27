@@ -93,11 +93,8 @@ namespace MyApp.IdentityServer.Controllers
                     // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
                     return Redirect(model.ReturnUrl);
                 }
-                else
-                {
-                    // since we don't have a valid context, then we just go back to the home page
-                    return Redirect("~/");
-                }
+                // since we don't have a valid context, then we just go back to the home page
+                return Redirect("~/");
             }
 
             if (ModelState.IsValid)
@@ -154,20 +151,17 @@ namespace MyApp.IdentityServer.Controllers
                 // windows authentication needs special handling
                 return await ProcessWindowsLoginAsync(returnUrl);
             }
-            else
+            // start challenge and roundtrip the return URL and 
+            var props = new AuthenticationProperties()
             {
-                // start challenge and roundtrip the return URL and 
-                var props = new AuthenticationProperties()
+                RedirectUri = Url.Action("ExternalLoginCallback"),
+                Items =
                 {
-                    RedirectUri = Url.Action("ExternalLoginCallback"),
-                    Items =
-                    {
-                        { "returnUrl", returnUrl },
-                        { "scheme", provider },
-                    }
-                };
-                return Challenge(props, provider);
-            }
+                    { "returnUrl", returnUrl },
+                    { "scheme", provider },
+                }
+            };
+            return Challenge(props, provider);
         }
 
         /// <summary>
@@ -435,13 +429,10 @@ namespace MyApp.IdentityServer.Controllers
                     props);
                 return Redirect(props.RedirectUri);
             }
-            else
-            {
-                // trigger windows auth
-                // since windows auth don't support the redirect uri,
-                // this URL is re-triggered when we call challenge
-                return Challenge(AccountOptions.WindowsAuthenticationSchemeName);
-            }
+            // trigger windows auth
+            // since windows auth don't support the redirect uri,
+            // this URL is re-triggered when we call challenge
+            return Challenge(AccountOptions.WindowsAuthenticationSchemeName);
         }
 
         private (TestUser user, string provider, string providerUserId, IEnumerable<Claim> claims) FindUserFromExternalProvider(AuthenticateResult result)

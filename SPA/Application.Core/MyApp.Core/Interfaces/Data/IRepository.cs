@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using MyApp.Core.Domain;
+using MyApp.Core.Domain.Specification;
 
 namespace MyApp.Core.Interfaces.Data
 {
@@ -55,6 +58,9 @@ namespace MyApp.Core.Interfaces.Data
         /// <param name="entities">Entities</param>
         void Delete(IEnumerable<TEntity> entities);
 
+        IEnumerable<TEntity> AllMatching(ISpecification<TEntity> specification);
+        IEnumerable<TEntity> GetFiltered(Expression<Func<TEntity, bool>> filter);
+        IEnumerable<TEntity> GetFilteredNoTracking(Expression<Func<TEntity, bool>> filter);
         #endregion
 
         #region Properties

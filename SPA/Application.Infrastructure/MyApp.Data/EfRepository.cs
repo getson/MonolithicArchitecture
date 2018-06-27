@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using MyApp.Core.Domain;
+using MyApp.Core.Domain.Specification;
 using MyApp.Core.Interfaces.Data;
 
 namespace MyApp.Infrastructure.Data
@@ -22,7 +24,7 @@ namespace MyApp.Infrastructure.Data
         #endregion
 
         #region Ctor
-        
+
         public EfRepository(IDbContext context)
         {
             _context = context;
@@ -31,7 +33,7 @@ namespace MyApp.Infrastructure.Data
         #endregion
 
         #region Utilities
-        
+
         /// <summary>
         /// Rollback of entity changes and return full error message
         /// </summary>
@@ -190,6 +192,21 @@ namespace MyApp.Infrastructure.Data
                 //ensure that the detailed error text is saved in the Log
                 throw new Exception(GetFullErrorTextAndRollbackEntityChanges(exception), exception);
             }
+        }
+
+        public virtual IEnumerable<TEntity> AllMatching(ISpecification<TEntity> specification)
+        {
+            return Entities.Where(specification.SatisfiedBy());
+        }
+
+        public IEnumerable<TEntity> GetFiltered(Expression<Func<TEntity, bool>> filter)
+        {
+            return Entities.Where(filter);
+        }
+
+        public IEnumerable<TEntity> GetFilteredNoTracking(Expression<Func<TEntity, bool>> filter)
+        {
+            return TableNoTracking.Where(filter);
         }
 
         #endregion
