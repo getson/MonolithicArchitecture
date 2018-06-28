@@ -14,7 +14,7 @@ namespace MyApp.Mapping
         /// <summary>
         /// Get or set the identifier
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Get or set the long description for this product

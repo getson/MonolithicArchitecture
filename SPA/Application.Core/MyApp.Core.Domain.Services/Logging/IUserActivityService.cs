@@ -82,9 +82,5 @@ namespace MyApp.Core.Domain.Services.Logging
         /// <returns>Activity log item</returns>
         ActivityLog GetActivityById(int activityLogId);
 
-        /// <summary>
-        /// Clears activity log
-        /// </summary>
-        void ClearAllActivities();
     }
 }

@@ -28,7 +28,7 @@ namespace MyApp.Services.Sales
         /// Remove existing customer
         /// </summary>
         /// <param name="customerId">The customer identifier</param>
-        void RemoveCustomer(Guid customerId);
+        void RemoveCustomer(int customerId);
 
         /// <summary>
         /// Find paged customers
@@ -51,7 +51,7 @@ namespace MyApp.Services.Sales
         /// </summary>
         /// <param name="customerId">The customer identifier</param>
         /// <returns>Selected customer representation if exist or null if not exist</returns>
-        CustomerDto FindCustomer(Guid customerId);
+        CustomerDto FindCustomer(int customerId);
 
         /// <summary>
         /// Find paged countries

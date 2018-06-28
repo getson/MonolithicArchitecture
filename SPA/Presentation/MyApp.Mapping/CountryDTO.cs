@@ -14,7 +14,7 @@ namespace MyApp.Mapping
         /// <summary>
         /// The country identifier
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// The country name

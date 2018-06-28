@@ -31,7 +31,6 @@ namespace MyApp.Core.Domain.Services.Logging
         {
             FilteredLog(logger, LogLevel.Information, message, exception,user);
         }
-
         /// <summary>
         /// Warning
         /// </summary>

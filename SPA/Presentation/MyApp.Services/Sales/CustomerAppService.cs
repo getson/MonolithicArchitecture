@@ -109,7 +109,7 @@ namespace MyApp.Services.Sales
                 _logger.InsertLog(LogLevel.Error, "warning_CannotUpdateNonExistingCustomer");
         }
 
-        public void RemoveCustomer(Guid customerId)
+        public void RemoveCustomer(int customerId)
         {
             var customer = _customerRepository.GetById(customerId);
 
@@ -159,7 +159,7 @@ namespace MyApp.Services.Sales
             return null;
         }
 
-        public CustomerDto FindCustomer(Guid customerId)
+        public CustomerDto FindCustomer(int customerId)
         {
             //recover existing customer and map
             var customer = _customerRepository.GetById(customerId);

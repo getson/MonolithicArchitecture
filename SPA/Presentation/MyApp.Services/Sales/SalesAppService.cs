@@ -115,7 +115,7 @@ namespace MyApp.Services.Sales
         public OrderDto AddNewOrder(OrderDto orderDto)
         {
             //if orderdto data is not valid
-            if (orderDto == null || orderDto.CustomerId == Guid.Empty)
+            if (orderDto == null || orderDto.CustomerId == 0)
                 throw new ArgumentException("warning_CannotAddOrderWithNullInformation");
 
             var customer = _customerRepository.GetById(orderDto.CustomerId);

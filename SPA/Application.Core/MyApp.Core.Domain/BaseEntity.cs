@@ -1,4 +1,5 @@
 using System;
+using MyApp.Core.Domain.Common;
 
 namespace MyApp.Core.Domain
 {
@@ -16,9 +17,9 @@ namespace MyApp.Core.Domain
         /// Is transient
         /// </summary>
         /// <returns>Result</returns>
-        public  bool IsTransient()
+        public bool IsTransient()
         {
-            return  Equals(Id, default(int));
+            return Equals(Id, default(int));
         }
         /// <summary>
         /// Get unproxied type
@@ -28,6 +29,38 @@ namespace MyApp.Core.Domain
         {
             return GetType();
         }
+
+        private bool IsProxy()
+        {
+
+            var type = this.GetType();
+            //e.g. "CustomerProxy" will be derived from "Customer". And "Customer" is derived from BaseEntity
+            return type.BaseType != null && type.BaseType.BaseType != null && type.BaseType.BaseType == typeof(BaseEntity);
+        }
+
+        /// <summary>
+        /// Get unproxied entity type
+        /// </summary>
+        /// <remarks> If your Entity Framework context is proxy-enabled, 
+        /// the runtime will create a proxy instance of your entities, 
+        /// i.e. a dynamically generated class which inherits from your entity class 
+        /// and overrides its virtual properties by inserting specific code useful for example 
+        /// for tracking changes and lazy loading.
+        /// </remarks>
+        /// <returns></returns>
+        public Type GetUnproxiedEntityType()
+        {
+
+            Type type = null;
+            //cachable entity (get the base entity type)
+            type = IsProxy() ? GetType().BaseType : GetType();
+
+            if (type == null)
+                throw new Exception("Original entity type cannot be loaded");
+
+            return type;
+        }
+
 
         /// <summary>
         /// Equals
@@ -52,7 +85,7 @@ namespace MyApp.Core.Domain
             if (ReferenceEquals(this, other))
                 return true;
 
-            if (IsTransient() || other.IsTransient() || !Equals(Id, other.Id)) 
+            if (IsTransient() || other.IsTransient() || !Equals(Id, other.Id))
                 return false;
 
             var otherType = other.GetUnproxiedType();

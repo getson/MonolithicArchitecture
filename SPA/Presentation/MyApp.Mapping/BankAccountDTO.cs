@@ -14,7 +14,7 @@ namespace MyApp.Mapping
         /// <summary>
         /// The bank account identifier
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Bank account number
@@ -34,7 +34,7 @@ namespace MyApp.Mapping
         /// <summary>
         /// Get or set the customer id
         /// </summary>
-        public Guid CustomerId { get; set; }
+        public int CustomerId { get; set; }
 
         /// <summary>
         /// The owner first name

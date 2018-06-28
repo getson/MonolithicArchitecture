@@ -22,7 +22,7 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
         /// Get or set the bank account number
         /// </summary>
 
-        public BankAccountNumber BankAccountNumber { get; set; }
+        public virtual BankAccountNumber BankAccountNumber { get; set; }
 
         /// <summary>
         /// Get the IBAN  (International Bank Account Number)

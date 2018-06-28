@@ -15,7 +15,7 @@ namespace MyApp.Mapping
         /// <summary>
         /// Get or set the order identifier
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Get or set the order number
@@ -35,7 +35,7 @@ namespace MyApp.Mapping
         /// <summary>
         /// Get or set asociated customer identifier
         /// </summary>
-        public Guid CustomerId { get; set; }        
+        public int CustomerId { get; set; }        
 
         /// <summary>
         /// Get or set the customer fullname

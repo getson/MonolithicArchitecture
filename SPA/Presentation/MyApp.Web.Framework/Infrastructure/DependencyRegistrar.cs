@@ -18,6 +18,7 @@ using MyApp.Infrastructure.Data;
 using MyApp.Infrastructure.ExternalServices.Plugins;
 using MyApp.Services.Installation;
 using MyApp.Services.Plugins;
+using MyApp.Services.Sales;
 using MyApp.Web.Framework.Common;
 using MyApp.Web.Framework.Routing;
 
@@ -85,10 +86,10 @@ namespace MyApp.Web.Framework.Infrastructure
             //services
 
             builder.RegisterType<DefaultLogger>().As<ILogger>().InstancePerLifetimeScope();
-
+            builder.RegisterType<UserActivityService>().As<IUserActivityService>().InstancePerLifetimeScope();
             builder.RegisterType<UploadService>().As<IUploadService>().InstancePerLifetimeScope();
-
             builder.RegisterType<RoutePublisher>().As<IRoutePublisher>().SingleInstance();
+
             builder.RegisterType<EventPublisher>().As<IEventPublisher>().SingleInstance();
             builder.RegisterType<SubscriptionService>().As<ISubscriptionService>().SingleInstance();
 
@@ -103,6 +104,9 @@ namespace MyApp.Web.Framework.Infrastructure
                     builder.RegisterType<CodeFirstInstallationService>().As<IInstallationService>().InstancePerLifetimeScope();
             }
 
+            builder.RegisterType<CustomerAppService>().As<ICustomerAppService>().InstancePerLifetimeScope();
+            builder.RegisterType<SalesAppService>().As<ISalesAppService>().InstancePerLifetimeScope();
+            builder.RegisterType<BankAppService>().As<IBankAppService>().InstancePerLifetimeScope();
             //event consumers
             var consumers = typeFinder.FindClassesOfType(typeof(IConsumer<>)).ToList();
             foreach (var consumer in consumers)

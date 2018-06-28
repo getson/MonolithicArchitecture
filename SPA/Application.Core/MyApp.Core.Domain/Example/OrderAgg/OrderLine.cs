@@ -57,7 +57,7 @@ namespace MyApp.Core.Domain.Example.OrderAgg
         /// <summary>
         /// Get or set associated product 
         /// </summary>
-        public Product Product { get; private set; }
+        public virtual Product Product { get; private set; }
 
         #endregion
 

@@ -6,7 +6,7 @@ namespace MyApp.Core.Domain.Example.CustomerAgg
     /// <summary>
     /// A list of customer specifications. You can learn
     /// about Specifications, Enhanced Query Objects or repository methods
-    /// reading our Architecture guide and checking the DesignNotes.txt in Domain.Seedwork project
+    /// reading our Architecture inte and checking the DesignNotes.txt in Domain.Seedwork project
     /// </summary>
     public static class CustomerSpecifications
     {

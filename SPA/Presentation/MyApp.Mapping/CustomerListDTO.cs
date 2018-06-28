@@ -14,7 +14,7 @@ namespace MyApp.Mapping
         /// <summary>
         /// The customer identifier
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// The customer first name

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using MyApp.Core.Domain.Common;
@@ -14,7 +15,7 @@ namespace MyApp.Core.Domain.Example.OrderAgg
     {
         #region Members
 
-        private HashSet<OrderLine> _lines;
+        private ICollection<OrderLine> _orderLines;
 
         #endregion
 
@@ -73,14 +74,14 @@ namespace MyApp.Core.Domain.Example.OrderAgg
         {
             get
             {
-                if (_lines == null)
-                    _lines = new HashSet<OrderLine>();
+                if (_orderLines == null)
+                    _orderLines = new Collection<OrderLine>();
 
-                return _lines;
+                return _orderLines;
             }
             set
             {
-                _lines = new HashSet<OrderLine>(value);
+                _orderLines = value;
             }
         }
 
