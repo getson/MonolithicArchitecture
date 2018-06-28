@@ -10,7 +10,7 @@ using MyApp.Core.Domain.Services.Logging;
 using MyApp.Core.Infrastructure;
 using MyApp.Infrastructure.Common;
 using MyApp.Infrastructure.Data;
-using MyApp.Web.Framework.Infrastructure.Extensions;
+using SPA.Infrastructure;
 
 namespace SPA
 {/// <summary>
@@ -40,9 +40,10 @@ namespace SPA
         {
 
             //add MyAppConfig configuration parameters
-            services.ConfigureStartupConfig<MyAppConfig>(Configuration.GetSection("MyApp"));
+            services.AddConfiguration<MyAppConfig>(Configuration.GetSection("MyApp"));
             //add hosting configuration parameters
-            services.ConfigureStartupConfig<HostingConfig>(Configuration.GetSection("Hosting"));
+            services.AddConfiguration<HostingConfig>(Configuration.GetSection("Hosting"));
+
             //add accessor to HttpContext
             services.AddHttpContextAccessor();
 
@@ -93,6 +94,7 @@ namespace SPA
 
 
         }
+
         #region Helper
         private static (string rootPath, string contentPath) GetPaths(IServiceCollection services)
         {

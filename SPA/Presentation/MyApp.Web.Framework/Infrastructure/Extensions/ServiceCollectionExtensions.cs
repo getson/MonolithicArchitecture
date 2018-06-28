@@ -11,6 +11,8 @@ using MyApp.Core.Domain.Services.Logging;
 using MyApp.Core.Infrastructure;
 using MyApp.Infrastructure.Common;
 using MyApp.Infrastructure.Data;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using StackExchange.Profiling.Storage;
 
 namespace MyApp.Web.Framework.Infrastructure.Extensions
@@ -20,33 +22,6 @@ namespace MyApp.Web.Framework.Infrastructure.Extensions
     /// </summary>
     public static class ServiceCollectionExtensions
     {
-
-        /// <summary>
-        /// Create, bind and register as service the specified configuration parameters 
-        /// </summary>
-        /// <typeparam name="TConfig">Configuration parameters</typeparam>
-        /// <param name="services">Collection of service descriptors</param>
-        /// <param name="configuration">Set of key/value application configuration properties</param>
-        /// <returns>Instance of configuration parameters</returns>
-        public static TConfig ConfigureStartupConfig<TConfig>(this IServiceCollection services, IConfiguration configuration) where TConfig : class, new()
-        {
-            if (services == null)
-                throw new ArgumentNullException(nameof(services));
-
-            if (configuration == null)
-                throw new ArgumentNullException(nameof(configuration));
-
-            //create instance of config
-            var config = new TConfig();
-
-            //bind it to the appropriate section of configuration
-            configuration.Bind(config);
-
-            //and register it as a service
-            services.AddSingleton(config);
-
-            return config;
-        }
 
         /// <summary>
         /// Add and configure MVC for the application
@@ -60,8 +35,13 @@ namespace MyApp.Web.Framework.Infrastructure.Extensions
 
             mvcBuilder.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //TODO tocheck getson this option
-            //MVC now serializes JSON with camel case names by default, use this code to avoid it
-            //mvcBuilder.AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+          
+            mvcBuilder.AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                //MVC now serializes JSON with camel case names by default, use this code to avoid it
+                //options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            });
 
             return mvcBuilder;
         }
