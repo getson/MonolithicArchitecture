@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using MyApp.Mapping;
 using MyApp.Mapping.DTOs;
-using MyApp.Services.Sales;
+using MyApp.Services.Example;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -42,7 +42,7 @@ namespace SPA.Controllers
         }
         // POST: api/customers/
         [HttpPost]
-        public CustomerDto Post([FromBody]CustomerDto customer)
+        public CustomerDto Post(CustomerDto customer)
         {
             return _customerAppService.AddNewCustomer(customer);
         }

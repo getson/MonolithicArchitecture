@@ -35,12 +35,12 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
         {
             get
             {
-                if (this.BankAccountNumber != null)
+                if (BankAccountNumber != null)
                     return string.Format("ES{0} {1} {2} {0}{3}",
-                                        this.BankAccountNumber.CheckDigits,
-                                        this.BankAccountNumber.NationalBankCode,
-                                        this.BankAccountNumber.OfficeNumber,
-                                        this.BankAccountNumber.AccountNumber);
+                                        BankAccountNumber.CheckDigits,
+                                        BankAccountNumber.NationalBankCode,
+                                        BankAccountNumber.OfficeNumber,
+                                        BankAccountNumber.AccountNumber);
                 return "No Bank Account Provided";
             }
             set
@@ -158,7 +158,7 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
             {
                 checked
                 {
-                    this.Balance -= amount;
+                    Balance -= amount;
 
                     //anotate activity
                     var activity = new BankAccountActivity()
@@ -170,7 +170,7 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
                     };
                     //activity.GenerateNewIdentity();
 
-                    this.BankAccountActivity.Add(activity);
+                    BankAccountActivity.Add(activity);
                 }
             }
             else
@@ -184,7 +184,7 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
         /// <returns>True if is posible perform the operation, else false</returns>
         public bool CanBeWithdrawed(decimal amount)
         {
-            return !Locked && (this.Balance >= amount);
+            return !Locked && (Balance >= amount);
         }
 
         /// <summary>
@@ -201,8 +201,8 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
             }
 
             //fix id and set reference
-            this.CustomerId = customer.Id;
-            this.Customer = customer;
+            CustomerId = customer.Id;
+            Customer = customer;
         }
 
         /// <summary>
@@ -214,8 +214,8 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
             if (customerId !=0)
             {
                 //fix a new id 
-                this.Customer = null;
-                this.CustomerId = customerId;
+                Customer = null;
+                CustomerId = customerId;
             }
         }
 
@@ -227,20 +227,20 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
         {
             var validationResults = new List<ValidationResult>();
 
-            if (this.BankAccountNumber == null)
+            if (BankAccountNumber == null)
                 validationResults.Add(new ValidationResult("validation_BankAccountNumberCannotBeNull", new string[] { "BankAccountNumber" }));
             else
             {
-                if (String.IsNullOrWhiteSpace(this.BankAccountNumber.AccountNumber))
+                if (String.IsNullOrWhiteSpace(BankAccountNumber.AccountNumber))
                     validationResults.Add(new ValidationResult("validation_BankAccountBankAccountNumberCannotBeNull", new string[] { "AccountNumber" }));
 
-                if (String.IsNullOrWhiteSpace(this.BankAccountNumber.CheckDigits))
+                if (String.IsNullOrWhiteSpace(BankAccountNumber.CheckDigits))
                     validationResults.Add(new ValidationResult("validation_BankAccountBankCheckDigitsCannotBeNull", new string[] { "CheckDigits" }));
 
-                if (String.IsNullOrWhiteSpace(this.BankAccountNumber.NationalBankCode))
+                if (String.IsNullOrWhiteSpace(BankAccountNumber.NationalBankCode))
                     validationResults.Add(new ValidationResult("validation_BankAccountBankNationalBankCodeCannotBeNull", new string[] { "NationalBankCode" }));
 
-                if (String.IsNullOrWhiteSpace(this.BankAccountNumber.OfficeNumber))
+                if (String.IsNullOrWhiteSpace(BankAccountNumber.OfficeNumber))
                     validationResults.Add(new ValidationResult("validation_BankAccountBankOfficeNumberCannotBeNull", new string[] { "OfficeNumber" }));
             }
 

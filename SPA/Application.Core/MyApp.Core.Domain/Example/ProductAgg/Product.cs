@@ -43,7 +43,7 @@ namespace MyApp.Core.Domain.Example.ProductAgg
         /// <param name="unitPrice">The new unit price</param>
         public void ChangeUnitPrice(decimal unitPrice)
         {
-            this.UnitPrice = unitPrice;
+            UnitPrice = unitPrice;
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace MyApp.Core.Domain.Example.ProductAgg
         /// <param name="units">The added items to stock</param>
         public void IncrementStock(int units = 0)
         {
-            this.AmountInStock += units;
+            AmountInStock += units;
         }
 
         #endregion

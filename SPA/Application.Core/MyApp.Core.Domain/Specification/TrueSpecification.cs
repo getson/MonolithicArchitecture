@@ -17,7 +17,7 @@ namespace MyApp.Core.Domain.Specification
         /// SatisfiedBy
         /// </summary>
         /// <returns></returns>
-        public override System.Linq.Expressions.Expression<Func<TEntity, bool>> SatisfiedBy()
+        public override Expression<Func<TEntity, bool>> SatisfiedBy()
         {
             //Create "result variable" transform adhoc execution plan in prepared plan
             //for more info: http://geeks.ms/blogs/unai/2010/07/91/ef-4-0-performance-tips-1.aspx

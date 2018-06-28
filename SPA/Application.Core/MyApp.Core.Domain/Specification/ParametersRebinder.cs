@@ -18,7 +18,7 @@ namespace MyApp.Core.Domain.Specification
         /// <param name="map">Map specification</param>
         public ParameterRebinder(Dictionary<ParameterExpression, ParameterExpression> map)
         {
-            this._map = map ?? new Dictionary<ParameterExpression, ParameterExpression>();
+            _map = map ?? new Dictionary<ParameterExpression, ParameterExpression>();
         }
         /// <summary>
         /// Replate parameters in expression with a Map information

@@ -122,7 +122,7 @@ namespace MyApp.Core.Domain.Example.OrderAgg
             //create new order line
             var newOrderLine = new OrderLine()
             {
-                OrderId = this.Id,
+                OrderId = Id,
                 ProductId = productId,
                 Amount = amount,
                 Discount = discount,
@@ -132,7 +132,7 @@ namespace MyApp.Core.Domain.Example.OrderAgg
             //newOrderLine.GenerateNewIdentity();
 
             //add order line
-            this.OrderLines.Add(newOrderLine);
+            OrderLines.Add(newOrderLine);
 
             //return added orderline
             return newOrderLine;
@@ -150,8 +150,8 @@ namespace MyApp.Core.Domain.Example.OrderAgg
                 throw new ArgumentException("exception_CannotAssociateTransientOrNullCustomer");
             }
 
-            this.Customer = customer;
-            this.CustomerId = customer.Id;
+            Customer = customer;
+            CustomerId = customer.Id;
         }
 
         /// <summary>
@@ -162,8 +162,8 @@ namespace MyApp.Core.Domain.Example.OrderAgg
         {
             if (customerId != 0)
             {
-                this.Customer = null;
-                this.CustomerId = customerId;
+                Customer = null;
+                CustomerId = customerId;
             }
         }
 
@@ -173,8 +173,8 @@ namespace MyApp.Core.Domain.Example.OrderAgg
         /// </summary>
         public void SetOrderAsDelivered()
         {
-            this.DeliveryDate = DateTime.UtcNow;
-            this.IsDelivered = true;
+            DeliveryDate = DateTime.UtcNow;
+            IsDelivered = true;
         }
         /// <summary>
         /// Get the total of the order
@@ -202,9 +202,9 @@ namespace MyApp.Core.Domain.Example.OrderAgg
         {
             //Check if amout of order is valid for the customer credit
 
-            decimal customerCredit = this.Customer.CreditLimit;
+            decimal customerCredit = Customer.CreditLimit;
 
-            if (this.GetOrderTotal() > customerCredit)
+            if (GetOrderTotal() > customerCredit)
                 return false;
 
             //TODO: This is a parametrizable value, you can 
@@ -213,7 +213,7 @@ namespace MyApp.Core.Domain.Example.OrderAgg
             decimal maxTotalOrder = 1000000M;
 
             //Check if total order exceeds  limits 
-            if (this.GetOrderTotal() > maxTotalOrder)
+            if (GetOrderTotal() > maxTotalOrder)
                 return false;
 
             return true;

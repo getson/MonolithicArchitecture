@@ -29,7 +29,7 @@ namespace MyApp.Services.Plugins
 
         public UploadService(IMyAppFileProvider fileProvider)
         {
-            this.FileProvider = fileProvider;
+            FileProvider = fileProvider;
         }
 
         #endregion

@@ -35,8 +35,8 @@ namespace MyApp.Core.Domain.Example.CountryAgg
             if (string.IsNullOrWhiteSpace(countryIsoCode))
                 throw new ArgumentNullException("countryIsoCode");
 
-            this.CountryName = countryName;
-            this.CountryIsoCode = countryIsoCode;
+            CountryName = countryName;
+            CountryIsoCode = countryIsoCode;
         }
 
         #endregion

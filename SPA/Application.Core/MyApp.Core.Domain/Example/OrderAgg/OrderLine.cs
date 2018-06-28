@@ -81,8 +81,8 @@ namespace MyApp.Core.Domain.Example.OrderAgg
             }
 
             //fix identifiers
-            this.ProductId = product.Id;
-            this.Product = product;
+            ProductId = product.Id;
+            Product = product;
         }
 
         #endregion

@@ -2,19 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using MyApp.Core.Common;
-using MyApp.Core.Domain;
 using MyApp.Core.Domain.Example.CustomerAgg;
 using MyApp.Core.Domain.Example.OrderAgg;
 using MyApp.Core.Domain.Example.ProductAgg;
 using MyApp.Core.Domain.Logging;
 using MyApp.Core.Domain.Services.Logging;
-using MyApp.Core.Interfaces.Data;
 using MyApp.Infrastructure.Common;
 using MyApp.Infrastructure.Common.Validator;
-using MyApp.Mapping;
 using MyApp.Mapping.DTOs;
 
-namespace MyApp.Services.Sales
+namespace MyApp.Services.Example
 {
     public class SalesAppService : ISalesAppService
     {

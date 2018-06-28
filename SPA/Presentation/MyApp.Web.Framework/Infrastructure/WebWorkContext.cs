@@ -33,8 +33,8 @@ namespace MyApp.Web.Framework.Infrastructure
         public WebWorkContext(IHttpContextAccessor httpContextAccessor,
             IUserAgentHelper userAgentHelper)
         {
-            this._httpContextAccessor = httpContextAccessor;
-            this._userAgentHelper = userAgentHelper;
+            _httpContextAccessor = httpContextAccessor;
+            _userAgentHelper = userAgentHelper;
 
 
         }
@@ -73,7 +73,7 @@ namespace MyApp.Web.Framework.Infrastructure
                 cookieExpiresDate = DateTime.Now.AddMonths(-1);
 
             //set new cookie value
-            var options = new Microsoft.AspNetCore.Http.CookieOptions
+            var options = new CookieOptions
             {
                 HttpOnly = true,
                 Expires = cookieExpiresDate

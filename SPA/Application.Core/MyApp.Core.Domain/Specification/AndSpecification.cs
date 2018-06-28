@@ -31,8 +31,8 @@ namespace MyApp.Core.Domain.Specification
             if (rightSide == (ISpecification<T>)null)
                 throw new ArgumentNullException("rightSide");
 
-            this._leftSideSpecification = leftSide;
-            this._rightSideSpecification = rightSide;
+            _leftSideSpecification = leftSide;
+            _rightSideSpecification = rightSide;
         }
 
         #endregion

@@ -32,9 +32,9 @@ namespace MyApp.Core.Domain.Example.ProductAgg
             if (string.IsNullOrWhiteSpace(licenseCode))
                 throw new ArgumentNullException("licenseCode");
 
-            this.Title = title;
-            this.Description = description;
-            this.LicenseCode = licenseCode;
+            Title = title;
+            Description = description;
+            LicenseCode = licenseCode;
         }
 
         #endregion

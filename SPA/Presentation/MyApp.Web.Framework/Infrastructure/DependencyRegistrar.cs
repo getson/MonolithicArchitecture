@@ -21,9 +21,9 @@ using MyApp.Infrastructure.Common.Adapter;
 using MyApp.Infrastructure.Common.Validator;
 using MyApp.Infrastructure.Data;
 using MyApp.Infrastructure.ExternalServices.Plugins;
+using MyApp.Services.Example;
 using MyApp.Services.Installation;
 using MyApp.Services.Plugins;
-using MyApp.Services.Sales;
 using MyApp.Web.Framework.Common;
 using MyApp.Web.Framework.Routing;
 

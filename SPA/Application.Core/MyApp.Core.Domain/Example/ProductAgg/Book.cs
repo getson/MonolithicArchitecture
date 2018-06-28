@@ -40,10 +40,10 @@ namespace MyApp.Core.Domain.Example.ProductAgg
             if (string.IsNullOrWhiteSpace(isbn))
                 throw new ArgumentNullException("isbn");
 
-            this.Title = title;
-            this.Description = description;
-            this.Publisher = publisher;
-            this.Isbn = isbn;
+            Title = title;
+            Description = description;
+            Publisher = publisher;
+            Isbn = isbn;
         }
 
         #endregion

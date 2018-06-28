@@ -9,31 +9,35 @@ namespace MyApp.Core.Domain.Example.CustomerAgg
     /// </summary>
     public static class CustomerFactory
     {
-      
         /// <summary>
         /// Create a new transient customer
         /// </summary>
         /// <param name="firstName">The customer firstName</param>
         /// <param name="lastName">The customer lastName</param>
+        /// <param name="company"></param>
         /// <param name="country">The associated country to this customer</param>
+        /// <param name="telephone"></param>
+        /// <param name="address"></param>
         /// <returns>A valid customer</returns>
-        public static Customer CreateCustomer(string firstName, string lastName, string telephone,string company,Country country, Address address)
+        public static Customer CreateCustomer(string firstName, string lastName, string telephone, string company, Country country, Address address)
         {
             //create new instance and set identity
-            var customer = new Customer();
+            var customer = new Customer
+            {
 
-            //customer.GenerateNewIdentity();
+                //customer.GenerateNewIdentity();
 
-            //set data
+                //set data
 
-            customer.FirstName = firstName;
-            customer.LastName = lastName;
+                FirstName = firstName,
+                LastName = lastName,
 
-            customer.Company = company;
-            customer.Telephone = telephone;
+                Company = company,
+                Telephone = telephone,
 
-            //set address
-            customer.Address = address;
+                //set address
+                Address = address
+            };
 
             //customer is enabled by default
             customer.Enable();

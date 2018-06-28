@@ -48,10 +48,10 @@ namespace MyApp.Core.Domain.Example.CustomerAgg
         /// <param name="addressLine2"></param>
         public Address(string city, string zipCode, string addressLine1, string addressLine2)
         {
-            this.City = city;
-            this.ZipCode = zipCode;
-            this.AddressLine1 = addressLine1;
-            this.AddressLine2 = addressLine2;
+            City = city;
+            ZipCode = zipCode;
+            AddressLine1 = addressLine1;
+            AddressLine2 = addressLine2;
         }
 
         private Address() { }  //required for EF

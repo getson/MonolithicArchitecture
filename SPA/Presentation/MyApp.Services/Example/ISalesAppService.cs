@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using MyApp.Mapping;
 using MyApp.Mapping.DTOs;
 
-namespace MyApp.Services.Sales
+namespace MyApp.Services.Example
 {
     /// <summary>
     /// This is the contract that the application will interact to perform various operations for "sales management".

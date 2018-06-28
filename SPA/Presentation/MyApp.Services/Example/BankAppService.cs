@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Mime;
 using System.Transactions;
 using Microsoft.EntityFrameworkCore.Internal;
-using MyApp.Core.Domain;
 using MyApp.Core.Domain.Example.BankAccountAgg;
 using MyApp.Core.Domain.Example.CustomerAgg;
 using MyApp.Core.Domain.Services.Banking;
 using MyApp.Core.Domain.Services.Logging;
-using MyApp.Core.Interfaces.Data;
 using MyApp.Infrastructure.Common;
 using MyApp.Infrastructure.Common.Validator;
-using MyApp.Mapping;
 using MyApp.Mapping.DTOs;
 using ILogger = MyApp.Core.Domain.Services.Logging.ILogger;
 using LogLevel = MyApp.Core.Domain.Logging.LogLevel;
 
-namespace MyApp.Services.Sales
+namespace MyApp.Services.Example
 {
     /// <summary>
     /// The bank management service implementation

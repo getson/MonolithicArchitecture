@@ -25,7 +25,7 @@ namespace MyApp.Services.Plugins
 
         public PluginFinder(IEventPublisher eventPublisher)
         {
-            this._eventPublisher = eventPublisher;
+            _eventPublisher = eventPublisher;
         }
 
         #endregion

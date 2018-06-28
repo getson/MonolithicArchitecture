@@ -2,19 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using MyApp.Core.Common;
-using MyApp.Core.Domain;
 using MyApp.Core.Domain.Example.CountryAgg;
 using MyApp.Core.Domain.Example.CustomerAgg;
 using MyApp.Core.Domain.Logging;
 using MyApp.Core.Domain.Services.Logging;
 using MyApp.Core.Domain.Specification;
-using MyApp.Core.Interfaces.Data;
 using MyApp.Infrastructure.Common;
 using MyApp.Infrastructure.Common.Validator;
-using MyApp.Mapping;
 using MyApp.Mapping.DTOs;
 
-namespace MyApp.Services.Sales
+namespace MyApp.Services.Example
 {
     /// <summary>
     /// The customer management service implementation.
@@ -44,12 +41,6 @@ namespace MyApp.Services.Sales
                                   IUserActivityService userActivity,
                                   ILogger logger)
         {
-            if (customerRepository == null)
-                throw new ArgumentNullException("customerRepository");
-
-            if (countryRepository == null)
-                throw new ArgumentNullException("countryRepository");
-
             _countryRepository = countryRepository;
             _customerRepository = customerRepository;
             _userActivityService = userActivity;
@@ -149,11 +140,9 @@ namespace MyApp.Services.Sales
             ISpecification<Customer> spec = enabledCustomers & filter;
 
             //Query this criteria
-            var customers = _customerRepository.AllMatching(spec);
+            var customers = _customerRepository.AllMatching(spec).ToList();
 
-            if (customers != null
-                &&
-                customers.Any())
+            if (customers.Any())
             {
                 //return adapted data
                 return customers.ProjectedAsCollection<CustomerListDto>();

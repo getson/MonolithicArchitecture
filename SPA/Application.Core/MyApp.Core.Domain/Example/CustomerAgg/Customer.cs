@@ -33,7 +33,7 @@ namespace MyApp.Core.Domain.Example.CustomerAgg
         /// <summary>
         /// Get or set the full name of this customer
         /// </summary>
-        public string FullName => string.Format("{0}, {1}", this.LastName, this.FirstName);
+        public string FullName => string.Format("{0}, {1}", LastName, FirstName);
 
         /// <summary>
         /// Get or set the telephone 
@@ -101,7 +101,7 @@ namespace MyApp.Core.Domain.Example.CustomerAgg
         public void Disable()
         {
             if (IsEnabled)
-                this._isEnabled = false;
+                _isEnabled = false;
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace MyApp.Core.Domain.Example.CustomerAgg
         public void Enable()
         {
             if (!IsEnabled)
-                this._isEnabled = true;
+                _isEnabled = true;
         }
 
         /// <summary>
@@ -125,9 +125,9 @@ namespace MyApp.Core.Domain.Example.CustomerAgg
             }
 
             //fix relation
-            this.CountryId = country.Id;
+            CountryId = country.Id;
 
-            this.Country = country;
+            Country = country;
         }
 
         /// <summary>
@@ -139,9 +139,9 @@ namespace MyApp.Core.Domain.Example.CustomerAgg
             if (countryId != 0)
             {
                 //fix relation
-                this.CountryId = countryId;
+                CountryId = countryId;
 
-                this.Country = null;
+                Country = null;
             }
         }
 
@@ -152,7 +152,7 @@ namespace MyApp.Core.Domain.Example.CustomerAgg
         public void ChangeTheCurrentCredit(decimal newCredit)
         {
             if (IsEnabled)
-                this.CreditLimit = newCredit;
+                CreditLimit = newCredit;
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace MyApp.Core.Domain.Example.CustomerAgg
             if (picture != null &&
                 !picture.IsTransient())
             {
-                this.Picture = picture;
+                Picture = picture;
             }
         }
 
@@ -177,21 +177,21 @@ namespace MyApp.Core.Domain.Example.CustomerAgg
             var validationResults = new List<ValidationResult>();
 
             //-->Check first name property
-            if (string.IsNullOrWhiteSpace(this.FirstName))
+            if (string.IsNullOrWhiteSpace(FirstName))
             {
                 validationResults.Add(new ValidationResult("validation_CustomerFirstNameCannotBeNull",
                                                            new[] { "FirstName" }));
             }
 
             //-->Check last name property
-            if (string.IsNullOrWhiteSpace(this.LastName))
+            if (string.IsNullOrWhiteSpace(LastName))
             {
                 validationResults.Add(new ValidationResult("validation_CustomerLastNameCannotBeBull",
                                                            new[] { "LastName" }));
             }
 
             //-->Check Country identifier
-            if (this.CountryId == 0)
+            if (CountryId == 0)
                 validationResults.Add(new ValidationResult("validation_CustomerCountryIdCannotBeEmpty",
                                                           new[] { "CountryId" }));
 

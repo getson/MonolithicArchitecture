@@ -20,10 +20,10 @@ namespace MyApp.Core.Domain.Example.OrderAgg
         /// <param name="shippingZipCode">The shipping zip code</param>
         public ShippingInfo(string shippingName, string shippingAddress, string shippingCity, string shippingZipCode)
         {
-            this.ShippingName = shippingName;
-            this.ShippingAddress = shippingAddress;
-            this.ShippingCity = shippingCity;
-            this.ShippingZipCode = shippingZipCode;
+            ShippingName = shippingName;
+            ShippingAddress = shippingAddress;
+            ShippingCity = shippingCity;
+            ShippingZipCode = shippingZipCode;
 
         }
 

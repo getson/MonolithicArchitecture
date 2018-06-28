@@ -33,7 +33,7 @@ namespace MyApp.Core.Domain
         private bool IsProxy()
         {
 
-            var type = this.GetType();
+            var type = GetType();
             //e.g. "CustomerProxy" will be derived from "Customer". And "Customer" is derived from BaseEntity
             return type.BaseType != null && type.BaseType.BaseType != null && type.BaseType.BaseType == typeof(BaseEntity);
         }
