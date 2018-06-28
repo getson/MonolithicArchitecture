@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyApp.Infrastructure.Data;
 
 namespace MyApp.Infrastructure.Data.Migrations.Migrations
 {
     [DbContext(typeof(MyAppObjectContext))]
-    partial class MyAppObjectContextModelSnapshot : ModelSnapshot
+    [Migration("20180627235417_Second")]
+    partial class Second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -288,19 +290,6 @@ namespace MyApp.Infrastructure.Data.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
-                });
-
-            modelBuilder.Entity("MyApp.Core.Domain.Example.ProductAgg.Book", b =>
-                {
-                    b.HasBaseType("MyApp.Core.Domain.Example.ProductAgg.Product");
-
-                    b.Property<string>("Isbn");
-
-                    b.Property<string>("Publisher");
-
-                    b.ToTable("Book");
-
-                    b.HasDiscriminator().HasValue("Book");
                 });
 
             modelBuilder.Entity("MyApp.Core.Domain.Example.ProductAgg.Software", b =>

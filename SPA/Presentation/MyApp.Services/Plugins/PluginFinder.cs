@@ -97,21 +97,21 @@ namespace MyApp.Services.Plugins
         /// Check whether the plugin is available in a certain Tenant
         /// </summary>
         /// <param name="pluginDescriptor">Plugin descriptor to check</param>
-        /// <param name="TenantId">Tenant identifier to check</param>
+        /// <param name="tenantId">Tenant identifier to check</param>
         /// <returns>true - available; false - no</returns>
-        public virtual bool AuthenticateTenant(PluginDescriptor pluginDescriptor, int TenantId)
+        public virtual bool AuthenticateTenant(PluginDescriptor pluginDescriptor, int tenantId)
         {
             if (pluginDescriptor == null)
                 throw new ArgumentNullException(nameof(pluginDescriptor));
 
             //no validation required
-            if (TenantId == 0)
+            if (tenantId == 0)
                 return true;
 
             if (!pluginDescriptor.LimitedToTenants.Any())
                 return true;
 
-            return pluginDescriptor.LimitedToTenants.Contains(TenantId);
+            return pluginDescriptor.LimitedToTenants.Contains(tenantId);
         }
 
         /// <summary>
@@ -148,13 +148,13 @@ namespace MyApp.Services.Plugins
         /// <typeparam name="T">The type of plugins to get.</typeparam>
         /// <param name="loadMode">Load plugins mode</param>
         /// <param name="user">Load records allowed only to a specified User; pass null to ignore ACL permissions</param>
-        /// <param name="TenantId">Load records allowed only in a specified Tenant; pass 0 to load all records</param>
+        /// <param name="tenantId">Load records allowed only in a specified Tenant; pass 0 to load all records</param>
         /// <param name="group">Filter by plugin group; pass null to load all records</param>
         /// <returns>Plugins</returns>
         public virtual IEnumerable<T> GetPlugins<T>(LoadPluginsMode loadMode = LoadPluginsMode.InstalledOnly,
-            Core.Domain.User.User user = null, int TenantId = 0, string group = null) where T : class, IPlugin
+            Core.Domain.User.User user = null, int tenantId = 0, string group = null) where T : class, IPlugin
         {
-            return GetPluginDescriptors<T>(loadMode, user, TenantId, group).Select(p => p.Instance<T>());
+            return GetPluginDescriptors<T>(loadMode, user, tenantId, group).Select(p => p.Instance<T>());
         }
 
         /// <summary>
@@ -162,16 +162,16 @@ namespace MyApp.Services.Plugins
         /// </summary>
         /// <param name="loadMode">Load plugins mode</param>
         /// <param name="user">Load records allowed only to a specified User; pass null to ignore ACL permissions</param>
-        /// <param name="TenantId">Load records allowed only in a specified Tenant; pass 0 to load all records</param>
+        /// <param name="tenantId">Load records allowed only in a specified Tenant; pass 0 to load all records</param>
         /// <param name="group">Filter by plugin group; pass null to load all records</param>
         /// <returns>Plugin descriptors</returns>
         public virtual IEnumerable<PluginDescriptor> GetPluginDescriptors(LoadPluginsMode loadMode = LoadPluginsMode.InstalledOnly,
-            Core.Domain.User.User user = null, int TenantId = 0, string group = null)
+            Core.Domain.User.User user = null, int tenantId = 0, string group = null)
         {
             //ensure plugins are loaded
             EnsurePluginsAreLoaded();
 
-            return _plugins.Where(p => CheckLoadMode(p, loadMode) && AuthorizedForUser(p, user) && AuthenticateTenant(p, TenantId) && CheckGroup(p, group));
+            return _plugins.Where(p => CheckLoadMode(p, loadMode) && AuthorizedForUser(p, user) && AuthenticateTenant(p, tenantId) && CheckGroup(p, group));
         }
 
         /// <summary>
@@ -180,14 +180,14 @@ namespace MyApp.Services.Plugins
         /// <typeparam name="T">The type of plugin to get.</typeparam>
         /// <param name="loadMode">Load plugins mode</param>
         /// <param name="user">Load records allowed only to a specified User; pass null to ignore ACL permissions</param>
-        /// <param name="TenantId">Load records allowed only in a specified Tenant; pass 0 to load all records</param>
+        /// <param name="tenantId">Load records allowed only in a specified Tenant; pass 0 to load all records</param>
         /// <param name="group">Filter by plugin group; pass null to load all records</param>
         /// <returns>Plugin descriptors</returns>
         public virtual IEnumerable<PluginDescriptor> GetPluginDescriptors<T>(LoadPluginsMode loadMode = LoadPluginsMode.InstalledOnly,
-            Core.Domain.User.User user = null, int TenantId = 0, string group = null) 
+            Core.Domain.User.User user = null, int tenantId = 0, string group = null) 
             where T : class, IPlugin
         {
-            return GetPluginDescriptors(loadMode, user, TenantId, group)
+            return GetPluginDescriptors(loadMode, user, tenantId, group)
                 .Where(p => typeof(T).IsAssignableFrom(p.PluginType));
         }
 

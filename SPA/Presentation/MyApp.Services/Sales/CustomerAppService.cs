@@ -87,18 +87,18 @@ namespace MyApp.Services.Sales
             return null;
         }
 
-        public void UpdateCustomer(CustomerDto CustomerDto)
+        public void UpdateCustomer(CustomerDto customerDto)
         {
-            if (CustomerDto == null || CustomerDto.Id == 0)
+            if (customerDto == null || customerDto.Id == 0)
                 throw new ArgumentException("warning_CannotUpdateCustomerWithEmptyInformation");
 
             //get persisted item
-            var persisted = _customerRepository.GetById(CustomerDto.Id);
+            var persisted = _customerRepository.GetById(customerDto.Id);
 
             if (persisted != null) //if customer exist
             {
                 //materialize from customer dto
-                var current = MaterializeCustomerFromDto(CustomerDto);
+                var current = MaterializeCustomerFromDto(customerDto);
 
                 //Merge changes
                 _customerRepository.Update(current);
@@ -217,28 +217,28 @@ namespace MyApp.Services.Sales
             }
         }
 
-        Customer MaterializeCustomerFromDto(CustomerDto CustomerDto)
+        Customer MaterializeCustomerFromDto(CustomerDto customerDto)
         {
             //create the current instance with changes from CustomerDto
-            var address = new Address(CustomerDto.AddressCity, CustomerDto.AddressZipCode, CustomerDto.AddressAddressLine1, CustomerDto.AddressAddressLine2);
+            var address = new Address(customerDto.AddressCity, customerDto.AddressZipCode, customerDto.AddressAddressLine1, customerDto.AddressAddressLine2);
 
             Country country = new Country("Spain", "es-ES");
             // country.ChangeCurrentIdentity(CustomerDto.CountryId);
 
-            var current = CustomerFactory.CreateCustomer(CustomerDto.FirstName,
-                                                         CustomerDto.LastName,
-                                                         CustomerDto.Telephone,
-                                                         CustomerDto.Company,
+            var current = CustomerFactory.CreateCustomer(customerDto.FirstName,
+                                                         customerDto.LastName,
+                                                         customerDto.Telephone,
+                                                         customerDto.Company,
                                                          country,
                                                          address);
 
-            current.SetTheCountryReference(CustomerDto.CountryId);
+            current.SetTheCountryReference(customerDto.CountryId);
 
             //set credit
-            current.ChangeTheCurrentCredit(CustomerDto.CreditLimit);
+            current.ChangeTheCurrentCredit(customerDto.CreditLimit);
 
             //set picture
-            var picture = new Picture { RawPhoto = CustomerDto.PictureRawPhoto };
+            var picture = new Picture { RawPhoto = customerDto.PictureRawPhoto };
             //picture.ChangeCurrentIdentity(current.Id);
 
             current.ChangePicture(picture);

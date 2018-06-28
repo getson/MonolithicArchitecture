@@ -9,21 +9,20 @@ namespace MyApp.Services.Sales
     /// The responsability of this contract is to orchestrate operations, check security, cache,
     /// adapt entities to DTO etc
     /// </summary>
-    public interface ICustomerAppService
-        :IDisposable
+    public interface ICustomerAppService : IDisposable
     {
         /// <summary>
         /// Add new customer 
         /// </summary>
-        /// <param name="CustomerDto">The customer information</param>
+        /// <param name="customerDto">The customer information</param>
         /// <returns>Added customer representation</returns>
-        CustomerDto AddNewCustomer(CustomerDto CustomerDto);
+        CustomerDto AddNewCustomer(CustomerDto customerDto);
 
         /// <summary>
         /// Update existing customer
         /// </summary>
-        /// <param name="CustomerDto">The CustomerDto with changes</param>
-        void UpdateCustomer(CustomerDto CustomerDto);
+        /// <param name="customerDto">The CustomerDto with changes</param>
+        void UpdateCustomer(CustomerDto customerDto);
 
         /// <summary>
         /// Remove existing customer
