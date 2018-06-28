@@ -36,7 +36,7 @@ namespace SPA
         /// </summary>
         /// <param name="services"></param>
 
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
 
             //add MyAppConfig configuration parameters
@@ -58,6 +58,7 @@ namespace SPA
                 //log application start
                 EngineContext.Current.Resolve<ILogger>().Information("Application started", null);
             }
+            return serviceProvider;
         }
         /// <summary>
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

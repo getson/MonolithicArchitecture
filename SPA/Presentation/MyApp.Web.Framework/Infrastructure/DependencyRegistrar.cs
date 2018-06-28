@@ -4,6 +4,7 @@ using Autofac;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using MyApp.Core.Configuration;
+using MyApp.Core.Domain.Services.Banking;
 using MyApp.Core.Domain.Services.Events;
 using MyApp.Core.Domain.Services.Logging;
 using MyApp.Core.Interfaces.Caching;
@@ -106,6 +107,7 @@ namespace MyApp.Web.Framework.Infrastructure
 
             builder.RegisterType<CustomerAppService>().As<ICustomerAppService>().InstancePerLifetimeScope();
             builder.RegisterType<SalesAppService>().As<ISalesAppService>().InstancePerLifetimeScope();
+            builder.RegisterType<BankTransferService>().As<IBankTransferService>().InstancePerLifetimeScope();
             builder.RegisterType<BankAppService>().As<IBankAppService>().InstancePerLifetimeScope();
             //event consumers
             var consumers = typeFinder.FindClassesOfType(typeof(IConsumer<>)).ToList();
