@@ -20,9 +20,9 @@ namespace MyApp.Core.Domain.Events
 
         public static void Dispatch(IDomainEvent domainEvent)
         {
-            foreach (Type handlerType in _handlers)
+            foreach (var handlerType in _handlers)
             {
-                bool canHandleEvent = handlerType.GetInterfaces()
+                var canHandleEvent = handlerType.GetInterfaces()
                     .Any(x => x.IsGenericType
                         && x.GetGenericTypeDefinition() == typeof(IHandler<>)
                         && x.GenericTypeArguments[0] == domainEvent.GetType());

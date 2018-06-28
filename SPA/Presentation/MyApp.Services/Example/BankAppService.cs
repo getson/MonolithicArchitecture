@@ -40,15 +40,6 @@ namespace MyApp.Services.Example
                               IUserActivityService activityLogService,
                               ILogger logger)
         {
-            //check preconditions
-            if (bankAccountRepository == null)
-                throw new ArgumentNullException("bankAccountRepository");
-
-            if (customerRepository == null)
-                throw new ArgumentNullException("customerRepository");
-
-            if (transferService == null)
-                throw new ArgumentNullException("trasferService");
 
             _bankAccountRepository = bankAccountRepository;
             _customerRepository = customerRepository;
@@ -136,7 +127,7 @@ namespace MyApp.Services.Example
 
                 if (source != null & target != null) // if all accounts exist
                 {
-                    using (TransactionScope scope = new TransactionScope())
+                    using (var scope = new TransactionScope())
                     {
                         //perform transfer
                         _transferService.PerformTransfer(amount, source, target);

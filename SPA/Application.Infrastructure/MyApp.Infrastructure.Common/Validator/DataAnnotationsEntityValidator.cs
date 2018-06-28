@@ -67,7 +67,7 @@ namespace MyApp.Infrastructure.Common.Validator
             if (item == null)
                 return false;
 
-            List<string> validationErrors = new List<string>();
+            var validationErrors = new List<string>();
 
             SetValidatableObjectErrors(item, validationErrors);
             SetValidationAttributeErrors(item, validationErrors);
@@ -80,7 +80,7 @@ namespace MyApp.Infrastructure.Common.Validator
             if (item == null)
                 return null;
 
-            List<string> validationErrors = new List<string>();
+            var validationErrors = new List<string>();
 
             SetValidatableObjectErrors(item, validationErrors);
             SetValidationAttributeErrors(item, validationErrors);

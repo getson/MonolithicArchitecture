@@ -182,7 +182,7 @@ namespace MyApp.Core.Domain.Example.OrderAgg
         /// <returns>The total of the order</returns>
         public decimal GetOrderTotal()
         {
-            decimal total = 0M;
+            var total = 0M;
 
             if (OrderLines != null //use OrderLines for lazy loading
                 &&
@@ -202,7 +202,7 @@ namespace MyApp.Core.Domain.Example.OrderAgg
         {
             //Check if amout of order is valid for the customer credit
 
-            decimal customerCredit = Customer.CreditLimit;
+            var customerCredit = Customer.CreditLimit;
 
             if (GetOrderTotal() > customerCredit)
                 return false;
@@ -210,7 +210,7 @@ namespace MyApp.Core.Domain.Example.OrderAgg
             //TODO: This is a parametrizable value, you can 
             //set this value in configuration or other system
 
-            decimal maxTotalOrder = 1000000M;
+            var maxTotalOrder = 1000000M;
 
             //Check if total order exceeds  limits 
             if (GetOrderTotal() > maxTotalOrder)

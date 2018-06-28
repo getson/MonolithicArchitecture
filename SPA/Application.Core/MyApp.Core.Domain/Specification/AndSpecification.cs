@@ -61,8 +61,8 @@ namespace MyApp.Core.Domain.Specification
         /// <returns></returns>
         public override Expression<Func<T, bool>> SatisfiedBy()
         {
-            Expression<Func<T, bool>> left = _leftSideSpecification.SatisfiedBy();
-            Expression<Func<T, bool>> right = _rightSideSpecification.SatisfiedBy();
+            var left = _leftSideSpecification.SatisfiedBy();
+            var right = _rightSideSpecification.SatisfiedBy();
 
             return (left.And(right));
 

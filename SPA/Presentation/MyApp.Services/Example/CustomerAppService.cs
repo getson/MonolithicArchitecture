@@ -213,7 +213,7 @@ namespace MyApp.Services.Example
             //create the current instance with changes from CustomerDto
             var address = new Address(customerDto.AddressCity, customerDto.AddressZipCode, customerDto.AddressAddressLine1, customerDto.AddressAddressLine2);
 
-            Country country = new Country("Spain", "es-ES");
+            var country = new Country("Spain", "es-ES");
             // country.ChangeCurrentIdentity(CustomerDto.CountryId);
 
             var current = CustomerFactory.CreateCustomer(customerDto.FirstName,

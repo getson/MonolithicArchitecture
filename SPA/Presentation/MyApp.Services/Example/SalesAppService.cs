@@ -39,15 +39,6 @@ namespace MyApp.Services.Example
                                ICustomerRepository customerRepository,//the associated customer repository
                                ILogger logger)
         {
-            if (orderRepository == null)
-                throw new ArgumentNullException("orderRepository");
-
-            if (productRepository == null)
-                throw new ArgumentNullException("productRepository");
-
-            if (customerRepository == null)
-                throw new ArgumentNullException("customerRepository");
-
             _orderRepository = orderRepository;
             _productRepository = productRepository;
             _customerRepository = customerRepository;
@@ -211,7 +202,7 @@ namespace MyApp.Services.Example
         Order CreateNewOrder(OrderDto dto, Customer associatedCustomer)
         {
             //Create a new order entity from factory
-            Order newOrder = OrderFactory.CreateOrder(associatedCustomer,
+            var newOrder = OrderFactory.CreateOrder(associatedCustomer,
                                                      dto.ShippingName,
                                                      dto.ShippingCity,
                                                      dto.ShippingAddress,
