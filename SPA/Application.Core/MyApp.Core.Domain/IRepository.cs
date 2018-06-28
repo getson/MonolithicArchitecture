@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using MyApp.Core.Domain;
 using MyApp.Core.Domain.Specification;
 
-namespace MyApp.Core.Interfaces.Data
+namespace MyApp.Core.Domain
 {
+
+
     /// <summary>
-    /// Represents an entity repository
+    /// Provide REPOSITORIES only for AGGREGATE roots
+    /// that actually need direct access. Keep the client focused on the model, delegating all
+    /// object storage and access to the REPOSITORIES.
     /// </summary>
     /// <typeparam name="TEntity">Entity type</typeparam>
     public partial interface IRepository<TEntity> where TEntity : BaseEntity

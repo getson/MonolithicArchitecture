@@ -1,4 +1,4 @@
-﻿namespace MyApp.Infrastructure.Common.Adapter
+﻿namespace MyApp.Core.Interfaces.Mapping
 {
     /// <summary>
     /// Base contract for adapter factory

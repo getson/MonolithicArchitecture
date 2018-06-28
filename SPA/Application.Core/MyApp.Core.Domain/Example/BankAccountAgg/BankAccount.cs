@@ -121,7 +121,7 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
             if (amount < 0) throw new ArgumentException("exception_BankAccountInvalidWithdrawAmount");
 
             //DepositMoney is a term of our Ubiquitous Language. Means adding money to this account
-            if (!this.Locked)
+            if (!Locked)
             {
                 //set balance
                 checked
@@ -138,7 +138,7 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
                     };
                     //activity.GenerateNewIdentity();
 
-                    this.BankAccountActivity.Add(activity);
+                    BankAccountActivity.Add(activity);
                 }
             }
             else

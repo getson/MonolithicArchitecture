@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MyApp.Core.Common;
+using MyApp.Core.Domain;
 using MyApp.Core.Domain.Example.CountryAgg;
 using MyApp.Core.Domain.Example.CustomerAgg;
 using MyApp.Core.Domain.Logging;
@@ -11,6 +12,7 @@ using MyApp.Core.Interfaces.Data;
 using MyApp.Infrastructure.Common;
 using MyApp.Infrastructure.Common.Validator;
 using MyApp.Mapping;
+using MyApp.Mapping.DTOs;
 
 namespace MyApp.Services.Sales
 {
@@ -21,8 +23,8 @@ namespace MyApp.Services.Sales
     {
         #region Members
 
-        readonly IRepository<Country> _countryRepository;
-        readonly IRepository<Customer> _customerRepository;
+        readonly ICountryRepository _countryRepository;
+        readonly ICustomerRepository _customerRepository;
         readonly IUserActivityService _userActivityService;
         private readonly ILogger _logger;
 
@@ -37,8 +39,8 @@ namespace MyApp.Services.Sales
         /// <param name="countryRepository">Associated country repository</param>
         /// <param name="userActivity"></param>
         /// <param name="logger"></param>
-        public CustomerAppService(IRepository<Country> countryRepository,
-                                  IRepository<Customer> customerRepository,
+        public CustomerAppService(ICountryRepository countryRepository,
+                                  ICustomerRepository customerRepository,
                                   IUserActivityService userActivity,
                                   ILogger logger)
         {

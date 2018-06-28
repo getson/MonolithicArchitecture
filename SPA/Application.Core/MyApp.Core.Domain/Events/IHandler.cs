@@ -1,6 +1,4 @@
-﻿using MyApp.Core.Domain.Events;
-
-namespace MyApp.Core.Domain.Common
+﻿namespace MyApp.Core.Domain.Events
 {
     public interface IHandler<T>
         where T : IDomainEvent

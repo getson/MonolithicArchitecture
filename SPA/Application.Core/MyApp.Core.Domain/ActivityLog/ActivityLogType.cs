@@ -1,9 +1,11 @@
-﻿namespace MyApp.Core.Domain.Logging
+﻿using MyApp.Core.Domain.Common;
+
+namespace MyApp.Core.Domain.ActivityLog
 {
     /// <summary>
     /// Represents an activity log type record
     /// </summary>
-    public partial class ActivityLogType : BaseEntity
+    public partial class ActivityLogType : AggregateRoot
     {
         /// <summary>
         /// Gets or sets the system keyword

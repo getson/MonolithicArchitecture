@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MyApp.Mapping
+namespace MyApp.Mapping.DTOs
 {
     /// <summary>
     /// This is the data transfer object for

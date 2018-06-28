@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MyApp.Mapping
+namespace MyApp.Mapping.DTOs
 {
     /// <summary>
     /// This is the data transfer object for

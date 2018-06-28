@@ -1,4 +1,6 @@
-﻿namespace MyApp.Infrastructure.Common.Adapter
+﻿using MyApp.Core.Interfaces.Mapping;
+
+namespace MyApp.Infrastructure.Common.Adapter
 {
     public static class TypeAdapterFactory
     {

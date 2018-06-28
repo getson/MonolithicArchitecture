@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MyApp.Core.Common;
+using MyApp.Core.Domain;
 using MyApp.Core.Domain.Example.CustomerAgg;
 using MyApp.Core.Domain.Example.OrderAgg;
 using MyApp.Core.Domain.Example.ProductAgg;
@@ -11,6 +12,7 @@ using MyApp.Core.Interfaces.Data;
 using MyApp.Infrastructure.Common;
 using MyApp.Infrastructure.Common.Validator;
 using MyApp.Mapping;
+using MyApp.Mapping.DTOs;
 
 namespace MyApp.Services.Sales
 {
@@ -18,9 +20,9 @@ namespace MyApp.Services.Sales
     {
         #region Members
 
-        readonly IRepository<Order> _orderRepository;
-        readonly IRepository<Product> _productRepository;
-        readonly IRepository<Customer> _customerRepository;
+        readonly IOrderRepository _orderRepository;
+        readonly IProductRepository _productRepository;
+        readonly ICustomerRepository _customerRepository;
         readonly ILogger _logger;
 
 
@@ -35,9 +37,9 @@ namespace MyApp.Services.Sales
         /// <param name="productRepository">The associated product repository</param>
         /// <param name="customerRepository">The associated customer repository</param>
         /// <param name="logger"></param>
-        public SalesAppService(IRepository<Product> productRepository,//associated product repository
-                               IRepository<Order> orderRepository,//associated order repository
-                               IRepository<Customer> customerRepository,//the associated customer repository
+        public SalesAppService(IProductRepository productRepository,//associated product repository
+                               IOrderRepository orderRepository,//associated order repository
+                               ICustomerRepository customerRepository,//the associated customer repository
                                ILogger logger)
         {
             if (orderRepository == null)

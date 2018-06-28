@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Hosting;
+using MyApp.Core.Domain;
+using MyApp.Core.Domain.ActivityLog;
 using MyApp.Core.Domain.Logging;
 using MyApp.Core.Infrastructure;
 using MyApp.Core.Interfaces.Data;
@@ -16,7 +18,7 @@ namespace MyApp.Services.Installation
     {
         #region Fields
 
-        private readonly IRepository<ActivityLogType> _activityLogTypeRepository;
+        private readonly IActivityLogTypeRepository _activityLogTypeRepository;
         private readonly IWebHelper _webHelper;
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IMyAppFileProvider _fileProvider;
@@ -28,7 +30,7 @@ namespace MyApp.Services.Installation
         public CodeFirstInstallationService( IWebHelper webHelper,
                 IHostingEnvironment hostingEnvironment,
                 IMyAppFileProvider fileProvider,
-                IRepository<ActivityLogType> activityTypeRepository)
+                IActivityLogTypeRepository activityTypeRepository)
         {
             _webHelper = webHelper;
             _hostingEnvironment = hostingEnvironment;

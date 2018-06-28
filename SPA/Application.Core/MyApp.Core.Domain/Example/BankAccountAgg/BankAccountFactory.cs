@@ -17,13 +17,15 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
         /// <returns>A valid bank account</returns>
         public static BankAccount CreateBankAccount(Customer customer, BankAccountNumber bankAccountNumber)
         {
-            var bankAccount = new BankAccount();
+            var bankAccount = new BankAccount
+            {
+                BankAccountNumber = bankAccountNumber
+            };
 
             //set the identity
             //bankAccount.GenerateNewIdentity();
 
             //set the bank account number
-            bankAccount.BankAccountNumber = bankAccountNumber;
 
             //set default bank account as unlocked
             bankAccount.UnLock();

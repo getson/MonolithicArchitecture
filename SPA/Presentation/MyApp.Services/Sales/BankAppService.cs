@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Mime;
 using System.Transactions;
 using Microsoft.EntityFrameworkCore.Internal;
+using MyApp.Core.Domain;
 using MyApp.Core.Domain.Example.BankAccountAgg;
 using MyApp.Core.Domain.Example.CustomerAgg;
 using MyApp.Core.Domain.Services.Banking;
@@ -11,6 +12,7 @@ using MyApp.Core.Interfaces.Data;
 using MyApp.Infrastructure.Common;
 using MyApp.Infrastructure.Common.Validator;
 using MyApp.Mapping;
+using MyApp.Mapping.DTOs;
 using ILogger = MyApp.Core.Domain.Services.Logging.ILogger;
 using LogLevel = MyApp.Core.Domain.Logging.LogLevel;
 
@@ -23,8 +25,8 @@ namespace MyApp.Services.Sales
     {
         #region Members
 
-        readonly IRepository<BankAccount> _bankAccountRepository;
-        readonly IRepository<Customer> _customerRepository;
+        readonly IBankAccountRepository _bankAccountRepository;
+        readonly ICustomerRepository _customerRepository;
         readonly IBankTransferService _transferService;
         private readonly ILogger _logger;
         readonly IUserActivityService _activityLogService;
@@ -36,8 +38,8 @@ namespace MyApp.Services.Sales
         /// <summary>
         /// Create a new instance 
         /// </summary>
-        public BankAppService(IRepository<BankAccount> bankAccountRepository,
-                              IRepository<Customer> customerRepository, // the customer repository dependency
+        public BankAppService(IBankAccountRepository bankAccountRepository,
+                              ICustomerRepository customerRepository, // the customer repository dependency
                               IBankTransferService transferService,
                               IUserActivityService activityLogService,
                               ILogger logger)

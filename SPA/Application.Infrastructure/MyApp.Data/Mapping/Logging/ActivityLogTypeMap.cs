@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using MyApp.Core.Domain.ActivityLog;
 using MyApp.Core.Domain.Logging;
 
 namespace MyApp.Infrastructure.Data.Mapping.Logging

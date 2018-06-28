@@ -16,12 +16,11 @@ namespace MyApp.Core.Domain.Services.Logging
     {
         #region Fields
 
-        private readonly IRepository<Log> _logRepository;
+        private readonly ILogRepository _logRepository;
         private readonly IWebHelper _webHelper;
-        private readonly IDataProvider _dataProvider;
-        
+
         #endregion
-        
+
         #region Ctor
 
         /// <summary>
@@ -30,13 +29,12 @@ namespace MyApp.Core.Domain.Services.Logging
         /// <param name="logRepository">Log repository</param>
         /// <param name="webHelper">Web helper</param>
         /// <param name="dataProvider">WeData provider</param>
-        public DefaultLogger(IRepository<Log> logRepository, 
+        public DefaultLogger(ILogRepository logRepository,
             IWebHelper webHelper,
             IDataProvider dataProvider)
         {
             _logRepository = logRepository;
             _webHelper = webHelper;
-            _dataProvider = dataProvider;
         }
 
         #endregion
@@ -67,7 +65,7 @@ namespace MyApp.Core.Domain.Services.Logging
         /// <returns>Result</returns>
         public virtual bool IsEnabled(LogLevel level)
         {
-            switch(level)
+            switch (level)
             {
                 case LogLevel.Debug:
                     return false;
@@ -105,16 +103,10 @@ namespace MyApp.Core.Domain.Services.Logging
         /// </summary>
         public virtual void ClearLog()
         {
-            throw new NotImplementedException("TODO");
-            //do all databases support "Truncate command"?
-            //var logTableName = _dbContext.GetTableName<Log>();
-            //_dbContext.ExecuteSqlCommand($"TRUNCATE TABLE [{logTableName}]");
-
-            //var log = _logRepository.Table.ToList();
-            //foreach (var logItem in log)
-            //    _logRepository.Delete(logItem);
+            _logRepository.ClearLog();
         }
 
+        //TODO specifications pattern
         /// <summary>
         /// Gets all log items
         /// </summary>
@@ -126,7 +118,7 @@ namespace MyApp.Core.Domain.Services.Logging
         /// <param name="pageSize">Page size</param>
         /// <returns>Log item items</returns>
         public virtual IPagedList<Log> GetAllLogs(DateTime? fromUtc = null, DateTime? toUtc = null,
-            string message = "", LogLevel? logLevel = null, 
+            string message = "", LogLevel? logLevel = null,
             int pageIndex = 0, int pageSize = int.MaxValue)
         {
             var query = _logRepository.Table;
@@ -139,7 +131,7 @@ namespace MyApp.Core.Domain.Services.Logging
                 var logLevelId = (int)logLevel.Value;
                 query = query.Where(l => logLevelId == l.LogLevelId);
             }
-             if (!string.IsNullOrEmpty(message))
+            if (!string.IsNullOrEmpty(message))
                 query = query.Where(l => l.ShortMessage.Contains(message) || l.FullMessage.Contains(message));
             query = query.OrderByDescending(l => l.CreatedOnUtc);
 
@@ -169,14 +161,7 @@ namespace MyApp.Core.Domain.Services.Logging
         {
             if (logIds == null || logIds.Length == 0)
                 return new List<Log>();
-
-            var query = from l in _logRepository.Table
-                        where logIds.Contains(l.Id)
-                        select l;
-            var logItems = query.ToList();
-
-            //sort by passed identifiers
-            return logIds.Select(id => logItems.Find(x => x.Id == id)).Where(log => log != null).ToList();
+            return _logRepository.GetLogByIds(logIds);
         }
 
         /// <summary>
@@ -187,7 +172,7 @@ namespace MyApp.Core.Domain.Services.Logging
         /// <param name="fullMessage">The full message</param>
         /// <param name="user">The user to associate log record with</param>
         /// <returns>A log item</returns>
-        public virtual Log InsertLog(LogLevel logLevel, string shortMessage, string fullMessage = "",User.User user=null)
+        public virtual Log InsertLog(LogLevel logLevel, string shortMessage, string fullMessage = "", User.User user = null)
         {
             //check ignore word/phrase list?
             if (IgnoreLog(shortMessage) || IgnoreLog(fullMessage))

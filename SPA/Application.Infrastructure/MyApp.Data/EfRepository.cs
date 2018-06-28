@@ -17,7 +17,7 @@ namespace MyApp.Infrastructure.Data
     {
         #region Fields
 
-        private readonly IDbContext _context;
+        protected IDbContext EfDbContext { get; }
 
         private DbSet<TEntity> _entities;
 
@@ -27,7 +27,7 @@ namespace MyApp.Infrastructure.Data
 
         public EfRepository(IDbContext context)
         {
-            _context = context;
+            EfDbContext = context;
         }
 
         #endregion
@@ -42,7 +42,7 @@ namespace MyApp.Infrastructure.Data
         protected string GetFullErrorTextAndRollbackEntityChanges(DbUpdateException exception)
         {
             //rollback entity changes
-            if (_context is DbContext dbContext)
+            if (EfDbContext is DbContext dbContext)
             {
                 var entries = dbContext.ChangeTracker.Entries()
                     .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified).ToList();
@@ -50,7 +50,7 @@ namespace MyApp.Infrastructure.Data
                 entries.ForEach(entry => entry.State = EntityState.Unchanged);
             }
 
-            _context.SaveChanges();
+            EfDbContext.SaveChanges();
             return exception.ToString();
         }
 
@@ -80,7 +80,7 @@ namespace MyApp.Infrastructure.Data
             try
             {
                 Entities.Add(entity);
-                _context.SaveChanges();
+                EfDbContext.SaveChanges();
             }
             catch (DbUpdateException exception)
             {
@@ -101,7 +101,7 @@ namespace MyApp.Infrastructure.Data
             try
             {
                 Entities.AddRange(entities);
-                _context.SaveChanges();
+                EfDbContext.SaveChanges();
             }
             catch (DbUpdateException exception)
             {
@@ -122,7 +122,7 @@ namespace MyApp.Infrastructure.Data
             try
             {
                 Entities.Update(entity);
-                _context.SaveChanges();
+                EfDbContext.SaveChanges();
             }
             catch (DbUpdateException exception)
             {
@@ -143,7 +143,7 @@ namespace MyApp.Infrastructure.Data
             try
             {
                 Entities.UpdateRange(entities);
-                _context.SaveChanges();
+                EfDbContext.SaveChanges();
             }
             catch (DbUpdateException exception)
             {
@@ -164,7 +164,7 @@ namespace MyApp.Infrastructure.Data
             try
             {
                 Entities.Remove(entity);
-                _context.SaveChanges();
+                EfDbContext.SaveChanges();
             }
             catch (DbUpdateException exception)
             {
@@ -185,7 +185,7 @@ namespace MyApp.Infrastructure.Data
             try
             {
                 Entities.RemoveRange(entities);
-                _context.SaveChanges();
+                EfDbContext.SaveChanges();
             }
             catch (DbUpdateException exception)
             {
@@ -231,7 +231,7 @@ namespace MyApp.Infrastructure.Data
             get
             {
                 if (_entities == null)
-                    _entities = _context.Set<TEntity>();
+                    _entities = EfDbContext.Set<TEntity>();
 
                 return _entities;
             }

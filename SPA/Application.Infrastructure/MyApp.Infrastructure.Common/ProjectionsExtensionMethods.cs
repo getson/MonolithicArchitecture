@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MyApp.Core.Domain;
+using MyApp.Core.Interfaces.Mapping;
 using MyApp.Infrastructure.Common.Adapter;
 
 namespace MyApp.Infrastructure.Common

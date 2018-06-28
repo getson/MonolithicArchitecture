@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MyApp.Core.Common;
+using MyApp.Core.Domain.ActivityLog;
 using MyApp.Core.Domain.Logging;
 using MyApp.Core.Extensions;
 using MyApp.Core.Interfaces.Caching;
@@ -11,6 +12,7 @@ using MyApp.Core.Interfaces.Web;
 
 namespace MyApp.Core.Domain.Services.Logging
 {
+    //TODO refactoring...move quieries to repository
     /// <summary>
     /// User activity service
     /// </summary>
@@ -32,13 +34,13 @@ namespace MyApp.Core.Domain.Services.Logging
         #region Fields
 
         private readonly IStaticCacheManager _cacheManager;
-        private readonly IRepository<ActivityLog> _activityLogRepository;
-        private readonly IRepository<ActivityLogType> _activityLogTypeRepository;
+        private readonly IActivityLogRepository _activityLogRepository;
+        private readonly IActivityLogTypeRepository _activityLogTypeRepository;
         private readonly IWorkContext _workContext;
         private readonly IWebHelper _webHelper;
 
         #endregion
-        
+
         #region Ctor
 
         /// <summary>
@@ -51,10 +53,10 @@ namespace MyApp.Core.Domain.Services.Logging
         /// >
         /// <param name="webHelper">Web helper</param>
         public UserActivityService(IStaticCacheManager cacheManager,
-            IRepository<ActivityLog> activityLogRepository,
-            IRepository<ActivityLogType> activityLogTypeRepository,
-            IWorkContext workContext,
-            IWebHelper webHelper)
+                                    IActivityLogRepository activityLogRepository,
+                                    IActivityLogTypeRepository activityLogTypeRepository,
+                                    IWorkContext workContext,
+                                    IWebHelper webHelper)
         {
             _cacheManager = cacheManager;
             _activityLogRepository = activityLogRepository;
@@ -151,7 +153,7 @@ namespace MyApp.Core.Domain.Services.Logging
             _activityLogTypeRepository.Update(activityLogType);
             _cacheManager.RemoveByPattern(ActivitytypePatternKey);
         }
-                
+
         /// <summary>
         /// Deletes an activity log type item
         /// </summary>
@@ -171,11 +173,7 @@ namespace MyApp.Core.Domain.Services.Logging
         /// <returns>Activity log type items</returns>
         public virtual IList<ActivityLogType> GetAllActivityTypes()
         {
-            var query = from alt in _activityLogTypeRepository.Table
-                orderby alt.Name
-                select alt;
-            var activityLogTypes = query.ToList();
-            return activityLogTypes;
+            return _activityLogTypeRepository.GetAll().OrderBy(x => x.Name).ToList();
         }
 
         /// <summary>
@@ -198,7 +196,7 @@ namespace MyApp.Core.Domain.Services.Logging
         /// <param name="comment">Comment</param>
         /// <param name="entity">Entity</param>
         /// <returns>Activity log item</returns>
-        public virtual ActivityLog InsertActivity(string systemKeyword, string comment, BaseEntity entity = null)
+        public virtual ActivityLog.ActivityLog InsertActivity(string systemKeyword, string comment, BaseEntity entity = null)
         {
             return InsertActivity(_workContext.CurrentUser, systemKeyword, comment, entity);
         }
@@ -211,18 +209,18 @@ namespace MyApp.Core.Domain.Services.Logging
         /// <param name="comment">Comment</param>
         /// <param name="entity">Entity</param>
         /// <returns>Activity log item</returns>
-        public virtual ActivityLog InsertActivity(User.User customer, string systemKeyword, string comment, BaseEntity entity = null)
+        public virtual ActivityLog.ActivityLog InsertActivity(User.User customer, string systemKeyword, string comment, BaseEntity entity = null)
         {
             if (customer == null)
                 return null;
-            
+
             //try to get activity log type by passed system keyword
             var activityLogType = GetAllActivityTypesCached().FirstOrDefault(type => type.SystemKeyword.Equals(systemKeyword));
             if (!activityLogType?.Enabled ?? true)
                 return null;
-            
+
             //insert log item
-            var logItem = new ActivityLog
+            var logItem = new ActivityLog.ActivityLog
             {
                 ActivityLogTypeId = activityLogType.Id,
                 EntityId = entity?.Id,
@@ -241,14 +239,14 @@ namespace MyApp.Core.Domain.Services.Logging
         /// Deletes an activity log item
         /// </summary>
         /// <param name="activityLog">Activity log type</param>
-        public virtual void DeleteActivity(ActivityLog activityLog)
+        public virtual void DeleteActivity(ActivityLog.ActivityLog activityLog)
         {
             if (activityLog == null)
                 throw new ArgumentNullException(nameof(activityLog));
 
             _activityLogRepository.Delete(activityLog);
         }
-
+        //TODO specifications pattern
         /// <summary>
         /// Gets all activity log items
         /// </summary>
@@ -262,14 +260,14 @@ namespace MyApp.Core.Domain.Services.Logging
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
         /// <returns>Activity log items</returns>
-        public virtual IPagedList<ActivityLog> GetAllActivities(DateTime? createdOnFrom = null, DateTime? createdOnTo = null, 
+        public virtual IPagedList<ActivityLog.ActivityLog> GetAllActivities(DateTime? createdOnFrom = null, DateTime? createdOnTo = null,
             int? customerId = null, int? activityLogTypeId = null, string ipAddress = null, string entityName = null, int? entityId = null,
             int pageIndex = 0, int pageSize = int.MaxValue)
         {
             var query = _activityLogRepository.Table;
 
             //filter by IP
-            if(!string.IsNullOrEmpty(ipAddress))
+            if (!string.IsNullOrEmpty(ipAddress))
                 query = query.Where(logItem => logItem.IpAddress.Contains(ipAddress));
 
             //filter by creation date
@@ -294,20 +292,17 @@ namespace MyApp.Core.Domain.Services.Logging
 
             query = query.OrderByDescending(logItem => logItem.CreatedOnUtc).ThenBy(logItem => logItem.Id);
 
-            return new PagedList<ActivityLog>(query, pageIndex, pageSize);
+            return new PagedList<ActivityLog.ActivityLog>(query, pageIndex, pageSize);
         }
-        
+
         /// <summary>
         /// Gets an activity log item
         /// </summary>
         /// <param name="activityLogId">Activity log identifier</param>
         /// <returns>Activity log item</returns>
-        public virtual ActivityLog GetActivityById(int activityLogId)
+        public virtual ActivityLog.ActivityLog GetActivityById(int activityLogId)
         {
-            if (activityLogId == 0)
-                return null;
-
-            return _activityLogRepository.GetById(activityLogId);
+            return activityLogId == 0 ? null : _activityLogRepository.GetById(activityLogId);
         }
 
         #endregion

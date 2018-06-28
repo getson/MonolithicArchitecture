@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MyApp.Mapping;
+using MyApp.Mapping.DTOs;
 
 namespace MyApp.Services.Sales
 {

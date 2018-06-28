@@ -27,7 +27,6 @@ namespace MyApp.Services.Installation
         /// <summary>
         /// Ctor
         /// </summary>
-        /// <param name="languageRepository">Language repository</param>
         /// <param name="dbContext">DB context</param>
         /// <param name="webHelper">Web helper</param>
         /// <param name="fileProvider">File provider</param>

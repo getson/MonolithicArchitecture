@@ -1,11 +1,12 @@
 ﻿using System;
+using MyApp.Core.Domain.Common;
 
 namespace MyApp.Core.Domain.Example.CountryAgg
 {
     /// <summary>
     /// The country entity
     /// </summary>
-    public class Country:BaseEntity
+    public class Country:AggregateRoot
     {
         #region Properties
 

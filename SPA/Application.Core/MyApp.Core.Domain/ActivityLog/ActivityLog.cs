@@ -1,11 +1,12 @@
 ﻿using System;
+using MyApp.Core.Domain.Common;
 
-namespace MyApp.Core.Domain.Logging
+namespace MyApp.Core.Domain.ActivityLog
 {
     /// <summary>
     /// Represents an activity log record
     /// </summary>
-    public partial class ActivityLog : BaseEntity
+    public partial class ActivityLog : AggregateRoot
     {
         /// <summary>
         /// Gets or sets the activity log type identifier
