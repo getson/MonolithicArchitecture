@@ -54,7 +54,7 @@ namespace MyApp.Core.Domain.Example.CustomerAgg
             AddressLine2 = addressLine2;
         }
 
-        private Address() { }  //required for EF
+        public Address() { }  //required for EF
 
         #endregion
 

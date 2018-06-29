@@ -31,8 +31,8 @@ namespace SPA
                 c.SwaggerDoc("v1", new Info
                 {
                     Version = "v1",
-                    Title = "AspNetCore2Ang6Template API",
-                    Description = "A simple example ASP.NET Core Web API",
+                    Title = "MyApp API",
+                    Description = "This is a demo of my Enterprise App",
                     Contact = new Contact
                     {
                         Name = "Getson Cela",
