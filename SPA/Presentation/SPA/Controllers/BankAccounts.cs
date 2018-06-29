@@ -35,7 +35,7 @@ namespace SPA.Controllers
 
         // POST api/bankaccounts
         [HttpPost]
-        public BankAccountDto Post([FromBody]BankAccountDto newBankAccount)
+        public BankAccountDto Post(BankAccountDto newBankAccount)
         {
             return _bankAppService.AddBankAccount(newBankAccount);
         }
@@ -49,7 +49,7 @@ namespace SPA.Controllers
 
         // PUT api/bankaccounts/performtransfer
         [HttpPut]
-        public void PerformTransfer([FromBody]BankAccountDto from, [FromBody]BankAccountDto to, [FromBody]decimal amount)
+        public void PerformTransfer(BankAccountDto from, BankAccountDto to, decimal amount)
         {
             _bankAppService.PerformBankTransfer(from, to, amount);
         }

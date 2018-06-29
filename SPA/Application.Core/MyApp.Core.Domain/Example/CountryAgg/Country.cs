@@ -25,7 +25,7 @@ namespace MyApp.Core.Domain.Example.CountryAgg
         #region Constructor
 
         //required by EF
-        private Country() { } 
+        public Country() { } 
 
         public Country(string countryName, string countryIsoCode)
         {

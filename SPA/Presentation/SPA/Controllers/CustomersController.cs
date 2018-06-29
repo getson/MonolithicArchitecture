@@ -48,7 +48,7 @@ namespace SPA.Controllers
         }
         // PUT: api/customers/
         [HttpPut("{id}")]
-        public void Put([FromBody]CustomerDto customer)
+        public void Put(CustomerDto customer)
         {
             _customerAppService.UpdateCustomer(customer);
         }

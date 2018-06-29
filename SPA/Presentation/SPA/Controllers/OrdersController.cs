@@ -43,21 +43,21 @@ namespace SPA.Controllers
 
         // POST api/orders
         [HttpPost]
-        public OrderDto Post([FromBody]OrderDto order)
+        public OrderDto Post(OrderDto order)
         {
             return _salesAppService.AddNewOrder(order);
         }
 
         // POST api/orders/software
         [HttpPost("Software")]
-        public SoftwareDto Software([FromBody]SoftwareDto software)
+        public SoftwareDto Software(SoftwareDto software)
         {
             return _salesAppService.AddNewSoftware(software);
         }
 
         // POST api/orders/book
         [HttpPost("Book")]
-        public BookDto Book([FromBody]BookDto book)
+        public BookDto Book(BookDto book)
         {
             return _salesAppService.AddNewBook(book);
         }
