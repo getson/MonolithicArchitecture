@@ -5,7 +5,7 @@ namespace MyApp.Core.Interfaces.Web
     /// <summary>
     /// Represents a web helper
     /// </summary>
-    public partial interface IWebHelper
+    public interface IWebHelper
     {
         /// <summary>
         /// Get URL referrer if exists

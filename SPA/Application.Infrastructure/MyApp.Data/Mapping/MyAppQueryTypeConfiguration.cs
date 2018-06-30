@@ -7,7 +7,7 @@ namespace MyApp.Infrastructure.Data.Mapping
     /// Represents base query type mapping configuration
     /// </summary>
     /// <typeparam name="TQuery">Query type type</typeparam>
-    public partial class MyAppQueryTypeConfiguration<TQuery> : IMappingConfiguration, IQueryTypeConfiguration<TQuery> where TQuery : class
+    public class MyAppQueryTypeConfiguration<TQuery> : IMappingConfiguration, IQueryTypeConfiguration<TQuery> where TQuery : class
     {
         #region Utilities
 

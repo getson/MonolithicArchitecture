@@ -28,7 +28,7 @@ namespace MyApp.Core.Domain.Specification
         public NotSpecification(ISpecification<TEntity> originalSpecification)
         {
 
-            if (originalSpecification == (ISpecification<TEntity>)null)
+            if (originalSpecification == null)
                 throw new ArgumentNullException("originalSpecification");
 
             _originalCriteria = originalSpecification.SatisfiedBy();
@@ -40,7 +40,7 @@ namespace MyApp.Core.Domain.Specification
         /// <param name="originalSpecification">Original specificaiton</param>
         public NotSpecification(Expression<Func<TEntity,bool>> originalSpecification)
         {
-            if (originalSpecification == (Expression<Func<TEntity,bool>>)null)
+            if (originalSpecification == null)
                 throw new ArgumentNullException("originalSpecification");
 
             _originalCriteria = originalSpecification;

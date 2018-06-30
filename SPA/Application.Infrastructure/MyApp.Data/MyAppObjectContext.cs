@@ -12,7 +12,7 @@ namespace MyApp.Infrastructure.Data
     /// <summary>
     /// Represents base object context
     /// </summary>
-    public partial class MyAppObjectContext : DbContext, IDbContext
+    public class MyAppObjectContext : DbContext, IDbContext
     {
         #region Ctor
 

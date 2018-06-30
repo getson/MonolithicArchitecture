@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MyApp.Core.Domain.Common;
 
 namespace MyApp.Core.Domain.Example.OrderAgg
@@ -62,7 +63,7 @@ namespace MyApp.Core.Domain.Example.OrderAgg
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

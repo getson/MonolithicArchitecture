@@ -5,7 +5,7 @@ namespace MyApp.Core.Domain.Logging
     /// <summary>
     /// Represents a log record
     /// </summary>
-    public partial class Log : BaseEntity
+    public class Log : BaseEntity
     {
         /// <summary>
         /// Gets or sets the log level identifier

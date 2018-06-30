@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using AutoMapper;
-using MyApp.Core.Interfaces.Mapping;
+﻿using MyApp.Core.Interfaces.Mapping;
 
 namespace MyApp.Infrastructure.Common.Adapter
 {

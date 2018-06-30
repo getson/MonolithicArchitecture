@@ -3,7 +3,7 @@ namespace MyApp.Core.Configuration
     /// <summary>
     /// Represents startup MyApp configuration parameters
     /// </summary>
-    public partial class MyAppConfig
+    public class MyAppConfig
     {
         /// <summary>
         /// Gets or sets a value indicating whether to display the full error in production environment.

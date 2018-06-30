@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MyApp.Core.Domain.Common;
 
 namespace MyApp.Core.Domain.Example.BankAccountAgg
@@ -64,7 +65,7 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

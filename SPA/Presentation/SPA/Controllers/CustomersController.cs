@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using MyApp.Mapping;
 using MyApp.Mapping.DTOs;
 using MyApp.Services.Example;
 
@@ -12,7 +11,8 @@ namespace SPA.Controllers
     /// <summary>
     /// Customers API
     /// </summary>
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class CustomersController : Controller, IDisposable
     {
         private readonly ICustomerAppService _customerAppService;

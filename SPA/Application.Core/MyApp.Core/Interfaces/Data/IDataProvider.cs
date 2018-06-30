@@ -5,7 +5,7 @@ namespace MyApp.Core.Interfaces.Data
     /// <summary>
     /// Represents a data provider
     /// </summary>
-    public partial interface IDataProvider
+    public interface IDataProvider
     {
         #region Methods
         

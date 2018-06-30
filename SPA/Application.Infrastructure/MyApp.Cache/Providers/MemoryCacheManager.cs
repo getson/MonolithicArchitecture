@@ -12,7 +12,7 @@ namespace MyApp.Infrastructure.Cache.Providers
     /// <summary>
     /// Represents a memory cache manager 
     /// </summary>
-    public partial class MemoryCacheManager : ILocker, IStaticCacheManager
+    public class MemoryCacheManager : ILocker, IStaticCacheManager
     {
         #region Fields
 

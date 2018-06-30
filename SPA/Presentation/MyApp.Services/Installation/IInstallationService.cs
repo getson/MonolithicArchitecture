@@ -3,7 +3,7 @@ namespace MyApp.Services.Installation
     /// <summary>
     /// Installation service
     /// </summary>
-    public partial interface IInstallationService
+    public interface IInstallationService
     {
         /// <summary>
         /// Install data

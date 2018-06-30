@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using MyApp.Core.Domain.ActivityLog;
-using MyApp.Core.Domain.Logging;
 using MyApp.Core.Interfaces.Pagination;
 
 namespace MyApp.Core.Domain.Services.Logging
@@ -9,7 +8,7 @@ namespace MyApp.Core.Domain.Services.Logging
     /// <summary>
     /// user activity service interface
     /// </summary>
-    public partial interface IUserActivityService
+    public interface IUserActivityService
     {
         /// <summary>
         /// Inserts an activity log type item

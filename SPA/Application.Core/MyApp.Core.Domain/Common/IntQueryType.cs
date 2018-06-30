@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a wrapper class for int values that used as a query type
     /// </summary>
-    public partial class IntQueryType
+    public class IntQueryType
     {
         /// <summary>
         /// Gets or sets a value

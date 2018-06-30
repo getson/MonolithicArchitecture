@@ -5,7 +5,6 @@ using MyApp.Core.Domain.Example.CustomerAgg;
 using MyApp.Core.Domain.Example.OrderAgg;
 using MyApp.Core.Domain.Example.ProductAgg;
 using MyApp.Core.Interfaces.Mapping;
-using MyApp.Mapping;
 using MyApp.Mapping.DTOs;
 
 namespace MyApp.Dto.Profiles
@@ -45,10 +44,10 @@ namespace MyApp.Dto.Profiles
             //order => orderdto
             var orderMappingExpression = CreateMap<Order, OrderDto>();
 
-            orderMappingExpression.ForMember(dto => dto.ShippingAddress, (map) => map.MapFrom(o => o.ShippingInformation.ShippingAddress));
-            orderMappingExpression.ForMember(dto => dto.ShippingCity, (map) => map.MapFrom(o => o.ShippingInformation.ShippingCity));
-            orderMappingExpression.ForMember(dto => dto.ShippingName, (map) => map.MapFrom(o => o.ShippingInformation.ShippingName));
-            orderMappingExpression.ForMember(dto => dto.ShippingZipCode, (map) => map.MapFrom(o => o.ShippingInformation.ShippingZipCode));
+            orderMappingExpression.ForMember(dto => dto.ShippingAddress, map => map.MapFrom(o => o.ShippingInformation.ShippingAddress));
+            orderMappingExpression.ForMember(dto => dto.ShippingCity, map => map.MapFrom(o => o.ShippingInformation.ShippingCity));
+            orderMappingExpression.ForMember(dto => dto.ShippingName, map => map.MapFrom(o => o.ShippingInformation.ShippingName));
+            orderMappingExpression.ForMember(dto => dto.ShippingZipCode, map => map.MapFrom(o => o.ShippingInformation.ShippingZipCode));
 
             //orderline => orderlinedto
             var lineMapperExpression = CreateMap<OrderLine, OrderLineDto>();

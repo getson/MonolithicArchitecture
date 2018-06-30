@@ -1,5 +1,4 @@
-﻿using System;
-using MyApp.Core.Domain.Specification;
+﻿using MyApp.Core.Domain.Specification;
 
 namespace MyApp.Core.Domain.Example.CustomerAgg
 {

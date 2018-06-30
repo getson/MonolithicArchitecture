@@ -3,16 +3,16 @@ using Microsoft.AspNetCore.Http;
 using MyApp.Core.Domain.User;
 using MyApp.Core.Interfaces.Web;
 
-namespace MyApp.Web.Framework.Infrastructure
+namespace MyApp.Web.Framework
 {
     /// <summary>
     /// Represents work context for web application
     /// </summary>
-    public partial class WebWorkContext : IWorkContext
+    public class WebWorkContext : IWorkContext
     {
         #region Const
 
-        private const string CUSTOMER_COOKIE_NAME = ".MyApp.User";
+        private const string CustomerCookieName = ".MyApp.User";
 
         #endregion
 
@@ -49,7 +49,7 @@ namespace MyApp.Web.Framework.Infrastructure
         /// <returns>String value of cookie</returns>
         protected virtual string GetCustomerCookie()
         {
-            return _httpContextAccessor.HttpContext?.Request?.Cookies[CUSTOMER_COOKIE_NAME];
+            return _httpContextAccessor.HttpContext?.Request?.Cookies[CustomerCookieName];
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace MyApp.Web.Framework.Infrastructure
                 return;
 
             //delete current cookie value
-            _httpContextAccessor.HttpContext.Response.Cookies.Delete(CUSTOMER_COOKIE_NAME);
+            _httpContextAccessor.HttpContext.Response.Cookies.Delete(CustomerCookieName);
 
             //get date of cookie expiration
             var cookieExpires = 24 * 365; //TODO make configurable
@@ -78,7 +78,7 @@ namespace MyApp.Web.Framework.Infrastructure
                 HttpOnly = true,
                 Expires = cookieExpiresDate
             };
-            _httpContextAccessor.HttpContext.Response.Cookies.Append(CUSTOMER_COOKIE_NAME, customerGuid.ToString(), options);
+            _httpContextAccessor.HttpContext.Response.Cookies.Append(CustomerCookieName, customerGuid.ToString(), options);
         }
 
 

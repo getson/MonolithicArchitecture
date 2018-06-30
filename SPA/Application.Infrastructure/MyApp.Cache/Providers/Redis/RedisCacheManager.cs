@@ -12,7 +12,7 @@ namespace MyApp.Infrastructure.Cache.Providers.Redis
     /// Represents a manager for caching in Redis Tenant (http://redis.io/).
     /// Mostly it'll be used when running in a web farm or Azure. But of course it can be also used on any server or environment
     /// </summary>
-    public partial class RedisCacheManager : IStaticCacheManager
+    public class RedisCacheManager : IStaticCacheManager
     {
         #region Fields
 

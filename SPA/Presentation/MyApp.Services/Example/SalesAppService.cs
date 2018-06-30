@@ -17,10 +17,10 @@ namespace MyApp.Services.Example
     {
         #region Members
 
-        readonly IOrderRepository _orderRepository;
-        readonly IProductRepository _productRepository;
-        readonly ICustomerRepository _customerRepository;
-        readonly ILogger _logger;
+        private readonly IOrderRepository _orderRepository;
+        private readonly IProductRepository _productRepository;
+        private readonly ICustomerRepository _customerRepository;
+        private readonly ILogger _logger;
 
 
         #endregion
@@ -187,7 +187,7 @@ namespace MyApp.Services.Example
 
         #region Private Methods
 
-        void SaveOrder(Order order)
+        private void SaveOrder(Order order)
         {
             var entityValidator = EntityValidatorFactory.CreateValidator();
 
@@ -199,7 +199,8 @@ namespace MyApp.Services.Example
             else // if not valid throw validation errors
                 throw new ApplicationValidationErrorsException(entityValidator.GetInvalidMessages(order));
         }
-        Order CreateNewOrder(OrderDto dto, Customer associatedCustomer)
+
+        private Order CreateNewOrder(OrderDto dto, Customer associatedCustomer)
         {
             //Create a new order entity from factory
             var newOrder = OrderFactory.CreateOrder(associatedCustomer,
@@ -217,7 +218,8 @@ namespace MyApp.Services.Example
 
             return newOrder;
         }
-        void SaveProduct(Product product)
+
+        private void SaveProduct(Product product)
         {
             var entityValidator = EntityValidatorFactory.CreateValidator();
 

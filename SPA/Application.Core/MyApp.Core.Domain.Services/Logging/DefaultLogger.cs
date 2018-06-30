@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using MyApp.Core.Common;
 using MyApp.Core.Domain.Logging;
-using MyApp.Core.Interfaces.Data;
 using MyApp.Core.Interfaces.Pagination;
 using MyApp.Core.Interfaces.Web;
 
@@ -12,7 +11,7 @@ namespace MyApp.Core.Domain.Services.Logging
     /// <summary>
     /// Default logger
     /// </summary>
-    public partial class DefaultLogger : ILogger
+    public class DefaultLogger : ILogger
     {
         #region Fields
 
@@ -28,10 +27,7 @@ namespace MyApp.Core.Domain.Services.Logging
         /// </summary>
         /// <param name="logRepository">Log repository</param>
         /// <param name="webHelper">Web helper</param>
-        /// <param name="dataProvider">WeData provider</param>
-        public DefaultLogger(ILogRepository logRepository,
-            IWebHelper webHelper,
-            IDataProvider dataProvider)
+        public DefaultLogger(ILogRepository logRepository,IWebHelper webHelper)
         {
             _logRepository = logRepository;
             _webHelper = webHelper;

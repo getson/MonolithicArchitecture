@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using MyApp.Core.Domain.Logging;
 
 namespace MyApp.Core.Domain.Services.Logging
@@ -78,7 +79,7 @@ namespace MyApp.Core.Domain.Services.Logging
         private static void FilteredLog(ILogger logger, LogLevel level, string message, Exception exception = null,User.User user=null)
         {
             //don't log thread abort exception
-            if (exception is System.Threading.ThreadAbortException)
+            if (exception is ThreadAbortException)
                 return;
 
             if (logger.IsEnabled(level))

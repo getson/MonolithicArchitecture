@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using MyApp.Mapping;
 using MyApp.Mapping.DTOs;
 using MyApp.Services.Example;
 
@@ -9,12 +8,17 @@ using MyApp.Services.Example;
 
 namespace SPA.Controllers
 {
-    [Route("api/[controller]")]
-    public class BankAccounts : Controller, IDisposable
+    /// <summary>
+    /// BankAccount API
+    /// </summary>
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    public class BankAccountsController : Controller, IDisposable
     {
-        readonly IBankAppService _bankAppService;
+        private readonly IBankAppService _bankAppService;
 
-        public BankAccounts(IBankAppService bankAppService)
+        /// <inheritdoc />
+        public BankAccountsController(IBankAppService bankAppService)
         {
             _bankAppService = bankAppService;
         }

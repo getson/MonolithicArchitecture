@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MyApp.Core.Domain.Example.CountryAgg;
+﻿using MyApp.Core.Domain.Example.CountryAgg;
 
 namespace MyApp.Infrastructure.Data.Repositories
 {

@@ -1,19 +1,14 @@
-﻿using System.IO;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Net.Http.Headers;
-using MyApp.Core.Configuration;
-using MyApp.Core.Domain.Services.Logging;
 using MyApp.Core.Infrastructure;
 using MyApp.Core.Interfaces.Infrastructure;
-using MyApp.Infrastructure.Common;
 using MyApp.Infrastructure.Data;
-using MyApp.Web.Framework.Infrastructure.Extensions;
+using MyApp.Web.Framework.Extensions;
 using MyApp.Web.Framework.Routing;
 
 namespace MyApp.Web.Framework.Infrastructure
@@ -38,6 +33,8 @@ namespace MyApp.Web.Framework.Infrastructure
             services.AddEntityFrameworkSqlServer();
             services.AddEntityFrameworkProxies();
 
+            //add accessor to HttpContext
+            services.AddMyHttpContextAccesor();
             //compression
             services.AddResponseCompression();
 

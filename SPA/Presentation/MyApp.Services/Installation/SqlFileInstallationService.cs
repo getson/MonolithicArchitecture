@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using MyApp.Core.Infrastructure;
-using MyApp.Core.Interfaces.Data;
 using MyApp.Core.Interfaces.Infrastructure;
 using MyApp.Core.Interfaces.Web;
 using MyApp.Infrastructure.Data;
@@ -13,7 +11,7 @@ namespace MyApp.Services.Installation
     /// <summary>
     /// Installation service using SQL files (fast installation)
     /// </summary>
-    public partial class SqlFileInstallationService : IInstallationService
+    public class SqlFileInstallationService : IInstallationService
     {
         #region Fields
         private readonly IDbContext _dbContext;

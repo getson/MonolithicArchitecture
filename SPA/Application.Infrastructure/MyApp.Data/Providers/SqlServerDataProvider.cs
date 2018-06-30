@@ -14,7 +14,7 @@ namespace MyApp.Infrastructure.Data.Providers
     /// <summary>
     /// Represents SQL Server data provider
     /// </summary>
-    public partial class SqlServerDataProvider : IDataProvider
+    public class SqlServerDataProvider : IDataProvider
     {
         #region Methods
 

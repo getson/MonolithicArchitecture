@@ -7,7 +7,7 @@ namespace MyApp.Infrastructure.Data
     /// <summary>
     /// Represents DB context
     /// </summary>
-    public partial interface IDbContext
+    public interface IDbContext
     {
         #region Methods
 

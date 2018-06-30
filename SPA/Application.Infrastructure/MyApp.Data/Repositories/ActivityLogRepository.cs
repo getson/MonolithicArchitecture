@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using MyApp.Core.Domain.ActivityLog;
-using MyApp.Core.Domain.Logging;
 using MyApp.Core.Domain.Specification;
 
 namespace MyApp.Infrastructure.Data.Repositories

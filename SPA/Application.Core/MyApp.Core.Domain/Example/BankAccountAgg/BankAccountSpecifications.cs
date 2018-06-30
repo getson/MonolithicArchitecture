@@ -21,7 +21,7 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
 
             if (!String.IsNullOrWhiteSpace(ibanNumber))
             {
-                specification &= new DirectSpecification<BankAccount>((b) => b.Iban
+                specification &= new DirectSpecification<BankAccount>(b => b.Iban
                                                                               .ToLower()
                                                                               .Contains(ibanNumber.ToLower()));
             }

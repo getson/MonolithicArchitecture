@@ -9,7 +9,7 @@ namespace MyApp.Infrastructure.Common.Validator
     {
         #region Members
 
-        static IEntityValidatorFactory _factory = null;
+        static IEntityValidatorFactory _factory;
 
         #endregion
 

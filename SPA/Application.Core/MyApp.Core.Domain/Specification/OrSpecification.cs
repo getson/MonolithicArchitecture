@@ -13,8 +13,8 @@ namespace MyApp.Core.Domain.Specification
     {
         #region Members
 
-        private ISpecification<T> _rightSideSpecification = null;
-        private ISpecification<T> _leftSideSpecification = null;
+        private ISpecification<T> _rightSideSpecification;
+        private ISpecification<T> _leftSideSpecification;
 
         #endregion
 
@@ -27,10 +27,10 @@ namespace MyApp.Core.Domain.Specification
         /// <param name="rightSide">Right side specification</param>
         public OrSpecification(ISpecification<T> leftSide, ISpecification<T> rightSide)
         {
-            if (leftSide == (ISpecification<T>)null)
+            if (leftSide == null)
                 throw new ArgumentNullException("leftSide");
 
-            if (rightSide == (ISpecification<T>)null)
+            if (rightSide == null)
                 throw new ArgumentNullException("rightSide");
 
             _leftSideSpecification = leftSide;

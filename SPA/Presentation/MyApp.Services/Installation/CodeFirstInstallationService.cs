@@ -1,11 +1,6 @@
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.AspNetCore.Hosting;
-using MyApp.Core.Domain;
 using MyApp.Core.Domain.ActivityLog;
-using MyApp.Core.Domain.Logging;
-using MyApp.Core.Infrastructure;
-using MyApp.Core.Interfaces.Data;
 using MyApp.Core.Interfaces.Infrastructure;
 using MyApp.Core.Interfaces.Web;
 
@@ -14,7 +9,7 @@ namespace MyApp.Services.Installation
     /// <summary>
     /// Code first installation service
     /// </summary>
-    public partial class CodeFirstInstallationService : IInstallationService
+    public class CodeFirstInstallationService : IInstallationService
     {
         #region Fields
 
@@ -51,7 +46,7 @@ namespace MyApp.Services.Installation
                     SystemKeyword = "AddNewAttribute",
                     Enabled = true,
                     Name = "Add a new attribute"
-                },           
+                }           
             };
             _activityLogTypeRepository.Insert(activityLogTypes);
         }

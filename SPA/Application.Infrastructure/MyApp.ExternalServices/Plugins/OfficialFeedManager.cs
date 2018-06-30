@@ -14,7 +14,7 @@ namespace MyApp.Infrastructure.ExternalServices.Plugins
     /// <summary>
     /// Official feed manager (official plugins from www.MyApp.com site)
     /// </summary>
-    public partial class OfficialFeedManager : IOfficialFeedManager
+    public class OfficialFeedManager : IOfficialFeedManager
     {
         private static string MakeUrl(string query, params object[] args)
         {

@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using IdentityModel;
+using IdentityServer4;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
@@ -152,13 +153,13 @@ namespace MyApp.IdentityServer.Controllers
                 return await ProcessWindowsLoginAsync(returnUrl);
             }
             // start challenge and roundtrip the return URL and 
-            var props = new AuthenticationProperties()
+            var props = new AuthenticationProperties
             {
                 RedirectUri = Url.Action("ExternalLoginCallback"),
                 Items =
                 {
                     { "returnUrl", returnUrl },
-                    { "scheme", provider },
+                    { "scheme", provider }
                 }
             };
             return Challenge(props, provider);
@@ -171,7 +172,7 @@ namespace MyApp.IdentityServer.Controllers
         public async Task<IActionResult> ExternalLoginCallback()
         {
             // read external identity from the temporary cookie
-            var result = await HttpContext.AuthenticateAsync(IdentityServer4.IdentityServerConstants.ExternalCookieAuthenticationScheme);
+            var result = await HttpContext.AuthenticateAsync(IdentityServerConstants.ExternalCookieAuthenticationScheme);
             if (result?.Succeeded != true)
             {
                 throw new Exception("External authentication error");
@@ -201,7 +202,7 @@ namespace MyApp.IdentityServer.Controllers
             await HttpContext.SignInAsync(user.SubjectId, user.Username, provider, localSignInProps, additionalLocalClaims.ToArray());
 
             // delete temporary cookie used during external authentication
-            await HttpContext.SignOutAsync(IdentityServer4.IdentityServerConstants.ExternalCookieAuthenticationScheme);
+            await HttpContext.SignOutAsync(IdentityServerConstants.ExternalCookieAuthenticationScheme);
 
             // validate return URL and redirect back to authorization endpoint or a local page
             var returnUrl = result.Properties.Items["returnUrl"];
@@ -280,7 +281,7 @@ namespace MyApp.IdentityServer.Controllers
                     EnableLocalLogin = false,
                     ReturnUrl = returnUrl,
                     Username = context?.LoginHint,
-                    ExternalProviders = new ExternalProvider[] { new ExternalProvider { AuthenticationScheme = context.IdP } }
+                    ExternalProviders = new[] { new ExternalProvider { AuthenticationScheme = context.IdP } }
                 };
             }
 
@@ -370,7 +371,7 @@ namespace MyApp.IdentityServer.Controllers
             if (User?.Identity.IsAuthenticated == true)
             {
                 var idp = User.FindFirst(JwtClaimTypes.IdentityProvider)?.Value;
-                if (idp != null && idp != IdentityServer4.IdentityServerConstants.LocalIdentityProvider)
+                if (idp != null && idp != IdentityServerConstants.LocalIdentityProvider)
                 {
                     var providerSupportsSignout = await HttpContext.GetSchemeSupportsSignOutAsync(idp);
                     if (providerSupportsSignout)
@@ -400,13 +401,13 @@ namespace MyApp.IdentityServer.Controllers
                 // we will issue the external cookie and then redirect the
                 // user back to the external callback, in essence, tresting windows
                 // auth the same as any other external authentication mechanism
-                var props = new AuthenticationProperties()
+                var props = new AuthenticationProperties
                 {
                     RedirectUri = Url.Action("ExternalLoginCallback"),
                     Items =
                     {
                         { "returnUrl", returnUrl },
-                        { "scheme", AccountOptions.WindowsAuthenticationSchemeName },
+                        { "scheme", AccountOptions.WindowsAuthenticationSchemeName }
                     }
                 };
 
@@ -424,7 +425,7 @@ namespace MyApp.IdentityServer.Controllers
                 }
 
                 await HttpContext.SignInAsync(
-                    IdentityServer4.IdentityServerConstants.ExternalCookieAuthenticationScheme,
+                    IdentityServerConstants.ExternalCookieAuthenticationScheme,
                     new ClaimsPrincipal(id),
                     props);
                 return Redirect(props.RedirectUri);

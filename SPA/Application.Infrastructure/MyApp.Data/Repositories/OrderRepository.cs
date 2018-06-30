@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MyApp.Core.Domain.Example.OrderAgg;
+﻿using MyApp.Core.Domain.Example.OrderAgg;
 
 namespace MyApp.Infrastructure.Data.Repositories
 {

@@ -16,7 +16,7 @@ namespace MyApp.Web.Framework.Routing
         /// <summary>
         /// Type finder
         /// </summary>
-        protected readonly ITypeFinder _typeFinder;
+        protected readonly ITypeFinder TypeFinder;
 
         #endregion
 
@@ -28,7 +28,7 @@ namespace MyApp.Web.Framework.Routing
         /// <param name="typeFinder">Type finder</param>
         public RoutePublisher(ITypeFinder typeFinder)
         {
-            _typeFinder = typeFinder;
+            TypeFinder = typeFinder;
         }
 
         #endregion
@@ -42,7 +42,7 @@ namespace MyApp.Web.Framework.Routing
         public virtual void RegisterRoutes(IRouteBuilder routeBuilder)
         {
             //find route providers provided by other assemblies
-            var routeProviders = _typeFinder.FindClassesOfType<IRouteProvider>();
+            var routeProviders = TypeFinder.FindClassesOfType<IRouteProvider>();
 
             //create and sort instances of route providers
             var instances = routeProviders

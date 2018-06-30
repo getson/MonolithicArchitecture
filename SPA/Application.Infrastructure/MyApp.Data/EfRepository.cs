@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using MyApp.Core.Domain;
 using MyApp.Core.Domain.Specification;
-using MyApp.Core.Interfaces.Data;
 
 namespace MyApp.Infrastructure.Data
 {
@@ -13,7 +12,7 @@ namespace MyApp.Infrastructure.Data
     /// Represents the Entity Framework repository
     /// </summary>
     /// <typeparam name="TEntity">Entity type</typeparam>
-    public partial class EfRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
+    public class EfRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
     {
         #region Fields
 
@@ -143,6 +142,25 @@ namespace MyApp.Infrastructure.Data
             try
             {
                 Entities.UpdateRange(entities);
+                EfDbContext.SaveChanges();
+            }
+            catch (DbUpdateException exception)
+            {
+                //ensure that the detailed error text is saved in the Log
+                throw new Exception(GetFullErrorTextAndRollbackEntityChanges(exception), exception);
+            }
+        }
+
+        /// <inheritdoc />
+        public virtual void Merge(TEntity persisted, TEntity current)
+        {
+            if (persisted == null)
+                throw new ArgumentNullException(nameof(persisted));
+            if (current == null)
+                throw new ArgumentNullException(nameof(current));
+            try
+            {
+                Entities.Attach(persisted).CurrentValues.SetValues(current);
                 EfDbContext.SaveChanges();
             }
             catch (DbUpdateException exception)

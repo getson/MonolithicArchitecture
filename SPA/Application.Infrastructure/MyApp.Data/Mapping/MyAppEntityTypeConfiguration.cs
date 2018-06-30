@@ -8,7 +8,7 @@ namespace MyApp.Infrastructure.Data.Mapping
     /// Represents base entity mapping configuration
     /// </summary>
     /// <typeparam name="TEntity">Entity type</typeparam>
-    public partial class MyAppEntityTypeConfiguration<TEntity> : IMappingConfiguration, IEntityTypeConfiguration<TEntity> where TEntity : BaseEntity
+    public class MyAppEntityTypeConfiguration<TEntity> : IMappingConfiguration, IEntityTypeConfiguration<TEntity> where TEntity : BaseEntity
     {
         #region Utilities
 

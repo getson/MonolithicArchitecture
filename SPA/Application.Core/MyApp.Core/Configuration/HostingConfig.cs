@@ -3,7 +3,7 @@ namespace MyApp.Core.Configuration
     /// <summary>
     /// Represents startup hosting configuration parameters
     /// </summary>
-    public partial class HostingConfig
+    public class HostingConfig
     {
         /// <summary>
         /// Gets or sets custom forwarded HTTP header (e.g. CF-Connecting-IP, X-FORWARDED-PROTO, etc)

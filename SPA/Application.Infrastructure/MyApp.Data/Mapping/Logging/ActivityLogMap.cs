@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyApp.Core.Domain.ActivityLog;
-using MyApp.Core.Domain.Logging;
 
 namespace MyApp.Infrastructure.Data.Mapping.Logging
 {
     /// <summary>
     /// Represents an activity log mapping configuration
     /// </summary>
-    public partial class ActivityLogMap : MyAppEntityTypeConfiguration<ActivityLog>
+    public class ActivityLogMap : MyAppEntityTypeConfiguration<ActivityLog>
     {
         #region Methods
 

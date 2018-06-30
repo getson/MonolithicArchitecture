@@ -14,7 +14,7 @@ namespace MyApp.Core.Domain
     /// object storage and access to the REPOSITORIES.
     /// </summary>
     /// <typeparam name="TEntity">Entity type</typeparam>
-    public partial interface IRepository<TEntity> where TEntity : BaseEntity
+    public interface IRepository<TEntity> where TEntity : BaseEntity
     {
         #region Methods
 
@@ -48,7 +48,13 @@ namespace MyApp.Core.Domain
         /// </summary>
         /// <param name="entities">Entities</param>
         void Update(IEnumerable<TEntity> entities);
-
+       
+        /// <summary>
+        /// Sets modified entity into the repository. 
+        /// </summary>
+        /// <param name="persisted">The persisted item</param>
+        /// <param name="current">The current item</param>
+        void Merge(TEntity persisted, TEntity current);
         /// <summary>
         /// Delete entity
         /// </summary>

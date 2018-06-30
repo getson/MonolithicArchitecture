@@ -9,7 +9,7 @@ namespace MyApp.Infrastructure.Data
     /// <summary>
     /// Represents the data settings manager
     /// </summary>
-    public partial class DataSettingsManager
+    public class DataSettingsManager
     {
         #region Fields
 

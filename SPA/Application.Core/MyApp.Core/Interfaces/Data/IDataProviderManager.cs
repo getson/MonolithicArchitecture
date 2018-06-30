@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a data provider manager
     /// </summary>
-    public partial interface IDataProviderManager
+    public interface IDataProviderManager
     {
         #region Properties
 

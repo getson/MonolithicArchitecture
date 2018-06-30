@@ -44,9 +44,6 @@ namespace SPA
             //add hosting configuration parameters
             services.AddConfiguration<HostingConfig>(Configuration.GetSection("Hosting"));
 
-            //add accessor to HttpContext
-            services.AddHttpContextAccessor();
-
             //create, initialize and configure the engine
             var engine = EngineContext.Create();
             var (rootPath, contentPath) = GetPaths(services);

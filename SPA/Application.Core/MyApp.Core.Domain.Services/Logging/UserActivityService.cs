@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using MyApp.Core.Common;
 using MyApp.Core.Domain.ActivityLog;
-using MyApp.Core.Domain.Logging;
 using MyApp.Core.Extensions;
 using MyApp.Core.Interfaces.Caching;
-using MyApp.Core.Interfaces.Data;
 using MyApp.Core.Interfaces.Pagination;
 using MyApp.Core.Interfaces.Web;
 

@@ -7,7 +7,7 @@ namespace MyApp.Infrastructure.Data.Mapping.Common
     /// <summary>
     /// Represents a decimal query type mapping configuration
     /// </summary>
-    public partial class DecimalQueryTypeMap : MyAppQueryTypeConfiguration<DecimalQueryType>
+    public class DecimalQueryTypeMap : MyAppQueryTypeConfiguration<DecimalQueryType>
     {
         #region Methods
 

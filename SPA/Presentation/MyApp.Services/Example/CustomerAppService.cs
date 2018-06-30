@@ -20,9 +20,9 @@ namespace MyApp.Services.Example
     {
         #region Members
 
-        readonly ICountryRepository _countryRepository;
-        readonly ICustomerRepository _customerRepository;
-        readonly IUserActivityService _userActivityService;
+        private readonly ICountryRepository _countryRepository;
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IUserActivityService _userActivityService;
         private readonly ILogger _logger;
 
         #endregion
@@ -62,7 +62,11 @@ namespace MyApp.Services.Example
             if (country != null)
             {
                 //Create the entity and the required associated data
-                var address = new Address(customerDto.AddressCity, customerDto.AddressZipCode, customerDto.AddressAddressLine1, customerDto.AddressAddressLine2);
+                var address = new Address(customerDto.AddressCity,
+                                          customerDto.AddressZipCode,
+                                          customerDto.AddressAddressLine1,
+                                           customerDto.AddressAddressLine2
+                                          );
 
                 var customer = CustomerFactory.CreateCustomer(customerDto.FirstName,
                                                               customerDto.LastName,
@@ -94,9 +98,7 @@ namespace MyApp.Services.Example
                 var current = MaterializeCustomerFromDto(customerDto);
 
                 //Merge changes
-                _customerRepository.Update(current);
-                //commit unit of work
-                //_customerRepository.UnitOfWork.Commit();
+                _customerRepository.Merge(persisted, current);
             }
             else
                 _logger.InsertLog(LogLevel.Error, "warning_CannotUpdateNonExistingCustomer");
@@ -191,7 +193,7 @@ namespace MyApp.Services.Example
 
         #region Private Methods
 
-        void SaveCustomer(Customer customer)
+        private void SaveCustomer(Customer customer)
         {
             //recover validator
             var validator = EntityValidatorFactory.CreateValidator();
@@ -208,10 +210,14 @@ namespace MyApp.Services.Example
             }
         }
 
-        Customer MaterializeCustomerFromDto(CustomerDto customerDto)
+        private Customer MaterializeCustomerFromDto(CustomerDto customerDto)
         {
             //create the current instance with changes from CustomerDto
-            var address = new Address(customerDto.AddressCity, customerDto.AddressZipCode, customerDto.AddressAddressLine1, customerDto.AddressAddressLine2);
+            var address = new Address(customerDto.AddressCity,
+                                      customerDto.AddressZipCode,
+                                      customerDto.AddressAddressLine1,
+                                      customerDto.AddressAddressLine2
+                                      );
 
             var country = new Country("Spain", "es-ES");
             // country.ChangeCurrentIdentity(CustomerDto.CountryId);

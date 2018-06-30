@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using IdentityModel;
+using IdentityServer4;
 using IdentityServer4.Test;
 
 namespace MyApp.IdentityServer.Helper
@@ -26,7 +27,7 @@ namespace MyApp.IdentityServer.Helper
                     new Claim(JwtClaimTypes.Email, "AliceSmith@email.com"),
                     new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
                     new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
-                    new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json)
+                    new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServerConstants.ClaimValueTypes.Json)
                 }
             },
             new TestUser
@@ -42,7 +43,7 @@ namespace MyApp.IdentityServer.Helper
                     new Claim(JwtClaimTypes.Email, "BobSmith@email.com"),
                     new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
                     new Claim(JwtClaimTypes.WebSite, "http://bob.com"),
-                    new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json),
+                    new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServerConstants.ClaimValueTypes.Json),
                     new Claim("location", "somewhere")
                 }
             }

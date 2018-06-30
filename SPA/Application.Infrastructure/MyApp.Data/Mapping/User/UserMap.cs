@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MyApp.Core.Domain.User;
 
 namespace MyApp.Infrastructure.Data.Mapping.User
 {

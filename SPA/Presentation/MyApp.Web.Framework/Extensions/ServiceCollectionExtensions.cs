@@ -1,21 +1,13 @@
 ﻿using System;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MyApp.Core.Configuration;
-using MyApp.Core.Domain.Services.Logging;
-using MyApp.Core.Infrastructure;
-using MyApp.Infrastructure.Common;
 using MyApp.Infrastructure.Data;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using StackExchange.Profiling.Storage;
 
-namespace MyApp.Web.Framework.Infrastructure.Extensions
+namespace MyApp.Web.Framework.Extensions
 {
     /// <summary>
     /// Represents extensions of IServiceCollection
@@ -35,7 +27,7 @@ namespace MyApp.Web.Framework.Infrastructure.Extensions
 
             mvcBuilder.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //TODO tocheck getson this option
-          
+
             mvcBuilder.AddJsonOptions(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -44,6 +36,11 @@ namespace MyApp.Web.Framework.Infrastructure.Extensions
             });
 
             return mvcBuilder;
+        }
+
+        public static void AddMyHttpContextAccesor(this IServiceCollection services)
+        {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
         /// <summary>
         /// Register base object context

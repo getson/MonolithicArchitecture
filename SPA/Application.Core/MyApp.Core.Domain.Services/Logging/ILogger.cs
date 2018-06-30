@@ -8,7 +8,7 @@ namespace MyApp.Core.Domain.Services.Logging
     /// <summary>
     /// Logger interface
     /// </summary>
-    public partial interface ILogger
+    public interface ILogger
     {
         /// <summary>
         /// Determines whether a log level is enabled

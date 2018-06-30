@@ -4,13 +4,12 @@ using System.Transactions;
 using Microsoft.EntityFrameworkCore.Internal;
 using MyApp.Core.Domain.Example.BankAccountAgg;
 using MyApp.Core.Domain.Example.CustomerAgg;
+using MyApp.Core.Domain.Logging;
 using MyApp.Core.Domain.Services.Banking;
 using MyApp.Core.Domain.Services.Logging;
 using MyApp.Infrastructure.Common;
 using MyApp.Infrastructure.Common.Validator;
 using MyApp.Mapping.DTOs;
-using ILogger = MyApp.Core.Domain.Services.Logging.ILogger;
-using LogLevel = MyApp.Core.Domain.Logging.LogLevel;
 
 namespace MyApp.Services.Example
 {
@@ -21,11 +20,11 @@ namespace MyApp.Services.Example
     {
         #region Members
 
-        readonly IBankAccountRepository _bankAccountRepository;
-        readonly ICustomerRepository _customerRepository;
-        readonly IBankTransferService _transferService;
+        private readonly IBankAccountRepository _bankAccountRepository;
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IBankTransferService _transferService;
         private readonly ILogger _logger;
-        readonly IUserActivityService _activityLogService;
+        private readonly IUserActivityService _activityLogService;
 
         #endregion
 
@@ -73,10 +72,7 @@ namespace MyApp.Services.Example
 
                 return account.ProjectedAs<BankAccountDto>();
             }
-            else //the customer for this bank account not exist, cannot create a new bank account
-                throw new InvalidOperationException("warning_CannotCreateBankAccountForNonExistingCustomer");
-
-
+            throw new InvalidOperationException("warning_CannotCreateBankAccountForNonExistingCustomer");
         }
 
         public bool LockBankAccount(int bankAccountId)
@@ -90,12 +86,9 @@ namespace MyApp.Services.Example
                 _bankAccountRepository.Update(bankAccount);
                 return true;
             }
-            else // if not exist the bank account return false
-            {
-                _logger.InsertLog(LogLevel.Warning, $"warning_CannotLockNonExistingBankAccount {bankAccountId}");
+            _logger.InsertLog(LogLevel.Warning, $"warning_CannotLockNonExistingBankAccount {bankAccountId}");
 
-                return false;
-            }
+            return false;
         }
 
         public List<BankAccountDto> FindBankAccounts()
@@ -108,8 +101,7 @@ namespace MyApp.Services.Example
             {
                 return bankAccounts.ProjectedAsCollection<BankAccountDto>();
             }
-            else // no results
-                return null;
+            return null;
         }
 
         public void PerformBankTransfer(BankAccountDto fromAccount, BankAccountDto toAccount, decimal amount)
@@ -120,7 +112,11 @@ namespace MyApp.Services.Example
             // 3º Call PerformTransfer method in Domain Service
             // 4º If no exceptions, commit the unit of work and complete transaction
 
-            if (BankAccountHasIdentity(fromAccount) && BankAccountHasIdentity(toAccount))
+            if (!BankAccountHasIdentity(fromAccount) || !BankAccountHasIdentity(toAccount))
+            {
+                _logger.Error("error_CannotPerformTransferInvalidAccounts");
+            }
+            else
             {
                 var source = _bankAccountRepository.GetById(fromAccount.Id);
                 var target = _bankAccountRepository.GetById(toAccount.Id);
@@ -140,11 +136,10 @@ namespace MyApp.Services.Example
                     }
                 }
                 else
+                {
                     _logger.Error("error_CannotPerformTransferInvalidAccounts");
+                }
             }
-            else
-                _logger.Error("error_CannotPerformTransferInvalidAccounts");
-
         }
 
         /// <summary>
@@ -160,11 +155,8 @@ namespace MyApp.Services.Example
             {
                 return account.BankAccountActivity.ProjectedAsCollection<BankActivityDto>();
             }
-            else // the bank account not exist
-            {
-                _logger.Warning("warning_CannotGetActivitiesForInvalidOrNotExistingBankAccount");
-                return null;
-            }
+            _logger.Warning("warning_CannotGetActivitiesForInvalidOrNotExistingBankAccount");
+            return null;
         }
 
         #endregion
@@ -179,12 +171,12 @@ namespace MyApp.Services.Example
 
         #region Private Methods
 
-        void SaveBankAccount(BankAccount bankAccount)
+        private void SaveBankAccount(BankAccount bankAccount)
         {
             //validate bank account
             var validator = EntityValidatorFactory.CreateValidator();
 
-            if (validator.IsValid<BankAccount>(bankAccount)) // save entity
+            if (validator.IsValid(bankAccount)) // save entity
             {
                 _bankAccountRepository.Insert(bankAccount);
             }
@@ -192,7 +184,7 @@ namespace MyApp.Services.Example
                 throw new ApplicationValidationErrorsException(validator.GetInvalidMessages(bankAccount));
         }
 
-        BankAccountNumber CalculateNewBankAccountNumber()
+        private BankAccountNumber CalculateNewBankAccountNumber()
         {
             var bankAccountNumber = new BankAccountNumber
             {
@@ -209,7 +201,7 @@ namespace MyApp.Services.Example
 
         }
 
-        bool BankAccountHasIdentity(BankAccountDto bankAccountDto)
+        private bool BankAccountHasIdentity(BankAccountDto bankAccountDto)
         {
             //return true is bank account dto has identity
             return (bankAccountDto != null && bankAccountDto.Id != 0);

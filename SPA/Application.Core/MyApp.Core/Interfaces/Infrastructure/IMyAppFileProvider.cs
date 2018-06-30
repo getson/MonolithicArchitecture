@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 
-
 namespace MyApp.Core.Interfaces.Infrastructure
 {
     /// <summary>

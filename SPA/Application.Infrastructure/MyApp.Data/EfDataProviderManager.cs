@@ -8,7 +8,7 @@ namespace MyApp.Infrastructure.Data
     /// <summary>
     /// Represents the Entity Framework data provider manager
     /// </summary>
-    public partial class EfDataProviderManager : IDataProviderManager
+    public class EfDataProviderManager : IDataProviderManager
     {
         #region Properties
 

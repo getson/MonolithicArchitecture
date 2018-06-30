@@ -14,7 +14,7 @@ namespace MyApp.Core.Common
     /// <summary>
     /// Represents a common helper
     /// </summary>
-    public partial class CommonHelper
+    public class CommonHelper
     {
         #region Fields
 
@@ -273,7 +273,7 @@ namespace MyApp.Core.Common
             var result = string.Empty;
             foreach (var c in str)
                 if (c.ToString() != c.ToString().ToLower())
-                    result += " " + c.ToString();
+                    result += " " + c;
                 else
                     result += c.ToString();
 

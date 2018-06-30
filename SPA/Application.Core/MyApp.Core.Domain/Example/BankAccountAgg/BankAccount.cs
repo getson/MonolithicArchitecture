@@ -12,9 +12,7 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
     public class BankAccount : AggregateRoot, IValidatableObject
     {
         #region Constructor
-        public BankAccount()
-        {
-        }
+
         #endregion
         #region Properties
 
@@ -124,22 +122,19 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
             if (!Locked)
             {
                 //set balance
-                checked
+                Balance += amount;
+
+                //anotate activity
+                var activity = new BankAccountActivity
                 {
-                    Balance += amount;
+                    Date = DateTime.UtcNow,
+                    Amount = amount,
+                    ActivityDescription = reason,
+                    BankAccountId = Id
+                };
+                //activity.GenerateNewIdentity();
 
-                    //anotate activity
-                    var activity = new BankAccountActivity()
-                    {
-                        Date = DateTime.UtcNow,
-                        Amount = amount,
-                        ActivityDescription = reason,
-                        BankAccountId = Id
-                    };
-                    //activity.GenerateNewIdentity();
-
-                    BankAccountActivity.Add(activity);
-                }
+                BankAccountActivity.Add(activity);
             }
             else
                 throw new InvalidOperationException("exception_BankAccountCannotDeposit");
@@ -156,22 +151,19 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
             //WithdrawMoney is a term of our Ubiquitous Language. Means deducting money to this account
             if (CanBeWithdrawed(amount))
             {
-                checked
+                Balance -= amount;
+
+                //anotate activity
+                var activity = new BankAccountActivity
                 {
-                    Balance -= amount;
+                    Date = DateTime.UtcNow,
+                    Amount = -amount,
+                    ActivityDescription = reason,
+                    BankAccountId = Id
+                };
+                //activity.GenerateNewIdentity();
 
-                    //anotate activity
-                    var activity = new BankAccountActivity()
-                    {
-                        Date = DateTime.UtcNow,
-                        Amount = -amount,
-                        ActivityDescription = reason,
-                        BankAccountId = Id
-                    };
-                    //activity.GenerateNewIdentity();
-
-                    BankAccountActivity.Add(activity);
-                }
+                BankAccountActivity.Add(activity);
             }
             else
                 throw new InvalidOperationException("exception_BankAccountCannotWithdraw");
@@ -193,9 +185,7 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
         /// <param name="customer">The customer owner of this bank account</param>
         public void SetCustomerOwnerOfThisBankAccount(Customer customer)
         {
-            if (customer == null
-                ||
-                customer.IsTransient())
+            if (customer == null || customer.IsTransient())
             {
                 throw new ArgumentException("exception_CannotAssociateTransientOrNullCustomer");
             }
@@ -211,7 +201,7 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
         /// <param name="customerId">The new customer identifier</param>
         public void ChangeCustomerOwnerReference(int customerId)
         {
-            if (customerId !=0)
+            if (customerId != 0)
             {
                 //fix a new id 
                 Customer = null;
@@ -228,24 +218,24 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
             var validationResults = new List<ValidationResult>();
 
             if (BankAccountNumber == null)
-                validationResults.Add(new ValidationResult("validation_BankAccountNumberCannotBeNull", new string[] { "BankAccountNumber" }));
+                validationResults.Add(new ValidationResult("validation_BankAccountNumberCannotBeNull", new[] { "BankAccountNumber" }));
             else
             {
                 if (String.IsNullOrWhiteSpace(BankAccountNumber.AccountNumber))
-                    validationResults.Add(new ValidationResult("validation_BankAccountBankAccountNumberCannotBeNull", new string[] { "AccountNumber" }));
+                    validationResults.Add(new ValidationResult("validation_BankAccountBankAccountNumberCannotBeNull", new[] { "AccountNumber" }));
 
                 if (String.IsNullOrWhiteSpace(BankAccountNumber.CheckDigits))
-                    validationResults.Add(new ValidationResult("validation_BankAccountBankCheckDigitsCannotBeNull", new string[] { "CheckDigits" }));
+                    validationResults.Add(new ValidationResult("validation_BankAccountBankCheckDigitsCannotBeNull", new[] { "CheckDigits" }));
 
                 if (String.IsNullOrWhiteSpace(BankAccountNumber.NationalBankCode))
-                    validationResults.Add(new ValidationResult("validation_BankAccountBankNationalBankCodeCannotBeNull", new string[] { "NationalBankCode" }));
+                    validationResults.Add(new ValidationResult("validation_BankAccountBankNationalBankCodeCannotBeNull", new[] { "NationalBankCode" }));
 
                 if (String.IsNullOrWhiteSpace(BankAccountNumber.OfficeNumber))
-                    validationResults.Add(new ValidationResult("validation_BankAccountBankOfficeNumberCannotBeNull", new string[] { "OfficeNumber" }));
+                    validationResults.Add(new ValidationResult("validation_BankAccountBankOfficeNumberCannotBeNull", new[] { "OfficeNumber" }));
             }
 
             if (CustomerId == 0)
-                validationResults.Add(new ValidationResult("validation_BankAccountCustomerIdIsEmpty", new string[] { "CustomerId" }));
+                validationResults.Add(new ValidationResult("validation_BankAccountCustomerIdIsEmpty", new[] { "CustomerId" }));
 
             return validationResults;
         }

@@ -20,7 +20,7 @@ namespace MyApp.Web.Framework.Common
     /// <summary>
     /// Represents a web helper
     /// </summary>
-    public partial class WebHelper : IWebHelper
+    public class WebHelper : IWebHelper
     {
         #region Const
 
@@ -189,10 +189,10 @@ namespace MyApp.Web.Framework.Common
                 return string.Empty;
 
             //get Tenant location
-            var TenantLocation = GetTenantLocation(useSsl ?? IsCurrentConnectionSecured());
+            var tenantLocation = GetTenantLocation(useSsl ?? IsCurrentConnectionSecured());
 
             //add local path to the URL
-            var pageUrl = $"{TenantLocation.TrimEnd('/')}{_httpContextAccessor.HttpContext.Request.Path}";
+            var pageUrl = $"{tenantLocation.TrimEnd('/')}{_httpContextAccessor.HttpContext.Request.Path}";
 
             //add query string to the URL
             if (includeQueryString)
@@ -242,12 +242,12 @@ namespace MyApp.Web.Framework.Common
                 return string.Empty;
 
             //add scheme to the URL
-            var TenantHost = $"{(useSsl ? Uri.UriSchemeHttps : Uri.UriSchemeHttp)}://{hostHeader.FirstOrDefault()}";
+            var tenantHost = $"{(useSsl ? Uri.UriSchemeHttps : Uri.UriSchemeHttp)}://{hostHeader.FirstOrDefault()}";
 
             //ensure that host is ended with slash
-            TenantHost = $"{TenantHost.TrimEnd('/')}/";
+            tenantHost = $"{tenantHost.TrimEnd('/')}/";
 
-            return TenantHost;
+            return tenantHost;
         }
 
         /// <summary>
@@ -257,16 +257,16 @@ namespace MyApp.Web.Framework.Common
         /// <returns>Tenant location</returns>
         public virtual string GetTenantLocation(bool? useSsl = null)
         {
-            var TenantLocation = string.Empty;
+            var tenantLocation = string.Empty;
 
             //get Tenant host
-            var TenantHost = GetTenantHost(useSsl ?? IsCurrentConnectionSecured());
-            if (!string.IsNullOrEmpty(TenantHost))
+            var tenantHost = GetTenantHost(useSsl ?? IsCurrentConnectionSecured());
+            if (!string.IsNullOrEmpty(tenantHost))
             {
                 //add application path base if exists
-                TenantLocation = IsRequestAvailable() ? $"{TenantHost.TrimEnd('/')}{_httpContextAccessor.HttpContext.Request.PathBase}" : TenantHost;
+                tenantLocation = IsRequestAvailable() ? $"{tenantHost.TrimEnd('/')}{_httpContextAccessor.HttpContext.Request.PathBase}" : tenantHost;
             }
-            return TenantLocation;
+            return tenantLocation;
         }
 
         /// <summary>

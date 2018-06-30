@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MyApp.Core.Domain.Services.Events;
+using MyApp.Core.Domain.User;
 using MyApp.Core.Interfaces.Plugin;
 using MyApp.Core.Plugins;
 
@@ -120,7 +121,7 @@ namespace MyApp.Services.Plugins
         /// <param name="pluginDescriptor">Plugin descriptor to check</param>
         /// <param name="user">User</param>
         /// <returns>True if authorized; otherwise, false</returns>
-        public virtual bool AuthorizedForUser(PluginDescriptor pluginDescriptor, Core.Domain.User.User user)
+        public virtual bool AuthorizedForUser(PluginDescriptor pluginDescriptor, User user)
         {
             if (pluginDescriptor == null)
                 throw new ArgumentNullException(nameof(pluginDescriptor));
@@ -152,7 +153,7 @@ namespace MyApp.Services.Plugins
         /// <param name="group">Filter by plugin group; pass null to load all records</param>
         /// <returns>Plugins</returns>
         public virtual IEnumerable<T> GetPlugins<T>(LoadPluginsMode loadMode = LoadPluginsMode.InstalledOnly,
-            Core.Domain.User.User user = null, int tenantId = 0, string group = null) where T : class, IPlugin
+            User user = null, int tenantId = 0, string group = null) where T : class, IPlugin
         {
             return GetPluginDescriptors<T>(loadMode, user, tenantId, group).Select(p => p.Instance<T>());
         }
@@ -166,7 +167,7 @@ namespace MyApp.Services.Plugins
         /// <param name="group">Filter by plugin group; pass null to load all records</param>
         /// <returns>Plugin descriptors</returns>
         public virtual IEnumerable<PluginDescriptor> GetPluginDescriptors(LoadPluginsMode loadMode = LoadPluginsMode.InstalledOnly,
-            Core.Domain.User.User user = null, int tenantId = 0, string group = null)
+            User user = null, int tenantId = 0, string group = null)
         {
             //ensure plugins are loaded
             EnsurePluginsAreLoaded();
@@ -184,7 +185,7 @@ namespace MyApp.Services.Plugins
         /// <param name="group">Filter by plugin group; pass null to load all records</param>
         /// <returns>Plugin descriptors</returns>
         public virtual IEnumerable<PluginDescriptor> GetPluginDescriptors<T>(LoadPluginsMode loadMode = LoadPluginsMode.InstalledOnly,
-            Core.Domain.User.User user = null, int tenantId = 0, string group = null) 
+            User user = null, int tenantId = 0, string group = null) 
             where T : class, IPlugin
         {
             return GetPluginDescriptors(loadMode, user, tenantId, group)

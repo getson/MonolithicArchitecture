@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using MyApp.Core.Common;
-using Newtonsoft.Json;
 using MyApp.Core.Configuration;
 using MyApp.Core.Infrastructure;
 using MyApp.Core.Interfaces.Infrastructure;
 using MyApp.Core.Interfaces.Plugin;
+using Newtonsoft.Json;
 
 //Contributor: Umbraco (http://www.umbraco.com). Thanks a lot! 
 //SEE THIS POST for full details of what this does - http://shazwazza.com/post/Developing-a-plugin-framework-in-ASPNET-with-medium-trust.aspx

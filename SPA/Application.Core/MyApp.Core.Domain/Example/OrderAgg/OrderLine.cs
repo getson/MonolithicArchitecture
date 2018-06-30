@@ -62,9 +62,6 @@ namespace MyApp.Core.Domain.Example.OrderAgg
         #endregion
 
         #region Constructor
-        public OrderLine()
-        {
-        }
 
         #endregion
         #region Public Methods

@@ -5,7 +5,7 @@ namespace MyApp.Infrastructure.Data.Mapping.Common
     /// <summary>
     /// Represents a string query type mapping configuration
     /// </summary>
-    public partial class StringQueryTypeMap : MyAppQueryTypeConfiguration<StringQueryType>
+    public class StringQueryTypeMap : MyAppQueryTypeConfiguration<StringQueryType>
     {
     }
 }

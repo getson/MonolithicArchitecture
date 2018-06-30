@@ -89,9 +89,7 @@ namespace MyApp.Core.Domain.Example.CustomerAgg
         #endregion
 
         #region Constructor
-        public Customer()
-        {
-        }
+
         #endregion
         #region Public Methods
 

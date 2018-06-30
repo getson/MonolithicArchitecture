@@ -25,7 +25,7 @@ namespace MyApp.Core.Domain.Specification
         /// <param name="matchingCriteria">A Matching Criteria</param>
         public DirectSpecification(Expression<Func<TEntity, bool>> matchingCriteria)
         {
-            if (matchingCriteria == (Expression<Func<TEntity, bool>>)null)
+            if (matchingCriteria == null)
                 throw new ArgumentNullException("matchingCriteria");
 
             _matchingCriteria = matchingCriteria;

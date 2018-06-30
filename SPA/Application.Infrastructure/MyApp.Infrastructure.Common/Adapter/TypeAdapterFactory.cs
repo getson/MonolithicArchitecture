@@ -6,7 +6,7 @@ namespace MyApp.Infrastructure.Common.Adapter
     {
         #region Members
 
-        static ITypeAdapterFactory _currentTypeAdapterFactory = null;
+        static ITypeAdapterFactory _currentTypeAdapterFactory;
 
         #endregion
 

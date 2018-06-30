@@ -7,7 +7,7 @@ namespace MyApp.Services.Plugins
     /// <summary>
     /// Represents a service for uploading application extensions (plugins or themes)
     /// </summary>
-    public partial interface IUploadService
+    public interface IUploadService
     {
         #region Methods
 

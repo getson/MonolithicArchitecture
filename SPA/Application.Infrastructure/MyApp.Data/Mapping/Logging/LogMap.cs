@@ -7,7 +7,7 @@ namespace MyApp.Infrastructure.Data.Mapping.Logging
     /// <summary>
     /// Represents a log mapping configuration
     /// </summary>
-    public partial class LogMap : MyAppEntityTypeConfiguration<Log>
+    public class LogMap : MyAppEntityTypeConfiguration<Log>
     {
         #region Methods
 

@@ -6,7 +6,7 @@ namespace MyApp.Core.Domain.ActivityLog
     /// <summary>
     /// Represents an activity log record
     /// </summary>
-    public partial class ActivityLog : AggregateRoot
+    public class ActivityLog : AggregateRoot
     {
         /// <summary>
         /// Gets or sets the activity log type identifier

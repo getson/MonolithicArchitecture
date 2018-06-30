@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Autofac;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using MyApp.Core.Configuration;
@@ -57,9 +58,11 @@ namespace MyApp.Web.Framework.Infrastructure
 
             //work context
             builder.RegisterType<WebWorkContext>().As<IWorkContext>().InstancePerLifetimeScope();
+            
+            //mapping
+            RegisterMapping(builder);
 
-
-            //services
+            // services
 
             builder.RegisterType<DefaultLogger>().As<ILogger>().InstancePerLifetimeScope();
             builder.RegisterType<UserActivityService>().As<IUserActivityService>().InstancePerLifetimeScope();
@@ -76,16 +79,24 @@ namespace MyApp.Web.Framework.Infrastructure
             RegisterEventConsumers(builder, typeFinder);
         }
 
+        private static void RegisterMapping(ContainerBuilder builder)
+        {
+            //Adapters
+            var autoMapperAdapter = new AutomapperTypeAdapterFactory();
+            builder.RegisterInstance(autoMapperAdapter).As<ITypeAdapterFactory>().SingleInstance();
+
+            TypeAdapterFactory.SetCurrent(autoMapperAdapter);
+
+        }
         private static void RegisterWebUtilities(ContainerBuilder builder)
         {
+            //register ApiExplorer
+            builder.RegisterType<DefaultApiVersionDescriptionProvider>().As<IApiVersionDescriptionProvider>().SingleInstance();
+
             //web helper
             builder.RegisterType<WebHelper>().As<IWebHelper>().InstancePerLifetimeScope();
             //user agent helper
             builder.RegisterType<UserAgentHelper>().As<IUserAgentHelper>().InstancePerLifetimeScope();
-            //Adapters
-            var autoMapperAdapter = new AutomapperTypeAdapterFactory();
-            builder.RegisterInstance(autoMapperAdapter).As<ITypeAdapterFactory>().SingleInstance();
-            TypeAdapterFactory.SetCurrent(autoMapperAdapter);
 
             //Validator
             EntityValidatorFactory.SetCurrent(new DataAnnotationsEntityValidatorFactory());

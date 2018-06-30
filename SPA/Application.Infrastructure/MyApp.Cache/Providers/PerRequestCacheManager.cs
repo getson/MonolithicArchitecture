@@ -9,7 +9,7 @@ namespace MyApp.Infrastructure.Cache.Providers
     /// <summary>
     /// Represents a manager for caching during an HTTP request (short term caching)
     /// </summary>
-    public partial class PerRequestCacheManager : ICacheManager
+    public class PerRequestCacheManager : ICacheManager
     {
         #region Fields
 

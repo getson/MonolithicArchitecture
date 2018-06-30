@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using MyApp.Mapping;
 using MyApp.Mapping.DTOs;
 using MyApp.Services.Example;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace SPA.Controllers
-{/// <summary>
-/// Orders API
-/// </summary>
-    [Route("api/[controller]")]
+{
+     /// <summary>
+     /// Orders API
+     /// </summary>
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class OrdersController : Controller, IDisposable
     {
         private readonly ISalesAppService _salesAppService;

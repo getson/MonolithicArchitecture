@@ -88,9 +88,7 @@ namespace MyApp.Core.Domain.Example.OrderAgg
         #endregion
 
         #region Constructor
-        public Order()
-        {
-        }
+
         #endregion
 
         #region Public Methods
@@ -120,7 +118,7 @@ namespace MyApp.Core.Domain.Example.OrderAgg
                 discount = 100;
 
             //create new order line
-            var newOrderLine = new OrderLine()
+            var newOrderLine = new OrderLine
             {
                 OrderId = Id,
                 ProductId = productId,

@@ -5,7 +5,7 @@ namespace MyApp.Core.Domain.ActivityLog
     /// <summary>
     /// Represents an activity log type record
     /// </summary>
-    public partial class ActivityLogType : AggregateRoot
+    public class ActivityLogType : AggregateRoot
     {
         /// <summary>
         /// Gets or sets the system keyword

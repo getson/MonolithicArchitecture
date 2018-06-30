@@ -5,7 +5,7 @@ using MyApp.Web.Framework.Routing;
 namespace SPA.Infrastructure
 {
     /// <inheritdoc />
-    public partial class RouteProvider : IRouteProvider
+    public class RouteProvider : IRouteProvider
     {
         /// <inheritdoc />
         public void RegisterRoutes(IRouteBuilder routeBuilder)

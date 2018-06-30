@@ -1,16 +1,14 @@
-﻿using System;
-using System.IO;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyApp.Core.Interfaces.Infrastructure;
-using Swashbuckle.AspNetCore.Swagger;
+using SPA.Infrastructure;
 
 namespace SPA
 {
     /// <inheritdoc />
     /// Startup class for configuring SPA services
-    public partial class SpaStartup:IMyAppStartup
+    public class SpaStartup : IMyAppStartup
     {
         /// <summary>
         /// Add and configure any of the middleware
@@ -24,27 +22,8 @@ namespace SPA
             {
                 config.RootPath = "ClientApp/dist";
             });
-
-            services.AddSwaggerGen(c =>
-            {
-
-                c.SwaggerDoc("v1", new Info
-                {
-                    Version = "v1",
-                    Title = "MyApp API",
-                    Description = "This is a demo of my Enterprise App",
-                    Contact = new Contact
-                    {
-                        Name = "Getson Cela",
-                        Email = "cela.getson@gmail.com"
-                    },
-                });
-                // Set the comments path for the Swagger JSON and UI.
-                var basePath = AppContext.BaseDirectory;
-                var xmlPath = Path.Combine(basePath, "SPA.xml");
-                c.IncludeXmlComments(xmlPath);
-            });
-
+            services.AddMyApiVersioning();
+            services.AddMySwagger();
         }
 
         /// <summary>
@@ -55,18 +34,26 @@ namespace SPA
         {
             application.UseSpaStaticFiles();
             // Enable middleware to serve generated Swagger as a JSON endpoint.
-            application.UseSwagger();
+            //application.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
-            application.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
+            //application.UseSwaggerUI(c =>
+            //{
+            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            //});
+            application.UseMySwagger();
+
         }
 
         /// <summary>
         /// Gets order of this startup configuration implementation
         /// </summary>
         public int Order => 200;
+
+        #region Helper
+
+
+        #endregion
+
     }
 }

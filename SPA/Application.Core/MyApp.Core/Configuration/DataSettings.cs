@@ -6,7 +6,7 @@ namespace MyApp.Core.Configuration
     /// <summary>
     /// Represents the data settings
     /// </summary>
-    public partial class DataSettings
+    public class DataSettings
     {
 
         #region Properties

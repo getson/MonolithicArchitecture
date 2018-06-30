@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Newtonsoft.Json;
 using MyApp.Core.Infrastructure;
 using MyApp.Core.Interfaces.Plugin;
+using Newtonsoft.Json;
 
 namespace MyApp.Core.Plugins
 {

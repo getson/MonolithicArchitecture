@@ -9,7 +9,7 @@ namespace MyApp.Core.Domain.Services.Logging
     /// <summary>
     /// Null logger
     /// </summary>
-    public partial class NullLogger : ILogger
+    public class NullLogger : ILogger
     {
         /// <summary>
         /// Determines whether a log level is enabled

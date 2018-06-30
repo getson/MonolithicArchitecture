@@ -5,7 +5,7 @@ namespace MyApp.Infrastructure.Cache.Providers
     /// <summary>
     /// Represents a null cache (caches nothing)
     /// </summary>
-    public partial class MyAppNullCache : IStaticCacheManager
+    public class MyAppNullCache : IStaticCacheManager
     {
         /// <summary>
         /// Gets or sets the value associated with the specified key.
