@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using MyApp.Mapping.DTOs;
+using MyApp.Infrastructure.Mapping.DTOs;
 using MyApp.Services.Example;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,7 +11,7 @@ namespace SPA.Controllers
     /// <summary>
     /// Customers API
     /// </summary>
-    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class CustomersController : Controller, IDisposable
     {

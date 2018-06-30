@@ -6,10 +6,10 @@ using MyApp.Core.Domain.Example.CustomerAgg;
 using MyApp.Core.Domain.Example.OrderAgg;
 using MyApp.Core.Domain.Example.ProductAgg;
 using MyApp.Core.Domain.Logging;
-using MyApp.Core.Domain.Services.Logging;
 using MyApp.Infrastructure.Common;
 using MyApp.Infrastructure.Common.Validator;
-using MyApp.Mapping.DTOs;
+using MyApp.Infrastructure.Mapping.DTOs;
+using MyApp.Services.Logging;
 
 namespace MyApp.Services.Example
 {

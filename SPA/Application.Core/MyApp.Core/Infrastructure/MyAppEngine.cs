@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
@@ -15,6 +16,7 @@ using MyApp.Core.Exceptions;
 using MyApp.Core.Interfaces.Infrastructure;
 using MyApp.Core.Interfaces.Mapping;
 using MyApp.Core.Plugins;
+using MyApp.Core.SharedKernel.Events;
 
 namespace MyApp.Core.Infrastructure
 {
@@ -172,8 +174,8 @@ namespace MyApp.Core.Infrastructure
             //register dependencies
             var myAppConfig = services.BuildServiceProvider().GetService<MyAppConfig>();
 
-            RegisterDependencies(myAppConfig, services, typeFinder);
-
+            _serviceProvider = RegisterDependencies(myAppConfig, services, typeFinder);
+            DomainEvents.Instance.Init(_serviceProvider);
             //resolve assemblies here. otherwise, plugins can throw an exception when rendering views
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 
@@ -183,7 +185,6 @@ namespace MyApp.Core.Infrastructure
 
             return _serviceProvider;
         }
-
         private void ConfigureStartupsServices(IServiceCollection services, IConfigurationRoot configuration, ITypeFinder typeFinder)
         {
             var startupConfigurations = typeFinder.FindClassesOfType<IMyAppStartup>();

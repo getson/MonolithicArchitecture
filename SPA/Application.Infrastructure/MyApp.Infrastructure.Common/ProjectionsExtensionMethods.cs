@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using MyApp.Core.Domain;
+using MyApp.Core.SharedKernel.Entities;
 using MyApp.Infrastructure.Common.Adapter;
 
 namespace MyApp.Infrastructure.Common

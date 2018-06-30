@@ -5,11 +5,11 @@ using MyApp.Core.Common;
 using MyApp.Core.Domain.Example.CountryAgg;
 using MyApp.Core.Domain.Example.CustomerAgg;
 using MyApp.Core.Domain.Logging;
-using MyApp.Core.Domain.Services.Logging;
-using MyApp.Core.Domain.Specification;
+using MyApp.Core.SharedKernel.Specification;
 using MyApp.Infrastructure.Common;
 using MyApp.Infrastructure.Common.Validator;
-using MyApp.Mapping.DTOs;
+using MyApp.Infrastructure.Mapping.DTOs;
+using MyApp.Services.Logging;
 
 namespace MyApp.Services.Example
 {

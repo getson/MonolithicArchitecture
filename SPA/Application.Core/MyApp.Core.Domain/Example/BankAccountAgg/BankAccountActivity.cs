@@ -1,4 +1,5 @@
 ﻿using System;
+using MyApp.Core.SharedKernel.Entities;
 
 namespace MyApp.Core.Domain.Example.BankAccountAgg
 {

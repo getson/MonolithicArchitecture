@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MyApp.Core.Domain.Services.Events;
 using MyApp.Core.Domain.User;
 using MyApp.Core.Interfaces.Plugin;
 using MyApp.Core.Plugins;
+using MyApp.Services.Events;
 
 namespace MyApp.Services.Plugins
 {

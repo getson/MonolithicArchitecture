@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
-using MyApp.Core.Domain.Common;
 using MyApp.Core.Infrastructure;
 using MyApp.Core.Interfaces.Data;
 using MyApp.Core.Interfaces.Infrastructure;
+using MyApp.Core.SharedKernel.Common;
 using MyApp.Infrastructure.Data.Extensions;
 
 namespace MyApp.Infrastructure.Data.Providers

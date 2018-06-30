@@ -11,7 +11,7 @@ using MyApp.Infrastructure.Data;
 using MyApp.Web.Framework.Extensions;
 using MyApp.Web.Framework.Routing;
 
-namespace MyApp.Web.Framework.Infrastructure
+namespace MyApp.Web.Framework
 {
     /// <summary>
     /// Represents object for the configuring MVC on application startup

@@ -1,4 +1,4 @@
-﻿namespace MyApp.Mapping.DTOs
+﻿namespace MyApp.Infrastructure.Mapping.DTOs
 {
     /// <summary>
     /// This is the data transfer object

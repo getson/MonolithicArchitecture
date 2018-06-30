@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using MyApp.Core.Domain;
+using MyApp.Core.SharedKernel.Entities;
 
 namespace MyApp.Infrastructure.Data
 {

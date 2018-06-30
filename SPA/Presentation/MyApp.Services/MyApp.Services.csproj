@@ -15,7 +15,7 @@
     <ProjectReference Include="..\..\Application.Core\MyApp.Core\MyApp.Core.csproj" />
     <ProjectReference Include="..\..\Application.Infrastructure\MyApp.Data\MyApp.Infrastructure.Data.csproj" />
     <ProjectReference Include="..\..\Application.Infrastructure\MyApp.Infrastructure.Common\MyApp.Infrastructure.Common.csproj" />
-    <ProjectReference Include="..\MyApp.Mapping\MyApp.Mapping.csproj" />
+    <ProjectReference Include="..\MyApp.Mapping\MyApp.Infrastructure.Mapping.csproj" />
   </ItemGroup>
 
   <ItemGroup>

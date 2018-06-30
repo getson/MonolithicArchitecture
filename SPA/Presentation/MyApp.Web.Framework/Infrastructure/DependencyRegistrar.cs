@@ -7,14 +7,14 @@ using Microsoft.EntityFrameworkCore;
 using MyApp.Core.Configuration;
 using MyApp.Core.Domain;
 using MyApp.Core.Domain.Services.Banking;
-using MyApp.Core.Domain.Services.Events;
-using MyApp.Core.Domain.Services.Logging;
 using MyApp.Core.Interfaces.Caching;
 using MyApp.Core.Interfaces.Data;
 using MyApp.Core.Interfaces.Infrastructure;
 using MyApp.Core.Interfaces.Mapping;
 using MyApp.Core.Interfaces.Plugin;
 using MyApp.Core.Interfaces.Web;
+using MyApp.Core.SharedKernel;
+using MyApp.Core.SharedKernel.Events;
 using MyApp.Infrastructure.Cache;
 using MyApp.Infrastructure.Cache.Providers;
 using MyApp.Infrastructure.Cache.Providers.Redis;
@@ -22,8 +22,10 @@ using MyApp.Infrastructure.Common.Adapter;
 using MyApp.Infrastructure.Common.Validator;
 using MyApp.Infrastructure.Data;
 using MyApp.Infrastructure.ExternalServices.Plugins;
+using MyApp.Services.Events;
 using MyApp.Services.Example;
 using MyApp.Services.Installation;
+using MyApp.Services.Logging;
 using MyApp.Services.Plugins;
 using MyApp.Web.Framework.Common;
 using MyApp.Web.Framework.Routing;
@@ -58,7 +60,7 @@ namespace MyApp.Web.Framework.Infrastructure
 
             //work context
             builder.RegisterType<WebWorkContext>().As<IWorkContext>().InstancePerLifetimeScope();
-            
+
             //mapping
             RegisterMapping(builder);
 
@@ -72,10 +74,12 @@ namespace MyApp.Web.Framework.Infrastructure
             builder.RegisterType<SubscriptionService>().As<ISubscriptionService>().SingleInstance();
             builder.RegisterType<ActionContextAccessor>().As<IActionContextAccessor>().InstancePerLifetimeScope();
 
-            //installation service
             RegisterInstallationService(builder, config);
 
-            RegisterApplicationServices(builder);//event consumers
+            RegisterApplicationServices(builder);
+
+            RegisterDomainHandlers(builder,typeFinder);
+
             RegisterEventConsumers(builder, typeFinder);
         }
 
@@ -113,6 +117,21 @@ namespace MyApp.Web.Framework.Infrastructure
                         var isMatch = type.IsGenericType && ((Type)criteria).IsAssignableFrom(type.GetGenericTypeDefinition());
                         return isMatch;
                     }, typeof(IConsumer<>)))
+                    .InstancePerLifetimeScope();
+            }
+        }
+
+        private static void RegisterDomainHandlers(ContainerBuilder builder, ITypeFinder typeFinder)
+        {
+            var domainHandlers = typeFinder.FindClassesOfType(typeof(IHandler<>)).ToList();
+            foreach (var consumer in domainHandlers)
+            {
+                builder.RegisterType(consumer)
+                    .As(consumer.FindInterfaces((type, criteria) =>
+                    {
+                        var isMatch = type.IsGenericType && ((Type)criteria).IsAssignableFrom(type.GetGenericTypeDefinition());
+                        return isMatch;
+                    }, typeof(IHandler<>)))
                     .InstancePerLifetimeScope();
             }
         }

@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyApp.Core.Domain\MyApp.Core.Domain.csproj" />
+    <ProjectReference Include="..\MyApp.Core.SharedKernel\MyApp.Core.SharedKernel.csproj" />
   </ItemGroup>
 
   <ItemGroup>

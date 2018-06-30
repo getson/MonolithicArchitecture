@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using MyApp.Core.Domain.Example.CustomerAgg;
-using MyApp.Core.Domain.Specification;
+using MyApp.Core.SharedKernel.Specification;
 
 namespace MyApp.Core.Domain.Example.OrderAgg
 {

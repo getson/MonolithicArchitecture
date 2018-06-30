@@ -1,4 +1,4 @@
-using MyApp.Core.Domain.Common;
+using MyApp.Core.SharedKernel.Common;
 
 namespace MyApp.Infrastructure.Data.Mapping.Common
 {

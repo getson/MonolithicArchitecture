@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using MyApp.Core.Domain;
-using MyApp.Core.Domain.Specification;
+using MyApp.Core.SharedKernel;
+using MyApp.Core.SharedKernel.Entities;
+using MyApp.Core.SharedKernel.Specification;
 
 namespace MyApp.Infrastructure.Data
 {

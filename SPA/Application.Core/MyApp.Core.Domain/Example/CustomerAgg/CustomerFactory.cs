@@ -1,4 +1,5 @@
 ﻿using MyApp.Core.Domain.Example.CountryAgg;
+using MyApp.Core.SharedKernel.Events;
 
 namespace MyApp.Core.Domain.Example.CustomerAgg
 {
@@ -55,7 +56,8 @@ namespace MyApp.Core.Domain.Example.CustomerAgg
 
             //set the country for this customer
             customer.SetTheCountryForThisCustomer(country);
-
+            //DomainEvents.Instance.Dispatch(new CustomerCreatedEvent(customer.FirstName));
+            DomainEvents.Instance.Raise(new CustomerCreatedEvent(customer.FirstName));
             return customer;
         }
     }

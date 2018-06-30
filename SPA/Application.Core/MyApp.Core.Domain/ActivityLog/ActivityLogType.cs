@@ -1,4 +1,4 @@
-﻿using MyApp.Core.Domain.Common;
+﻿using MyApp.Core.SharedKernel.Entities;
 
 namespace MyApp.Core.Domain.ActivityLog
 {

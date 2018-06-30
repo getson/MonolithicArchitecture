@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using MyApp.Core.Domain.Example.ProductAgg;
+using MyApp.Core.SharedKernel.Entities;
 
 namespace MyApp.Core.Domain.Example.OrderAgg
 {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using MyApp.Core.Domain.Common;
 using MyApp.Core.Domain.Example.CustomerAgg;
+using MyApp.Core.SharedKernel.Entities;
 
 namespace MyApp.Core.Domain.Example.BankAccountAgg
 {

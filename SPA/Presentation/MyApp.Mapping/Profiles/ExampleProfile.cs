@@ -5,9 +5,9 @@ using MyApp.Core.Domain.Example.CustomerAgg;
 using MyApp.Core.Domain.Example.OrderAgg;
 using MyApp.Core.Domain.Example.ProductAgg;
 using MyApp.Core.Interfaces.Mapping;
-using MyApp.Mapping.DTOs;
+using MyApp.Infrastructure.Mapping.DTOs;
 
-namespace MyApp.Dto.Profiles
+namespace MyApp.Infrastructure.Mapping.Profiles
 {
     public class ExampleProfile : Profile, IMapperProfile
     {

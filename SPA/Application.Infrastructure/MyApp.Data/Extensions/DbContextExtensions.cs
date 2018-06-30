@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
-using MyApp.Core.Domain;
+using MyApp.Core.SharedKernel.Entities;
 
 namespace MyApp.Infrastructure.Data.Extensions
 {

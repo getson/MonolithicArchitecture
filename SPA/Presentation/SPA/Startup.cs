@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyApp.Core.Configuration;
-using MyApp.Core.Domain.Services.Logging;
 using MyApp.Core.Infrastructure;
 using MyApp.Infrastructure.Common;
 using MyApp.Infrastructure.Data;
+using MyApp.Services.Logging;
 using SPA.Infrastructure;
 
 namespace SPA

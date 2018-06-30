@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using MyApp.Core.Domain.ActivityLog;
-using MyApp.Core.Domain.Specification;
+using MyApp.Core.SharedKernel.Specification;
 
 namespace MyApp.Infrastructure.Data.Repositories
 {
@@ -62,9 +62,5 @@ namespace MyApp.Infrastructure.Data.Repositories
         {
             throw new NotImplementedException();
         }
-
-        public IQueryable<ActivityLogType> Table { get; }
-        public IQueryable<ActivityLogType> TableNoTracking { get; }
-
     }
 }

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MyApp.Core.Domain;
+using MyApp.Core.SharedKernel.Entities;
 
 namespace MyApp.Infrastructure.Data.Mapping
 {

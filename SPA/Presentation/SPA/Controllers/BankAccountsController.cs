@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using MyApp.Mapping.DTOs;
+using MyApp.Infrastructure.Mapping.DTOs;
 using MyApp.Services.Example;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,7 +13,7 @@ namespace SPA.Controllers
     /// </summary>
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class BankAccountsController : Controller, IDisposable
+    public class BankAccountsController : Controller
     {
         private readonly IBankAppService _bankAppService;
 
@@ -57,13 +57,5 @@ namespace SPA.Controllers
         {
             _bankAppService.PerformBankTransfer(from, to, amount);
         }
-
-        #region IDisposable Members
-        public void Dispose()
-        {
-            //dispose all resources
-            _bankAppService.Dispose();
-        }
-        #endregion
     }
 }

@@ -1,4 +1,5 @@
-﻿using MyApp.Core.Domain.User;
+﻿
+using MyApp.Core.SharedKernel.User;
 
 namespace MyApp.Core.Interfaces.Web
 {
