@@ -1,4 +1,5 @@
 ﻿using MyApp.Core.Domain.Example.CountryAgg;
+using MyApp.Core.Domain.Example.CustomerAgg.Events;
 using MyApp.Core.SharedKernel.Events;
 
 namespace MyApp.Core.Domain.Example.CustomerAgg

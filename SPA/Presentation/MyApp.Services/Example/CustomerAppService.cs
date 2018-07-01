@@ -5,6 +5,8 @@ using MyApp.Core.Common;
 using MyApp.Core.Domain.Example.CountryAgg;
 using MyApp.Core.Domain.Example.CustomerAgg;
 using MyApp.Core.Domain.Logging;
+using MyApp.Core.SharedKernel.ApplicationEvents;
+using MyApp.Core.SharedKernel.Events;
 using MyApp.Core.SharedKernel.Specification;
 using MyApp.Infrastructure.Common;
 using MyApp.Infrastructure.Common.Validator;
@@ -65,7 +67,7 @@ namespace MyApp.Services.Example
                 var address = new Address(customerDto.AddressCity,
                                           customerDto.AddressZipCode,
                                           customerDto.AddressAddressLine1,
-                                           customerDto.AddressAddressLine2
+                                          customerDto.AddressAddressLine2
                                           );
 
                 var customer = CustomerFactory.CreateCustomer(customerDto.FirstName,
@@ -242,7 +244,7 @@ namespace MyApp.Services.Example
 
             //set identity
             //current.ChangeCurrentIdentity(CustomerDto.Id);
-
+           
 
             return current;
         }

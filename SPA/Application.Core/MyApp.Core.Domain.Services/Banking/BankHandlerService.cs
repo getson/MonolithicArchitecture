@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using MyApp.Core.Domain.Example.CustomerAgg;
+using MyApp.Core.Domain.Example.CustomerAgg.Events;
 using MyApp.Core.SharedKernel.Events;
 
 namespace MyApp.Core.Domain.Services.Banking
