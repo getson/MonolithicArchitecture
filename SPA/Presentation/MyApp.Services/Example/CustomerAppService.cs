@@ -4,6 +4,7 @@ using System.Linq;
 using MyApp.Core.Common;
 using MyApp.Core.Domain.Example.CountryAgg;
 using MyApp.Core.Domain.Example.CustomerAgg;
+using MyApp.Core.Domain.Example.CustomerAgg.Events;
 using MyApp.Core.Domain.Logging;
 using MyApp.Core.SharedKernel.ApplicationEvents;
 using MyApp.Core.SharedKernel.Events;
@@ -204,6 +205,7 @@ namespace MyApp.Services.Example
             {
                 //add the customer into the repository
                 _customerRepository.Insert(customer);
+                DomainEvents.Instance.Raise(new CustomerCreatedEvent(customer.FullName));
             }
             else
             {
@@ -244,7 +246,7 @@ namespace MyApp.Services.Example
 
             //set identity
             //current.ChangeCurrentIdentity(CustomerDto.Id);
-           
+
 
             return current;
         }

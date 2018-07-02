@@ -56,6 +56,8 @@ namespace MyApp.Core.SharedKernel.Events
         }
         public void Raise<T>(T args) where T : IDomainEvent
         {
+            if(_serviceProvider==null) 
+                return;
             var handlers = _serviceProvider.GetServices<IHandler<T>>();
 
             foreach (var handler in handlers)

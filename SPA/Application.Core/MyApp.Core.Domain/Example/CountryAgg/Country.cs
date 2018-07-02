@@ -40,5 +40,13 @@ namespace MyApp.Core.Domain.Example.CountryAgg
         }
 
         #endregion
+
+
+        public void GenerateNewIdentity()
+        {
+            if (IsTransient())
+                this.Id = new Random().Next();
+        }
+
     }
 }

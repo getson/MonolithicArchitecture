@@ -241,5 +241,10 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
         }
 
         #endregion
+
+        public void ChangeCurrentIdentity(int targetId)
+        {
+            Id = targetId;
+        }
     }
 }
