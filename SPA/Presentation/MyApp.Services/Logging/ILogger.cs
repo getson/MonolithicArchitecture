@@ -68,6 +68,7 @@ namespace MyApp.Services.Logging
         /// <param name="logLevel">Log level</param>
         /// <param name="shortMessage">The short message</param>
         /// <param name="fullMessage">The full message</param>
+        /// 
         /// <param name="user">The user to associate log record with</param>
         /// <returns>A log item</returns>
         Log InsertLog(LogLevel logLevel, string shortMessage, string fullMessage = "",Core.Domain.User.User user=null);
