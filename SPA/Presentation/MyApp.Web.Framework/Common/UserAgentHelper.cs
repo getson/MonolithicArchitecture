@@ -1,12 +1,10 @@
 using System;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
-using MyApp.Core.Common;
+using MyApp.Core.Abstractions.Infrastructure;
+using MyApp.Core.Abstractions.Web;
 using MyApp.Core.Configuration;
-using MyApp.Core.Interfaces.Infrastructure;
-using MyApp.Core.Interfaces.Web;
 
 namespace MyApp.Web.Framework.Common
 {
@@ -43,69 +41,11 @@ namespace MyApp.Web.Framework.Common
 
         #region Utilities
 
-        /// <summary>
-        /// Get BrowscapXmlHelper
-        /// </summary>
-        /// <returns>BrowscapXmlHelper</returns>
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        protected virtual BrowscapXmlHelper GetBrowscapXmlHelper()
-        {
-            if (Singleton<BrowscapXmlHelper>.Instance != null)
-                return Singleton<BrowscapXmlHelper>.Instance;
-
-            //no database created
-            if (string.IsNullOrEmpty(_myAppConfig.UserAgentStringsPath))
-                return null;
-
-            //prevent multi loading data
-            lock (Locker)
-            {
-                //data can be loaded while we waited
-                if (Singleton<BrowscapXmlHelper>.Instance != null)
-                    return Singleton<BrowscapXmlHelper>.Instance;
-
-                var userAgentStringsPath = _fileProvider.MapPath(_myAppConfig.UserAgentStringsPath);
-                var crawlerOnlyUserAgentStringsPath = !string.IsNullOrEmpty(_myAppConfig.CrawlerOnlyUserAgentStringsPath)
-                    ? _fileProvider.MapPath(_myAppConfig.CrawlerOnlyUserAgentStringsPath)
-                    : string.Empty;
-
-                var browscapXmlHelper = new BrowscapXmlHelper(userAgentStringsPath, crawlerOnlyUserAgentStringsPath, _fileProvider);
-                Singleton<BrowscapXmlHelper>.Instance = browscapXmlHelper;
-
-                return Singleton<BrowscapXmlHelper>.Instance;
-            }
-        }
-
         #endregion
 
         #region Methods
 
-        /// <summary>
-        /// Get a value indicating whether the request is made by search engine (web crawler)
-        /// </summary>
-        /// <returns>Result</returns>
-        public virtual bool IsSearchEngine()
-        {
-            if (_httpContextAccessor == null || _httpContextAccessor.HttpContext == null)
-                return false;
-            try
-            {
-                var browscapXmlHelper = GetBrowscapXmlHelper();
-
-                //we cannot load parser
-                if (browscapXmlHelper == null)
-                    return false;
-
-                var userAgent = _httpContextAccessor.HttpContext.Request.Headers[HeaderNames.UserAgent];
-                return !string.IsNullOrWhiteSpace(userAgent) && browscapXmlHelper.IsCrawler(userAgent);
-            }
-            catch
-            {
-            }
-
-            return false;
-        }
-
+    
         /// <summary>
         /// Get a value indicating whether the request is made by mobile device
         /// </summary>

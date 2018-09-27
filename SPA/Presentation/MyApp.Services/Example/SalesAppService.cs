@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MyApp.Core.Abstractions.Validator;
 using MyApp.Core.Common;
-using MyApp.Core.Domain.Example.CustomerAgg;
-using MyApp.Core.Domain.Example.OrderAgg;
-using MyApp.Core.Domain.Example.ProductAgg;
-using MyApp.Core.Domain.Logging;
-using MyApp.Infrastructure.Common;
-using MyApp.Infrastructure.Common.Validator;
-using MyApp.Infrastructure.Mapping.DTOs;
+using MyApp.Core.Exceptions;
+using MyApp.Core.Extensions;
+using MyApp.Domain.Example.CustomerAgg;
+using MyApp.Domain.Example.OrderAgg;
+using MyApp.Domain.Example.ProductAgg;
+using MyApp.Domain.Logging;
+using MyApp.Services.DTOs;
 using MyApp.Services.Logging;
 
 namespace MyApp.Services.Example
@@ -21,7 +22,7 @@ namespace MyApp.Services.Example
         private readonly IProductRepository _productRepository;
         private readonly ICustomerRepository _customerRepository;
         private readonly ILogger _logger;
-
+        private readonly IEntityValidatorFactory _validatorFactory;
 
         #endregion
 
@@ -30,20 +31,23 @@ namespace MyApp.Services.Example
         /// <summary>
         /// Create a new instance of sales management service
         /// </summary>
-        /// <param name="orderRepository">The associated order repository</param>
         /// <param name="productRepository">The associated product repository</param>
+        /// <param name="orderRepository">The associated order repository</param>
         /// <param name="customerRepository">The associated customer repository</param>
         /// <param name="logger"></param>
+        /// <param name="validatorFactory"></param>
         public SalesAppService(IProductRepository productRepository,//associated product repository
                                IOrderRepository orderRepository,//associated order repository
                                ICustomerRepository customerRepository,//the associated customer repository
-                               ILogger logger)
+                               ILogger logger,
+                               IEntityValidatorFactory validatorFactory)
         {
             _orderRepository = orderRepository;
             _productRepository = productRepository;
             _customerRepository = customerRepository;
 
             _logger = logger;
+            _validatorFactory = validatorFactory;
         }
         #endregion
 
@@ -189,12 +193,12 @@ namespace MyApp.Services.Example
 
         private void SaveOrder(Order order)
         {
-            var entityValidator = EntityValidatorFactory.CreateValidator();
+            var entityValidator = _validatorFactory.Create();
 
             if (entityValidator.IsValid(order))//if entity is valid save. 
             {
                 //add order and commit changes
-                _orderRepository.Insert(order);
+                _orderRepository.Create(order);
             }
             else // if not valid throw validation errors
                 throw new ApplicationValidationErrorsException(entityValidator.GetInvalidMessages(order));
@@ -221,11 +225,11 @@ namespace MyApp.Services.Example
 
         private void SaveProduct(Product product)
         {
-            var entityValidator = EntityValidatorFactory.CreateValidator();
+            var entityValidator = _validatorFactory.Create();
 
             if (entityValidator.IsValid(product)) // if is valid
             {
-                _productRepository.Insert(product);
+                _productRepository.Create(product);
                 //_productRepository.UnitOfWork.Commit();
             }
             else //if not valid, throw validation errors

@@ -50,7 +50,7 @@ namespace MyApp.Web.Framework.Extensions
         {
             services.AddDbContext<MyAppObjectContext>(optionsBuilder =>
             {
-                var dataSettings = DataSettingsManager.LoadSettings();
+                var dataSettings = DataSettingsManager.Instance.LoadSettings();
                 if (!dataSettings?.IsValid ?? true)
                     return;
 
@@ -66,7 +66,7 @@ namespace MyApp.Web.Framework.Extensions
         public static void AddMyAppMiniProfiler(this IServiceCollection services)
         {
             //whether database is already installed
-            if (!DataSettingsManager.DatabaseIsInstalled)
+            if (!DataSettingsManager.Instance.DatabaseIsInstalled)
                 return;
 
             services.AddMiniProfiler(miniProfilerOptions =>

@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
-using MyApp.Core.Domain.Logging;
+using MyApp.Domain.Logging;
+using MyApp.Domain.User;
 
 namespace MyApp.Services.Logging
 {
@@ -16,7 +17,7 @@ namespace MyApp.Services.Logging
         /// <param name="message">Message</param>
         /// <param name="exception">Exception</param>
         /// <param name="user">user</param>
-        public static void Debug(this ILogger logger, string message, Exception exception = null, Core.Domain.User.User user = null)
+        public static void Debug(this ILogger logger, string message, Exception exception = null, User user = null)
         {
             FilteredLog(logger, LogLevel.Debug, message, exception,user);
         }
@@ -28,7 +29,7 @@ namespace MyApp.Services.Logging
         /// <param name="message">Message</param>
         /// <param name="exception">Exception</param>
         /// <param name="user">user</param>
-        public static void Information(this ILogger logger, string message, Exception exception = null, Core.Domain.User.User user = null)
+        public static void Information(this ILogger logger, string message, Exception exception = null, User user = null)
         {
             FilteredLog(logger, LogLevel.Information, message, exception,user);
         }
@@ -39,7 +40,7 @@ namespace MyApp.Services.Logging
         /// <param name="message">Message</param>
         /// <param name="exception">Exception</param>
         /// <param name="user">user</param>
-        public static void Warning(this ILogger logger, string message, Exception exception = null, Core.Domain.User.User user = null)
+        public static void Warning(this ILogger logger, string message, Exception exception = null, User user = null)
         {
             FilteredLog(logger, LogLevel.Warning, message, exception,user);
         }
@@ -51,7 +52,7 @@ namespace MyApp.Services.Logging
         /// <param name="message">Message</param>
         /// <param name="exception">Exception</param>
         /// <param name="user">user</param>
-        public static void Error(this ILogger logger, string message, Exception exception = null,Core.Domain.User.User user=null)
+        public static void Error(this ILogger logger, string message, Exception exception = null,User user=null)
         {
             FilteredLog(logger, LogLevel.Error, message, exception,user);
         }
@@ -63,7 +64,7 @@ namespace MyApp.Services.Logging
         /// <param name="message">Message</param>
         /// <param name="exception">Exception</param>
         /// <param name="user">user</param>
-        public static void Fatal(this ILogger logger, string message, Exception exception = null,Core.Domain.User.User user=null)
+        public static void Fatal(this ILogger logger, string message, Exception exception = null,User user=null)
         {
             FilteredLog(logger, LogLevel.Fatal, message, exception,user);
         }
@@ -76,7 +77,7 @@ namespace MyApp.Services.Logging
         /// <param name="message">Message</param>
         /// <param name="exception">Exception</param>
         /// <param name="user">user</param>
-        private static void FilteredLog(ILogger logger, LogLevel level, string message, Exception exception = null,Core.Domain.User.User user=null)
+        private static void FilteredLog(ILogger logger, LogLevel level, string message, Exception exception = null,User user=null)
         {
             //don't log thread abort exception
             if (exception is ThreadAbortException)

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using MyApp.Core.SharedKernel.Entities;
+using MyApp.Core.SharedKernel.Domain;
 
-namespace MyApp.Core.Domain.Example.ProductAgg
+namespace MyApp.Domain.Example.ProductAgg
 {
     /// <summary>
     /// Product aggregate root-entity
@@ -59,7 +59,7 @@ namespace MyApp.Core.Domain.Example.ProductAgg
 
         #region IValidatableObject Members
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
 
             var validationResults = new List<ValidationResult>();

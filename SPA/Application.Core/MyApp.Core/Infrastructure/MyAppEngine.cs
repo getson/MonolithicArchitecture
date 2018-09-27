@@ -1,25 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MyApp.Core.Abstractions.Infrastructure;
+using MyApp.Core.Abstractions.Mapping;
 using MyApp.Core.Configuration;
-using MyApp.Core.Exceptions;
-using MyApp.Core.Interfaces.Infrastructure;
-using MyApp.Core.Interfaces.Mapping;
-using MyApp.Core.Plugins;
-using MyApp.Core.SharedKernel.Events;
 
 namespace MyApp.Core.Infrastructure
 {
+    /// <inheritdoc />
     /// <summary>
     /// Represents MyApp engine
     /// </summary>
@@ -30,7 +24,7 @@ namespace MyApp.Core.Infrastructure
         /// <summary>
         /// Gets or sets service provider
         /// </summary>
-        private IServiceProvider _serviceProvider { get; set; }
+        private IServiceProvider _serviceProvider;
         /// <summary>
         /// Gets or sets the default file provider
         /// </summary>
@@ -55,15 +49,15 @@ namespace MyApp.Core.Infrastructure
         /// <summary>
         /// Register dependencies using Autofac
         /// </summary>
-        /// <param name="myAppConfig">Startup MyApp configuration parameters</param>
+        /// <param name="MyAppConfig">Startup MyApp configuration parameters</param>
         /// <param name="services">Collection of service descriptors</param>
         /// <param name="typeFinder">Type finder</param>
-        protected virtual IServiceProvider RegisterDependencies(MyAppConfig myAppConfig, IServiceCollection services, ITypeFinder typeFinder)
+        protected virtual IServiceProvider RegisterDependencies(MyAppConfig MyAppConfig, IServiceCollection services, ITypeFinder typeFinder)
         {
+
             var containerBuilder = new ContainerBuilder();
 
-            //register engine
-            containerBuilder.RegisterInstance(this).As<IEngine>().SingleInstance();
+          
 
             //register type finder
             containerBuilder.RegisterInstance(typeFinder).As<ITypeFinder>().SingleInstance();
@@ -73,13 +67,12 @@ namespace MyApp.Core.Infrastructure
 
             //create and sort instances of dependency registrars
             var instances = dependencyRegistrars
-                //.Where(dependencyRegistrar => PluginManager.FindPlugin(dependencyRegistrar)?.Installed ?? true) //ignore not installed plugins
                 .Select(dependencyRegistrar => (IDependencyRegistrar)Activator.CreateInstance(dependencyRegistrar))
                 .OrderBy(dependencyRegistrar => dependencyRegistrar.Order);
 
             //register all provided dependencies
             foreach (var dependencyRegistrar in instances)
-                dependencyRegistrar.Register(containerBuilder, typeFinder, myAppConfig);
+                dependencyRegistrar.Register(containerBuilder, typeFinder, MyAppConfig);
 
             //populate Autofac container builder with the set of registered service descriptors
             containerBuilder.Populate(services);
@@ -94,14 +87,13 @@ namespace MyApp.Core.Infrastructure
         /// </summary>
         /// <param name="services">Collection of service descriptors</param>
         /// <param name="typeFinder">Type finder</param>
-        protected virtual void AddAutoMapper(IServiceCollection services, ITypeFinder typeFinder)
+        protected virtual void RegisterMappingProfiles(IServiceCollection services, ITypeFinder typeFinder)
         {
             //find mapper configurations provided by other assemblies
             var mapperConfigurations = typeFinder.FindClassesOfType<IMapperProfile>();
 
             //create and sort instances of mapper configurations
             var instances = mapperConfigurations
-                .Where(mapperConfiguration => PluginManager.FindPlugin(mapperConfiguration)?.Installed ?? true) //ignore not installed plugins
                 .Select(mapperConfiguration => (IMapperProfile)Activator.CreateInstance(mapperConfiguration))
                 .OrderBy(mapperConfiguration => mapperConfiguration.Order);
 
@@ -113,11 +105,6 @@ namespace MyApp.Core.Infrastructure
                     cfg.AddProfile(instance.GetType());
                 }
             });
-
-            //register AutoMapper
-            services.AddAutoMapper();
-
-            //register
             AutoMapperConfiguration.Init(config);
         }
 
@@ -129,69 +116,45 @@ namespace MyApp.Core.Infrastructure
         /// Initialize engine
         /// </summary>
         /// <param name="services">Collection of service descriptors</param>
-        /// <param name="myAppFileProvider">file provider for the engine</param>
-        public void Initialize(IServiceCollection services, IMyAppFileProvider myAppFileProvider)
+        /// <param name="MyAppFileProvider"></param>
+        /// <param name="config"></param>
+        public void Initialize(IServiceCollection services, IMyAppFileProvider MyAppFileProvider, MyAppConfig MyAppConfig)
         {
-            FileProvider = myAppFileProvider;
-            Configuration = services.BuildServiceProvider().GetService<MyAppConfig>();
-            //most of API providers require TLS 1.2 nowadays
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
-            var mvcCoreBuilder = services.AddMvcCore();
-
-            PluginManager.Initialize(mvcCoreBuilder.PartManager, Configuration);
+            Configuration = MyAppConfig;
+            FileProvider = MyAppFileProvider;
         }
-
-        private Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
-        {
-            //check for assembly already loaded
-            var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.FullName == args.Name);
-            if (assembly != null)
-                return assembly;
-
-            //get assembly from TypeFinder
-            var tf = Resolve<ITypeFinder>();
-            assembly = tf.GetAssemblies().FirstOrDefault(a => a.FullName == args.Name);
-            return assembly;
-        }
-
         /// <summary>
         /// Add and configure services
         /// </summary>
         /// <param name="services">Collection of service descriptors</param>
         /// <param name="configuration">Configuration root of the application</param>
         /// <returns>Service provider</returns>
-        public IServiceProvider ConfigureServices(IServiceCollection services, IConfigurationRoot configuration)
+        public IServiceProvider ConfigureServices(IServiceCollection services, MyAppConfig configuration)
         {
             //find startup configurations provided by other assemblies
-            var typeFinder = new WebAppTypeFinder(FileProvider);
-
+            var typeFinder = new MyAppTypeFinder(FileProvider);
+            //add all services defined in Startup classes
             ConfigureStartupsServices(services, configuration, typeFinder);
 
             //register mapper configurations
-            AddAutoMapper(services, typeFinder);
-
+            RegisterMappingProfiles(services, typeFinder);
             //register dependencies
-            var myAppConfig = services.BuildServiceProvider().GetService<MyAppConfig>();
+            _serviceProvider = RegisterDependencies(configuration, services, typeFinder);
 
-            _serviceProvider = RegisterDependencies(myAppConfig, services, typeFinder);
-            DomainEvents.Instance.Init(_serviceProvider);
-            //resolve assemblies here. otherwise, plugins can throw an exception when rendering views
-            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-
-            //set App_Data path as base data directory (required to create and save SQL Server Compact database file in App_Data folder)
-
-            AppDomain.CurrentDomain.SetData("DataDirectory", FileProvider.MapPath("~/App_Data/"));
 
             return _serviceProvider;
         }
-        private void ConfigureStartupsServices(IServiceCollection services, IConfigurationRoot configuration, ITypeFinder typeFinder)
+        /// <summary>
+        /// create an instance per each Startup class that implements IMyAppStartup and then call ConfigureServices
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <param name="typeFinder"></param>
+        private void ConfigureStartupsServices(IServiceCollection services, MyAppConfig configuration, ITypeFinder typeFinder)
         {
             var startupConfigurations = typeFinder.FindClassesOfType<IMyAppStartup>();
-
             //create and sort instances of startup configurations
             var instances = startupConfigurations
-                //.Where(startup => PluginManager.FindPlugin(startup)?.Installed ?? true) //ignore not installed plugins
                 .Select(startup => (IMyAppStartup)Activator.CreateInstance(startup))
                 .OrderBy(startup => startup.Order);
 
@@ -207,8 +170,8 @@ namespace MyApp.Core.Infrastructure
         /// <param name="application">Builder for configuring an application's request pipeline</param>
         public void ConfigureRequestPipeline(IApplicationBuilder application)
         {
-            //find startup configurations provided by other assemblies
             var typeFinder = Resolve<ITypeFinder>();
+            //find startup configurations provided by other assemblies
             var startupConfigurations = typeFinder.FindClassesOfType<IMyAppStartup>();
 
             //create and sort instances of startup configurations
@@ -229,6 +192,7 @@ namespace MyApp.Core.Infrastructure
         /// <returns>Resolved service</returns>
         public T Resolve<T>() where T : class
         {
+
             return (T)GetServiceProvider().GetRequiredService(typeof(T));
         }
 
@@ -251,40 +215,6 @@ namespace MyApp.Core.Infrastructure
         {
             return (IEnumerable<T>)GetServiceProvider().GetServices(typeof(T));
         }
-
-        /// <summary>
-        /// Resolve unregistered service
-        /// </summary>
-        /// <param name="type">Type of service</param>
-        /// <returns>Resolved service</returns>
-        public virtual object ResolveUnregistered(Type type)
-        {
-            Exception innerException = null;
-            foreach (var constructor in type.GetConstructors())
-            {
-                try
-                {
-                    //try to resolve constructor parameters
-                    var parameters = constructor.GetParameters().Select(parameter =>
-                    {
-                        var service = Resolve(parameter.ParameterType);
-                        if (service == null)
-                            throw new MyAppException("Unknown dependency");
-                        return service;
-                    });
-
-                    //all is ok, so create instance
-                    return Activator.CreateInstance(type, parameters.ToArray());
-                }
-                catch (Exception ex)
-                {
-                    innerException = ex;
-                }
-            }
-
-            throw new MyAppException("No constructor was found that had all the dependencies satisfied.", innerException);
-        }
-
         #endregion
 
         #region Properties

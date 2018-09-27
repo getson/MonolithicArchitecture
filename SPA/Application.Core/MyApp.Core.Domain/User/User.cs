@@ -1,6 +1,6 @@
-﻿using MyApp.Core.SharedKernel.Entities;
+﻿using MyApp.Core.SharedKernel.Domain;
 
-namespace MyApp.Core.Domain.User
+namespace MyApp.Domain.User
 {
     public class User : BaseEntity
     {

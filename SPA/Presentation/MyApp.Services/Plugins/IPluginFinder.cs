@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using MyApp.Core.Domain.User;
-using MyApp.Core.Interfaces.Plugin;
+using MyApp.Core.Abstractions.Plugin;
 using MyApp.Core.Plugins;
+using MyApp.Domain.User;
 
 namespace MyApp.Services.Plugins
 {

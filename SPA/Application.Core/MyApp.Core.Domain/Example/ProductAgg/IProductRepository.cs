@@ -1,6 +1,6 @@
-﻿using MyApp.Core.SharedKernel;
+﻿using MyApp.Core.SharedKernel.Domain;
 
-namespace MyApp.Core.Domain.Example.ProductAgg
+namespace MyApp.Domain.Example.ProductAgg
 {
     public interface IProductRepository : IRepository<Product>
     {

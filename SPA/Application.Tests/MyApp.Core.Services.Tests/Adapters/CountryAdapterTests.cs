@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using MyApp.Core.Domain.Example.CountryAgg;
-using MyApp.Core.Interfaces.Mapping;
-using MyApp.Infrastructure.Common.Adapter;
-using MyApp.Infrastructure.Mapping.DTOs;
+using MyApp.Domain.Example.CountryAgg;
+using MyApp.Services.DTOs;
 using Xunit;
 
-namespace MyApp.Core.Services.Tests.Adapters
+namespace MyApp.Services.Tests.Adapters
 {
     public class CountryAdapterTests : TestsInitialize
     {
@@ -18,8 +16,7 @@ namespace MyApp.Core.Services.Tests.Adapters
             country.GenerateNewIdentity();
 
             //Act
-            ITypeAdapter adapter = TypeAdapterFactory.CreateAdapter();
-            var dto = adapter.Adapt<Country, CountryDto>(country);
+            var dto = TypeAdapter.Adapt<Country, CountryDto>(country);
 
             //Assert
             Assert.Equal(country.Id, dto.Id);
@@ -34,11 +31,10 @@ namespace MyApp.Core.Services.Tests.Adapters
             var country = new Country("Spain", "es-ES");
             country.GenerateNewIdentity();
 
-            IEnumerable<Country> countries = new List<Country>() { country };
+            IEnumerable<Country> countries = new List<Country> { country };
 
             //Act
-            ITypeAdapter adapter = TypeAdapterFactory.CreateAdapter();
-            var dtos = adapter.Adapt<IEnumerable<Country>, List<CountryDto>>(countries);
+            var dtos = TypeAdapter.Adapt<IEnumerable<Country>, List<CountryDto>>(countries);
 
             //Assert
             Assert.NotNull(dtos);

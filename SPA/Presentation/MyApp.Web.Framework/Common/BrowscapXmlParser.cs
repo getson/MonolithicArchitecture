@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using MyApp.Core.Interfaces.Infrastructure;
+using MyApp.Core.Abstractions.Infrastructure;
 
 namespace MyApp.Web.Framework.Common
 {

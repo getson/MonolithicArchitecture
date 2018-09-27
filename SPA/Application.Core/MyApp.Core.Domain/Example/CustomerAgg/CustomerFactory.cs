@@ -1,8 +1,6 @@
-﻿using MyApp.Core.Domain.Example.CountryAgg;
-using MyApp.Core.Domain.Example.CustomerAgg.Events;
-using MyApp.Core.SharedKernel.Events;
+﻿using MyApp.Domain.Example.CountryAgg;
 
-namespace MyApp.Core.Domain.Example.CustomerAgg
+namespace MyApp.Domain.Example.CustomerAgg
 {
     /// <summary>
     /// This is the factory for Customer creation, which means that the main purpose
@@ -58,7 +56,7 @@ namespace MyApp.Core.Domain.Example.CustomerAgg
             //set the country for this customer
             customer.SetTheCountryForThisCustomer(country);
             //DomainEvents.Instance.Dispatch(new CustomerCreatedEvent(customer.FirstName));
-            DomainEvents.Instance.Raise(new CustomerCreatedEvent(customer.FirstName));
+ //TODO raise events
             return customer;
         }
     }

@@ -1,7 +1,7 @@
 using System;
-using MyApp.Core.SharedKernel.Entities;
+using MyApp.Core.SharedKernel.Domain;
 
-namespace MyApp.Core.Domain.Logging
+namespace MyApp.Domain.Logging
 {
     /// <summary>
     /// Represents a log record

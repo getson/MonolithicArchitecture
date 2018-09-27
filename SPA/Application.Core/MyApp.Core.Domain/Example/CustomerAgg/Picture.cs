@@ -1,6 +1,6 @@
-﻿using MyApp.Core.SharedKernel.Entities;
+﻿using MyApp.Core.SharedKernel.Domain;
 
-namespace MyApp.Core.Domain.Example.CustomerAgg
+namespace MyApp.Domain.Example.CustomerAgg
 {
     /// <summary>
     /// Picture of customer

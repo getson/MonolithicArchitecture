@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MyApp.Core.Abstractions.Caching;
+using MyApp.Core.Abstractions.Pagination;
+using MyApp.Core.Abstractions.Web;
 using MyApp.Core.Common;
-using MyApp.Core.Domain.ActivityLog;
-using MyApp.Core.Extensions;
-using MyApp.Core.Interfaces.Caching;
-using MyApp.Core.Interfaces.Pagination;
-using MyApp.Core.Interfaces.Web;
-using MyApp.Core.SharedKernel.Entities;
+using MyApp.Core.SharedKernel.Domain;
+using MyApp.Domain.ActivityLog;
 
 namespace MyApp.Services.Logging
 {
@@ -136,7 +135,7 @@ namespace MyApp.Services.Logging
             if (activityLogType == null)
                 throw new ArgumentNullException(nameof(activityLogType));
 
-            _activityLogTypeRepository.Insert(activityLogType);
+            _activityLogTypeRepository.Create(activityLogType);
             _cacheManager.RemoveByPattern(ActivitytypePatternKey);
         }
 
@@ -195,7 +194,7 @@ namespace MyApp.Services.Logging
         /// <param name="comment">Comment</param>
         /// <param name="entity">Entity</param>
         /// <returns>Activity log item</returns>
-        public virtual Core.Domain.ActivityLog.ActivityLog InsertActivity(string systemKeyword, string comment, BaseEntity entity = null)
+        public virtual ActivityLog InsertActivity(string systemKeyword, string comment, BaseEntity entity = null)
         {
             return InsertActivity(_workContext.CurrentUser, systemKeyword, comment, entity);
         }
@@ -208,7 +207,7 @@ namespace MyApp.Services.Logging
         /// <param name="comment">Comment</param>
         /// <param name="entity">Entity</param>
         /// <returns>Activity log item</returns>
-        public virtual Core.Domain.ActivityLog.ActivityLog InsertActivity(Core.SharedKernel.User.User customer, string systemKeyword, string comment, BaseEntity entity = null)
+        public virtual ActivityLog InsertActivity(User customer, string systemKeyword, string comment, BaseEntity entity = null)
         {
             if (customer == null)
                 return null;
@@ -219,17 +218,17 @@ namespace MyApp.Services.Logging
                 return null;
 
             //insert log item
-            var logItem = new Core.Domain.ActivityLog.ActivityLog
+            var logItem = new ActivityLog
             {
                 ActivityLogTypeId = activityLogType.Id,
                 EntityId = entity?.Id,
-                EntityName = entity?.GetUnproxiedEntityType().Name,
+                EntityName = entity?.GetType().Name,
                 UserId = customer.Id,
                 Comment = CommonHelper.EnsureMaximumLength(comment ?? string.Empty, 4000),
                 CreatedOnUtc = DateTime.UtcNow,
                 IpAddress = _webHelper.GetCurrentIpAddress()
             };
-            _activityLogRepository.Insert(logItem);
+            _activityLogRepository.Create(logItem);
 
             return logItem;
         }
@@ -238,7 +237,7 @@ namespace MyApp.Services.Logging
         /// Deletes an activity log item
         /// </summary>
         /// <param name="activityLog">Activity log type</param>
-        public virtual void DeleteActivity(Core.Domain.ActivityLog.ActivityLog activityLog)
+        public virtual void DeleteActivity(ActivityLog activityLog)
         {
             if (activityLog == null)
                 throw new ArgumentNullException(nameof(activityLog));
@@ -259,7 +258,7 @@ namespace MyApp.Services.Logging
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
         /// <returns>Activity log items</returns>
-        public virtual IPagedList<Core.Domain.ActivityLog.ActivityLog> GetAllActivities(DateTime? createdOnFrom = null, DateTime? createdOnTo = null,
+        public virtual IPagedList<ActivityLog> GetAllActivities(DateTime? createdOnFrom = null, DateTime? createdOnTo = null,
             int? customerId = null, int? activityLogTypeId = null, string ipAddress = null, string entityName = null, int? entityId = null,
             int pageIndex = 0, int pageSize = int.MaxValue)
         {
@@ -291,7 +290,7 @@ namespace MyApp.Services.Logging
 
             query = query.OrderByDescending(logItem => logItem.CreatedOnUtc).ThenBy(logItem => logItem.Id);
 
-            return new PagedList<Core.Domain.ActivityLog.ActivityLog>(query, pageIndex, pageSize);
+            return new PagedList<ActivityLog>(query, pageIndex, pageSize);
         }
 
         /// <summary>
@@ -299,7 +298,7 @@ namespace MyApp.Services.Logging
         /// </summary>
         /// <param name="activityLogId">Activity log identifier</param>
         /// <returns>Activity log item</returns>
-        public virtual Core.Domain.ActivityLog.ActivityLog GetActivityById(int activityLogId)
+        public virtual ActivityLog GetActivityById(int activityLogId)
         {
             return activityLogId == 0 ? null : _activityLogRepository.GetById(activityLogId);
         }

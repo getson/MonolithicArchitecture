@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MyApp.Core.Abstractions.Pagination;
+using MyApp.Core.Abstractions.Web;
 using MyApp.Core.Common;
-using MyApp.Core.Domain.Logging;
-using MyApp.Core.Interfaces.Pagination;
-using MyApp.Core.Interfaces.Web;
+using MyApp.Domain.Logging;
+using MyApp.Domain.User;
 
 namespace MyApp.Services.Logging
 {
@@ -27,7 +28,7 @@ namespace MyApp.Services.Logging
         /// </summary>
         /// <param name="logRepository">Log repository</param>
         /// <param name="webHelper">Web helper</param>
-        public DefaultLogger(ILogRepository logRepository,IWebHelper webHelper)
+        public DefaultLogger(ILogRepository logRepository, IWebHelper webHelper)
         {
             _logRepository = logRepository;
             _webHelper = webHelper;
@@ -168,7 +169,7 @@ namespace MyApp.Services.Logging
         /// <param name="fullMessage">The full message</param>
         /// <param name="user">The user to associate log record with</param>
         /// <returns>A log item</returns>
-        public virtual Log InsertLog(LogLevel logLevel, string shortMessage, string fullMessage = "", Core.Domain.User.User user = null)
+        public virtual Log InsertLog(LogLevel logLevel, string shortMessage, string fullMessage = "", User user = null)
         {
             //check ignore word/phrase list?
             if (IgnoreLog(shortMessage) || IgnoreLog(fullMessage))
@@ -186,7 +187,7 @@ namespace MyApp.Services.Logging
                 User = user
             };
 
-            _logRepository.Insert(log);
+            _logRepository.Create(log);
 
             return log;
         }

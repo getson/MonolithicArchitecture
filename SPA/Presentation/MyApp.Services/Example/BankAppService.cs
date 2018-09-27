@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Transactions;
 using Microsoft.EntityFrameworkCore.Internal;
-using MyApp.Core.Domain.Example.BankAccountAgg;
-using MyApp.Core.Domain.Example.CustomerAgg;
-using MyApp.Core.Domain.Logging;
-using MyApp.Core.Domain.Services.Banking;
-using MyApp.Infrastructure.Common;
-using MyApp.Infrastructure.Common.Validator;
-using MyApp.Infrastructure.Mapping.DTOs;
+using MyApp.Core.Abstractions.Validator;
+using MyApp.Core.Exceptions;
+using MyApp.Core.Extensions;
+using MyApp.Domain.Example.BankAccountAgg;
+using MyApp.Domain.Example.CustomerAgg;
+using MyApp.Domain.Logging;
+using MyApp.Services.DTOs;
 using MyApp.Services.Logging;
 
 namespace MyApp.Services.Example
@@ -24,6 +24,7 @@ namespace MyApp.Services.Example
         private readonly ICustomerRepository _customerRepository;
         private readonly IBankTransferService _transferService;
         private readonly ILogger _logger;
+        private readonly IEntityValidatorFactory _entityValidatorFactory;
         private readonly IUserActivityService _activityLogService;
 
         #endregion
@@ -37,13 +38,15 @@ namespace MyApp.Services.Example
                               ICustomerRepository customerRepository, // the customer repository dependency
                               IBankTransferService transferService,
                               IUserActivityService activityLogService,
-                              ILogger logger)
+                              ILogger logger,
+                              IEntityValidatorFactory entityValidatorFactory)
         {
 
             _bankAccountRepository = bankAccountRepository;
             _customerRepository = customerRepository;
             _transferService = transferService;
             _logger = logger;
+            _entityValidatorFactory = entityValidatorFactory;
             _activityLogService = activityLogService;
         }
 
@@ -54,25 +57,27 @@ namespace MyApp.Services.Example
         public BankAccountDto AddBankAccount(BankAccountDto bankAccountDto)
         {
             if (bankAccountDto == null || bankAccountDto.CustomerId == 0)
+            {
                 throw new ArgumentException("warning_CannotAddNullBankAccountOrInvalidCustomer");
+            }
 
             //check if exists the customer for this bank account
             var associatedCustomer = _customerRepository.GetById(bankAccountDto.CustomerId);
 
-            if (associatedCustomer != null) // if the customer exist
+            if (associatedCustomer == null)
             {
-                //Create a new bank account  number
-                var accountNumber = CalculateNewBankAccountNumber();
-
-                //Create account from factory 
-                var account = BankAccountFactory.CreateBankAccount(associatedCustomer, accountNumber);
-
-                //save bank account
-                SaveBankAccount(account);
-
-                return account.ProjectedAs<BankAccountDto>();
+                throw new InvalidOperationException("warning_CannotCreateBankAccountForNonExistingCustomer");
             }
-            throw new InvalidOperationException("warning_CannotCreateBankAccountForNonExistingCustomer");
+            //Create a new bank account  number
+            var accountNumber = CalculateNewBankAccountNumber();
+
+            //Create account from factory 
+            var account = BankAccountFactory.CreateBankAccount(associatedCustomer, accountNumber);
+
+            //save bank account
+            SaveBankAccount(account);
+
+            return account.ProjectedAs<BankAccountDto>();
         }
 
         public bool LockBankAccount(int bankAccountId)
@@ -174,11 +179,11 @@ namespace MyApp.Services.Example
         private void SaveBankAccount(BankAccount bankAccount)
         {
             //validate bank account
-            var validator = EntityValidatorFactory.CreateValidator();
+            var validator = _entityValidatorFactory.Create();
 
             if (validator.IsValid(bankAccount)) // save entity
             {
-                _bankAccountRepository.Insert(bankAccount);
+                _bankAccountRepository.Create(bankAccount);
             }
             else //throw validation errors
                 throw new ApplicationValidationErrorsException(validator.GetInvalidMessages(bankAccount));
@@ -191,7 +196,7 @@ namespace MyApp.Services.Example
                 OfficeNumber = "2354",
                 NationalBankCode = "2134",
                 CheckDigits = "02",
-                AccountNumber = new Random().Next(1, Int32.MaxValue).ToString()
+                AccountNumber = new Random().Next(1, int.MaxValue).ToString()
             };
 
             //simulate bank account number creation....

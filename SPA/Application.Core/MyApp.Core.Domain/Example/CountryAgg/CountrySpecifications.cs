@@ -1,6 +1,6 @@
 ﻿using MyApp.Core.SharedKernel.Specification;
 
-namespace MyApp.Core.Domain.Example.CountryAgg
+namespace MyApp.Domain.Example.CountryAgg
 {
     /// <summary>
     /// A list of country specifications. 

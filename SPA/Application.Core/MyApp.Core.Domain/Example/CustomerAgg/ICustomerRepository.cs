@@ -1,6 +1,6 @@
-﻿using MyApp.Core.SharedKernel;
+﻿using MyApp.Core.SharedKernel.Domain;
 
-namespace MyApp.Core.Domain.Example.CustomerAgg
+namespace MyApp.Domain.Example.CustomerAgg
 {
     public interface ICustomerRepository:IRepository<Customer>
     {

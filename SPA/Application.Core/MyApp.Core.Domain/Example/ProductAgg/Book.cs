@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MyApp.Core.Domain.Example.ProductAgg
+namespace MyApp.Domain.Example.ProductAgg
 {
     /// <summary>
     /// The book product

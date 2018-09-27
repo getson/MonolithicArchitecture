@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MyApp.Core.Domain.Example.CustomerAgg;
-using MyApp.Core.Domain.Example.OrderAgg;
-using MyApp.Core.Domain.Example.ProductAgg;
-using MyApp.Core.Interfaces.Mapping;
-using MyApp.Infrastructure.Common.Adapter;
-using MyApp.Infrastructure.Mapping.DTOs;
+using MyApp.Domain.Example.CustomerAgg;
+using MyApp.Domain.Example.OrderAgg;
+using MyApp.Domain.Example.ProductAgg;
+using MyApp.Services.DTOs;
 using Xunit;
 
-namespace MyApp.Core.Services.Tests.Adapters
+namespace MyApp.Services.Tests.Adapters
 {
     public class OrderAdapterTests : TestsInitialize
     {
@@ -18,7 +16,7 @@ namespace MyApp.Core.Services.Tests.Adapters
         {
             //Arrange
 
-            Customer customer = new Customer
+            var customer = new Customer
             {
                 FirstName = "Unai",
                 LastName = "Zorrilla"
@@ -27,7 +25,7 @@ namespace MyApp.Core.Services.Tests.Adapters
             Product product = new Software("the product title", "the product description","license code");
 
 
-            Order order = new Order
+            var order = new Order
             {
                 OrderDate = DateTime.Now,
                 ShippingInformation = new ShippingInfo("shippingName", "shippingAddress", "shippingCity", "shippingZipCode")
@@ -38,8 +36,7 @@ namespace MyApp.Core.Services.Tests.Adapters
             orderLine.SetProduct(product);
 
             //Act
-            ITypeAdapter adapter = TypeAdapterFactory.CreateAdapter();
-            var orderDto = adapter.Adapt<Order, OrderDto>(order);
+            var orderDto = TypeAdapter.Adapt<Order, OrderDto>(order);
 
             //Assert
             Assert.Equal(orderDto.Id, order.Id);
@@ -75,7 +72,7 @@ namespace MyApp.Core.Services.Tests.Adapters
         {
             //Arrange
 
-            Customer customer = new Customer
+            var customer = new Customer
             {
                 FirstName = "Unai",
                 LastName = "Zorrilla"
@@ -85,7 +82,7 @@ namespace MyApp.Core.Services.Tests.Adapters
 
 
 
-            Order order = new Order
+            var order = new Order
             {
                 OrderDate = DateTime.Now,
                 ShippingInformation = new ShippingInfo("shippingName", "shippingAddress", "shippingCity", "shippingZipCode")
@@ -95,11 +92,11 @@ namespace MyApp.Core.Services.Tests.Adapters
             var line = order.AddNewOrderLine(product.Id, 1, 200, 0);
             
 
-            var orders = new List<Order>() { order };
+            var orders = new List<Order> { order };
 
             //Act
-            ITypeAdapter adapter = TypeAdapterFactory.CreateAdapter();
-            var orderListDto = adapter.Adapt<IEnumerable<Order>, List<OrderListDto>>(orders);
+
+            var orderListDto = TypeAdapter.Adapt<IEnumerable<Order>, List<OrderListDto>>(orders);
 
             //Assert
             Assert.Equal(orderListDto[0].Id, order.Id);

@@ -3,12 +3,14 @@ using System.Runtime.Serialization;
 
 namespace MyApp.Core.Exceptions
 {
+    /// <inheritdoc />
     /// <summary>
     /// Represents errors that occur during application execution
     /// </summary>
     [Serializable]
     public class MyAppException : Exception
     {
+        /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the Exception class.
         /// </summary>
@@ -16,6 +18,7 @@ namespace MyApp.Core.Exceptions
         {
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the Exception class with a specified error message.
         /// </summary>
@@ -45,6 +48,7 @@ namespace MyApp.Core.Exceptions
         {
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the Exception class with a specified error message and a reference to the inner exception that is the cause of this exception.
         /// </summary>

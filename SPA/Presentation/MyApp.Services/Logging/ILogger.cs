@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
-using MyApp.Core.Domain.Logging;
-using MyApp.Core.Interfaces.Pagination;
+using MyApp.Core.Abstractions.Pagination;
+using MyApp.Domain.Logging;
+using MyApp.Domain.User;
 
 namespace MyApp.Services.Logging
 {
@@ -71,6 +72,6 @@ namespace MyApp.Services.Logging
         /// 
         /// <param name="user">The user to associate log record with</param>
         /// <returns>A log item</returns>
-        Log InsertLog(LogLevel logLevel, string shortMessage, string fullMessage = "",Core.Domain.User.User user=null);
+        Log InsertLog(LogLevel logLevel, string shortMessage, string fullMessage = "",User user=null);
     }
 }

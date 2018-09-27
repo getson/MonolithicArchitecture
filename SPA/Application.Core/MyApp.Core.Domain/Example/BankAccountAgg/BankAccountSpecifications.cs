@@ -1,7 +1,7 @@
 ﻿using System;
 using MyApp.Core.SharedKernel.Specification;
 
-namespace MyApp.Core.Domain.Example.BankAccountAgg
+namespace MyApp.Domain.Example.BankAccountAgg
 {
     /// <summary>
     /// A list of bank account specifications. You can learn
@@ -19,7 +19,7 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
         {
             Specification<BankAccount> specification = new TrueSpecification<BankAccount>();
 
-            if (!String.IsNullOrWhiteSpace(ibanNumber))
+            if (!string.IsNullOrWhiteSpace(ibanNumber))
             {
                 specification &= new DirectSpecification<BankAccount>(b => b.Iban
                                                                               .ToLower()

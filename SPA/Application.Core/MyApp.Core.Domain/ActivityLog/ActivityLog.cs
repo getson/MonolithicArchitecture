@@ -1,7 +1,9 @@
 ﻿using System;
-using MyApp.Core.SharedKernel.Entities;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using MyApp.Core.SharedKernel.Domain;
 
-namespace MyApp.Core.Domain.ActivityLog
+namespace MyApp.Domain.ActivityLog
 {
     /// <summary>
     /// Represents an activity log record
@@ -52,5 +54,10 @@ namespace MyApp.Core.Domain.ActivityLog
         /// Gets or sets the IP address
         /// </summary>
         public virtual string IpAddress { get; set; }
+
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            return new List<ValidationResult>();
+        }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using MyApp.Core.Domain.ActivityLog;
-using MyApp.Core.Interfaces.Pagination;
-using MyApp.Core.SharedKernel.Entities;
+using MyApp.Core.Abstractions.Pagination;
+using MyApp.Core.SharedKernel.Domain;
+using MyApp.Domain.ActivityLog;
 
 namespace MyApp.Services.Logging
 {
@@ -49,7 +49,7 @@ namespace MyApp.Services.Logging
         /// <param name="comment">Comment</param>
         /// <param name="entity">Entity</param>
         /// <returns>Activity log item</returns>
-        Core.Domain.ActivityLog.ActivityLog InsertActivity(string systemKeyword, string comment, BaseEntity entity = null);
+        ActivityLog InsertActivity(string systemKeyword, string comment, BaseEntity entity = null);
 
 
 
@@ -57,7 +57,7 @@ namespace MyApp.Services.Logging
         /// Deletes an activity log item
         /// </summary>
         /// <param name="activityLog">Activity log</param>
-        void DeleteActivity(Core.Domain.ActivityLog.ActivityLog activityLog);
+        void DeleteActivity(ActivityLog activityLog);
 
         /// <summary>
         /// Gets all activity log items
@@ -72,7 +72,7 @@ namespace MyApp.Services.Logging
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
         /// <returns>Activity log items</returns>
-        IPagedList<Core.Domain.ActivityLog.ActivityLog> GetAllActivities(DateTime? createdOnFrom = null, DateTime? createdOnTo = null,
+        IPagedList<ActivityLog> GetAllActivities(DateTime? createdOnFrom = null, DateTime? createdOnTo = null,
             int? userId = null, int? activityLogTypeId = null, string ipAddress = null, string entityName = null, int? entityId = null,
             int pageIndex = 0, int pageSize = int.MaxValue);
 
@@ -81,7 +81,7 @@ namespace MyApp.Services.Logging
         /// </summary>
         /// <param name="activityLogId">Activity log identifier</param>
         /// <returns>Activity log item</returns>
-        Core.Domain.ActivityLog.ActivityLog GetActivityById(int activityLogId);
+        ActivityLog GetActivityById(int activityLogId);
 
     }
 }

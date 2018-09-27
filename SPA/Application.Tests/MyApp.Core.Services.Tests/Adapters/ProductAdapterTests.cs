@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using MyApp.Core.Domain.Example.ProductAgg;
-using MyApp.Core.Interfaces.Mapping;
-using MyApp.Infrastructure.Common.Adapter;
-using MyApp.Infrastructure.Mapping.DTOs;
+using MyApp.Domain.Example.ProductAgg;
+using MyApp.Services.DTOs;
 using Xunit;
 
-namespace MyApp.Core.Services.Tests.Adapters
+namespace MyApp.Services.Tests.Adapters
 {
     public class ProductAdapterTests : TestsInitialize
     {
@@ -19,8 +17,7 @@ namespace MyApp.Core.Services.Tests.Adapters
        
 
             //Act
-            ITypeAdapter adapter = TypeAdapterFactory.CreateAdapter();
-            var productDto = adapter.Adapt<Product, ProductDto>(product);
+            var productDto = TypeAdapter.Adapt<Product, ProductDto>(product);
 
             //Assert
             Assert.Equal(product.Id, productDto.Id);
@@ -39,11 +36,10 @@ namespace MyApp.Core.Services.Tests.Adapters
             software.IncrementStock(10);
            
 
-            var products = new List<Software>() { software };
+            var products = new List<Software> { software };
 
             //Act
-            ITypeAdapter adapter = TypeAdapterFactory.CreateAdapter();
-            var productsDto = adapter.Adapt<IEnumerable<Product>, List<ProductDto>>(products);
+            var productsDto = TypeAdapter.Adapt<IEnumerable<Product>, List<ProductDto>>(products);
 
             //Assert
             Assert.Equal(products[0].Id, productsDto[0].Id);
@@ -62,8 +58,7 @@ namespace MyApp.Core.Services.Tests.Adapters
             software.IncrementStock(10);
         
             //Act
-            ITypeAdapter adapter = TypeAdapterFactory.CreateAdapter();
-            var softwareDto = adapter.Adapt<Software, SoftwareDto>(software);
+            var softwareDto = TypeAdapter.Adapt<Software, SoftwareDto>(software);
 
             //Assert
             Assert.Equal(software.Id, softwareDto.Id);
@@ -84,12 +79,11 @@ namespace MyApp.Core.Services.Tests.Adapters
             software.IncrementStock(10);
            
 
-            var softwares = new List<Software>() { software };
+            var softwares = new List<Software> { software };
             
 
             //Act
-            ITypeAdapter adapter = TypeAdapterFactory.CreateAdapter();
-            var softwaresDto = adapter.Adapt<IEnumerable<Software>, List<SoftwareDto>>(softwares);
+            var softwaresDto = TypeAdapter.Adapt<IEnumerable<Software>, List<SoftwareDto>>(softwares);
 
             //Assert
             Assert.Equal(softwares[0].Id, softwaresDto[0].Id);
@@ -112,8 +106,7 @@ namespace MyApp.Core.Services.Tests.Adapters
    
 
             //Act
-            ITypeAdapter adapter = TypeAdapterFactory.CreateAdapter();
-            var bookDto = adapter.Adapt<Book, BookDto>(book);
+            var bookDto = TypeAdapter.Adapt<Book, BookDto>(book);
 
             //Assert
             Assert.Equal(book.Id, bookDto.Id);
@@ -135,11 +128,10 @@ namespace MyApp.Core.Services.Tests.Adapters
             book.IncrementStock(10);
           
 
-            var books = new List<Book>() { book };
+            var books = new List<Book> { book };
 
             //Act
-            ITypeAdapter adapter = TypeAdapterFactory.CreateAdapter();
-            var booksDto = adapter.Adapt<IEnumerable<Book>, List<BookDto>>(books);
+            var booksDto = TypeAdapter.Adapt<IEnumerable<Book>, List<BookDto>>(books);
 
             //Assert
             Assert.Equal(books[0].Id, booksDto[0].Id);

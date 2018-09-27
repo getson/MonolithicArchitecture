@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using MyApp.Core.Domain.Example.ProductAgg;
-using MyApp.Core.SharedKernel.Entities;
+using MyApp.Core.SharedKernel.Domain;
+using MyApp.Domain.Example.ProductAgg;
 
-namespace MyApp.Core.Domain.Example.OrderAgg
+namespace MyApp.Domain.Example.OrderAgg
 {
     /// <summary>
     /// The order line representation

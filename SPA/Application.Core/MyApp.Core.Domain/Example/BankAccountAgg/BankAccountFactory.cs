@@ -1,6 +1,6 @@
-﻿using MyApp.Core.Domain.Example.CustomerAgg;
+﻿using MyApp.Domain.Example.CustomerAgg;
 
-namespace MyApp.Core.Domain.Example.BankAccountAgg
+namespace MyApp.Domain.Example.BankAccountAgg
 {
     /// <summary>
     /// This is the factory for bank account creation, which means that the main purpose

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using MyApp.Infrastructure.Mapping.DTOs;
+using MyApp.Services.DTOs;
 
 namespace MyApp.Services.Example
 {

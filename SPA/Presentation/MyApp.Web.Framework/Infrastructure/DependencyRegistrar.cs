@@ -4,22 +4,21 @@ using Autofac;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using MyApp.Core.Abstractions.Caching;
+using MyApp.Core.Abstractions.Data;
+using MyApp.Core.Abstractions.Infrastructure;
+using MyApp.Core.Abstractions.Mapping;
+using MyApp.Core.Abstractions.Plugin;
+using MyApp.Core.Abstractions.Validator;
+using MyApp.Core.Abstractions.Web;
 using MyApp.Core.Configuration;
-using MyApp.Core.Domain;
-using MyApp.Core.Domain.Services.Banking;
-using MyApp.Core.Interfaces.Caching;
-using MyApp.Core.Interfaces.Data;
-using MyApp.Core.Interfaces.Infrastructure;
-using MyApp.Core.Interfaces.Mapping;
-using MyApp.Core.Interfaces.Plugin;
-using MyApp.Core.Interfaces.Web;
-using MyApp.Core.SharedKernel;
-using MyApp.Core.SharedKernel.Events;
+using MyApp.Core.Infrastructure;
+using MyApp.Core.SharedKernel.Domain;
+using MyApp.Core.SharedKernel.Validator;
+using MyApp.Domain.Example.BankAccountAgg;
 using MyApp.Infrastructure.Cache;
 using MyApp.Infrastructure.Cache.Providers;
 using MyApp.Infrastructure.Cache.Providers.Redis;
-using MyApp.Infrastructure.Common.Adapter;
-using MyApp.Infrastructure.Common.Validator;
 using MyApp.Infrastructure.Data;
 using MyApp.Infrastructure.ExternalServices.Plugins;
 using MyApp.Services.Events;
@@ -45,10 +44,8 @@ namespace MyApp.Web.Framework.Infrastructure
         /// <param name="config">Config</param>
         public virtual void Register(ContainerBuilder builder, ITypeFinder typeFinder, MyAppConfig config)
         {
-            //file provider
-            //builder.RegisterType<MyAppFileProvider>().As<IMyAppFileProvider>().InstancePerLifetimeScope();
 
-            RegisterWebUtilities(builder);
+            RegisterUtilities(builder);
 
             //data layer
             RegisterDataLayer(builder, typeFinder);
@@ -78,7 +75,6 @@ namespace MyApp.Web.Framework.Infrastructure
 
             RegisterApplicationServices(builder);
 
-            RegisterDomainHandlers(builder,typeFinder);
 
             RegisterEventConsumers(builder, typeFinder);
         }
@@ -86,24 +82,21 @@ namespace MyApp.Web.Framework.Infrastructure
         private static void RegisterMapping(ContainerBuilder builder)
         {
             //Adapters
-            var autoMapperAdapter = new AutomapperTypeAdapterFactory();
+            var autoMapperAdapter = new AutoMapperTypeAdapterFactory();
             builder.RegisterInstance(autoMapperAdapter).As<ITypeAdapterFactory>().SingleInstance();
-
-            TypeAdapterFactory.SetCurrent(autoMapperAdapter);
-
         }
-        private static void RegisterWebUtilities(ContainerBuilder builder)
+        private static void RegisterUtilities(ContainerBuilder builder)
         {
-            //register ApiExplorer
             builder.RegisterType<DefaultApiVersionDescriptionProvider>().As<IApiVersionDescriptionProvider>().SingleInstance();
-
             //web helper
             builder.RegisterType<WebHelper>().As<IWebHelper>().InstancePerLifetimeScope();
-            //user agent helper
             builder.RegisterType<UserAgentHelper>().As<IUserAgentHelper>().InstancePerLifetimeScope();
 
-            //Validator
-            EntityValidatorFactory.SetCurrent(new DataAnnotationsEntityValidatorFactory());
+            //Adapters
+
+            builder.RegisterType<AutoMapperTypeAdapterFactory>().As<ITypeAdapterFactory>().SingleInstance();
+            builder.RegisterType<DataAnnotationsEntityValidatorFactory>().As<IEntityValidatorFactory>().SingleInstance();
+
         }
         #region Helper methods
         private static void RegisterEventConsumers(ContainerBuilder builder, ITypeFinder typeFinder)
@@ -117,21 +110,6 @@ namespace MyApp.Web.Framework.Infrastructure
                         var isMatch = type.IsGenericType && ((Type)criteria).IsAssignableFrom(type.GetGenericTypeDefinition());
                         return isMatch;
                     }, typeof(IConsumer<>)))
-                    .InstancePerLifetimeScope();
-            }
-        }
-
-        private static void RegisterDomainHandlers(ContainerBuilder builder, ITypeFinder typeFinder)
-        {
-            var domainHandlers = typeFinder.FindClassesOfType(typeof(IHandler<>)).ToList();
-            foreach (var consumer in domainHandlers)
-            {
-                builder.RegisterType(consumer)
-                    .As(consumer.FindInterfaces((type, criteria) =>
-                    {
-                        var isMatch = type.IsGenericType && ((Type)criteria).IsAssignableFrom(type.GetGenericTypeDefinition());
-                        return isMatch;
-                    }, typeof(IHandler<>)))
                     .InstancePerLifetimeScope();
             }
         }
@@ -151,19 +129,17 @@ namespace MyApp.Web.Framework.Infrastructure
                 builder.RegisterType(repo).As(@interface).InstancePerLifetimeScope();
             }
         }
-
         private static void RegisterDataLayer(ContainerBuilder builder, ITypeFinder typeFinder)
         {
             builder.RegisterType<EfDataProviderManager>().As<IDataProviderManager>().InstancePerDependency();
-            builder.Register(context => context.Resolve<IDataProviderManager>().DataProvider).As<IDataProvider>().InstancePerDependency();
+            builder.Register(context => context.Resolve<IDataProviderManager>().GetDataProvider()).As<IDataProvider>().InstancePerDependency();
             builder.Register(context => new MyAppObjectContext(context.Resolve<DbContextOptions<MyAppObjectContext>>()))
                 .As<IDbContext>().InstancePerLifetimeScope();
 
             //repositories
-            //builder.RegisterGeneric(typeof(EfRepository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
+
             RegisterRepositories(builder, typeFinder);
         }
-
         private static void RegisterApplicationServices(ContainerBuilder builder)
         {
             builder.RegisterType<CustomerAppService>().As<ICustomerAppService>().InstancePerLifetimeScope();
@@ -201,7 +177,7 @@ namespace MyApp.Web.Framework.Infrastructure
         }
         private static void RegisterInstallationService(ContainerBuilder builder, MyAppConfig config)
         {
-            if (!DataSettingsManager.DatabaseIsInstalled)
+            if (!DataSettingsManager.Instance.DatabaseIsInstalled)
             {
                 if (config.UseFastInstallationService)
                     builder.RegisterType<SqlFileInstallationService>().As<IInstallationService>().InstancePerLifetimeScope();

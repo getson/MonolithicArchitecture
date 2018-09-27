@@ -1,6 +1,6 @@
 ﻿using MyApp.Core.SharedKernel.Specification;
 
-namespace MyApp.Core.Domain.Example.ProductAgg
+namespace MyApp.Domain.Example.ProductAgg
 {
     /// <summary>
     /// A list of product specifications. You can learn

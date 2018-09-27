@@ -1,6 +1,8 @@
-﻿using MyApp.Core.SharedKernel.Entities;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using MyApp.Core.SharedKernel.Domain;
 
-namespace MyApp.Core.Domain.ActivityLog
+namespace MyApp.Domain.ActivityLog
 {
     /// <summary>
     /// Represents an activity log type record
@@ -21,5 +23,10 @@ namespace MyApp.Core.Domain.ActivityLog
         /// Gets or sets a value indicating whether the activity log type is enabled
         /// </summary>
         public bool Enabled { get; set; }
+
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            return new List<ValidationResult>();
+        }
     }
 }

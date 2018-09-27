@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using MyApp.Core.Domain.Example.CustomerAgg;
-using MyApp.Core.SharedKernel.Entities;
+using MyApp.Core.SharedKernel.Domain;
+using MyApp.Domain.Example.CustomerAgg;
 
-namespace MyApp.Core.Domain.Example.BankAccountAgg
+namespace MyApp.Domain.Example.BankAccountAgg
 {
     /// <summary>
     /// The bank account representation (Domain Entity)
     /// </summary>
-    public class BankAccount : AggregateRoot, IValidatableObject
+    public class BankAccount : AggregateRoot
     {
         #region Constructor
 
@@ -213,7 +213,7 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
 
         #region IValidatableObject Members
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var validationResults = new List<ValidationResult>();
 
@@ -221,16 +221,16 @@ namespace MyApp.Core.Domain.Example.BankAccountAgg
                 validationResults.Add(new ValidationResult("validation_BankAccountNumberCannotBeNull", new[] { "BankAccountNumber" }));
             else
             {
-                if (String.IsNullOrWhiteSpace(BankAccountNumber.AccountNumber))
+                if (string.IsNullOrWhiteSpace(BankAccountNumber.AccountNumber))
                     validationResults.Add(new ValidationResult("validation_BankAccountBankAccountNumberCannotBeNull", new[] { "AccountNumber" }));
 
-                if (String.IsNullOrWhiteSpace(BankAccountNumber.CheckDigits))
+                if (string.IsNullOrWhiteSpace(BankAccountNumber.CheckDigits))
                     validationResults.Add(new ValidationResult("validation_BankAccountBankCheckDigitsCannotBeNull", new[] { "CheckDigits" }));
 
-                if (String.IsNullOrWhiteSpace(BankAccountNumber.NationalBankCode))
+                if (string.IsNullOrWhiteSpace(BankAccountNumber.NationalBankCode))
                     validationResults.Add(new ValidationResult("validation_BankAccountBankNationalBankCodeCannotBeNull", new[] { "NationalBankCode" }));
 
-                if (String.IsNullOrWhiteSpace(BankAccountNumber.OfficeNumber))
+                if (string.IsNullOrWhiteSpace(BankAccountNumber.OfficeNumber))
                     validationResults.Add(new ValidationResult("validation_BankAccountBankOfficeNumberCannotBeNull", new[] { "OfficeNumber" }));
             }
 

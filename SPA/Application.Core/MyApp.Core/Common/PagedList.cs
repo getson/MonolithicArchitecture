@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MyApp.Core.Interfaces.Pagination;
+using MyApp.Core.Abstractions.Pagination;
 
 namespace MyApp.Core.Common
 {
+    /// <inheritdoc cref="IPagedList{T}" />
     /// <summary>
     /// Paged list
     /// </summary>

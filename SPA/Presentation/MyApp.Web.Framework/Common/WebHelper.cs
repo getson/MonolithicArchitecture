@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
+using MyApp.Core.Abstractions.Infrastructure;
+using MyApp.Core.Abstractions.Web;
 using MyApp.Core.Common;
 using MyApp.Core.Configuration;
 using MyApp.Core.Exceptions;
-using MyApp.Core.Interfaces.Infrastructure;
-using MyApp.Core.Interfaces.Web;
 
 namespace MyApp.Web.Framework.Common
 {
@@ -466,6 +466,11 @@ namespace MyApp.Web.Framework.Common
                 rawUrl = $"{request.PathBase}{request.Path}{request.QueryString}";
 
             return rawUrl;
+        }
+
+        public string GetHost(bool? useSsl = null)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

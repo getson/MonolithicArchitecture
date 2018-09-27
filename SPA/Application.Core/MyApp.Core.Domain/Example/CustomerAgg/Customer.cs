@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using MyApp.Core.Domain.Example.CountryAgg;
-using MyApp.Core.SharedKernel.Entities;
+using MyApp.Core.SharedKernel.Domain;
+using MyApp.Domain.Example.CountryAgg;
 
-namespace MyApp.Core.Domain.Example.CustomerAgg
+namespace MyApp.Domain.Example.CustomerAgg
 {
     /// <summary>
     /// Aggregate root for Customer Aggregate.
     /// </summary>
-    public class Customer : AggregateRoot, IValidatableObject
+    public class Customer : AggregateRoot
     {
 
         #region Members
@@ -170,7 +170,7 @@ namespace MyApp.Core.Domain.Example.CustomerAgg
 
         #region IValidatableObject Members
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var validationResults = new List<ValidationResult>();
 
@@ -196,7 +196,6 @@ namespace MyApp.Core.Domain.Example.CustomerAgg
 
             return validationResults;
         }
-
         #endregion
     }
 }

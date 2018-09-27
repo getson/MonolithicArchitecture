@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.Net.Http.Headers;
+using MyApp.Core.Abstractions.Infrastructure;
+using MyApp.Core.Configuration;
 using MyApp.Core.Infrastructure;
-using MyApp.Core.Interfaces.Infrastructure;
 using MyApp.Infrastructure.Data;
 using MyApp.Web.Framework.Extensions;
 using MyApp.Web.Framework.Routing;
@@ -23,7 +22,7 @@ namespace MyApp.Web.Framework
         /// </summary>
         /// <param name="services">Collection of service descriptors</param>
         /// <param name="configuration">Configuration root of the application</param>
-        public void ConfigureServices(IServiceCollection services, IConfigurationRoot configuration)
+        public void ConfigureServices(IServiceCollection services, MyAppConfig configuration)
         {
 
             //add object context
@@ -77,17 +76,11 @@ namespace MyApp.Web.Framework
             var staticFileOptions = new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(EngineContext.Current.FileProvider.MapPath(@"Plugins")),
-                RequestPath = new PathString("/Plugins"),
-                OnPrepareResponse = ctx =>
-                {
-                    if (!string.IsNullOrEmpty(EngineContext.Current.Configuration.StaticFilesCacheControl))
-                        ctx.Context.Response.Headers.Append(HeaderNames.CacheControl,
-                            EngineContext.Current.Configuration.StaticFilesCacheControl);
-                }
+                RequestPath = new PathString("/Plugins")
             };
 
             //whether database is installed
-            if (DataSettingsManager.DatabaseIsInstalled)
+            if (DataSettingsManager.Instance.DatabaseIsInstalled)
             {
                 var fileExtensionContentTypeProvider = new FileExtensionContentTypeProvider();
                 staticFileOptions.ContentTypeProvider = fileExtensionContentTypeProvider;
@@ -107,7 +100,6 @@ namespace MyApp.Web.Framework
             });
 
         }
-
         /// <summary>
         /// Gets order of this startup configuration implementation
         /// </summary>

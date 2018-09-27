@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using MyApp.Core.SharedKernel;
+using MyApp.Core.SharedKernel.Domain;
 
-namespace MyApp.Core.Domain.ActivityLog
+namespace MyApp.Domain.ActivityLog
 {
     public interface IActivityLogTypeRepository:IRepository<ActivityLogType>
     {

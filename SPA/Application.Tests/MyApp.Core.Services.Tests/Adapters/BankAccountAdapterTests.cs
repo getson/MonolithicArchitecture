@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using MyApp.Core.Domain.Example.BankAccountAgg;
-using MyApp.Core.Domain.Example.CountryAgg;
-using MyApp.Core.Domain.Example.CustomerAgg;
-using MyApp.Core.Interfaces.Mapping;
-using MyApp.Infrastructure.Common.Adapter;
-using MyApp.Infrastructure.Mapping.DTOs;
+using MyApp.Core.Abstractions.Mapping;
+using MyApp.Domain.Example.BankAccountAgg;
+using MyApp.Domain.Example.CountryAgg;
+using MyApp.Domain.Example.CustomerAgg;
+using MyApp.Services.DTOs;
 using Xunit;
 
-namespace MyApp.Core.Services.Tests.Adapters
+namespace MyApp.Services.Tests.Adapters
 {
     public class BankAccountAdapterTests : TestsInitialize
     {
+
         [Fact]
         public void AdaptBankActivityToBankActivityDto()
         {
             //Arrange
-            BankAccountActivity activity = new BankAccountActivity
+            var activity = new BankAccountActivity
             {
                 Date = DateTime.Now,
                 Amount = 1000,
@@ -27,7 +27,8 @@ namespace MyApp.Core.Services.Tests.Adapters
 
 
             //Act
-            ITypeAdapter adapter = TypeAdapterFactory.CreateAdapter();
+            var adapter = TypeAdapterFactory.Instance.CreateAdapter();
+
             var activityDto = adapter.Adapt<BankAccountActivity, BankActivityDto>(activity);
 
             //Assert
@@ -39,7 +40,7 @@ namespace MyApp.Core.Services.Tests.Adapters
         public void AdaptEnumerableBankActivityToListBankActivityDto()
         {
             //Arrange
-            BankAccountActivity activity = new BankAccountActivity
+            var activity = new BankAccountActivity
             {
 
                 //activity.GenerateNewIdentity();
@@ -48,11 +49,13 @@ namespace MyApp.Core.Services.Tests.Adapters
                 ActivityDescription = "transfer..."
             };
 
-            IEnumerable<BankAccountActivity> activities = new List<BankAccountActivity>() { activity };
+            IEnumerable<BankAccountActivity> activities = new List<BankAccountActivity>
+            {
+                activity
+            };
 
             //Act
-            ITypeAdapter adapter = TypeAdapterFactory.CreateAdapter();
-            var activitiesDto = adapter.Adapt<IEnumerable<BankAccountActivity>, List<BankActivityDto>>(activities);
+            var activitiesDto = TypeAdapter.Adapt<IEnumerable<BankAccountActivity>, List<BankActivityDto>>(activities);
 
             //Assert
             Assert.NotNull(activitiesDto);
@@ -75,7 +78,7 @@ namespace MyApp.Core.Services.Tests.Adapters
             var customer = CustomerFactory.CreateCustomer("jhon", "el rojo", "+3441", "company", country, new Address("", "", "", ""));
             //customer.GenerateNewIdentity();
 
-            BankAccount account = new BankAccount
+            var account = new BankAccount
             {
                 // account.GenerateNewIdentity();
                 BankAccountNumber = new BankAccountNumber("4444", "5555", "3333333333", "02")
@@ -85,8 +88,7 @@ namespace MyApp.Core.Services.Tests.Adapters
             account.Lock();
 
             //Act
-            ITypeAdapter adapter = TypeAdapterFactory.CreateAdapter();
-            var bankAccountDto = adapter.Adapt<BankAccount, BankAccountDto>(account);
+            var bankAccountDto = TypeAdapter.Adapt<BankAccount, BankAccountDto>(account);
 
 
             //Assert
@@ -108,17 +110,16 @@ namespace MyApp.Core.Services.Tests.Adapters
             var customer = CustomerFactory.CreateCustomer("jhon", "el rojo", "+341232", "company", country, new Address("", "", "", ""));
 
 
-            BankAccount account = new BankAccount
+            var account = new BankAccount
             {
                 BankAccountNumber = new BankAccountNumber("4444", "5555", "3333333333", "02")
             };
             account.SetCustomerOwnerOfThisBankAccount(customer);
             account.DepositMoney(1000, "reason");
-            var accounts = new List<BankAccount>() { account };
+            var accounts = new List<BankAccount> { account };
 
             //Act
-            ITypeAdapter adapter = TypeAdapterFactory.CreateAdapter();
-            var bankAccountsDto = adapter.Adapt<IEnumerable<BankAccount>, List<BankAccountDto>>(accounts);
+            var bankAccountsDto = TypeAdapter.Adapt<IEnumerable<BankAccount>, List<BankAccountDto>>(accounts);
 
 
             //Assert

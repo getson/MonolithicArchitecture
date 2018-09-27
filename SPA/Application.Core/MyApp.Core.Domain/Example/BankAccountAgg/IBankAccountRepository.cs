@@ -1,6 +1,6 @@
-﻿using MyApp.Core.SharedKernel;
+﻿using MyApp.Core.SharedKernel.Domain;
 
-namespace MyApp.Core.Domain.Example.BankAccountAgg
+namespace MyApp.Domain.Example.BankAccountAgg
 {
     public interface IBankAccountRepository : IRepository<BankAccount>
     {

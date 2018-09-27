@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using MyApp.Core.Domain.Example.CountryAgg;
-using MyApp.Core.Domain.Example.CustomerAgg;
-using MyApp.Core.Interfaces.Mapping;
-using MyApp.Infrastructure.Common.Adapter;
-using MyApp.Infrastructure.Mapping.DTOs;
+using MyApp.Domain.Example.CountryAgg;
+using MyApp.Domain.Example.CustomerAgg;
+using MyApp.Services.DTOs;
 using Xunit;
 
-namespace MyApp.Core.Services.Tests.Adapters
+namespace MyApp.Services.Tests.Adapters
 {
     public class CustomerAdaperTests : TestsInitialize
     {
@@ -29,9 +27,7 @@ namespace MyApp.Core.Services.Tests.Adapters
             customer.SetTheCountryForThisCustomer(country);
 
             //Act
-
-            ITypeAdapter adapter = TypeAdapterFactory.CreateAdapter();
-            var dto = adapter.Adapt<Customer, CustomerDto>(customer);
+            var dto = TypeAdapter.Adapt<Customer, CustomerDto>(customer);
 
             //Assert
 
@@ -71,12 +67,10 @@ namespace MyApp.Core.Services.Tests.Adapters
             customer.ChangePicture(picture);
             customer.SetTheCountryForThisCustomer(country);
 
-            IEnumerable<Customer> customers = new List<Customer>() { customer };
+            IEnumerable<Customer> customers = new List<Customer> { customer };
 
             //Act
-            ITypeAdapter adapter = TypeAdapterFactory.CreateAdapter();
-
-            var dtos = adapter.Adapt<IEnumerable<Customer>, List<CustomerListDto>>(customers);
+            var dtos = TypeAdapter.Adapt<IEnumerable<Customer>, List<CustomerListDto>>(customers);
 
             //Assert
 
@@ -84,7 +78,7 @@ namespace MyApp.Core.Services.Tests.Adapters
             Assert.True(dtos.Any());
             Assert.True(dtos.Count == 1);
 
-            CustomerListDto dto = dtos[0];
+            var dto = dtos[0];
 
             Assert.Equal(customer.Id, dto.Id);
             Assert.Equal(customer.FirstName, dto.FirstName);

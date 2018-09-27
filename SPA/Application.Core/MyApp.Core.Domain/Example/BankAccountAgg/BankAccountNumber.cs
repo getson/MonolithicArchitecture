@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using MyApp.Core.SharedKernel.Entities;
+using MyApp.Core.SharedKernel.Domain;
 
-namespace MyApp.Core.Domain.Example.BankAccountAgg
+namespace MyApp.Domain.Example.BankAccountAgg
 {
     /// <summary>
     /// The bank account number value object

@@ -1,6 +1,6 @@
 ﻿using MyApp.Core.SharedKernel.Specification;
 
-namespace MyApp.Core.Domain.Example.CustomerAgg
+namespace MyApp.Domain.Example.CustomerAgg
 {
     /// <summary>
     /// A list of customer specifications. You can learn

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
-using MyApp.Core.Interfaces.Plugin;
+using MyApp.Core.Abstractions.Plugin;
 
 namespace MyApp.Services.Plugins
 {

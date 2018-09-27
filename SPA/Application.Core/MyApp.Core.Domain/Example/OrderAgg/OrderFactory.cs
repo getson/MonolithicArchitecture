@@ -1,7 +1,7 @@
 ﻿using System;
-using MyApp.Core.Domain.Example.CustomerAgg;
+using MyApp.Domain.Example.CustomerAgg;
 
-namespace MyApp.Core.Domain.Example.OrderAgg
+namespace MyApp.Domain.Example.OrderAgg
 {
     /// <summary>
     /// This is the factory for Order creation, which means that the main purpose

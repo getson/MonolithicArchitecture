@@ -27,7 +27,14 @@ namespace MyApp.Core.Configuration
         /// </summary>
         /// <returns></returns>
         [JsonIgnore]
-        public bool IsValid => DataProvider != DataProviderType.Unknown && !string.IsNullOrEmpty(DataConnectionString);
+        public bool IsValid
+        {
+            get
+            {
+                if (DataProvider != DataProviderType.Unknown && !string.IsNullOrEmpty(DataConnectionString)) return true;
+                return false;
+            }
+        }
 
         #endregion
     }

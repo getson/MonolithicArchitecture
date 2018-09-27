@@ -1,7 +1,6 @@
-using System;
 using Xunit;
 
-namespace MyApp.Core.Domain.Test
+namespace MyApp.Domain.Test
 {
     public class UnitTest1
     {

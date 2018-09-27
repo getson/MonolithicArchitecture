@@ -1,9 +1,8 @@
 ﻿using System;
-using MyApp.Core.SharedKernel.Events;
 
-namespace MyApp.Core.Domain.Example.CustomerAgg.Events
+namespace MyApp.Domain.Example.CustomerAgg.Events
 {
-    public class CustomerCreatedEvent : IDomainEvent
+    public class CustomerCreatedEvent
     {
 
         public CustomerCreatedEvent(string customerName)

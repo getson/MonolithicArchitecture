@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using MyApp.Core.SharedKernel.Entities;
+using MyApp.Core.SharedKernel.Domain;
 
-namespace MyApp.Core.Domain.Example.OrderAgg
+namespace MyApp.Domain.Example.OrderAgg
 {
     /// <summary>
     /// Shipping information 

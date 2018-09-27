@@ -1,12 +1,14 @@
 ﻿using System;
-using MyApp.Core.SharedKernel.Entities;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using MyApp.Core.SharedKernel.Domain;
 
-namespace MyApp.Core.Domain.Example.CountryAgg
+namespace MyApp.Domain.Example.CountryAgg
 {
     /// <summary>
     /// The country entity
     /// </summary>
-    public class Country:AggregateRoot
+    public class Country : AggregateRoot
     {
         #region Properties
 
@@ -25,7 +27,7 @@ namespace MyApp.Core.Domain.Example.CountryAgg
         #region Constructor
 
         //required by EF
-        public Country() { } 
+        public Country() { }
 
         public Country(string countryName, string countryIsoCode)
         {
@@ -45,8 +47,12 @@ namespace MyApp.Core.Domain.Example.CountryAgg
         public void GenerateNewIdentity()
         {
             if (IsTransient())
-                this.Id = new Random().Next();
+                Id = new Random().Next();
         }
 
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            return new List<ValidationResult>();
+        }
     }
 }

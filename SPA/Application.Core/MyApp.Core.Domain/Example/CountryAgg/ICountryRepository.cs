@@ -1,6 +1,6 @@
-﻿using MyApp.Core.SharedKernel;
+﻿using MyApp.Core.SharedKernel.Domain;
 
-namespace MyApp.Core.Domain.Example.CountryAgg
+namespace MyApp.Domain.Example.CountryAgg
 {
     public interface ICountryRepository:IRepository<Country>
     {

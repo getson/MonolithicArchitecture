@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using MyApp.Core.Domain.Example.CustomerAgg;
 using MyApp.Core.SharedKernel.Specification;
+using MyApp.Domain.Example.CustomerAgg;
 
-namespace MyApp.Core.Domain.Example.OrderAgg
+namespace MyApp.Domain.Example.OrderAgg
 {
     /// <summary>
     /// The Orders specifications

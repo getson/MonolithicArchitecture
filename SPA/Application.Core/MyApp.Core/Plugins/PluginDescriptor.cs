@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using MyApp.Core.Abstractions.Plugin;
 using MyApp.Core.Infrastructure;
-using MyApp.Core.Interfaces.Plugin;
 using Newtonsoft.Json;
 
 namespace MyApp.Core.Plugins
@@ -66,7 +66,8 @@ namespace MyApp.Core.Plugins
             if (instance == null)
             {
                 //not resolved
-                instance = EngineContext.Current.ResolveUnregistered(PluginType);
+               //TODO GETSON what to do in this case?
+
             }
 
             var typedInstance = instance as T;

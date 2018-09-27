@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Http;
-using MyApp.Core.Interfaces.Web;
-using MyApp.Core.SharedKernel.User;
+using MyApp.Core.Abstractions.Web;
+using MyApp.Core.SharedKernel.Domain;
 
 namespace MyApp.Web.Framework
 {

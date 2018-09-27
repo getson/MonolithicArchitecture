@@ -18,6 +18,12 @@ namespace MyApp.Core.Configuration
         /// MS SQL Server
         /// </summary>
         [EnumMember(Value = "sqlserver")]
-        SqlServer
+        SqlServer,
+
+        /// <summary>
+        /// Oracle
+        /// </summary>
+        [EnumMember(Value = "oracle")]
+        Oracle
     }
 }

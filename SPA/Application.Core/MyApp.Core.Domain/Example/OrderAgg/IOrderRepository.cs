@@ -1,6 +1,6 @@
-﻿using MyApp.Core.SharedKernel;
+﻿using MyApp.Core.SharedKernel.Domain;
 
-namespace MyApp.Core.Domain.Example.OrderAgg
+namespace MyApp.Domain.Example.OrderAgg
 {
     public interface IOrderRepository : IRepository<Order>
     {

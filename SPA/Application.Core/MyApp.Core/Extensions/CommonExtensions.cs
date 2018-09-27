@@ -16,8 +16,11 @@ namespace MyApp.Core.Extensions
         public static bool IsNullOrDefault<T>(this T? value) where T : struct
         {
             return default(T).Equals(value.GetValueOrDefault());
-        }  
-
+        }
+        public static bool IsNullOrDefault<T>(this T value) where T : struct
+        {
+            return default(T).Equals(value);
+        }
         /// <summary>
         /// Get element value
         /// </summary>

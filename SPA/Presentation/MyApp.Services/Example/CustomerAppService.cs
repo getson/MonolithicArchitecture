@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MyApp.Core.Abstractions.Validator;
 using MyApp.Core.Common;
-using MyApp.Core.Domain.Example.CountryAgg;
-using MyApp.Core.Domain.Example.CustomerAgg;
-using MyApp.Core.Domain.Example.CustomerAgg.Events;
-using MyApp.Core.Domain.Logging;
-using MyApp.Core.SharedKernel.ApplicationEvents;
-using MyApp.Core.SharedKernel.Events;
+using MyApp.Core.Exceptions;
+using MyApp.Core.Extensions;
 using MyApp.Core.SharedKernel.Specification;
-using MyApp.Infrastructure.Common;
-using MyApp.Infrastructure.Common.Validator;
-using MyApp.Infrastructure.Mapping.DTOs;
+using MyApp.Domain.Example.CountryAgg;
+using MyApp.Domain.Example.CustomerAgg;
+using MyApp.Domain.Logging;
+using MyApp.Services.DTOs;
 using MyApp.Services.Logging;
 
 namespace MyApp.Services.Example
@@ -27,6 +25,7 @@ namespace MyApp.Services.Example
         private readonly ICustomerRepository _customerRepository;
         private readonly IUserActivityService _userActivityService;
         private readonly ILogger _logger;
+        private readonly IEntityValidatorFactory _entityValidatorFactory;
 
         #endregion
 
@@ -35,19 +34,22 @@ namespace MyApp.Services.Example
         /// <summary>
         /// Create a new instance of Customer Management Service
         /// </summary>
-        /// <param name="customerRepository">Associated CustomerRepository, intented to be resolved with DI</param>
         /// <param name="countryRepository">Associated country repository</param>
+        /// <param name="customerRepository">Associated CustomerRepository, intented to be resolved with DI</param>
         /// <param name="userActivity"></param>
         /// <param name="logger"></param>
+        /// <param name="entityValidatorFactory"></param>
         public CustomerAppService(ICountryRepository countryRepository,
                                   ICustomerRepository customerRepository,
                                   IUserActivityService userActivity,
-                                  ILogger logger)
+                                  ILogger logger,
+                                  IEntityValidatorFactory entityValidatorFactory)
         {
             _countryRepository = countryRepository;
             _customerRepository = customerRepository;
             _userActivityService = userActivity;
             _logger = logger;
+            _entityValidatorFactory = entityValidatorFactory;
         }
 
         #endregion
@@ -199,13 +201,12 @@ namespace MyApp.Services.Example
         private void SaveCustomer(Customer customer)
         {
             //recover validator
-            var validator = EntityValidatorFactory.CreateValidator();
+            var validator = _entityValidatorFactory.Create();
 
             if (validator.IsValid(customer)) //if customer is valid
             {
                 //add the customer into the repository
-                _customerRepository.Insert(customer);
-                DomainEvents.Instance.Raise(new CustomerCreatedEvent(customer.FullName));
+                _customerRepository.Create(customer);
             }
             else
             {

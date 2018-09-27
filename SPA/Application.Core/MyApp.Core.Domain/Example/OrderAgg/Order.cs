@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using MyApp.Core.Domain.Example.CustomerAgg;
-using MyApp.Core.SharedKernel.Entities;
+using MyApp.Core.SharedKernel.Domain;
+using MyApp.Domain.Example.CustomerAgg;
 
-namespace MyApp.Core.Domain.Example.OrderAgg
+namespace MyApp.Domain.Example.OrderAgg
 {
     /// <summary>
     /// Order aggregate root-entity
     /// </summary>
-    public class Order : AggregateRoot, IValidatableObject
+    public class Order : AggregateRoot
     {
         #region Members
 
@@ -220,7 +220,7 @@ namespace MyApp.Core.Domain.Example.OrderAgg
         #endregion
 
         #region IValidatableObject Members
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var validationResults = new List<ValidationResult>();
 

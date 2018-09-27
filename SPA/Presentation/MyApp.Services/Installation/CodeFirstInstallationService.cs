@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Hosting;
-using MyApp.Core.Domain.ActivityLog;
-using MyApp.Core.Interfaces.Infrastructure;
-using MyApp.Core.Interfaces.Web;
+using MyApp.Core.Abstractions.Infrastructure;
+using MyApp.Core.Abstractions.Web;
+using MyApp.Domain.ActivityLog;
 
 namespace MyApp.Services.Installation
 {
@@ -22,7 +22,7 @@ namespace MyApp.Services.Installation
 
         #region Ctor
 
-        public CodeFirstInstallationService( IWebHelper webHelper,
+        public CodeFirstInstallationService(IWebHelper webHelper,
                 IHostingEnvironment hostingEnvironment,
                 IMyAppFileProvider fileProvider,
                 IActivityLogTypeRepository activityTypeRepository)
@@ -46,9 +46,9 @@ namespace MyApp.Services.Installation
                     SystemKeyword = "AddNewAttribute",
                     Enabled = true,
                     Name = "Add a new attribute"
-                }           
+                }
             };
-            _activityLogTypeRepository.Insert(activityLogTypes);
+            _activityLogTypeRepository.Create(activityLogTypes);
         }
         #endregion
 
@@ -57,13 +57,10 @@ namespace MyApp.Services.Installation
         /// <summary>
         /// Install data
         /// </summary>
-        /// <param name="defaultUserEmail">Default user email</param>
-        /// <param name="defaultUserPassword">Default user password</param>
         /// <param name="installSampleData">A value indicating whether to install sample data</param>
-        public virtual void InstallData(string defaultUserEmail,
-            string defaultUserPassword, bool installSampleData = true)
+        public virtual void InstallData(bool installSampleData = true)
         {
-         
+
             InstallActivityLogTypes();
 
 
