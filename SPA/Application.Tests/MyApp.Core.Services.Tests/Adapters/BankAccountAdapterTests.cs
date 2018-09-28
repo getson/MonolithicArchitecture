@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Autofac.Builder;
 using MyApp.Core.Abstractions.Mapping;
 using MyApp.Domain.Example.BankAccountAgg;
 using MyApp.Domain.Example.CountryAgg;
@@ -20,7 +21,8 @@ namespace MyApp.Services.Tests.Adapters
             {
                 Date = DateTime.Now,
                 Amount = 1000,
-                ActivityDescription = "transfer..."
+                ActivityDescription = "transfer...",
+                Id = (new Random().Next())
             };
 
             //activity.GenerateNewIdentity();
@@ -75,14 +77,16 @@ namespace MyApp.Services.Tests.Adapters
             };
             country.GenerateNewIdentity();
 
-            var customer = CustomerFactory.CreateCustomer("jhon", "el rojo", "+3441", "company", country, new Address("", "", "", ""));
+            var customer = CustomerFactory.CreateCustomer("john", "el rojo", "+3441", "company", country, new Address("", "", "", ""));
+            customer.Id = new Random().Next();
             //customer.GenerateNewIdentity();
 
             var account = new BankAccount
             {
-                // account.GenerateNewIdentity();
+                Id = (new Random().Next()),
                 BankAccountNumber = new BankAccountNumber("4444", "5555", "3333333333", "02")
             };
+            account.Id = new Random().Next();
             account.SetCustomerOwnerOfThisBankAccount(customer);
             account.DepositMoney(1000, "reason");
             account.Lock();
@@ -107,11 +111,12 @@ namespace MyApp.Services.Tests.Adapters
             var country = new Country("spain", "es-ES");
             country.GenerateNewIdentity();
 
-            var customer = CustomerFactory.CreateCustomer("jhon", "el rojo", "+341232", "company", country, new Address("", "", "", ""));
+            var customer = CustomerFactory.CreateCustomer("john", "el rojo", "+341232", "company", country, new Address("", "", "", ""));
 
 
             var account = new BankAccount
             {
+                Id = new Random().Next(),
                 BankAccountNumber = new BankAccountNumber("4444", "5555", "3333333333", "02")
             };
             account.SetCustomerOwnerOfThisBankAccount(customer);

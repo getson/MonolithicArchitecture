@@ -19,7 +19,7 @@ namespace MyApp.Services.Tests.Adapters
 
             var address = new Address("Monforte", "27400", "AddressLine1", "AddressLine2");
 
-            var customer = CustomerFactory.CreateCustomer("Jhon", "El rojo", "617404929", "Spirtis", country, address);
+            var customer = CustomerFactory.CreateCustomer("john", "El rojo", "617404929", "Spirtis", country, address);
             var picture = new Picture { RawPhoto = new byte[0] { } };
 
             customer.ChangeTheCurrentCredit(1000M);
@@ -60,7 +60,7 @@ namespace MyApp.Services.Tests.Adapters
 
             var address = new Address("Monforte", "27400", "AddressLine1", "AddressLine2");
 
-            var customer = CustomerFactory.CreateCustomer("Jhon", "El rojo", "617404929", "Spirtis", country, address);
+            var customer = CustomerFactory.CreateCustomer("john", "El rojo", "617404929", "Spirtis", country, address);
             var picture = new Picture { RawPhoto = new byte[0] { } };
 
             customer.ChangeTheCurrentCredit(1000M);
