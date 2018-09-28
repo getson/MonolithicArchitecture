@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Extensions.Logging;
 using Moq;
-using MyApp.Core.Abstractions.Infrastructure;
-using MyApp.Core.Abstractions.Mapping;
 using MyApp.Core.Abstractions.Validator;
-using MyApp.Core.Infrastructure;
-using MyApp.Core.SharedKernel.Validator;
 using MyApp.Domain.Example.BankAccountAgg;
 using MyApp.Domain.Example.CustomerAgg;
 using MyApp.Services.DTOs;
 using MyApp.Services.Example;
 using MyApp.Services.Logging;
 using Xunit;
-using ILogger = MyApp.Services.Logging.ILogger;
 
 namespace MyApp.Services.Tests.Services
 {

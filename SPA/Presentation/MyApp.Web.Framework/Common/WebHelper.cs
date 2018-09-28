@@ -365,12 +365,16 @@ namespace MyApp.Web.Framework.Common
         public virtual T QueryString<T>(string name)
         {
             if (!IsRequestAvailable())
+            {
                 return default(T);
+            }
 
             if (StringValues.IsNullOrEmpty(_httpContextAccessor.HttpContext.Request.Query[name]))
+            {
                 return default(T);
+            }
 
-            return CommonHelper.To<T>(_httpContextAccessor.HttpContext.Request.Query[name].ToString());
+            return MyAppTypeConverter.To<T>(_httpContextAccessor.HttpContext.Request.Query[name].ToString());
         }
 
         /// <summary>

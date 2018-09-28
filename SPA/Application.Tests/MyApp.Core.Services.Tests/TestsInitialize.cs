@@ -8,11 +8,9 @@ using Moq;
 using MyApp.Core.Abstractions.Infrastructure;
 using MyApp.Core.Abstractions.Mapping;
 using MyApp.Core.Abstractions.Validator;
-using MyApp.Core.Common;
 using MyApp.Core.Configuration;
 using MyApp.Core.Infrastructure;
 using MyApp.Core.SharedKernel.Validator;
-using MyApp.Infrastructure.FileSystem;
 using MyApp.Services.Logging;
 
 namespace MyApp.Services.Tests

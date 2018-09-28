@@ -5,6 +5,7 @@ using MyApp.Core.Abstractions.Caching;
 using MyApp.Core.Abstractions.Pagination;
 using MyApp.Core.Abstractions.Web;
 using MyApp.Core.Common;
+using MyApp.Core.Extensions;
 using MyApp.Core.SharedKernel.Domain;
 using MyApp.Domain.ActivityLog;
 
@@ -224,7 +225,7 @@ namespace MyApp.Services.Logging
                 EntityId = entity?.Id,
                 EntityName = entity?.GetType().Name,
                 UserId = customer.Id,
-                Comment = CommonHelper.EnsureMaximumLength(comment ?? string.Empty, 4000),
+                Comment = comment.EnsureMaximumLength(4000),
                 CreatedOnUtc = DateTime.UtcNow,
                 IpAddress = _webHelper.GetCurrentIpAddress()
             };
