@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using MyApp.Domain.Example.CustomerAgg;
+﻿using MyApp.Domain.Example.CustomerAgg;
 using MyApp.Domain.Example.OrderAgg;
 using MyApp.Domain.Example.ProductAgg;
 using MyApp.Services.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace MyApp.Services.Tests.Adapters
@@ -21,15 +21,16 @@ namespace MyApp.Services.Tests.Adapters
                 FirstName = "Unai",
                 LastName = "Zorrilla"
             };
-
-            Product product = new Software("the product title", "the product description","license code");
-
+            customer.GenerateNewIdentity();
+            Product product = new Software("the product title", "the product description", "license code");
+            product.GenerateNewIdentity();
 
             var order = new Order
             {
                 OrderDate = DateTime.Now,
                 ShippingInformation = new ShippingInfo("shippingName", "shippingAddress", "shippingCity", "shippingZipCode")
             };
+            order.GenerateNewIdentity();
             order.SetTheCustomerForThisOrder(customer);
 
             var orderLine = order.AddNewOrderLine(product.Id, 10, 10, 0.5M);
@@ -51,7 +52,7 @@ namespace MyApp.Services.Tests.Adapters
             Assert.Equal(orderDto.CustomerFullName, order.Customer.FullName);
             Assert.Equal(orderDto.CustomerId, order.Customer.Id);
 
-            Assert.Equal(orderDto.OrderNumber, string.Format("{0}/{1}-{2}",order.OrderDate.Year,order.OrderDate.Month,order.SequenceNumberOrder));
+            Assert.Equal(orderDto.OrderNumber, $"{order.OrderDate.Year}/{order.OrderDate.Month}-{order.SequenceNumberOrder}");
 
 
             Assert.NotNull(orderDto.OrderLines);
@@ -77,9 +78,10 @@ namespace MyApp.Services.Tests.Adapters
                 FirstName = "Unai",
                 LastName = "Zorrilla"
             };
+            customer.GenerateNewIdentity();
 
-            Product product = new Software("the product title", "the product description","license code");
-
+            Product product = new Software("the product title", "the product description", "license code");
+            product.GenerateNewIdentity();
 
 
             var order = new Order
@@ -87,10 +89,11 @@ namespace MyApp.Services.Tests.Adapters
                 OrderDate = DateTime.Now,
                 ShippingInformation = new ShippingInfo("shippingName", "shippingAddress", "shippingCity", "shippingZipCode")
             };
+            order.GenerateNewIdentity();
             order.SetTheCustomerForThisOrder(customer);
 
             var line = order.AddNewOrderLine(product.Id, 1, 200, 0);
-            
+
 
             var orders = new List<Order> { order };
 

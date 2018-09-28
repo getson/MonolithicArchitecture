@@ -25,8 +25,6 @@ namespace MyApp.Domain.Example.CustomerAgg
             var customer = new Customer
             {
 
-                //customer.GenerateNewIdentity();
-
                 //set data
 
                 FirstName = firstName,
@@ -38,7 +36,7 @@ namespace MyApp.Domain.Example.CustomerAgg
                 //set address
                 Address = address
             };
-
+            customer.GenerateNewIdentity();
             //customer is enabled by default
             customer.Enable();
 
@@ -56,7 +54,7 @@ namespace MyApp.Domain.Example.CustomerAgg
             //set the country for this customer
             customer.SetTheCountryForThisCustomer(country);
             //DomainEvents.Instance.Dispatch(new CustomerCreatedEvent(customer.FirstName));
- //TODO raise events
+            //TODO raise events
             return customer;
         }
     }

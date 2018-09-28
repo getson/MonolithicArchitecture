@@ -1,13 +1,14 @@
-﻿using System;
+﻿using MyApp.Core.SharedKernel.Domain;
+using System;
 using System.Collections.Generic;
-using MyApp.Core.SharedKernel.Domain;
+using System.Linq;
 
 namespace MyApp.Domain.Example.BankAccountAgg
 {
     /// <summary>
     /// The bank account number value object
     /// </summary>
-    public class BankAccountNumber:ValueObject<BankAccountNumber>
+    public class BankAccountNumber : ValueObject<BankAccountNumber>
     {
         #region Constructor
 
@@ -35,7 +36,9 @@ namespace MyApp.Domain.Example.BankAccountAgg
         /// and proxy creation :-(
         /// </remarks>
         /// </summary>
-        public BankAccountNumber() { }
+        public BankAccountNumber()
+        {
+        }
 
         #endregion
 
@@ -65,7 +68,7 @@ namespace MyApp.Domain.Example.BankAccountAgg
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            throw new NotImplementedException();
+            return GetType().GetProperties().Select(prop=>prop.GetValue(this));
         }
     }
 }

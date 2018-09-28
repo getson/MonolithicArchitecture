@@ -42,14 +42,6 @@ namespace MyApp.Domain.Example.CountryAgg
         }
 
         #endregion
-
-
-        public void GenerateNewIdentity()
-        {
-            if (IsTransient())
-                Id = new Random().Next();
-        }
-
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             return new List<ValidationResult>();

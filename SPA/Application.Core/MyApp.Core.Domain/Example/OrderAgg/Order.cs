@@ -1,10 +1,10 @@
-﻿using System;
+﻿using MyApp.Core.SharedKernel.Domain;
+using MyApp.Domain.Example.CustomerAgg;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using MyApp.Core.SharedKernel.Domain;
-using MyApp.Domain.Example.CustomerAgg;
 
 namespace MyApp.Domain.Example.OrderAgg
 {
@@ -87,9 +87,6 @@ namespace MyApp.Domain.Example.OrderAgg
 
         #endregion
 
-        #region Constructor
-
-        #endregion
 
         #region Public Methods
 
@@ -141,9 +138,7 @@ namespace MyApp.Domain.Example.OrderAgg
         /// <param name="customer">The customer to relate</param>
         public void SetTheCustomerForThisOrder(Customer customer)
         {
-            if (customer == null
-                ||
-                customer.IsTransient())
+            if (customer == null || customer.IsTransient())
             {
                 throw new ArgumentException("exception_CannotAssociateTransientOrNullCustomer");
             }
@@ -182,9 +177,7 @@ namespace MyApp.Domain.Example.OrderAgg
         {
             var total = 0M;
 
-            if (OrderLines != null //use OrderLines for lazy loading
-                &&
-                OrderLines.Any())
+            if (OrderLines != null && OrderLines.Any())
             {
                 total = OrderLines.Aggregate(total, (t, l) => t += l.TotalLine);
             }

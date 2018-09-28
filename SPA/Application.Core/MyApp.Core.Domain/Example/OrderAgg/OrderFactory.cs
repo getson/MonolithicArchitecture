@@ -38,7 +38,7 @@ namespace MyApp.Domain.Example.OrderAgg
             order.SetTheCustomerForThisOrder(customer);
 
             //set identity
-            //order.GenerateNewIdentity();
+            order.GenerateNewIdentity();
 
             return order;
         }

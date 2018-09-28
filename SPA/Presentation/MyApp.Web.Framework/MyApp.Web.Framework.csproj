@@ -20,7 +20,7 @@
     <PackageReference Include="MiniProfiler.AspNetCore" Version="4.0.138" />
     <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.0.138" />
     <PackageReference Include="MiniProfiler.EntityFrameworkCore" Version="4.0.138" />
-    <PackageReference Include="StackExchange.Redis" Version="2.0.505" />
+    <PackageReference Include="StackExchange.Redis" Version="2.0.513" />
   </ItemGroup>
 
   <ItemGroup>

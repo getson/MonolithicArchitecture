@@ -112,11 +112,8 @@ namespace MyApp.Services.Tests.Adapters
             country.GenerateNewIdentity();
 
             var customer = CustomerFactory.CreateCustomer("john", "el rojo", "+341232", "company", country, new Address("", "", "", ""));
-
-
             var account = new BankAccount
             {
-                Id = new Random().Next(),
                 BankAccountNumber = new BankAccountNumber("4444", "5555", "3333333333", "02")
             };
             account.SetCustomerOwnerOfThisBankAccount(customer);

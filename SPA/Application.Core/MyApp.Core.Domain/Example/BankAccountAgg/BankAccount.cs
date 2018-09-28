@@ -1,8 +1,8 @@
-﻿using System;
+﻿using MyApp.Core.SharedKernel.Domain;
+using MyApp.Domain.Example.CustomerAgg;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using MyApp.Core.SharedKernel.Domain;
-using MyApp.Domain.Example.CustomerAgg;
 
 namespace MyApp.Domain.Example.BankAccountAgg
 {
@@ -11,11 +11,8 @@ namespace MyApp.Domain.Example.BankAccountAgg
     /// </summary>
     public class BankAccount : AggregateRoot
     {
-        #region Constructor
 
-        #endregion
         #region Properties
-
         /// <summary>
         /// Get or set the bank account number
         /// </summary>
@@ -34,15 +31,11 @@ namespace MyApp.Domain.Example.BankAccountAgg
             get
             {
                 if (BankAccountNumber != null)
-                    return string.Format("ES{0} {1} {2} {0}{3}",
-                                        BankAccountNumber.CheckDigits,
-                                        BankAccountNumber.NationalBankCode,
-                                        BankAccountNumber.OfficeNumber,
-                                        BankAccountNumber.AccountNumber);
+                {
+                    return $"ES{BankAccountNumber.CheckDigits} {BankAccountNumber.NationalBankCode} {BankAccountNumber.OfficeNumber} {BankAccountNumber.CheckDigits}{BankAccountNumber.AccountNumber}";
+                }
+
                 return "No Bank Account Provided";
-            }
-            set
-            {
             }
         }
 
@@ -66,7 +59,7 @@ namespace MyApp.Domain.Example.BankAccountAgg
         /// </summary>
         public virtual Customer Customer { get; private set; }
 
-        HashSet<BankAccountActivity> _bankAccountActivity;
+        private HashSet<BankAccountActivity> _bankAccountActivity;
 
         /// <summary>
         /// Get the bank account activity into this account
@@ -137,7 +130,9 @@ namespace MyApp.Domain.Example.BankAccountAgg
                 BankAccountActivity.Add(activity);
             }
             else
+            {
                 throw new InvalidOperationException("exception_BankAccountCannotDeposit");
+            }
         }
 
         /// <summary>

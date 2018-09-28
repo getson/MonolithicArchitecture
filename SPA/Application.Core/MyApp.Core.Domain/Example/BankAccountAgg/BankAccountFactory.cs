@@ -23,7 +23,7 @@ namespace MyApp.Domain.Example.BankAccountAgg
             };
 
             //set the identity
-            //bankAccount.GenerateNewIdentity();
+            bankAccount.GenerateNewIdentity();
 
             //set the bank account number
 

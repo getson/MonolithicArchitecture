@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Moq;
+﻿using Moq;
 using MyApp.Core.Abstractions.Validator;
 using MyApp.Domain.Example.BankAccountAgg;
 using MyApp.Domain.Example.CustomerAgg;
 using MyApp.Services.DTOs;
 using MyApp.Services.Example;
 using MyApp.Services.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace MyApp.Services.Tests.Services
@@ -157,33 +157,33 @@ namespace MyApp.Services.Tests.Services
 
             //--> source bank account data
 
-            var sourceId = new Random().Next();
             var bankAccountNumberSource = new BankAccountNumber("4444", "5555", "3333333333", "02");
             var sourceCustomer = new Customer();
-
+            sourceCustomer.GenerateNewIdentity();
 
             var source = BankAccountFactory.CreateBankAccount(sourceCustomer, bankAccountNumberSource);
+   
 
             source.DepositMoney(1000, "initial");
 
             var sourceBankAccountDto = new BankAccountDto
             {
-                Id = sourceId,
+                Id = source.Id,
                 BankAccountNumber = source.Iban
             };
 
             //--> target bank account data
             var targetCustomer = new Customer();
+            targetCustomer.GenerateNewIdentity();
 
-            var targetId = new Random().Next();
             var bankAccountNumberTarget = new BankAccountNumber("1111", "2222", "3333333333", "01");
             var target = BankAccountFactory.CreateBankAccount(targetCustomer, bankAccountNumberTarget);
-            target.ChangeCurrentIdentity(targetId);
+            //target.ChangeCurrentIdentity(targetId);
 
 
             var targetBankAccountDto = new BankAccountDto
             {
-                Id = targetId,
+                Id = target.Id,
                 BankAccountNumber = target.Iban
             };
 
