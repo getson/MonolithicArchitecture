@@ -44,9 +44,13 @@ namespace MyApp.Core.Common
         {
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
+                if (assembly.FullName.Contains("MyApp.Spa.Views"))
+                {
+                    
+                }
                 if (!Matches(assembly.FullName))
                     continue;
-
+                
                 if (addedAssemblyNames.Contains(assembly.FullName))
                     continue;
 

@@ -13,7 +13,7 @@ namespace MyApp.Infrastructure.Cache.Providers
     /// <summary>
     /// Represents a memory cache manager 
     /// </summary>
-    public class MemoryCacheManager : IStaticCacheManager
+    public class MemoryCacheManager : IStaticCacheManager, ILocker
     {
         #region Fields
 
@@ -224,6 +224,11 @@ namespace MyApp.Infrastructure.Cache.Providers
 
             //recreate cancellation token
             CancellationTokenSource = new CancellationTokenSource();
+        }
+
+        public bool PerformActionWithLock(string resource, TimeSpan expirationTime, Action action)
+        {
+            return true;
         }
         #endregion
     }
