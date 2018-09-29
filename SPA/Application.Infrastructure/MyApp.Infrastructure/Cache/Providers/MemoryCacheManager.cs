@@ -1,19 +1,18 @@
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Primitives;
+using MyApp.Core.Abstractions.Caching;
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Primitives;
-using MyApp.Core.Abstractions.Caching;
 
 namespace MyApp.Infrastructure.Cache.Providers
 {
-    /// <inheritdoc />
     /// <summary>
     /// Represents a memory cache manager 
     /// </summary>
-    public class MemoryCacheManager : IStaticCacheManager, ILocker
+    public class MemoryCacheManager : ILocker, IStaticCacheManager
     {
         #region Fields
 
@@ -181,10 +180,37 @@ namespace MyApp.Infrastructure.Cache.Providers
         /// <returns>True if item already is in cache; otherwise false</returns>
         public virtual bool IsSet(string key)
         {
-            return _cache.TryGetValue(key, out _);
+            return _cache.TryGetValue(key, out object _);
         }
 
+        /// <summary>
+        /// Perform some action with exclusive in-memory lock
+        /// </summary>
+        /// <param name="key">The key we are locking on</param>
+        /// <param name="expirationTime">The time after which the lock will automatically be expired</param>
+        /// <param name="action">Action to be performed with locking</param>
+        /// <returns>True if lock was acquired and action was performed; otherwise false</returns>
+        public bool PerformActionWithLock(string key, TimeSpan expirationTime, Action action)
+        {
+            //ensure that lock is acquired
+            if (!AllKeys.TryAdd(key, true))
+                return false;
 
+            try
+            {
+                _cache.Set(key, key, GetMemoryCacheEntryOptions(expirationTime));
+
+                //perform action
+                action();
+
+                return true;
+            }
+            finally
+            {
+                //release lock even if action fails
+                Remove(key);
+            }
+        }
 
         /// <summary>
         /// Removes the value with the specified key from the cache
@@ -194,6 +220,7 @@ namespace MyApp.Infrastructure.Cache.Providers
         {
             _cache.Remove(RemoveKey(key));
         }
+
         /// <summary>
         /// Removes items by key pattern
         /// </summary>
@@ -224,11 +251,6 @@ namespace MyApp.Infrastructure.Cache.Providers
 
             //recreate cancellation token
             CancellationTokenSource = new CancellationTokenSource();
-        }
-
-        public bool PerformActionWithLock(string resource, TimeSpan expirationTime, Action action)
-        {
-            return true;
         }
         #endregion
     }
