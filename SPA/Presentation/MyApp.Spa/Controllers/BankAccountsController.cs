@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MyApp.Services.DTOs;
 using MyApp.Services.Example;
+using System.Collections.Generic;
+using MyApp.Web.Framework;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,7 +13,7 @@ namespace MyApp.Spa.Controllers
     /// </summary>
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class BankAccountsController : Controller
+    public class BankAccountsController : MyAppBaseController
     {
         private readonly IBankAppService _bankAppService;
 
@@ -52,7 +53,7 @@ namespace MyApp.Spa.Controllers
 
         // PUT api/bankaccounts/performtransfer
         [HttpPut]
-        public void PerformTransfer(BankAccountDto from, BankAccountDto to, decimal amount)
+        public void PerformTransfer([FromBody]BankAccountDto from, [FromBody]BankAccountDto to, decimal amount)
         {
             _bankAppService.PerformBankTransfer(from, to, amount);
         }

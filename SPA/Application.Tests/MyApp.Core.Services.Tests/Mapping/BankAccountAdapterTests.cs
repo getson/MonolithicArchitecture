@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Autofac.Builder;
 using MyApp.Core.Abstractions.Mapping;
 using MyApp.Domain.Example.BankAccountAgg;
 using MyApp.Domain.Example.CountryAgg;
@@ -8,7 +7,7 @@ using MyApp.Domain.Example.CustomerAgg;
 using MyApp.Services.DTOs;
 using Xunit;
 
-namespace MyApp.Services.Tests.Adapters
+namespace MyApp.Services.Tests.Mapping
 {
     public class BankAccountAdapterTests : TestsInitialize
     {

@@ -5,7 +5,7 @@ using MyApp.Domain.Example.CustomerAgg;
 using MyApp.Services.DTOs;
 using Xunit;
 
-namespace MyApp.Services.Tests.Adapters
+namespace MyApp.Services.Tests.Mapping
 {
     public class CustomerAdaperTests : TestsInitialize
     {

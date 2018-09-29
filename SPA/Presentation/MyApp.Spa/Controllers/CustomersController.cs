@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using MyApp.Services.DTOs;
 using MyApp.Services.Example;
+using MyApp.Web.Framework;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,7 +14,7 @@ namespace MyApp.Spa.Controllers
     /// </summary>
     [ApiVersion("2.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class CustomersController : Controller, IDisposable
+    public class CustomersController : MyAppBaseController
     {
         private readonly ICustomerAppService _customerAppService;
 
@@ -74,13 +75,5 @@ namespace MyApp.Spa.Controllers
         {
             return _customerAppService.FindCountries(pageIndex, pageCount);
         }
-
-        #region IDisposable Members
-        public void Dispose()
-        {
-            //dispose all resources
-            _customerAppService.Dispose();
-        }
-        #endregion
     }
 }

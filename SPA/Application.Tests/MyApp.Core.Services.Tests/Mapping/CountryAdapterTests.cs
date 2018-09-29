@@ -4,7 +4,7 @@ using MyApp.Domain.Example.CountryAgg;
 using MyApp.Services.DTOs;
 using Xunit;
 
-namespace MyApp.Services.Tests.Adapters
+namespace MyApp.Services.Tests.Mapping
 {
     public class CountryAdapterTests : TestsInitialize
     {

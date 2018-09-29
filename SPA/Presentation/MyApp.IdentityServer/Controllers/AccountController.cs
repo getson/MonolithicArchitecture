@@ -2,12 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Security.Principal;
-using System.Threading.Tasks;
 using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Events;
@@ -21,6 +15,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyApp.IdentityServer.Helper;
 using MyApp.IdentityServer.Models.Account;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
+using System.Threading.Tasks;
 
 namespace MyApp.IdentityServer.Controllers
 {
@@ -90,7 +90,7 @@ namespace MyApp.IdentityServer.Controllers
                     // denied the consent (even if this client does not require consent).
                     // this will send back an access denied OIDC error response to the client.
                     await _interaction.GrantConsentAsync(context, ConsentResponse.Denied);
-                    
+
                     // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
                     return Redirect(model.ReturnUrl);
                 }

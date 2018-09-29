@@ -1,13 +1,13 @@
-﻿using MyApp.Domain.Example.CustomerAgg;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using MyApp.Domain.Example.CustomerAgg;
 using MyApp.Domain.Example.OrderAgg;
 using MyApp.Domain.Example.ProductAgg;
 using MyApp.Services.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
-namespace MyApp.Services.Tests.Adapters
+namespace MyApp.Services.Tests.Mapping
 {
     public class OrderAdapterTests : TestsInitialize
     {
@@ -102,18 +102,20 @@ namespace MyApp.Services.Tests.Adapters
             var orderListDto = TypeAdapter.Adapt<IEnumerable<Order>, List<OrderListDto>>(orders);
 
             //Assert
-            Assert.Equal(orderListDto[0].Id, order.Id);
-            Assert.Equal(orderListDto[0].OrderDate, order.OrderDate);
-            Assert.Equal(orderListDto[0].DeliveryDate, order.DeliveryDate);
-            Assert.Equal(orderListDto[0].TotalOrder, order.GetOrderTotal());
+            var projectedOrder = orderListDto[0];
 
-            Assert.Equal(orderListDto[0].ShippingAddress, order.ShippingInformation.ShippingAddress);
-            Assert.Equal(orderListDto[0].ShippingCity, order.ShippingInformation.ShippingCity);
-            Assert.Equal(orderListDto[0].ShippingName, order.ShippingInformation.ShippingName);
-            Assert.Equal(orderListDto[0].ShippingZipCode, order.ShippingInformation.ShippingZipCode);
+            Assert.Equal(projectedOrder.Id, order.Id);
+            Assert.Equal(projectedOrder.OrderDate, order.OrderDate);
+            Assert.Equal(projectedOrder.DeliveryDate, order.DeliveryDate);
+            Assert.Equal(projectedOrder.TotalOrder, order.GetOrderTotal());
 
-            Assert.Equal(orderListDto[0].CustomerFullName, order.Customer.FullName);
-            Assert.Equal(orderListDto[0].CustomerId, order.Customer.Id);
+            Assert.Equal(projectedOrder.ShippingAddress, order.ShippingInformation.ShippingAddress);
+            Assert.Equal(projectedOrder.ShippingCity, order.ShippingInformation.ShippingCity);
+            Assert.Equal(projectedOrder.ShippingName, order.ShippingInformation.ShippingName);
+            Assert.Equal(projectedOrder.ShippingZipCode, order.ShippingInformation.ShippingZipCode);
+
+            Assert.Equal(projectedOrder.CustomerFullName, order.Customer.FullName);
+            Assert.Equal(projectedOrder.CustomerId, order.Customer.Id);
         }
     }
 }

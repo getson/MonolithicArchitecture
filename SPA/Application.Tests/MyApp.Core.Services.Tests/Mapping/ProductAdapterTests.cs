@@ -3,7 +3,7 @@ using MyApp.Domain.Example.ProductAgg;
 using MyApp.Services.DTOs;
 using Xunit;
 
-namespace MyApp.Services.Tests.Adapters
+namespace MyApp.Services.Tests.Mapping
 {
     public class ProductAdapterTests : TestsInitialize
     {

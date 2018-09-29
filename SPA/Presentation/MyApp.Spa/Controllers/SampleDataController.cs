@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using MyApp.Web.Framework;
 
 namespace MyApp.Spa.Controllers
 {
  
     [Route("api/[controller]")]
-    public class SampleDataController : Controller
+    public class SampleDataController : MyAppBaseController
     {
         private static readonly string[] Summaries ={
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
