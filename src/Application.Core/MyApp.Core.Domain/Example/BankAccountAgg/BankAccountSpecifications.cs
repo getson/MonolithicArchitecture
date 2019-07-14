@@ -1,5 +1,5 @@
 ﻿using System;
-using MyApp.Core.SharedKernel.Specification;
+using MyApp.SharedKernel.Specification;
 
 namespace MyApp.Domain.Example.BankAccountAgg
 {

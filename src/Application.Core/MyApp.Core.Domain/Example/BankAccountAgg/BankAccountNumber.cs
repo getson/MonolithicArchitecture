@@ -1,7 +1,7 @@
-﻿using MyApp.Core.SharedKernel.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MyApp.SharedKernel.Domain;
 
 namespace MyApp.Domain.Example.BankAccountAgg
 {

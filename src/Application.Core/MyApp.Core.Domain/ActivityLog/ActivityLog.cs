@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using MyApp.Core.SharedKernel.Domain;
+using MyApp.SharedKernel.Domain;
 
 namespace MyApp.Domain.ActivityLog
 {

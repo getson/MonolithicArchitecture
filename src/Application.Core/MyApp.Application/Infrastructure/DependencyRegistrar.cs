@@ -10,12 +10,9 @@ using MyApp.Core.Abstractions.Caching;
 using MyApp.Core.Abstractions.Data;
 using MyApp.Core.Abstractions.Infrastructure;
 using MyApp.Core.Abstractions.Mapping;
-using MyApp.Core.Abstractions.Validator;
 using MyApp.Core.Abstractions.Web;
 using MyApp.Core.Configuration;
 using MyApp.Core.Infrastructure;
-using MyApp.Core.SharedKernel.Domain;
-using MyApp.Core.SharedKernel.Validator;
 using MyApp.Domain.Example.BankAccountAgg;
 using MyApp.Infrastructure.Cache;
 using MyApp.Infrastructure.Cache.Providers;
@@ -25,6 +22,8 @@ using MyApp.Services.Events;
 using MyApp.Services.Example;
 using MyApp.Services.Installation;
 using MyApp.Services.Logging;
+using MyApp.SharedKernel.Domain;
+using MyApp.SharedKernel.Validator;
 
 namespace MyApp.Application.Infrastructure
 {

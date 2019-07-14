@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using MyApp.Core.Abstractions.Mapping;
-using MyApp.Core.SharedKernel.Domain;
+using MyApp.SharedKernel.Domain;
 
 namespace MyApp.Core.Extensions
 {

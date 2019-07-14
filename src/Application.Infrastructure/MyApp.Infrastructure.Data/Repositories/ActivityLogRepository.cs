@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using MyApp.Core.SharedKernel.Specification;
 using MyApp.Domain.ActivityLog;
+using MyApp.SharedKernel.Specification;
 
 namespace MyApp.Infrastructure.Data.Repositories
 {

@@ -4,8 +4,8 @@ using System.Data.Common;
 using System.Linq;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using MyApp.Core.SharedKernel.Domain;
-using MyApp.Infrastructure.Data.Mapping;
+using MyApp.Infrastructure.Data.Configurations;
+using MyApp.SharedKernel.Domain;
 
 namespace MyApp.Infrastructure.Data
 {

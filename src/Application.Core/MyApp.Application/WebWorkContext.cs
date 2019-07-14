@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Http;
 using MyApp.Core.Abstractions.Web;
-using MyApp.Core.SharedKernel.Domain;
+using MyApp.SharedKernel.Domain;
 
 namespace MyApp.Application
 {

@@ -1,5 +1,4 @@
 ﻿using Moq;
-using MyApp.Core.Abstractions.Validator;
 using MyApp.Domain.Example.BankAccountAgg;
 using MyApp.Domain.Example.CustomerAgg;
 using MyApp.Services.DTOs;
@@ -8,6 +7,7 @@ using MyApp.Services.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MyApp.SharedKernel.Validator;
 using Xunit;
 
 namespace MyApp.Services.Tests.Services

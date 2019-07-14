@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -28,8 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Application.Core\MyApp.Services\MyApp.Services.csproj" />
     <ProjectReference Include="..\..\Application.Infrastructure\MyApp.Infrastructure\MyApp.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\Presentation\MyApp.Services\MyApp.Services.csproj" />
   </ItemGroup>
 
 </Project>

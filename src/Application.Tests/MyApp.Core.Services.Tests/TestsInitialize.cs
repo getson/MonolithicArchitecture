@@ -7,11 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using MyApp.Core.Abstractions.Infrastructure;
 using MyApp.Core.Abstractions.Mapping;
-using MyApp.Core.Abstractions.Validator;
 using MyApp.Core.Configuration;
 using MyApp.Core.Infrastructure;
-using MyApp.Core.SharedKernel.Validator;
 using MyApp.Services.Logging;
+using MyApp.SharedKernel.Validator;
 
 namespace MyApp.Services.Tests
 {
