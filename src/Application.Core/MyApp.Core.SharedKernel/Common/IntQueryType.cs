@@ -1,0 +1,13 @@
+﻿namespace MyApp.Core.SharedKernel.Common
+{
+    /// <summary>
+    /// Represents a wrapper class for int values that used as a query type
+    /// </summary>
+    public class IntQueryType
+    {
+        /// <summary>
+        /// Gets or sets a value
+        /// </summary>
+        public int? Value { get; set; }
+    }
+}
