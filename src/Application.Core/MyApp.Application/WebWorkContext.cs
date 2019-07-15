@@ -19,7 +19,7 @@ namespace MyApp.Application
         #region Fields
 
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IUserAgentHelper _userAgentHelper;
+
 
         #endregion
 
@@ -29,14 +29,9 @@ namespace MyApp.Application
         /// Ctor
         /// </summary>
         /// <param name="httpContextAccessor">HTTP context accessor</param>
-        /// <param name="userAgentHelper">User gent helper</param>
-        public WebWorkContext(IHttpContextAccessor httpContextAccessor,
-            IUserAgentHelper userAgentHelper)
+        public WebWorkContext(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
-            _userAgentHelper = userAgentHelper;
-
-
         }
 
         #endregion

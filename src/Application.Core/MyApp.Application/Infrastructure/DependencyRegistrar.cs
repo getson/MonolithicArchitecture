@@ -19,7 +19,6 @@ using MyApp.Infrastructure.Cache.Providers.Redis;
 using MyApp.Infrastructure.Data;
 using MyApp.Services.Events;
 using MyApp.Services.Example;
-using MyApp.Services.Installation;
 using MyApp.SharedKernel.Domain;
 using MyApp.SharedKernel.Validator;
 
@@ -57,9 +56,6 @@ namespace MyApp.Application.Infrastructure
             builder.RegisterType<EventPublisher>().As<IEventPublisher>().SingleInstance();
             builder.RegisterType<SubscriptionService>().As<ISubscriptionService>().SingleInstance();
             builder.RegisterType<ActionContextAccessor>().As<IActionContextAccessor>().InstancePerLifetimeScope();
-
-            RegisterInstallationService(builder, config);
-
             RegisterApplicationServices(builder);
 
 
@@ -151,17 +147,6 @@ namespace MyApp.Application.Infrastructure
                     .SingleInstance();
             }
         }
-        private static void RegisterInstallationService(ContainerBuilder builder, MyAppConfig config)
-        {
-            if (!DataSettingsManager.Instance.DatabaseIsInstalled)
-            {
-                if (config.UseFastInstallationService)
-                    builder.RegisterType<SqlFileInstallationService>().As<IInstallationService>().InstancePerLifetimeScope();
-                else
-                    builder.RegisterType<CodeFirstInstallationService>().As<IInstallationService>().InstancePerLifetimeScope();
-            }
-        }
-
         #endregion
         /// <summary>
         /// Gets order of this dependency registrar implementation
