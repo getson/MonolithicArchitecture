@@ -32,7 +32,7 @@ namespace MyApp.Services.Example
         /// Create a new instance 
         /// </summary>
         public BankAppService(IBankAccountRepository bankAccountRepository,
-                              ICustomerRepository customerRepository, // the customer repository dependency
+                              ICustomerRepository customerRepository,
                               IBankTransferService transferService,
                               IEntityValidatorFactory entityValidatorFactory)
         {
@@ -92,8 +92,7 @@ namespace MyApp.Services.Example
             var bankAccounts = _bankAccountRepository.TableNoTracking;
 
             if (bankAccounts != null
-                &&
-                bankAccounts.Any())
+                && bankAccounts.Any())
             {
                 return bankAccounts.ProjectedAsCollection<BankAccountDto>();
             }
