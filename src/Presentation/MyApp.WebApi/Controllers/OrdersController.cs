@@ -40,7 +40,7 @@ namespace MyApp.WebApi.Controllers
 
         // GET api/orders/customers/1
         [HttpGet("[action]/{id}")]
-        public IEnumerable<OrderListDto> Customers(int customerId)
+        public IEnumerable<OrderListDto> Customers(Guid customerId)
         {
             return _salesAppService.FindOrders(customerId);
         }

@@ -11,7 +11,7 @@ namespace MyApp.SharedKernel.Domain
         public virtual void GenerateNewIdentity()
         {
             if (IsTransient())
-                Id = new Random().Next();
+                Id = Guid.NewGuid();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace MyApp.SharedKernel.Domain
         /// <summary>
         /// Gets or sets the entity identifier
         /// </summary>
-        public virtual int Id { get; set; }
+        public virtual Guid Id { get; set; }
 
         /// <summary>
         /// Is transient
@@ -19,7 +19,7 @@ namespace MyApp.SharedKernel.Domain
         /// <returns>Result</returns>
         public bool IsTransient()
         {
-            return Equals(Id, default(int));
+            return Equals(Id, default(Guid));
         }
 
         /// <summary>

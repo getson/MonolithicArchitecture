@@ -48,12 +48,12 @@ namespace MyApp.Domain.Example.OrderAgg
         /// <summary>
         /// Related aggregate identifier
         /// </summary>
-        public int OrderId { get; set; }
+        public Guid OrderId { get; set; }
 
         /// <summary>
         /// Get or set the product identifier
         /// </summary>
-        public int ProductId { get; set; }
+        public Guid ProductId { get; set; }
 
         /// <summary>
         /// Get or set associated product 
@@ -94,7 +94,7 @@ namespace MyApp.Domain.Example.OrderAgg
             if (Discount < 0 || Discount > 1)
                 validationResults.Add(new ValidationResult(".validation_OrderLineDiscountCannotBeLessThanZeroOrGreaterThanOne",
                                                             new[] { "Discount" }));
-            if (OrderId == 0)
+            if (OrderId == Guid.Empty)
                 validationResults.Add(new ValidationResult(".validation_OrderLineOrderIdIsEmpty",
                                                            new[] { "OrderId" }));
 
@@ -106,7 +106,7 @@ namespace MyApp.Domain.Example.OrderAgg
                 validationResults.Add(new ValidationResult(".validation_OrderLineUnitPriceLessThanZero",
                                                            new[] { "UnitPrice" }));
 
-            if (ProductId == 0)
+            if (ProductId == Guid.Empty)
                 validationResults.Add(new ValidationResult(".validation_OrderLineProductIdCannotBeNull",
                                                          new[] { "ProductId" }));
 

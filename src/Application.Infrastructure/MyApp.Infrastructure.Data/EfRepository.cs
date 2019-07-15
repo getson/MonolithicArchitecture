@@ -62,7 +62,7 @@ namespace MyApp.Infrastructure.Data
         /// </summary>
         /// <param name="id">Identifier</param>
         /// <returns>Entity</returns>
-        public virtual TEntity GetById(int id)
+        public virtual TEntity GetById(Guid id)
         {
             return Entities.Find(id);
         }

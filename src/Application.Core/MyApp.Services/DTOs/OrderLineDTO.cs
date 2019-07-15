@@ -1,4 +1,6 @@
-﻿namespace MyApp.Services.DTOs
+﻿using System;
+
+namespace MyApp.Services.DTOs
 {
     /// <summary>
     /// This is the data transfer object for
@@ -12,7 +14,7 @@
         /// <summary>
         /// Get or set the order identifier
         /// </summary>
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Get or set the unit price
@@ -37,7 +39,7 @@
         /// <summary>
         /// Get or set the associated product
         /// </summary>
-        public int ProductId { get; set; }
+        public Guid ProductId { get; set; }
 
         /// <summary>
         /// Get or set the product title

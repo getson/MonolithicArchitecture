@@ -21,7 +21,7 @@ namespace MyApp.Services.Tests.Mapping
                 Date = DateTime.Now,
                 Amount = 1000,
                 ActivityDescription = "transfer...",
-                Id = (new Random().Next())
+                Id = (Guid.NewGuid())
             };
 
             //activity.GenerateNewIdentity();
@@ -72,20 +72,20 @@ namespace MyApp.Services.Tests.Mapping
             //Arrange
             var country = new Country("Spain", "es-ES")
             {
-                Id = new Random().Next()
+                Id = Guid.NewGuid()
             };
             country.GenerateNewIdentity();
 
             var customer = CustomerFactory.CreateCustomer("john", "el rojo", "+3441", "company", country, new Address("", "", "", ""));
-            customer.Id = new Random().Next();
+            customer.Id = Guid.NewGuid();
             //customer.GenerateNewIdentity();
 
             var account = new BankAccount
             {
-                Id = (new Random().Next()),
+                Id = (Guid.NewGuid()),
                 BankAccountNumber = new BankAccountNumber("4444", "5555", "3333333333", "02")
             };
-            account.Id = new Random().Next();
+            account.Id = Guid.NewGuid();
             account.SetCustomerOwnerOfThisBankAccount(customer);
             account.DepositMoney(1000, "reason");
             account.Lock();

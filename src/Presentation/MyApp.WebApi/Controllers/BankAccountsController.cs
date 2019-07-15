@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using MyApp.Application;
 using MyApp.Services.DTOs;
@@ -32,7 +33,7 @@ namespace MyApp.WebApi.Controllers
 
         // GET api/bankaccounts/getactivities/5
         [HttpGet("GetActivities/{id}")]
-        public IEnumerable<BankActivityDto> Get(int bankAccountId)
+        public IEnumerable<BankActivityDto> Get(Guid bankAccountId)
         {
             return _bankAppService.FindBankAccountActivities(bankAccountId);
         }
@@ -46,7 +47,7 @@ namespace MyApp.WebApi.Controllers
 
         // PUT api/bankaccounts/lock/5
         [HttpPut("{id}")]
-        public bool Lock(int bankAccountId)
+        public bool Lock(Guid bankAccountId)
         {
             return _bankAppService.LockBankAccount(bankAccountId);
         }

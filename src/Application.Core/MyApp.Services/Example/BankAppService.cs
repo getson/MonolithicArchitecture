@@ -49,7 +49,7 @@ namespace MyApp.Services.Example
 
         public BankAccountDto AddBankAccount(BankAccountDto bankAccountDto)
         {
-            if (bankAccountDto == null || bankAccountDto.CustomerId == 0)
+            if (bankAccountDto == null || bankAccountDto.CustomerId == Guid.Empty)
             {
                 throw new ArgumentException("warning_CannotAddNullBankAccountOrInvalidCustomer");
             }
@@ -73,7 +73,7 @@ namespace MyApp.Services.Example
             return account.ProjectedAs<BankAccountDto>();
         }
 
-        public bool LockBankAccount(int bankAccountId)
+        public bool LockBankAccount(Guid bankAccountId)
         {
             //recover bank account, lock and commit changes
             var bankAccount = _bankAccountRepository.GetById(bankAccountId);
@@ -133,7 +133,7 @@ namespace MyApp.Services.Example
         /// </summary>
         /// <param name="bankAccountId"><see /></param>
         /// <returns><see /></returns>
-        public List<BankActivityDto> FindBankAccountActivities(int bankAccountId)
+        public List<BankActivityDto> FindBankAccountActivities(Guid bankAccountId)
         {
             var account = _bankAccountRepository.GetById(bankAccountId);
 
@@ -162,7 +162,9 @@ namespace MyApp.Services.Example
                 _bankAccountRepository.Create(bankAccount);
             }
             else //throw validation errors
+            {
                 throw new ApplicationValidationErrorsException(validator.GetInvalidMessages(bankAccount));
+            }
         }
 
         private BankAccountNumber CalculateNewBankAccountNumber()
@@ -185,7 +187,7 @@ namespace MyApp.Services.Example
         private bool BankAccountHasIdentity(BankAccountDto bankAccountDto)
         {
             //return true is bank account dto has identity
-            return (bankAccountDto != null && bankAccountDto.Id != 0);
+            return (bankAccountDto != null && bankAccountDto.Id != Guid.Empty);
         }
 
         #endregion

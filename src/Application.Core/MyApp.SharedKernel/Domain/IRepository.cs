@@ -21,7 +21,7 @@ namespace MyApp.SharedKernel.Domain
         /// </summary>
         /// <param name="id">Identifier</param>
         /// <returns>Entity</returns>
-        TEntity GetById(int id);
+        TEntity GetById(Guid Id);
 
         /// <summary>
         /// Insert entity

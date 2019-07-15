@@ -17,7 +17,7 @@ namespace MyApp.WebApi.Migrations
         public virtual MyAppObjectContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<MyAppObjectContext>();
-            const string connectionString = "Data Source=GETSON-SERVER\\SQL2016;Initial Catalog=MyApp;Integrated Security=False;Persist Security Info=False;User ID=sa;Password=bosh";
+            const string connectionString = "Data Source=GETSON-SERVER\\SQL2016;Initial Catalog=MyApp;Guid egrated Security=False;Persist Security Info=False;User ID=sa;Password=bosh";
 
             optionsBuilder.UseSqlServer(connectionString, x =>
             {

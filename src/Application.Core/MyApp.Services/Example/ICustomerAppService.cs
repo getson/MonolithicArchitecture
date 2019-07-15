@@ -28,7 +28,7 @@ namespace MyApp.Services.Example
         /// Remove existing customer
         /// </summary>
         /// <param name="customerId">The customer identifier</param>
-        void RemoveCustomer(int customerId);
+        void RemoveCustomer(Guid  customerId);
 
         /// <summary>
         /// Find paged customers
@@ -36,7 +36,7 @@ namespace MyApp.Services.Example
         /// <param name="pageIndex">The index of page</param>
         /// <param name="pageCount">The # of elements in each page</param>
         /// <returns>A collection of customer representation</returns>
-        List<CustomerListDto> FindCustomers(int pageIndex, int pageCount);
+        List<CustomerListDto> FindCustomers(int  pageIndex, int  pageCount);
 
         /// <summary>
         /// Find customers with contain specific text in
@@ -51,7 +51,7 @@ namespace MyApp.Services.Example
         /// </summary>
         /// <param name="customerId">The customer identifier</param>
         /// <returns>Selected customer representation if exist or null if not exist</returns>
-        CustomerDto FindCustomer(int customerId);
+        CustomerDto FindCustomer(Guid  customerId);
 
         /// <summary>
         /// Find paged countries

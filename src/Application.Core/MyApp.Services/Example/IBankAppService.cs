@@ -23,7 +23,7 @@ namespace MyApp.Services.Example
         /// </summary>
         /// <param name="bankAccountId">The bank account identifier</param>
         /// <returns>True if lock succed, else false</returns>
-        bool LockBankAccount(int bankAccountId);
+        bool LockBankAccount(Guid  bankAccountId);
 
         /// <summary>
         /// Find the current collection of bank accounts
@@ -36,7 +36,7 @@ namespace MyApp.Services.Example
         /// </summary>
         /// <param name="bankAccountId">The bank account identifier</param>
         /// <returns>A collection of bank activities</returns>
-        List<BankActivityDto> FindBankAccountActivities(int bankAccountId);
+        List<BankActivityDto> FindBankAccountActivities(Guid  bankAccountId);
 
         /// <summary>
         /// Perform a bank transfer into accocunts

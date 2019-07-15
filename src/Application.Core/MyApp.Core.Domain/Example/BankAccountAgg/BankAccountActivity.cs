@@ -13,7 +13,7 @@ namespace MyApp.Domain.Example.BankAccountAgg
         /// <summary>
         /// Get or set the bank account identifier
         /// </summary>
-        public int BankAccountId { get; set; }
+        public Guid BankAccountId { get; set; }
 
         /// <summary>
         /// The bank transferLog date

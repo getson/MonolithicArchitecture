@@ -68,7 +68,7 @@ namespace MyApp.Services.Example
             return orders.Any() ? orders.ProjectedAsCollection<OrderListDto>() : null;
         }
 
-        public List<OrderListDto> FindOrders(int customerId)
+        public List<OrderListDto> FindOrders(Guid customerId)
         {
             var orders = _orderRepository.GetFiltered(o => o.CustomerId == customerId);
 
@@ -102,7 +102,7 @@ namespace MyApp.Services.Example
         public OrderDto AddNewOrder(OrderDto orderDto)
         {
             //if orderdto data is not valid
-            if (orderDto == null || orderDto.CustomerId == 0)
+            if (orderDto == null || orderDto.CustomerId == Guid.Empty)
                 throw new ArgumentException("warning_CannotAddOrderWithNullInformation");
 
             var customer = _customerRepository.GetById(orderDto.CustomerId);

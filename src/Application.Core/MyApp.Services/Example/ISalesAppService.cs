@@ -32,7 +32,7 @@ namespace MyApp.Services.Example
         /// </summary>
         /// <param name="customerId">The customer identifier</param>
         /// <returns>A collection of orders representation</returns>
-        List<OrderListDto> FindOrders(int customerId);
+        List<OrderListDto> FindOrders(Guid  customerId);
 
         /// <summary>
         /// Find products in specific page

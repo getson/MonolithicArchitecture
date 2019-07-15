@@ -1,4 +1,6 @@
-﻿namespace MyApp.Services.DTOs
+﻿using System;
+
+namespace MyApp.Services.DTOs
 {
     /// <summary>
     /// This is the data transfer object
@@ -12,7 +14,7 @@
         /// <summary>
         /// The country identifier
         /// </summary>
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// The country name

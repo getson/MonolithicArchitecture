@@ -49,7 +49,7 @@ namespace MyApp.Services.Example
         public CustomerDto AddNewCustomer(CustomerDto customerDto)
         {
             //check preconditions
-            if (customerDto == null || customerDto.CountryId == 0)
+            if (customerDto == null || customerDto.CountryId == Guid.Empty)
                 throw new ArgumentException("warning_CannotAddCustomerWithEmptyInformation");
 
             var country = _countryRepository.GetById(customerDto.CountryId);
@@ -81,7 +81,7 @@ namespace MyApp.Services.Example
 
         public void UpdateCustomer(CustomerDto customerDto)
         {
-            if (customerDto == null || customerDto.Id == 0)
+            if (customerDto == null || customerDto.Id == Guid.Empty)
                 throw new ArgumentException("warning_CannotUpdateCustomerWithEmptyInformation");
 
             //get persisted item
@@ -97,7 +97,7 @@ namespace MyApp.Services.Example
             }
         }
 
-        public void RemoveCustomer(int customerId)
+        public void RemoveCustomer(Guid customerId)
         {
             var customer = _customerRepository.GetById(customerId);
 
@@ -143,7 +143,7 @@ namespace MyApp.Services.Example
             return null;
         }
 
-        public CustomerDto FindCustomer(int customerId)
+        public CustomerDto FindCustomer(Guid customerId)
         {
             //recover existing customer and map
             var customer = _customerRepository.GetById(customerId);

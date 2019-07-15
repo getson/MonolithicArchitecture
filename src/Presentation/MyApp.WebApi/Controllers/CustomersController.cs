@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using MyApp.Application;
 using MyApp.Services.DTOs;
@@ -36,7 +37,7 @@ namespace MyApp.WebApi.Controllers
         }
         // GET: api/customers/1
         [HttpGet("{id}")]
-        public CustomerDto Get(int id)
+        public CustomerDto Get(Guid id)
         {
             return _customerAppService.FindCustomer(id);
         }
@@ -57,7 +58,7 @@ namespace MyApp.WebApi.Controllers
         /// </summary>
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
             _customerAppService.RemoveCustomer(id);
         }

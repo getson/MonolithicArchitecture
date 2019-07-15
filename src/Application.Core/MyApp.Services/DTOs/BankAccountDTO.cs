@@ -1,4 +1,6 @@
-﻿namespace MyApp.Services.DTOs
+﻿using System;
+
+namespace MyApp.Services.DTOs
 {
     /// <summary>
     /// This is the data transfer object for
@@ -12,7 +14,7 @@
         /// <summary>
         /// The bank account identifier
         /// </summary>
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Bank account number
@@ -32,7 +34,7 @@
         /// <summary>
         /// Get or set the customer id
         /// </summary>
-        public int CustomerId { get; set; }
+        public Guid  CustomerId { get; set; }
 
         /// <summary>
         /// The owner first name

@@ -60,21 +60,15 @@ namespace MyApp.Domain.Example.CustomerAgg
         /// </summary>
         public bool IsEnabled
         {
-            get
-            {
-                return _isEnabled;
-            }
-            private set
-            {
-                _isEnabled = value;
-            }
+            get => _isEnabled;
+            private set => _isEnabled = value;
         }
 
 
         /// <summary>
         /// Get or set associated country identifier
         /// </summary>
-        public int CountryId { get; private set; }
+        public Guid CountryId { get; private set; }
 
         /// <summary>
         /// Get the current country for this customer
@@ -132,9 +126,9 @@ namespace MyApp.Domain.Example.CustomerAgg
         /// Set the country reference for this customer
         /// </summary>
         /// <param name="countryId"></param>
-        public void SetTheCountryReference(int countryId)
+        public void SetTheCountryReference(Guid countryId)
         {
-            if (countryId != 0)
+            if (countryId != Guid.Empty)
             {
                 //fix relation
                 CountryId = countryId;
@@ -189,7 +183,7 @@ namespace MyApp.Domain.Example.CustomerAgg
             }
 
             //-->Check Country identifier
-            if (CountryId == 0)
+            if (CountryId == Guid.Empty)
                 validationResults.Add(new ValidationResult("validation_CustomerCountryIdCannotBeEmpty",
                                                           new[] { "CountryId" }));
 

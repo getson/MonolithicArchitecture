@@ -24,15 +24,15 @@ namespace MyApp.Services.Tests.Services
             var entityValidatorFactory = new Mock<IEntityValidatorFactory>();
 
             bankAccountRepository
-                .Setup(x => x.GetById(It.IsAny<int>()))
-                .Returns((int id) => null);
+                .Setup(x => x.GetById(It.IsAny<Guid>()))
+                .Returns((Guid id) => null);
             IBankAppService bankingService = new BankAppService(bankAccountRepository.Object,
                                                                 customerRepository.Object,
                                                                 transferService,
                                                                 entityValidatorFactory.Object);
 
             //Act
-            var result = bankingService.LockBankAccount(0);
+            var result = bankingService.LockBankAccount(Guid.Empty);
 
             //Assert
             Assert.False(result);
@@ -77,7 +77,7 @@ namespace MyApp.Services.Tests.Services
 
             var dto = new BankAccountDto
             {
-                CustomerId = 0
+                CustomerId = Guid.Empty
             };
 
             var bankingService = new BankAppService(bankAccountRepository.Object, customerRepository.Object, transferService, entityValidatorFactory.Object);
@@ -103,8 +103,8 @@ namespace MyApp.Services.Tests.Services
             var bankAccountRepository = new Mock<IBankAccountRepository>();
 
             customerRepository
-                .Setup(x => x.GetById(It.IsAny<int>()))
-                .Returns((int any) =>
+                .Setup(x => x.GetById(It.IsAny<Guid>()))
+                .Returns((Guid any) =>
                     {
                         var customer = new Customer
                         {
@@ -121,7 +121,7 @@ namespace MyApp.Services.Tests.Services
 
             var dto = new BankAccountDto
             {
-                CustomerId = new Random().Next(),
+                CustomerId = Guid.NewGuid(),
                 BankAccountNumber = "BA"
             };
             IBankAppService bankingService = new BankAppService(bankAccountRepository.Object,
@@ -180,8 +180,8 @@ namespace MyApp.Services.Tests.Services
             var entityValidatorFactory = new Mock<IEntityValidatorFactory>();
 
             bankAccountRepository
-                .Setup(x => x.GetById(It.IsAny<int>()))
-                .Returns((int id) =>
+                .Setup(x => x.GetById(It.IsAny<Guid>()))
+                .Returns((Guid id) =>
                 {
                     return accounts.SingleOrDefault(ba => ba.Id == id);
                 });

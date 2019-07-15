@@ -39,7 +39,7 @@ namespace MyApp.Domain.Example.OrderAgg
         /// <summary>
         /// Associated customer identifier to this Order
         /// </summary>
-        public int CustomerId { get; private set; }
+        public Guid CustomerId { get; private set; }
 
         /// <summary>
         /// Get the  sequence number order of  this order
@@ -98,10 +98,10 @@ namespace MyApp.Domain.Example.OrderAgg
         /// <param name="unitPrice">the unit price of each item</param>
         /// <param name="discount">applied discount</param>
         /// <returns>added new order line</returns>
-        public OrderLine AddNewOrderLine(int productId, int amount, decimal unitPrice, decimal discount)
+        public OrderLine AddNewOrderLine(Guid productId, int amount, decimal unitPrice, decimal discount)
         {
             //check precondition
-            if (amount <= 0 || productId == 0)
+            if (amount <= 0 || productId == Guid.Empty)
             {
                 throw new ArgumentException("exception_InvalidDataForOrderLine");
             }
@@ -151,9 +151,9 @@ namespace MyApp.Domain.Example.OrderAgg
         /// Set the customer reference for this order
         /// </summary>
         /// <param name="customerId">the customer identifier</param>
-        public void SetTheCustomerReferenceForThisOrder(int customerId)
+        public void SetTheCustomerReferenceForThisOrder(Guid customerId)
         {
-            if (customerId != 0)
+            if (customerId != Guid.Empty)
             {
                 Customer = null;
                 CustomerId = customerId;
@@ -217,7 +217,7 @@ namespace MyApp.Domain.Example.OrderAgg
         {
             var validationResults = new List<ValidationResult>();
 
-            if (CustomerId == 0)
+            if (CustomerId == Guid.Empty)
                 validationResults.Add(new ValidationResult("validation_OrderCustomerIdCannotBenull", new[] { "CustomerId" }));
 
             return validationResults;

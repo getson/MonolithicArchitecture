@@ -52,7 +52,7 @@ namespace MyApp.Domain.Example.BankAccountAgg
         /// <summary>
         /// Get or set the customer id associated with this bank account
         /// </summary>
-        public int CustomerId { get; private set; }
+        public Guid CustomerId { get; private set; }
 
         /// <summary>
         /// The related customer
@@ -194,9 +194,9 @@ namespace MyApp.Domain.Example.BankAccountAgg
         /// Change current customer reference using a customer id
         /// </summary>
         /// <param name="customerId">The new customer identifier</param>
-        public void ChangeCustomerOwnerReference(int customerId)
+        public void ChangeCustomerOwnerReference(Guid customerId)
         {
-            if (customerId != 0)
+            if (customerId != Guid.Empty)
             {
                 //fix a new id 
                 Customer = null;
@@ -229,7 +229,7 @@ namespace MyApp.Domain.Example.BankAccountAgg
                     validationResults.Add(new ValidationResult("validation_BankAccountBankOfficeNumberCannotBeNull", new[] { "OfficeNumber" }));
             }
 
-            if (CustomerId == 0)
+            if (CustomerId == Guid.Empty)
                 validationResults.Add(new ValidationResult("validation_BankAccountCustomerIdIsEmpty", new[] { "CustomerId" }));
 
             return validationResults;
@@ -237,7 +237,7 @@ namespace MyApp.Domain.Example.BankAccountAgg
 
         #endregion
 
-        public void ChangeCurrentIdentity(int targetId)
+        public void ChangeCurrentIdentity(Guid targetId)
         {
             Id = targetId;
         }

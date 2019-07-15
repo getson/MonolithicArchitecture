@@ -1,4 +1,6 @@
-﻿namespace MyApp.Services.DTOs
+﻿using System;
+
+namespace MyApp.Services.DTOs
 {
     /// <summary>
     /// This is the data transfer object
@@ -12,7 +14,7 @@
         /// <summary>
         /// Get or set the identifier
         /// </summary>
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Get or set the long description for this product
@@ -32,7 +34,7 @@
         /// <summary>
         /// Get or set the stock items of this product
         /// </summary>
-        public int AmountInStock { get; set; }
+        public int  AmountInStock { get; set; }
 
         /// <summary>
         /// Get or set the publisher of this book

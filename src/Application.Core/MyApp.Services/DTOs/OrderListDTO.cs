@@ -14,7 +14,7 @@ namespace MyApp.Services.DTOs
         /// <summary>
         /// Get or set the order identifier
         /// </summary>
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Get or set the order number
@@ -39,7 +39,7 @@ namespace MyApp.Services.DTOs
         /// <summary>
         /// Get or set asociated customer identifier
         /// </summary>
-        public int CustomerId { get; set; }
+        public Guid CustomerId { get; set; }
 
         /// <summary>
         /// Get or set the customer fullname
