@@ -6,9 +6,7 @@ using MyApp.Core.Exceptions;
 using MyApp.Core.Extensions;
 using MyApp.Domain.Example.BankAccountAgg;
 using MyApp.Domain.Example.CustomerAgg;
-using MyApp.Domain.Logging;
 using MyApp.Services.DTOs;
-using MyApp.Services.Logging;
 using MyApp.SharedKernel.Validator;
 
 namespace MyApp.Services.Example
@@ -23,9 +21,8 @@ namespace MyApp.Services.Example
         private readonly IBankAccountRepository _bankAccountRepository;
         private readonly ICustomerRepository _customerRepository;
         private readonly IBankTransferService _transferService;
-        private readonly ILogger _logger;
         private readonly IEntityValidatorFactory _entityValidatorFactory;
-        private readonly IUserActivityService _activityLogService;
+
 
         #endregion
 
@@ -37,17 +34,13 @@ namespace MyApp.Services.Example
         public BankAppService(IBankAccountRepository bankAccountRepository,
                               ICustomerRepository customerRepository, // the customer repository dependency
                               IBankTransferService transferService,
-                              IUserActivityService activityLogService,
-                              ILogger logger,
                               IEntityValidatorFactory entityValidatorFactory)
         {
 
             _bankAccountRepository = bankAccountRepository;
             _customerRepository = customerRepository;
             _transferService = transferService;
-            _logger = logger;
             _entityValidatorFactory = entityValidatorFactory;
-            _activityLogService = activityLogService;
         }
 
         #endregion
@@ -91,8 +84,6 @@ namespace MyApp.Services.Example
                 _bankAccountRepository.Update(bankAccount);
                 return true;
             }
-            _logger.InsertLog(LogLevel.Warning, $"warning_CannotLockNonExistingBankAccount {bankAccountId}");
-
             return false;
         }
 
@@ -117,12 +108,7 @@ namespace MyApp.Services.Example
             // 3º Call PerformTransfer method in Domain Service
             // 4º If no exceptions, commit the unit of work and complete transaction
 
-            if (!BankAccountHasIdentity(fromAccount) || !BankAccountHasIdentity(toAccount))
-            {
-                _logger.Error("error_CannotPerformTransferInvalidAccounts");
-            }
-            else
-            {
+         
                 var source = _bankAccountRepository.GetById(fromAccount.Id);
                 var target = _bankAccountRepository.GetById(toAccount.Id);
 
@@ -139,12 +125,7 @@ namespace MyApp.Services.Example
                         //complete transaction
                         scope.Complete();
                     }
-                }
-                else
-                {
-                    _logger.Error("error_CannotPerformTransferInvalidAccounts");
-                }
-            }
+                }                 
         }
 
         /// <summary>
@@ -156,12 +137,7 @@ namespace MyApp.Services.Example
         {
             var account = _bankAccountRepository.GetById(bankAccountId);
 
-            if (account != null)
-            {
-                return account.BankAccountActivity.ProjectedAsCollection<BankActivityDto>();
-            }
-            _logger.Warning("warning_CannotGetActivitiesForInvalidOrNotExistingBankAccount");
-            return null;
+            return account?.BankAccountActivity.ProjectedAsCollection<BankActivityDto>();
         }
 
         #endregion

@@ -3,7 +3,7 @@ using MyApp.Domain.Example.OrderAgg;
 
 namespace MyApp.Infrastructure.Data.Configurations.Example
 {
-    public class OrderMap : MyAppEntityTypeConfiguration<Order>
+    public class OrderConfiguration : MyAppEntityTypeConfiguration<Order>
     {
         public override void Configure(EntityTypeBuilder<Order> builder)
         {

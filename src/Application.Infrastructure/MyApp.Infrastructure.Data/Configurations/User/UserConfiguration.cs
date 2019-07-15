@@ -2,7 +2,7 @@
 
 namespace MyApp.Infrastructure.Data.Configurations.User
 {
-    public class UserMap : MyAppEntityTypeConfiguration<Domain.User.User>
+    public class UserConfiguration : MyAppEntityTypeConfiguration<Domain.User.User>
     {
         public override void Configure(EntityTypeBuilder<Domain.User.User> builder)
         {

@@ -18,7 +18,7 @@ namespace MyApp.Application.Common
         private readonly MyAppConfig _myAppConfig;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMyAppFileProvider _fileProvider;
-        private static readonly object Locker = new object();
+        private static readonly object _locker = new object();
 
         #endregion
 

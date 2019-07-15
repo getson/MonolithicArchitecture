@@ -2,7 +2,8 @@
 
 namespace MyApp.Infrastructure.Data.Configurations.Example
 {
-    public class ProductMap : MyAppEntityTypeConfiguration<Product>
+    public class SoftwareConfiguration : MyAppEntityTypeConfiguration<Software>
     {
+
     }
 }

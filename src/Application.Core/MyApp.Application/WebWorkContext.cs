@@ -12,7 +12,7 @@ namespace MyApp.Application
     {
         #region Const
 
-        private const string CustomerCookieName = ".MyApp.User";
+        private const string _customerCookieName = ".MyApp.User";
 
         #endregion
 
@@ -49,7 +49,7 @@ namespace MyApp.Application
         /// <returns>String value of cookie</returns>
         protected virtual string GetCustomerCookie()
         {
-            return _httpContextAccessor.HttpContext?.Request?.Cookies[CustomerCookieName];
+            return _httpContextAccessor.HttpContext?.Request?.Cookies[_customerCookieName];
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace MyApp.Application
                 return;
 
             //delete current cookie value
-            _httpContextAccessor.HttpContext.Response.Cookies.Delete(CustomerCookieName);
+            _httpContextAccessor.HttpContext.Response.Cookies.Delete(_customerCookieName);
 
             //get date of cookie expiration
             var cookieExpires = 24 * 365; //TODO make configurable
@@ -78,7 +78,7 @@ namespace MyApp.Application
                 HttpOnly = true,
                 Expires = cookieExpiresDate
             };
-            _httpContextAccessor.HttpContext.Response.Cookies.Append(CustomerCookieName, customerGuid.ToString(), options);
+            _httpContextAccessor.HttpContext.Response.Cookies.Append(_customerCookieName, customerGuid.ToString(), options);
         }
 
 

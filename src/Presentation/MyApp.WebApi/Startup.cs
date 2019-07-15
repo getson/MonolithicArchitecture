@@ -7,7 +7,6 @@ using MyApp.Core.Configuration;
 using MyApp.Core.Infrastructure;
 using MyApp.Infrastructure.Data;
 using MyApp.Infrastructure.FileSystem;
-using MyApp.Services.Logging;
 using System;
 using System.IO;
 
@@ -51,14 +50,7 @@ namespace MyApp.WebApi
             var engine = EngineContext.Create();
             engine.Initialize(services, DefaultFileProvider.Instance, myAppConfig);
 
-            var serviceProvider = engine.ConfigureServices(services, myAppConfig);
-
-            if (DataSettingsManager.Instance.DatabaseIsInstalled)
-            {
-                //log application start
-                EngineContext.Current.Resolve<ILogger>().Information("Application started", null);
-            }
-            return serviceProvider;
+            return engine.ConfigureServices(services, myAppConfig);
         }
         /// <summary>
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

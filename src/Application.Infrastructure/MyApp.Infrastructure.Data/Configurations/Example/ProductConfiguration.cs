@@ -2,7 +2,7 @@
 
 namespace MyApp.Infrastructure.Data.Configurations.Example
 {
-    class BookMap:MyAppEntityTypeConfiguration<Book>
+    public class ProductConfiguration : MyAppEntityTypeConfiguration<Product>
     {
     }
 }

@@ -2,8 +2,7 @@
 
 namespace MyApp.Infrastructure.Data.Configurations.Example
 {
-    public class SoftwareMap:MyAppEntityTypeConfiguration<Software>
+    internal class BookConfiguration : MyAppEntityTypeConfiguration<Book>
     {
-    
     }
 }

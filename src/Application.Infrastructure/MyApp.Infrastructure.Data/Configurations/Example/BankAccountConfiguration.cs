@@ -3,7 +3,7 @@ using MyApp.Domain.Example.BankAccountAgg;
 
 namespace MyApp.Infrastructure.Data.Configurations.Example
 {
-    public class BankAccountMapping : MyAppEntityTypeConfiguration<BankAccount>
+    public class BankAccountConfiguration : MyAppEntityTypeConfiguration<BankAccount>
     {
         public override void Configure(EntityTypeBuilder<BankAccount> builder)
         {

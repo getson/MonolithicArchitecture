@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-using MyApp.Core.Infrastructure;
-using MyApp.Services.Logging;
 
 namespace MyApp.Services.Events
 {
@@ -34,19 +32,9 @@ namespace MyApp.Services.Events
             {
                 x.HandleEvent(eventMessage);
             }
-            catch (Exception exc)
+            catch (Exception)
             {
-                //log error
-                var logger = EngineContext.Current.Resolve<ILogger>();
-                //we put in to nested try-catch to prevent possible cyclic (if some error occurs)
-                try
-                {
-                    logger.Error(exc.Message, exc);
-                }
-                catch (Exception)
-                {
-                    //do nothing
-                }
+                //TODO log error
             }
         }
 

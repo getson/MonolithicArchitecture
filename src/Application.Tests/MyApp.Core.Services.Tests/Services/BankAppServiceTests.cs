@@ -3,7 +3,6 @@ using MyApp.Domain.Example.BankAccountAgg;
 using MyApp.Domain.Example.CustomerAgg;
 using MyApp.Services.DTOs;
 using MyApp.Services.Example;
-using MyApp.Services.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +19,6 @@ namespace MyApp.Services.Tests.Services
             //Arrange
             var customerRepository = new Mock<ICustomerRepository>();
             var transferService = new BankTransferService();
-            var activityLogService = new Mock<IUserActivityService>();
             var bankAccountRepository = new Mock<IBankAccountRepository>();
 
             var entityValidatorFactory = new Mock<IEntityValidatorFactory>();
@@ -31,8 +29,6 @@ namespace MyApp.Services.Tests.Services
             IBankAppService bankingService = new BankAppService(bankAccountRepository.Object,
                                                                 customerRepository.Object,
                                                                 transferService,
-                                                                activityLogService.Object,
-                                                                Logger,
                                                                 entityValidatorFactory.Object);
 
             //Act
@@ -46,17 +42,13 @@ namespace MyApp.Services.Tests.Services
         {
             //Arrange
             var customerRepository = new Mock<ICustomerRepository>();
-            var activityLogService = new Mock<IUserActivityService>();
             var bankAccountRepository = new Mock<IBankAccountRepository>();
-            var logger = new Mock<ILogger>();
             var entityValidatorFactory = new Mock<IEntityValidatorFactory>();
 
             IBankTransferService transferService = new BankTransferService();
             var bankingService = new BankAppService(bankAccountRepository.Object,
                                                     customerRepository.Object,
                                                     transferService,
-                                                    activityLogService.Object,
-                                                    Logger,
                                                     entityValidatorFactory.Object
                                                     );
 
@@ -79,9 +71,7 @@ namespace MyApp.Services.Tests.Services
         {
             //Arrange
             var customerRepository = new Mock<ICustomerRepository>();
-            var activityLogService = new Mock<IUserActivityService>();
             var bankAccountRepository = new Mock<IBankAccountRepository>();
-            var logger = new Mock<ILogger>();
             var entityValidatorFactory = new Mock<IEntityValidatorFactory>();
             IBankTransferService transferService = new BankTransferService();
 
@@ -90,7 +80,7 @@ namespace MyApp.Services.Tests.Services
                 CustomerId = 0
             };
 
-            var bankingService = new BankAppService(bankAccountRepository.Object, customerRepository.Object, transferService, activityLogService.Object, Logger, entityValidatorFactory.Object);
+            var bankingService = new BankAppService(bankAccountRepository.Object, customerRepository.Object, transferService, entityValidatorFactory.Object);
 
             Exception ex = Assert.Throws<ArgumentException>(() =>
                 {
@@ -110,7 +100,6 @@ namespace MyApp.Services.Tests.Services
             IBankTransferService transferService = new BankTransferService();
 
             var customerRepository = new Mock<ICustomerRepository>();
-            var activityLogService = new Mock<IUserActivityService>();
             var bankAccountRepository = new Mock<IBankAccountRepository>();
 
             customerRepository
@@ -138,8 +127,6 @@ namespace MyApp.Services.Tests.Services
             IBankAppService bankingService = new BankAppService(bankAccountRepository.Object,
                                                                 customerRepository.Object,
                                                                 transferService,
-                                                                activityLogService.Object,
-                                                                Logger,
                                                                 EntityValidatorFactory);
 
             //Act
@@ -201,11 +188,9 @@ namespace MyApp.Services.Tests.Services
 
 
             var customerRepository = new Mock<ICustomerRepository>();
-            var activityLogService = new Mock<IUserActivityService>();
-            var logger = new Mock<ILogger>();
 
             IBankTransferService transferService = new BankTransferService();
-            IBankAppService bankingService = new BankAppService(bankAccountRepository.Object, customerRepository.Object, transferService, activityLogService.Object, Logger, entityValidatorFactory.Object);
+            IBankAppService bankingService = new BankAppService(bankAccountRepository.Object, customerRepository.Object, transferService, entityValidatorFactory.Object);
 
             //Act
             bankingService.PerformBankTransfer(sourceBankAccountDto, targetBankAccountDto, 100M);

@@ -7,9 +7,7 @@ using MyApp.Core.Extensions;
 using MyApp.Domain.Example.CustomerAgg;
 using MyApp.Domain.Example.OrderAgg;
 using MyApp.Domain.Example.ProductAgg;
-using MyApp.Domain.Logging;
 using MyApp.Services.DTOs;
-using MyApp.Services.Logging;
 using MyApp.SharedKernel.Validator;
 
 namespace MyApp.Services.Example
@@ -21,7 +19,6 @@ namespace MyApp.Services.Example
         private readonly IOrderRepository _orderRepository;
         private readonly IProductRepository _productRepository;
         private readonly ICustomerRepository _customerRepository;
-        private readonly ILogger _logger;
         private readonly IEntityValidatorFactory _validatorFactory;
 
         #endregion
@@ -34,19 +31,15 @@ namespace MyApp.Services.Example
         /// <param name="productRepository">The associated product repository</param>
         /// <param name="orderRepository">The associated order repository</param>
         /// <param name="customerRepository">The associated customer repository</param>
-        /// <param name="logger"></param>
         /// <param name="validatorFactory"></param>
         public SalesAppService(IProductRepository productRepository,//associated product repository
                                IOrderRepository orderRepository,//associated order repository
                                ICustomerRepository customerRepository,//the associated customer repository
-                               ILogger logger,
                                IEntityValidatorFactory validatorFactory)
         {
             _orderRepository = orderRepository;
             _productRepository = productRepository;
             _customerRepository = customerRepository;
-
-            _logger = logger;
             _validatorFactory = validatorFactory;
         }
         #endregion
@@ -126,10 +119,8 @@ namespace MyApp.Services.Example
 
                     return newOrder.ProjectedAs<OrderDto>();
                 }
-                _logger.InsertLog(LogLevel.Warning, "info_OrderTotalIsGreaterCustomerCredit");
                 return null;
             }
-            _logger.InsertLog(LogLevel.Warning, "warning_CannotCreateOrderForNonExistingCustomer");
             return null;
         }
         public SoftwareDto AddNewSoftware(SoftwareDto softwareDto)

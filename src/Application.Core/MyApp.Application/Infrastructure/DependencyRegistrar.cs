@@ -21,7 +21,6 @@ using MyApp.Infrastructure.Data;
 using MyApp.Services.Events;
 using MyApp.Services.Example;
 using MyApp.Services.Installation;
-using MyApp.Services.Logging;
 using MyApp.SharedKernel.Domain;
 using MyApp.SharedKernel.Validator;
 
@@ -55,9 +54,6 @@ namespace MyApp.Application.Infrastructure
             RegisterMapping(builder);
 
             // services
-
-            builder.RegisterType<DefaultLogger>().As<ILogger>().InstancePerLifetimeScope();
-            builder.RegisterType<UserActivityService>().As<IUserActivityService>().InstancePerLifetimeScope();
             builder.RegisterType<RoutePublisher>().As<IRoutePublisher>().SingleInstance();
             builder.RegisterType<EventPublisher>().As<IEventPublisher>().SingleInstance();
             builder.RegisterType<SubscriptionService>().As<ISubscriptionService>().SingleInstance();

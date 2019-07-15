@@ -6,9 +6,7 @@ using MyApp.Core.Exceptions;
 using MyApp.Core.Extensions;
 using MyApp.Domain.Example.CountryAgg;
 using MyApp.Domain.Example.CustomerAgg;
-using MyApp.Domain.Logging;
 using MyApp.Services.DTOs;
-using MyApp.Services.Logging;
 using MyApp.SharedKernel.Specification;
 using MyApp.SharedKernel.Validator;
 
@@ -23,8 +21,6 @@ namespace MyApp.Services.Example
 
         private readonly ICountryRepository _countryRepository;
         private readonly ICustomerRepository _customerRepository;
-        private readonly IUserActivityService _userActivityService;
-        private readonly ILogger _logger;
         private readonly IEntityValidatorFactory _entityValidatorFactory;
 
         #endregion
@@ -36,19 +32,13 @@ namespace MyApp.Services.Example
         /// </summary>
         /// <param name="countryRepository">Associated country repository</param>
         /// <param name="customerRepository">Associated CustomerRepository, intented to be resolved with DI</param>
-        /// <param name="userActivity"></param>
-        /// <param name="logger"></param>
         /// <param name="entityValidatorFactory"></param>
         public CustomerAppService(ICountryRepository countryRepository,
                                   ICustomerRepository customerRepository,
-                                  IUserActivityService userActivity,
-                                  ILogger logger,
                                   IEntityValidatorFactory entityValidatorFactory)
         {
             _countryRepository = countryRepository;
             _customerRepository = customerRepository;
-            _userActivityService = userActivity;
-            _logger = logger;
             _entityValidatorFactory = entityValidatorFactory;
         }
 
@@ -105,8 +95,6 @@ namespace MyApp.Services.Example
                 //Merge changes
                 _customerRepository.Merge(persisted, current);
             }
-            else
-                _logger.InsertLog(LogLevel.Error, "warning_CannotUpdateNonExistingCustomer");
         }
 
         public void RemoveCustomer(int customerId)
@@ -118,8 +106,6 @@ namespace MyApp.Services.Example
                 //disable customer ( "logical delete" ) 
                 customer.Disable();
             }
-            else //the customer not exist, cannot remove
-                _logger.InsertLog(LogLevel.Warning, "warning_CannotRemoveNonExistingCustomer");
         }
 
         public List<CustomerListDto> FindCustomers(int pageIndex, int pageCount)

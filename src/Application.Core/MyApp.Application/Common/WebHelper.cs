@@ -24,7 +24,7 @@ namespace MyApp.Application.Common
     {
         #region Const
 
-        private const string NullIpAddress = "::1";
+        private const string _nullIpAddress = "::1";
 
         #endregion
 
@@ -85,7 +85,7 @@ namespace MyApp.Application.Common
         /// <returns>Result</returns>
         protected virtual bool IsIpAddressSet(IPAddress address)
         {
-            return address != null && address.ToString() != NullIpAddress;
+            return address != null && address.ToString() != _nullIpAddress;
         }
 
         /// <summary>

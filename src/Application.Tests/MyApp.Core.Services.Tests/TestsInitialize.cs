@@ -9,7 +9,6 @@ using MyApp.Core.Abstractions.Infrastructure;
 using MyApp.Core.Abstractions.Mapping;
 using MyApp.Core.Configuration;
 using MyApp.Core.Infrastructure;
-using MyApp.Services.Logging;
 using MyApp.SharedKernel.Validator;
 
 namespace MyApp.Services.Tests
@@ -33,9 +32,6 @@ namespace MyApp.Services.Tests
                                   .Returns(() => new DataAnnotationsEntityValidator());
             EntityValidatorFactory = entityValidatorFactory.Object;
 
-            var loggerMock = new Mock<ILogger>();
-            Logger = loggerMock.Object;
-
             var engine = new Mock<IEngine>();
             engine.Setup(x => x.Resolve<IEntityValidatorFactory>())
                 .Returns(() => new DataAnnotationsEntityValidatorFactory());
@@ -46,7 +42,6 @@ namespace MyApp.Services.Tests
             TypeAdapter = TypeAdapterFactory.Instance.CreateAdapter();
             ConfigureMapping();
         }
-        protected ILogger Logger { get; }
         protected ITypeAdapter TypeAdapter { get; }
 
         protected IEntityValidatorFactory EntityValidatorFactory { get; }

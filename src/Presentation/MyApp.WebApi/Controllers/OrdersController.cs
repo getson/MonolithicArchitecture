@@ -17,9 +17,11 @@ namespace MyApp.WebApi.Controllers
     public class OrdersController : MyAppBaseController
     {
         private readonly ISalesAppService _salesAppService;
+
+        /// <inheritdoc />
         public OrdersController(ISalesAppService salesAppService)
         {
-            //_salesAppService = salesAppService;
+            _salesAppService = salesAppService;
         }
 
         // GET: api/orders/?pageIndex=1&pageCount=1
