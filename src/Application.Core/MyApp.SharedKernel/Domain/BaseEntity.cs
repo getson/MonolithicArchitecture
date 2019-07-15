@@ -11,7 +11,7 @@ namespace MyApp.SharedKernel.Domain
         /// <summary>
         /// Gets or sets the entity identifier
         /// </summary>
-        public virtual Guid Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Is transient
