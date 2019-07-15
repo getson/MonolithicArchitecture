@@ -4,7 +4,6 @@ using Autofac;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using MyApp.Application.Common;
 using MyApp.Application.Routing;
 using MyApp.Core.Abstractions.Caching;
 using MyApp.Core.Abstractions.Data;
@@ -76,10 +75,6 @@ namespace MyApp.Application.Infrastructure
         private static void RegisterUtilities(ContainerBuilder builder)
         {
             builder.RegisterType<DefaultApiVersionDescriptionProvider>().As<IApiVersionDescriptionProvider>().SingleInstance();
-            //web helper
-            builder.RegisterType<WebHelper>().As<IWebHelper>().InstancePerLifetimeScope();
-            builder.RegisterType<UserAgentHelper>().As<IUserAgentHelper>().InstancePerLifetimeScope();
-
             //Adapters
 
             builder.RegisterType<AutoMapperTypeAdapterFactory>().As<ITypeAdapterFactory>().SingleInstance();
