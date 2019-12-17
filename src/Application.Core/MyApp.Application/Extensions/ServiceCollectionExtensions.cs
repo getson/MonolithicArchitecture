@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using MyApp.Core.Infrastructure;
 using MyApp.Infrastructure.Data;
 using Newtonsoft.Json;
 using StackExchange.Profiling.Storage;
@@ -15,29 +16,6 @@ namespace MyApp.Application.Extensions
     public static class ServiceCollectionExtensions
     {
 
-        /// <summary>
-        /// Add and configure MVC for the application
-        /// </summary>
-        /// <param name="services">Collection of service descriptors</param>
-        /// <returns>A builder for configuring MVC services</returns>
-        public static IMvcBuilder AddMyAppMvc(this IServiceCollection services)
-        {
-            //add basic MVC feature
-            var mvcBuilder = services.AddMvc();
-
-            mvcBuilder.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            //TODO tocheck getson this option
-
-            mvcBuilder.AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                //MVC now serializes JSON with camel case names by default, use this code to avoid it
-                //options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-            });
-
-            return mvcBuilder;
-        }
-
         public static void AddMyHttpContextAccesor(this IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -46,17 +24,18 @@ namespace MyApp.Application.Extensions
         /// Register base object context
         /// </summary>
         /// <param name="services">Collection of service descriptors</param>
-        public static void AddMyAppObjectContext(this IServiceCollection services)
+        public static void AddDbContext(this IServiceCollection services)
         {
-            services.AddDbContext<MyAppObjectContext>(optionsBuilder =>
-            {
-                var dataSettings = DataSettingsManager.Instance.LoadSettings();
-                if (!dataSettings?.IsValid ?? true)
-                    return;
+            var dataSettings = DataSettingsManager.Instance.LoadSettings();
+            if (!dataSettings?.IsValid ?? true)
+                return;
 
-                optionsBuilder.UseLazyLoadingProxies()
-                              .UseSqlServer(dataSettings.DataConnectionString);
-            });
+            var optionsBuilder = new DbContextOptionsBuilder<MyAppObjectContext>();
+            optionsBuilder.UseSqlServer(dataSettings.DataConnectionString);
+
+            services.AddScoped<IDbContext, MyAppObjectContext>(x =>
+                new MyAppObjectContext(optionsBuilder.Options));
+
         }
 
         /// <summary>

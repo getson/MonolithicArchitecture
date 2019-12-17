@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using MyApp.Core.Abstractions.Infrastructure;
 using MyApp.Core.Configuration;
 using MyApp.WebApi.Infrastructure;
+using MyApp.Application.Extensions;
+using Newtonsoft.Json.Serialization;
 
 namespace MyApp.WebApi
 {
@@ -17,28 +19,38 @@ namespace MyApp.WebApi
         /// <param name="configuration">Configuration root of the application</param>
         public void ConfigureServices(IServiceCollection services, MyAppConfig configuration)
         {
+
+            //add httpContext accessor to HttpContext
+            services.AddMyHttpContextAccesor();
+            services.AddControllers()
+                    .AddNewtonsoftJson(options =>
+                    {
+                        options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    });
             services.AddMyApiVersioning();
             services.AddMySwagger();
+            //add object context
+            services.AddDbContext();
         }
 
         /// <summary>
         /// Configure the using of added middleware
         /// </summary>
-        /// <param name="application">Builder for configuring an application's request pipeline</param>
-        public void Configure(IApplicationBuilder application)
+        /// <param name="app">Builder for configuring an application's request pipeline</param>
+        public void Configure(IApplicationBuilder app)
         {
-            application.UseMySwagger();
+            app.UseRouting();
+            app.UseEndpoints(cfg =>
+            {
+                cfg.MapDefaultControllerRoute();
+            });
+            app.UseMySwagger();
         }
 
         /// <summary>
         /// Gets order of this startup configuration implementation
         /// </summary>
         public int Order => 2;
-
-        #region Helper
-
-
-        #endregion
 
     }
 }

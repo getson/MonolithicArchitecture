@@ -21,8 +21,7 @@ namespace MyApp.WebApi
         /// <inheritdoc />
         public Startup(IHostingEnvironment environment)
         {
-            //Configuration = configuration;
-            //create configuration
+
             Configuration = new ConfigurationBuilder()
                 .SetBasePath(environment.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)

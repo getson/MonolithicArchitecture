@@ -3,7 +3,7 @@
 namespace MyApp.Application
 {
     //[ApiController]
-    public class MyAppBaseController:ControllerBase
+    public class MyAppBaseController : ControllerBase
     {
     }
 }

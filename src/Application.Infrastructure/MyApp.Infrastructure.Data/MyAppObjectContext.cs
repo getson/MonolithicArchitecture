@@ -124,7 +124,8 @@ namespace MyApp.Infrastructure.Data
         /// <returns>An IQueryable representing the raw SQL query</returns>
         public virtual IQueryable<TQuery> QueryFromSql<TQuery>(string sql) where TQuery : class
         {
-            return Query<TQuery>().FromSql(sql);
+            throw new NotImplementedException("TODO");
+            //return Query<TQuery>().FromSql(sql);
         }
 
         /// <summary>
@@ -136,7 +137,9 @@ namespace MyApp.Infrastructure.Data
         /// <returns>An IQueryable representing the raw SQL query</returns>
         public virtual IQueryable<TEntity> EntityFromSql<TEntity>(string sql, params object[] parameters) where TEntity : BaseEntity
         {
-            return Set<TEntity>().FromSql(CreateSqlWithParameters(sql, parameters), parameters);
+            throw new NotImplementedException("TODO");
+
+            //return Set<TEntity>().FromSql(CreateSqlWithParameters(sql, parameters), parameters);
         }
 
         /// <summary>
