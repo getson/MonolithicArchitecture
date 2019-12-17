@@ -70,25 +70,6 @@ namespace MyApp.Application
                 //gzip by default
                 application.UseResponseCompression();
             }
-
-
-            //plugins
-            var staticFileOptions = new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(EngineContext.Current.FileProvider.MapPath(@"Plugins")),
-                RequestPath = new PathString("/Plugins")
-            };
-
-            //whether database is installed
-            if (DataSettingsManager.Instance.DatabaseIsInstalled)
-            {
-                var fileExtensionContentTypeProvider = new FileExtensionContentTypeProvider();
-                staticFileOptions.ContentTypeProvider = fileExtensionContentTypeProvider;
-
-            }
-
-            application.UseStaticFiles(staticFileOptions);
-
             //add MiniProfiler
             application.UseMiniProfiler();
 
