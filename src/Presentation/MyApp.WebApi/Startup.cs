@@ -36,14 +36,11 @@ namespace MyApp.WebApi
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
 
-            //create, initialize and configure the engine
-            var (rootPath, contentPath) = GetPaths(services);
-
             var myAppConfig = new MyAppConfig();
             Configuration.GetSection("MyApp").Bind(myAppConfig);
             services.AddSingleton(myAppConfig);
 
-            DefaultFileProvider.Instance = new MyAppFileProvider(rootPath, contentPath);
+            DefaultFileProvider.Instance = new MyAppFileProvider(AppContext.BaseDirectory, AppContext.BaseDirectory);
 
             //create, initialize and configure the engine
             var engine = EngineContext.Create();
@@ -57,7 +54,7 @@ namespace MyApp.WebApi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.EnvironmentName =="dev")
+            if (env.EnvironmentName == "dev")
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -69,16 +66,5 @@ namespace MyApp.WebApi
             EngineContext.Current.ConfigureRequestPipeline(app);
 
         }
-
-        #region Helper
-        private static (string rootPath, string contentPath) GetPaths(IServiceCollection services)
-        {
-            var provider = services.BuildServiceProvider();
-            var hostingEnvironment = provider.GetRequiredService<IWebHostEnvironment>();
-            var webRootPath = File.Exists(hostingEnvironment.WebRootPath) ? Path.GetDirectoryName(hostingEnvironment.WebRootPath) : hostingEnvironment.WebRootPath;
-
-            return (webRootPath, hostingEnvironment.ContentRootPath);
-        }
-        #endregion
     }
 }

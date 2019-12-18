@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using MyApp.Core.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -84,20 +85,19 @@ namespace MyApp.WebApi.Infrastructure
 
         #region Helper Methods
 
-        private static Info CreateInfoForApiVersion(ApiVersionDescription description)
+        private static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
         {
-            var info = new Info
+            var info = new OpenApiInfo
             {
                 Title = $"Demo API {description.ApiVersion}",
                 Version = $"Api Version v{description.ApiVersion.ToString()}",
                 Description = "This is a demo of my Enterprise App",
-                Contact = new Contact
+                Contact = new OpenApiContact
                 {
                     Name = "Getson Cela",
                     Email = "cela.getson@gmail.com"
                 },
-                TermsOfService = "MyApp",
-                License = new License
+                License = new OpenApiLicense
                 {
                     Name = "Getson Cela"
                 }

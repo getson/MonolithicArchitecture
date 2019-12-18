@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="IdentityServer4" Version="3.0.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
   </ItemGroup>
 
 </Project>
