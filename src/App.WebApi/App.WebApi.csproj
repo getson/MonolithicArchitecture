@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>App.WebApi</AssemblyName>
+    <RootNamespace>App.WebApi</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>App.WebApi.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="4.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0-rc5" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.0.0-rc5" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0-rc5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Application\App.Application.Commands\App.Application.CommandHandlers.csproj" />
+    <ProjectReference Include="..\Application\App.Application.Queries\App.Application.QueryHandlers.csproj" />
+    <ProjectReference Include="..\BinaryOrigin.SeedWork.Core\BinaryOrigin.SeedWork.Core.csproj" />
+    <ProjectReference Include="..\BinaryOrigin.SeedWork.Infrastructure\BinaryOrigin.SeedWork.Infrastructure.csproj" />
+    <ProjectReference Include="..\BinaryOrigin.SeedWork.Persistence.SqlServer\BinaryOrigin.SeedWork.Persistence.SqlServer.csproj" />
+    <ProjectReference Include="..\BinaryOrigin.SeedWork.Persistence\BinaryOrigin.SeedWork.Persistence.Ef.csproj" />
+    <ProjectReference Include="..\BinaryOrigin.SeedWork.WebApi\BinaryOrigin.SeedWork.WebApi.csproj" />
+    <ProjectReference Include="..\Core\App.Commands\App.Application.Commands.csproj" />
+    <ProjectReference Include="..\Core\App.Core\App.Core.csproj" />
+    <ProjectReference Include="..\Infrastructure\App.Persistence\App.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

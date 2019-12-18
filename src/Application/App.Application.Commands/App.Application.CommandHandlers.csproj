@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BinaryOrigin.SeedWork.Messaging.Commands\BinaryOrigin.SeedWork.Commands.csproj" />
+    <ProjectReference Include="..\..\Core\App.Commands\App.Application.Commands.csproj" />
+    <ProjectReference Include="..\..\Core\App.Queries\App.Application.Queries.csproj" />
+  </ItemGroup>
+  
+   <ItemGroup>
+     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+   </ItemGroup>
+
+</Project>

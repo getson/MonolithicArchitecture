@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>App.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:App.WebApi.Controllers.ProjectsController">
+            <summary>
+            This controller contains methods for the admin
+            </summary>
+        </member>
+        <member name="M:App.WebApi.Controllers.ProjectsController.#ctor(BinaryOrigin.SeedWork.WebApi.Messaging.IBus)">
+            <summary>
+            the controller cunstructor
+            </summary>
+            <param name="bus"></param>
+        </member>
+        <member name="M:App.WebApi.Controllers.ProjectsController.GetAll(App.Application.Queries.Administrations.GetProjects)">
+            <summary>
+            Get All projects
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:App.WebApi.Controllers.ProjectsController.GetById(App.Application.Queries.Administrations.GetProject)">
+            <summary>
+            get project by Id
+            </summary>
+            <param name="queryModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:App.WebApi.Controllers.ProjectsController.Post(App.Application.Commands.Administrations.AddProject)">
+            <summary>
+            Add a project
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:App.WebApi.Controllers.ProjectsController.Put(App.Application.Commands.Administrations.UpdateProject)">
+            <summary>
+            Update a project
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:App.WebApi.Controllers.ProjectsController.Delete(App.Application.Commands.Administrations.DeleteProject)">
+            <summary>
+            Delete a project
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:App.WebApi.Extensions.MvcExtensions.AddHttpContextAccesor(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add HttpContextAccessor as a service
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:App.WebApi.Extensions.SwaggerExtensions.AddAppSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configure Swagger
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:App.WebApi.Extensions.SwaggerOperationFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            Applies the filter to the specified operation using the given context.
+            </summary>
+            <param name="operation">The operation to apply the filter to.</param>
+            <param name="context">The current operation filter context.</param>
+        </member>
+        <member name="M:App.WebApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add services to the application and configure service provider
+            </summary>
+            <param name="services">Collection of service descriptors</param>
+        </member>
+        <member name="M:App.WebApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Configure the application HTTP request pipeline
+            </summary>
+            <param name="application"></param>
+        </member>
+        <member name="T:App.WebApi.WebApiStartup">
+            <inheritdoc />
+        </member>
+        <member name="P:App.WebApi.WebApiStartup.Order">
+            <inheritdoc />
+        </member>
+        <member name="M:App.WebApi.WebApiStartup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,BinaryOrigin.SeedWork.Core.IEngine,BinaryOrigin.SeedWork.Core.Configuration.AppConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:App.WebApi.WebApiStartup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,BinaryOrigin.SeedWork.Core.Configuration.AppConfiguration)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
