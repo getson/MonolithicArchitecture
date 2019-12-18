@@ -15,3 +15,4 @@ jobs:
         dotnet-version: 3.1.100
     - name: Build with dotnet
       run: dotnet build src\Presentation\MyApp.WebApi\MyApp.WebApi.csproj --configuration Release
+
