@@ -4,7 +4,6 @@ using Autofac;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using MyApp.Application.Routing;
 using MyApp.Core.Abstractions.Caching;
 using MyApp.Core.Abstractions.Data;
 using MyApp.Core.Abstractions.Infrastructure;
@@ -51,8 +50,6 @@ namespace MyApp.Application.Infrastructure
             //mapping
             RegisterMapping(builder);
 
-            // services
-            builder.RegisterType<RoutePublisher>().As<IRoutePublisher>().SingleInstance();
             builder.RegisterType<EventPublisher>().As<IEventPublisher>().SingleInstance();
             builder.RegisterType<SubscriptionService>().As<ISubscriptionService>().SingleInstance();
             builder.RegisterType<ActionContextAccessor>().As<IActionContextAccessor>().InstancePerLifetimeScope();

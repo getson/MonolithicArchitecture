@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Core", "Application.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Domain", "Application.Core\MyApp.Core.Domain\MyApp.Domain.csproj", "{69C94AAC-DD76-4453-9E9F-4BB746D386BF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Application", "Application.Core\MyApp.Application\MyApp.Application.csproj", "{C4B9635F-D272-4E1E-96F6-143ED3090CBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.WebApi.Common", "Application.Core\MyApp.WEbApi.Common\MyApp.WebApi.Common.csproj", "{C4B9635F-D272-4E1E-96F6-143ED3090CBD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.IdentityServer", "Presentation\MyApp.IdentityServer\MyApp.IdentityServer.csproj", "{E1F06304-B204-4DD3-BD31-E9A5B37F71D9}"
 EndProject

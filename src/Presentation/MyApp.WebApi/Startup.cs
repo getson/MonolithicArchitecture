@@ -19,7 +19,7 @@ namespace MyApp.WebApi
 
         public IConfigurationRoot Configuration { get; }
         /// <inheritdoc />
-        public Startup(IHostingEnvironment environment)
+        public Startup(IWebHostEnvironment environment)
         {
 
             Configuration = new ConfigurationBuilder()
@@ -55,9 +55,9 @@ namespace MyApp.WebApi
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// </summary>
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.EnvironmentName =="dev")
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -74,7 +74,7 @@ namespace MyApp.WebApi
         private static (string rootPath, string contentPath) GetPaths(IServiceCollection services)
         {
             var provider = services.BuildServiceProvider();
-            var hostingEnvironment = provider.GetRequiredService<IHostingEnvironment>();
+            var hostingEnvironment = provider.GetRequiredService<IWebHostEnvironment>();
             var webRootPath = File.Exists(hostingEnvironment.WebRootPath) ? Path.GetDirectoryName(hostingEnvironment.WebRootPath) : hostingEnvironment.WebRootPath;
 
             return (webRootPath, hostingEnvironment.ContentRootPath);
