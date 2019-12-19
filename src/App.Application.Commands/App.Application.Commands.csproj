@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  
+   <ItemGroup>
+     <ProjectReference Include="..\App.Core\App.Core.csproj" />
+     <ProjectReference Include="..\SeedWork\BinaryOrigin.SeedWork.Messaging.Commands\BinaryOrigin.SeedWork.Commands.csproj" />
+   </ItemGroup>
+
+</Project>
