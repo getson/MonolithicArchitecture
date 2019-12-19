@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Claims;
 using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Core.Extensions;
 using Microsoft.AspNetCore.Http;
@@ -10,31 +11,33 @@ namespace App.WebApi
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        private Guid _userId;
+        private string _userId;
         private string _fullName;
         private string _email;
+        private string _username;
 
         public WorkContext(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }
-
-        public Guid TenantId => throw new NotImplementedException();
-
-        public Guid UserId
+        public string UserId
         {
             get
             {
-                if (_userId.ToString().IsNullOrEmpty())
+                if (_userId == string.Empty)
                 {
-                    Guid.TryParse(_httpContextAccessor.HttpContext
-                        .User
-                        .Claims
-                        .FirstOrDefault(c => c.Type == "user_id")
-                        ?.Value, out _userId);
+                    _userId = GetClaimValue("user_id");
                 }
                 return _userId;
             }
+        }
+
+        private string GetClaimValue(string claimType)
+        {
+            var claim = _httpContextAccessor.HttpContext
+                          .User.Claims
+                          .FirstOrDefault(x => x.Type == claimType);
+            return claim.Value.ToString();
         }
 
         public string FullName
@@ -43,9 +46,8 @@ namespace App.WebApi
             {
                 if (_fullName.IsNullOrEmpty())
                 {
-                    _fullName = _httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "name")?.Value;
+                    _fullName = GetClaimValue("full_name");
                 }
-
                 return _fullName;
             }
         }
@@ -56,15 +58,23 @@ namespace App.WebApi
             {
                 if (_email.IsNullOrEmpty())
                 {
-                    _email = _httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
+                    _email = GetClaimValue("email");
                 }
 
                 return _email;
             }
         }
+        public string UserName
+        {
+            get
+            {
+                if (_username.IsNullOrEmpty())
+                {
+                   _username = GetClaimValue("username");
+                }
 
-        public string Phone => throw new NotImplementedException();
-
-        public string UserName => throw new NotImplementedException();
+                return _username;
+            }
+        }
     }
 }
