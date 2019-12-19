@@ -1,8 +1,8 @@
 ﻿using System;
 using BinaryOrigin.SeedWork.Persistence.Ef;
-using App.Core.Domain.Administrations;
+using App.Core.Domain.ProjectBC;
 
-namespace App.Persistence.Administrations
+namespace App.Persistence.ProjectBC
 {
     public sealed class ProjectRepository :EfRepository<Project>, IProjectRepository
     {

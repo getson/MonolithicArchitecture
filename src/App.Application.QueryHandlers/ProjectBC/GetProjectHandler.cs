@@ -1,15 +1,15 @@
 ﻿using System.Linq;
 using BinaryOrigin.SeedWork.Persistence.Ef;
 using BinaryOrigin.SeedWork.Queries;
-using App.Application.Queries.Administrations;
-using App.Persistence.Administrations;
-using App.Core.Domain.Administrations;
+using App.Application.Queries.ProjectBC;
+using App.Persistence.ProjectBC;
+using App.Core.Domain.ProjectBC;
 using System.Threading.Tasks;
 using BinaryOrigin.SeedWork.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using BinaryOrigin.SeedWork.Core;
 
-namespace App.Application.QueryHandlers.Administrations
+namespace App.Application.QueryHandlers.ProjectBC
 {
     public class GetProjectHandler : IQueryHandler<GetProject, GetProjectResult>
     {

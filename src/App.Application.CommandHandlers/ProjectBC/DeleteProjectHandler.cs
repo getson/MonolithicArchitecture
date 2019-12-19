@@ -1,11 +1,11 @@
 ﻿using System;
 using BinaryOrigin.SeedWork.Commands;
-using App.Application.Commands.Administrations;
-using App.Core.Domain.Administrations;
+using App.Application.Commands.ProjectBC;
+using App.Core.Domain.ProjectBC;
 using System.Threading.Tasks;
 using BinaryOrigin.SeedWork.Core.Domain;
 
-namespace App.Application.CommandHandlers.Administrations
+namespace App.Application.CommandHandlers.ProjectBC
 {
     public sealed class DeleteProjectHandler : ICommandHandler<DeleteProject, bool>
     {

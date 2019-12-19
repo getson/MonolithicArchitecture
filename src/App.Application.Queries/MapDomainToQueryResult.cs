@@ -1,5 +1,5 @@
-﻿using App.Application.Queries.Administrations;
-using App.Core.Domain.Administrations;
+﻿using App.Application.Queries.ProjectBC;
+using App.Core.Domain.ProjectBC;
 using AutoMapper;
 using BinaryOrigin.SeedWork.Core;
 using System;

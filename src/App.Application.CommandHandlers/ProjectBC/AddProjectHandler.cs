@@ -1,12 +1,12 @@
-﻿using App.Application.Commands.Administrations;
+﻿using App.Application.Commands.ProjectBC;
 using BinaryOrigin.SeedWork.Commands;
-using App.Core.Domain.Administrations;
+using App.Core.Domain.ProjectBC;
 using BinaryOrigin.SeedWork.Core.Extensions;
 using System;
 using System.Threading.Tasks;
 using BinaryOrigin.SeedWork.Core.Domain;
 
-namespace App.Application.CommandHandlers.Administrations
+namespace App.Application.CommandHandlers.ProjectBC
 {
     public sealed class AddProjectHandler : ICommandHandler<AddProject, Guid>
     {

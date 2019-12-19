@@ -1,8 +1,8 @@
-﻿using App.Core.Domain.Administrations;
+﻿using App.Core.Domain.ProjectBC;
 using BinaryOrigin.SeedWork.Persistence.Ef;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace App.Persistence.Administrations.Configurations
+namespace App.Persistence.ProjectBC.Configurations
 {
     internal class ConfigProject : EfEntityTypeConfiguration<Project>
     {

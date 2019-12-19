@@ -15,34 +15,34 @@
             </summary>
             <param name="bus"></param>
         </member>
-        <member name="M:App.WebApi.Controllers.ProjectsController.GetAll(App.Application.Queries.Administrations.GetProjects)">
+        <member name="M:App.WebApi.Controllers.ProjectsController.GetAll(App.Application.Queries.ProjectBC.GetProjects)">
             <summary>
             Get All projects
             </summary>
             <returns></returns>
         </member>
-        <member name="M:App.WebApi.Controllers.ProjectsController.GetById(App.Application.Queries.Administrations.GetProject)">
+        <member name="M:App.WebApi.Controllers.ProjectsController.GetById(App.Application.Queries.ProjectBC.GetProject)">
             <summary>
             get project by Id
             </summary>
             <param name="queryModel"></param>
             <returns></returns>
         </member>
-        <member name="M:App.WebApi.Controllers.ProjectsController.Post(App.Application.Commands.Administrations.AddProject)">
+        <member name="M:App.WebApi.Controllers.ProjectsController.Post(App.Application.Commands.ProjectBC.AddProject)">
             <summary>
             Add a project
             </summary>
             <param name="command"></param>
             <returns></returns>
         </member>
-        <member name="M:App.WebApi.Controllers.ProjectsController.Put(App.Application.Commands.Administrations.UpdateProject)">
+        <member name="M:App.WebApi.Controllers.ProjectsController.Put(App.Application.Commands.ProjectBC.UpdateProject)">
             <summary>
             Update a project
             </summary>
             <param name="command"></param>
             <returns></returns>
         </member>
-        <member name="M:App.WebApi.Controllers.ProjectsController.Delete(App.Application.Commands.Administrations.DeleteProject)">
+        <member name="M:App.WebApi.Controllers.ProjectsController.Delete(App.Application.Commands.ProjectBC.DeleteProject)">
             <summary>
             Delete a project
             </summary>

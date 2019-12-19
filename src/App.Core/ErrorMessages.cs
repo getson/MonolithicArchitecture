@@ -1,4 +1,4 @@
-﻿using App.Core.Domain.Administrations;
+﻿using App.Core.Domain.ProjectBC;
 using BinaryOrigin.SeedWork.Core.Domain;
 using System;
 using System.Collections.Generic;

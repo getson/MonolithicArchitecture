@@ -1,5 +1,5 @@
-﻿using App.Application.Commands.Administrations;
-using App.Application.Queries.Administrations;
+﻿using App.Application.Commands.ProjectBC;
+using App.Application.Queries.ProjectBC;
 using App.WebApi.IntegrationTest.Infrastructure;
 using FluentAssertions;
 using System;

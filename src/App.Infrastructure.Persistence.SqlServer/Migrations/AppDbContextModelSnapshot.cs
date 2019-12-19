@@ -19,7 +19,7 @@ namespace App.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("App.Core.Domain.Administrations.Project", b =>
+            modelBuilder.Entity("App.Core.Domain.ProjectBC.Project", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

@@ -1,7 +1,7 @@
 ﻿using System;
 using BinaryOrigin.SeedWork.Queries;
 
-namespace App.Application.Queries.Administrations
+namespace App.Application.Queries.ProjectBC
 {
     public sealed class GetProject : IQuery<GetProjectResult>
     {

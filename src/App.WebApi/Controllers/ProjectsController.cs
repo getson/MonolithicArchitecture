@@ -1,7 +1,7 @@
 ﻿using BinaryOrigin.SeedWork.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using App.Application.Commands.Administrations;
-using App.Application.Queries.Administrations;
+using App.Application.Commands.ProjectBC;
+using App.Application.Queries.ProjectBC;
 using BinaryOrigin.SeedWork.WebApi.Messaging;
 using System.Threading.Tasks;
 

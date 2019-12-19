@@ -2,7 +2,7 @@
 using BinaryOrigin.SeedWork.Core.Domain;
 using BinaryOrigin.SeedWork.Core.Extensions;
 
-namespace App.Core.Domain.Administrations
+namespace App.Core.Domain.ProjectBC
 {
     public sealed class Project : BaseEntity
     {

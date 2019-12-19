@@ -1,7 +1,7 @@
 ﻿using System;
 using BinaryOrigin.SeedWork.Commands;
 
-namespace App.Application.Commands.Administrations
+namespace App.Application.Commands.ProjectBC
 {
     public sealed class DeleteProject : ICommand<bool>
     {

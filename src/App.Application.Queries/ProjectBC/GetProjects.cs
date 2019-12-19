@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using BinaryOrigin.SeedWork.Queries;
 
-namespace App.Application.Queries.Administrations
+namespace App.Application.Queries.ProjectBC
 {
     public sealed class GetProjects : IQuery<GetProjectsResult>
     {
