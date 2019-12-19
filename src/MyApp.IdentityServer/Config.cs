@@ -1,7 +1,4 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
 using IdentityServer4;
 using IdentityServer4.Models;
@@ -25,7 +22,10 @@ namespace MyApp.IdentityServer
         {
             return new List<ApiResource>
             {
-                new ApiResource("myApp", "My API")
+                new ApiResource {
+                Name ="myAppApi",
+                Scopes = new []{ new Scope("full","full api scope") }
+                }
             };
         }
 
@@ -38,23 +38,40 @@ namespace MyApp.IdentityServer
                 // OpenID Connect hybrid flow and client credentials client (MVC)
                 new Client
                 {
-                    ClientId = "myAppClient",                   
+                    ClientId = "myAppClient",
                     ClientName = "Sample client",
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                    ClientSecrets = 
+                    ClientSecrets =
                     {
                         new Secret("secret".Sha256())
                     },
                     RedirectUris = { "http://localhost:5001" },
-                    AllowedScopes = 
+                    AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "myApp"
+                        "full"
                     },
                     AllowOfflineAccess = true
+                },
+                new Client
+                {
+                    AllowAccessTokensViaBrowser = true,
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowedScopes =  {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "full"
+                    },
+                    ClientId = "swagger",
+                    ClientName = "swagger",
+                    ClientSecrets = new[] { new Secret("secret".Sha256()) },
+                    RedirectUris = new[] {
+                        "http://localhost:5001/swagger/oauth2-redirect.html", // IIS Express
+                        "http://localhost:5001/swagger/oauth2-redirect.html", // Kestrel
+                    }
                 }
-            };
+        };
         }
 
         public static List<TestUser> GetUsers()

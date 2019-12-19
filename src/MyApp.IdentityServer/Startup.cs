@@ -15,15 +15,23 @@ namespace MyApp.IdentityServer
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients())
                 .AddTestUsers(Config.GetUsers());
+            services.AddAuthentication("Bearer");
+            services.AddControllersWithViews();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.EnvironmentName == "dev")
+            if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseRouting();
+            app.UseAuthentication();
             app.UseIdentityServer();
+            app.UseEndpoints(cfg =>
+            {
+                cfg.MapControllers();
+            });
         }
     }
 }

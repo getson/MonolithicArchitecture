@@ -7,6 +7,8 @@ using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.WebApi.Extensions;
 using BinaryOrigin.SeedWork.Persistence.SqlServer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace App.WebApi
 {
@@ -22,9 +24,20 @@ namespace App.WebApi
             //add accessor to HttpContext
             services.AddHttpContextAccesor();
             services.AddCors();
-            services.AddControllers()
+            services.AddControllers(c =>
+                    {
+                        var policy = ScopePolicy.Create("openid", "api");
+                        c.Filters.Add(new AuthorizeFilter(policy));
+                    })
                     .AddNewtonsoftJson()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddAuthentication("Bearer")
+                   .AddJwtBearer("Bearer", options =>
+                   {
+                       options.Authority = "http://localhost:5000";
+                       options.RequireHttpsMetadata = false;
+                       options.Audience = "myApp";
+                   });
             services.AddAppSwagger();
 
             engine.AddAutoMapper();
@@ -44,19 +57,21 @@ namespace App.WebApi
         }
 
         /// <inheritdoc />
-        public void Configure(IApplicationBuilder application, AppConfiguration configuration)
+        public void Configure(IApplicationBuilder app, AppConfiguration configuration)
         {
 
-            application.UseAppExceptionHandler();
+            app.UseAppExceptionHandler();
 
-            application.UseRouting();
-
-            application.UseEndpoints(cfg =>
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseEndpoints(cfg =>
             {
-                cfg.MapControllers();
+                cfg.MapControllers()
+                   .RequireAuthorization();
             });
 
-            application.UseAppSwagger();
+            app.UseAppSwagger();
         }
     }
 }
