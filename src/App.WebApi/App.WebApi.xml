@@ -49,7 +49,7 @@
             <param name="command"></param>
             <returns></returns>
         </member>
-        <member name="M:App.WebApi.Extensions.MvcExtensions.AddHttpContextAccesor(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:App.WebApi.Extensions.RegistrationExtensions.AddHttpContextAccesor(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             Add HttpContextAccessor as a service
             </summary>

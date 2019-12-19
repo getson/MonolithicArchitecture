@@ -34,7 +34,7 @@ namespace App.WebApi
             }
             else
             {
-                engine.AddSqlDbContext();
+             engine.AddSqlDbContext();
             }
             engine.AddInMemoryBus();
             engine.AddRepositories();

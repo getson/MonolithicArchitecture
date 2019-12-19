@@ -21,7 +21,7 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
 
     public static class RegistrationExtensions
     {
-        public static void AddSqlDbContext(this IEngine engine)
+        public static void AddDefaultSqlDbContext(this IEngine engine)
         {
             var optionsBuilder = new DbContextOptionsBuilder<EfObjectContext>();
             optionsBuilder.UseSqlServer(engine.Configuration.DbConnectionString);
