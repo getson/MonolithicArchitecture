@@ -17,7 +17,7 @@ namespace App.WebApi.IntegrationTest.Infrastructure
         static TestServerFixture()
         {
             var builder = new WebHostBuilder()
-                .UseContentRoot(GetContentRootPath())
+               //.UseContentRoot(GetContentRootPath())
                 .UseEnvironment("Testing")
                 .UseStartup<Startup>();
 
@@ -27,14 +27,6 @@ namespace App.WebApi.IntegrationTest.Infrastructure
         {
             Client = TestServer.CreateClient();
         }
-
-        private static string GetContentRootPath()
-        {
-            var testProjectPath = PlatformServices.Default.Application.ApplicationBasePath;
-            var relativePathToHostProject = @"..\..\..\..\..\App.WebApi";
-            return Path.Combine(testProjectPath, relativePathToHostProject);
-        }
-
         public void Dispose()
         {
             Client.Dispose();

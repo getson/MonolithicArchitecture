@@ -5,15 +5,15 @@ VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{9360B27A-4FE2-41DC-9045-49B2957F513B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Application.Commands", "App.Application.Commands\App.Application.Commands.csproj", "{3E6F76E0-9917-4B21-A51A-060A62F22B8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Application.Commands", "src\App.Application.Commands\App.Application.Commands.csproj", "{3E6F76E0-9917-4B21-A51A-060A62F22B8D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Application.Queries", "App.Application.Queries\App.Application.Queries.csproj", "{E1D0FD97-54A4-45DE-9C38-0D25A5E58F03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Application.Queries", "src\App.Application.Queries\App.Application.Queries.csproj", "{E1D0FD97-54A4-45DE-9C38-0D25A5E58F03}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Application.QueryHandlers", "App.Application.QueryHandlers\App.Application.QueryHandlers.csproj", "{C3884451-96E0-4CBB-BB47-9949C764DA60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Application.QueryHandlers", "src\App.Application.QueryHandlers\App.Application.QueryHandlers.csproj", "{C3884451-96E0-4CBB-BB47-9949C764DA60}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Application.CommandHandlers", "App.Application.CommandHandlers\App.Application.CommandHandlers.csproj", "{24BDF867-9A4E-4698-96CB-99D84048A1DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Application.CommandHandlers", "src\App.Application.CommandHandlers\App.Application.CommandHandlers.csproj", "{24BDF867-9A4E-4698-96CB-99D84048A1DD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Core", "App.Core\App.Core.csproj", "{31CF59AD-E285-4E20-8C51-7B7C147F3472}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Core", "src\App.Core\App.Core.csproj", "{31CF59AD-E285-4E20-8C51-7B7C147F3472}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B6535BA3-7388-42AF-B0D6-CE7D8FF04AF5}"
 EndProject
@@ -21,29 +21,29 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.WebApi.IntegrationTest"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SeedWork", "SeedWork", "{B3C171F4-2CE2-4DCF-AC75-4E95B90D7D34}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.Core", "SeedWork\BinaryOrigin.SeedWork.Core\BinaryOrigin.SeedWork.Core.csproj", "{425BF001-B29F-4AB2-ACFF-12F4FBE855E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.Core", "src\SeedWork\BinaryOrigin.SeedWork.Core\BinaryOrigin.SeedWork.Core.csproj", "{425BF001-B29F-4AB2-ACFF-12F4FBE855E8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.Queries", "SeedWork\BinaryOrigin.SeedWork.Messaging.Queries\BinaryOrigin.SeedWork.Queries.csproj", "{77D102CC-AE07-4EBC-A905-0BF0F1053ED3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.Queries", "src\SeedWork\BinaryOrigin.SeedWork.Messaging.Queries\BinaryOrigin.SeedWork.Queries.csproj", "{77D102CC-AE07-4EBC-A905-0BF0F1053ED3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.Commands", "SeedWork\BinaryOrigin.SeedWork.Messaging.Commands\BinaryOrigin.SeedWork.Commands.csproj", "{A66C25A0-D998-4979-8432-17F6FE19A205}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.Commands", "src\SeedWork\BinaryOrigin.SeedWork.Messaging.Commands\BinaryOrigin.SeedWork.Commands.csproj", "{A66C25A0-D998-4979-8432-17F6FE19A205}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.Persistence.Ef", "SeedWork\BinaryOrigin.SeedWork.Persistence\BinaryOrigin.SeedWork.Persistence.Ef.csproj", "{D411AFC7-6D05-44CE-B164-A1D4357DAF5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.Persistence.Ef", "src\SeedWork\BinaryOrigin.SeedWork.Persistence\BinaryOrigin.SeedWork.Persistence.Ef.csproj", "{D411AFC7-6D05-44CE-B164-A1D4357DAF5E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.Persistence.SqlServer", "SeedWork\BinaryOrigin.SeedWork.Persistence.SqlServer\BinaryOrigin.SeedWork.Persistence.SqlServer.csproj", "{6972F1F2-DD3E-44AA-8230-97D3CCEA9CD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.Persistence.SqlServer", "src\SeedWork\BinaryOrigin.SeedWork.Persistence.SqlServer\BinaryOrigin.SeedWork.Persistence.SqlServer.csproj", "{6972F1F2-DD3E-44AA-8230-97D3CCEA9CD0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.WebApi", "SeedWork\BinaryOrigin.SeedWork.WebApi\BinaryOrigin.SeedWork.WebApi.csproj", "{E73DA93D-7703-4C52-A75E-D8B53A8A49A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.WebApi", "src\SeedWork\BinaryOrigin.SeedWork.WebApi\BinaryOrigin.SeedWork.WebApi.csproj", "{E73DA93D-7703-4C52-A75E-D8B53A8A49A2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.Infrastructure", "SeedWork\BinaryOrigin.SeedWork.Infrastructure\BinaryOrigin.SeedWork.Infrastructure.csproj", "{E761075C-342D-43F5-8CA5-E7390B00F407}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.Infrastructure", "src\SeedWork\BinaryOrigin.SeedWork.Infrastructure\BinaryOrigin.SeedWork.Infrastructure.csproj", "{E761075C-342D-43F5-8CA5-E7390B00F407}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.Persistence.MySql", "SeedWork\BinaryOrigin.SeedWork.Persistence.MySql\BinaryOrigin.SeedWork.Persistence.MySql.csproj", "{05D2F89B-112A-4A30-9BEA-56317E101B95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.Persistence.MySql", "src\SeedWork\BinaryOrigin.SeedWork.Persistence.MySql\BinaryOrigin.SeedWork.Persistence.MySql.csproj", "{05D2F89B-112A-4A30-9BEA-56317E101B95}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.IdentityServer", "MyApp.IdentityServer\MyApp.IdentityServer.csproj", "{AAFEFB87-E362-4D59-A1DD-02547079B78A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.IdentityServer", "src\MyApp.IdentityServer\MyApp.IdentityServer.csproj", "{AAFEFB87-E362-4D59-A1DD-02547079B78A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Infrastructure.Persistence", "App.Infrastructure.Persistence\App.Infrastructure.Persistence.csproj", "{CBF0F58C-8DAC-4BC7-9946-5179BE862DE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Infrastructure.Persistence", "src\App.Infrastructure.Persistence\App.Infrastructure.Persistence.csproj", "{CBF0F58C-8DAC-4BC7-9946-5179BE862DE5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{BD38DB82-C3D4-4EC7-9F6B-610F43F52F85}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.WebApi", "App.WebApi\App.WebApi.csproj", "{891B6EF4-09E7-4F00-B79D-0E4B5F3BDBEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.WebApi", "src\App.WebApi\App.WebApi.csproj", "{891B6EF4-09E7-4F00-B79D-0E4B5F3BDBEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
