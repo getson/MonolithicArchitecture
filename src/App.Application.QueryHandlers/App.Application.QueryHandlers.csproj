@@ -6,6 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\App.Application.Queries\App.Application.Queries.csproj" />
-    <ProjectReference Include="..\App.Infrastructure.Persistence\App.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\App.Infrastructure.Persistence.SqlServer\App.Infrastructure.Persistence.SqlServer.csproj" />
   </ItemGroup>
 </Project>

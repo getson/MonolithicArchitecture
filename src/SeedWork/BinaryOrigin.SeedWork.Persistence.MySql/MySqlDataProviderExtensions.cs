@@ -13,8 +13,12 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef.MySql
 
             engine.Register(builder =>
             {
-                builder.RegisterType<MySqlDataProvider>().As<IDataProvider>().SingleInstance();
-                builder.Register(instance => new EfObjectContext(optionsBuilder.Options)).As<IDbContext>().InstancePerLifetimeScope();
+                builder.RegisterType<MySqlDataProvider>()
+                        .As<IDataProvider>()
+                        .InstancePerLifetimeScope();
+                builder.Register(instance => new EfObjectContext(optionsBuilder.Options))
+                    .As<IDbContext>()
+                    .InstancePerLifetimeScope();
             });
         }
     }

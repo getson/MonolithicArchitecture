@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace BinaryOrigin.SeedWork.Persistence.Ef.Extensions
 {
@@ -16,8 +17,6 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef.Extensions
     public static class DbContextExtensions
     {
         private static readonly ConcurrentDictionary<string, string> _tableNames = new ConcurrentDictionary<string, string>();
-        private static readonly ConcurrentDictionary<string, IEnumerable<(string, int?)>> _columnsMaxLength = new ConcurrentDictionary<string, IEnumerable<(string, int?)>>();
-        private static readonly ConcurrentDictionary<string, IEnumerable<(string, decimal?)>> _decimalColumnsMaxValue = new ConcurrentDictionary<string, IEnumerable<(string, decimal?)>>();
 
         /// <summary>
         /// Get SQL commands from the script
@@ -118,7 +117,7 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef.Extensions
 
             var sqlCommands = GetCommandsFromScript(sql);
             foreach (var command in sqlCommands)
-                context.ExecuteSqlCommand(command);
+                context.ExecuteSqlCommandAsync(command);
         }
 
         /// <summary>

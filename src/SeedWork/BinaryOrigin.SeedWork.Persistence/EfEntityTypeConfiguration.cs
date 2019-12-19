@@ -11,7 +11,7 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
     /// Represents base entity mapping configuration
     /// </summary>
     /// <typeparam name="TEntity">Entity type</typeparam>
-    public class EfEntityTypeConfiguration<TEntity> : IMappingConfiguration, IEntityTypeConfiguration<TEntity>
+    public abstract class EfEntityTypeConfiguration<TEntity> : IMappingConfiguration, IEntityTypeConfiguration<TEntity>
         where TEntity : BaseEntity
     {
         static EfEntityTypeConfiguration()
@@ -20,12 +20,11 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
         }
 
         /// <summary>
-        /// Developers can override this method in custom partial classes in order to add some custom configuration code
+        /// Developers can override this method in custom classes in order to add some custom configuration code
         /// </summary>
         /// <param name="builder">The builder to be used to configure the entity</param>
-        protected virtual void PostConfigure(EntityTypeBuilder<TEntity> builder)
-        {
-        }
+        public abstract void PostConfigure(EntityTypeBuilder<TEntity> builder);
+
 
         /// <summary>
         /// Configures the entity

@@ -30,7 +30,7 @@
     <ProjectReference Include="..\App.Application.Queries\App.Application.Queries.csproj" />
     <ProjectReference Include="..\App.Application.QueryHandlers\App.Application.QueryHandlers.csproj" />
     <ProjectReference Include="..\App.Core\App.Core.csproj" />
-    <ProjectReference Include="..\App.Infrastructure.Persistence\App.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\App.Infrastructure.Persistence.SqlServer\App.Infrastructure.Persistence.SqlServer.csproj" />
     <ProjectReference Include="..\SeedWork\BinaryOrigin.SeedWork.WebApi\BinaryOrigin.SeedWork.WebApi.csproj" />
   </ItemGroup>
 

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace App.Persistence.Context
+namespace App.Infrastructure.Persistence.SqlServer.Context
 {
     public class AppDbContext : EfObjectContext
     {

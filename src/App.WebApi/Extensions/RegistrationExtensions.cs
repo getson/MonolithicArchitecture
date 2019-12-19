@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using BinaryOrigin.SeedWork.WebApi;
 using Microsoft.AspNetCore.Builder;
-using App.Persistence.Context;
 using BinaryOrigin.SeedWork.Core;
 using Microsoft.EntityFrameworkCore;
 using BinaryOrigin.SeedWork.Persistence.SqlServer;
 using Autofac;
 using BinaryOrigin.SeedWork.Persistence.Ef;
+using App.Infrastructure.Persistence.SqlServer.Context;
 
 namespace App.WebApi.Extensions
 {

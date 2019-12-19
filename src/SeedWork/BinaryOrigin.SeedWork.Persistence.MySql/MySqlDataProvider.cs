@@ -2,6 +2,7 @@
 using BinaryOrigin.SeedWork.Persistence.Ef.Extensions;
 using MySql.Data.MySqlClient;
 using System.Data.Common;
+using System.Threading.Tasks;
 
 namespace BinaryOrigin.SeedWork.Persistence.Ef.MySql
 {
@@ -10,15 +11,19 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef.MySql
     /// </summary>
     public class MySqlDataProvider : IDataProvider
     {
+        private readonly IDbContext _dbContext;
+
+        public MySqlDataProvider(IDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         /// <summary>
         /// Initialize database
         /// </summary>
         public virtual void InitializeDatabase()
         {
-            var context = EngineContext.Current.Resolve<IDbContext>();
-            var fileProvider = EngineContext.Current.Resolve<IAppFileProvider>();
-
-            context.CreateDatabase();
+            _dbContext.CreateDatabase();
         }
 
         /// <summary>
@@ -31,25 +36,15 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef.MySql
         }
 
         /// <summary>
-        /// Gets a value indicating whether this data provider supports backup
-        /// </summary>
-        public virtual bool BackupSupported => true;
-
-        /// <summary>
-        /// Gets a maximum length of the data for HASHBYTES functions, returns 0 if HASHBYTES function is not supported
-        /// </summary>
-        public virtual int SupportedLengthOfBinaryHash => 8000; //for My Sql 2008 and above HASHBYTES function has a limit of 8000 characters.
-
         protected virtual string MySqlScriptUpgradePath => "~/App_Data/Upgrade";
 
         public void UpdateDatabase()
         {
-            var context = EngineContext.Current.Resolve<IDbContext>();
 
             //update schema
-            context.UpdateDatabase();
+            _dbContext.UpdateDatabase();
 
-            ExecuteUpgradeScripts(context);
+            ExecuteUpgradeScripts(_dbContext);
         }
 
         private void ExecuteUpgradeScripts(IDbContext context)

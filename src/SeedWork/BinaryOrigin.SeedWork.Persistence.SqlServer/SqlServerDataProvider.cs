@@ -1,8 +1,8 @@
-﻿using System.Data.Common;
-using System.Data.SqlClient;
-using BinaryOrigin.SeedWork.Core;
+﻿using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Persistence.Ef;
 using BinaryOrigin.SeedWork.Persistence.Ef.Extensions;
+using System.Data.Common;
+using System.Data.SqlClient;
 
 namespace BinaryOrigin.SeedWork.Persistence.SqlServer
 {
@@ -11,8 +11,6 @@ namespace BinaryOrigin.SeedWork.Persistence.SqlServer
     /// </summary>
     public class SqlServerDataProvider : IDataProvider
     {
-        #region Methods
-
         /// <summary>
         /// Initialize database
         /// </summary>
@@ -38,21 +36,6 @@ namespace BinaryOrigin.SeedWork.Persistence.SqlServer
         {
             return new SqlParameter();
         }
-
-        #endregion Methods
-
-        #region Properties
-
-        /// <summary>
-        /// Gets a value indicating whether this data provider supports backup
-        /// </summary>
-        public virtual bool BackupSupported => true;
-
-        /// <summary>
-        /// Gets a maximum length of the data for HASHBYTES functions, returns 0 if HASHBYTES function is not supported
-        /// </summary>
-        public virtual int SupportedLengthOfBinaryHash => 8000; //for SQL Server 2008 and above HASHBYTES function has a limit of 8000 characters.
-
         /// <summary>
         /// Gets a path to the file that contains script to create SQL Server indexes
         /// </summary>
@@ -84,7 +67,5 @@ namespace BinaryOrigin.SeedWork.Persistence.SqlServer
                 context.ExecuteSqlScriptFromFile(sqlFile);
             }
         }
-
-        #endregion Properties
     }
 }
