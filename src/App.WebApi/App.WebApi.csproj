@@ -4,8 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>App.WebApi</AssemblyName>
     <RootNamespace>App.WebApi</RootNamespace>
+    <noWarn>1591</noWarn>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>App.WebApi.xml</DocumentationFile>
   </PropertyGroup>

@@ -5,6 +5,7 @@
     <SccProvider></SccProvider>
     <SccAuxPath></SccAuxPath>
     <SccLocalPath></SccLocalPath>
+    <noWarn>1591</noWarn>
   </PropertyGroup>
 
   <PropertyGroup>
