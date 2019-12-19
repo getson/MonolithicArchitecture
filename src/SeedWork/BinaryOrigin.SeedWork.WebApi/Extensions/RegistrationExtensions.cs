@@ -36,6 +36,21 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
                         .InstancePerLifetimeScope();
             });
         }
+        public static void AddInMemoryDbContext(this IEngine engine)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<EfObjectContext>();
+            optionsBuilder.UseInMemoryDatabase("InMemoryDb");
+
+            engine.Register(builder =>
+            {
+                builder.RegisterType<SqlServerDataProvider>()
+                        .As<IDataProvider>()
+                        .SingleInstance();
+                builder.Register(instance => new EfObjectContext(optionsBuilder.Options))
+                        .As<IDbContext>()
+                        .InstancePerLifetimeScope();
+            });
+        }
         public static void AddInMemoryBus(this IEngine engine)
         {
             engine.Register(builder =>

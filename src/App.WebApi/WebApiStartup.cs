@@ -28,7 +28,14 @@ namespace App.WebApi
             services.AddAppSwagger();
 
             engine.AddAutoMapper();
-            engine.AddSqlDbContext();
+            if (appConfiguration.Environment == "Testing")
+            {
+                engine.AddInMemoryDbContext();
+            }
+            else
+            {
+                engine.AddSqlDbContext();
+            }
             engine.AddInMemoryBus();
             engine.AddRepositories();
             engine.AddCommandHandlers();

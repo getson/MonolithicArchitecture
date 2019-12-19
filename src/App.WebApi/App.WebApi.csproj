@@ -20,18 +20,14 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.0.0-rc5" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0-rc5" />
   </ItemGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\Application\App.Application.Commands\App.Application.CommandHandlers.csproj" />
-    <ProjectReference Include="..\Application\App.Application.Queries\App.Application.QueryHandlers.csproj" />
-    <ProjectReference Include="..\BinaryOrigin.SeedWork.Core\BinaryOrigin.SeedWork.Core.csproj" />
-    <ProjectReference Include="..\BinaryOrigin.SeedWork.Infrastructure\BinaryOrigin.SeedWork.Infrastructure.csproj" />
-    <ProjectReference Include="..\BinaryOrigin.SeedWork.Persistence.SqlServer\BinaryOrigin.SeedWork.Persistence.SqlServer.csproj" />
-    <ProjectReference Include="..\BinaryOrigin.SeedWork.Persistence\BinaryOrigin.SeedWork.Persistence.Ef.csproj" />
-    <ProjectReference Include="..\BinaryOrigin.SeedWork.WebApi\BinaryOrigin.SeedWork.WebApi.csproj" />
-    <ProjectReference Include="..\Core\App.Commands\App.Application.Commands.csproj" />
-    <ProjectReference Include="..\Core\App.Core\App.Core.csproj" />
-    <ProjectReference Include="..\Infrastructure\App.Persistence\App.Persistence.csproj" />
+    <ProjectReference Include="..\App.Application.CommandHandlers\App.Application.CommandHandlers.csproj" />
+    <ProjectReference Include="..\App.Application.Commands\App.Application.Commands.csproj" />
+    <ProjectReference Include="..\App.Application.Queries\App.Application.Queries.csproj" />
+    <ProjectReference Include="..\App.Application.QueryHandlers\App.Application.QueryHandlers.csproj" />
+    <ProjectReference Include="..\App.Core\App.Core.csproj" />
+    <ProjectReference Include="..\App.Infrastructure.Persistence\App.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\SeedWork\BinaryOrigin.SeedWork.WebApi\BinaryOrigin.SeedWork.WebApi.csproj" />
   </ItemGroup>
 
 </Project>

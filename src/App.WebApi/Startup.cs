@@ -43,7 +43,7 @@ namespace App.WebApi
 
             //bind it to the appropriate section of configuration
             Configuration.GetSection("App").Bind(appConfig);
-
+            appConfig.Environment = _environment.EnvironmentName;
             //and register it as a service
             services.AddSingleton(appConfig);
 

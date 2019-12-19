@@ -30,12 +30,13 @@ namespace App.Application.CommandHandlers.Administrations
             {
                 return Result.Fail<bool>(result.Error);
             }
+            await _projectRepository.UpdateAsync(projectOrNothing.Value);
             return Result.Ok(true);
         }
 
         public bool Validate(UpdateProject command)
         {
-            return Guid.Empty!= command.Id && !command.Name.IsNullOrEmpty();
+            return Guid.Empty != command.Id && !command.Name.IsNullOrEmpty();
         }
     }
 }

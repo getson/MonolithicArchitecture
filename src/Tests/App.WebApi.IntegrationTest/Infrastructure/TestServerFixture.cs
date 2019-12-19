@@ -18,7 +18,7 @@ namespace App.WebApi.IntegrationTest.Infrastructure
         {
             var builder = new WebHostBuilder()
                 .UseContentRoot(GetContentRootPath())
-                .UseEnvironment("Deployment")
+                .UseEnvironment("Testing")
                 .UseStartup<Startup>();
 
             TestServer = new TestServer(builder);

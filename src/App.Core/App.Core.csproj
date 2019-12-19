@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\BinaryOrigin.SeedWork.Core\BinaryOrigin.SeedWork.Core.csproj" />
+    <ProjectReference Include="..\SeedWork\BinaryOrigin.SeedWork.Core\BinaryOrigin.SeedWork.Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using BinaryOrigin.SeedWork.Commands;
+﻿using BinaryOrigin.SeedWork.Commands;
 using BinaryOrigin.SeedWork.Core;
+using BinaryOrigin.SeedWork.Core.Domain;
 using BinaryOrigin.SeedWork.Queries;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace BinaryOrigin.SeedWork.Application.Messaging
+namespace BinaryOrigin.SeedWork.WebApi.Messaging
 {
     public class BaseBus : IBus
     {
@@ -12,14 +14,18 @@ namespace BinaryOrigin.SeedWork.Application.Messaging
         private readonly HashSet<Type> _queryHandlerDecorators = new HashSet<Type>();
         private readonly IHandlerResolver _commandHandlerResolver;
         private readonly IHandlerResolver _queryHandlerResolver;
+        private readonly IMessageHandlerResolver _messageHandlerResolver;
 
-        protected BaseBus(IHandlerResolver commandHandlerResolver, IHandlerResolver queryHandlerResolver)
+        protected BaseBus(IHandlerResolver commandHandlerResolver,
+                          IHandlerResolver queryHandlerResolver,
+                          IMessageHandlerResolver messageHandlerResolver)
         {
             _commandHandlerResolver = commandHandlerResolver;
             _queryHandlerResolver = queryHandlerResolver;
+            _messageHandlerResolver = messageHandlerResolver;
         }
 
-        public CommandResponse<TCommandResult> Execute<TCommandResult>(ICommand<TCommandResult> command)
+        public async Task<Result<TCommandResult>> ExecuteAsync<TCommandResult>(ICommand<TCommandResult> command)
         {
             var handlerType = _commandHandlerResolver.Get(command.GetType());
             var instance = EngineContext.Current.Resolve(handlerType.GetInterfaces()[0]);
@@ -28,20 +34,30 @@ namespace BinaryOrigin.SeedWork.Application.Messaging
 
             if (handler.Validate((dynamic)command))
             {
-                return handler.Handle((dynamic)command);
+                return await handler.HandleAsync((dynamic)command);
             }
-
-            // DAMTODO
-            throw new ArgumentException("Invalid Command");
+            return Result.Fail<TCommandResult>("Invalid Command");
         }
 
-        public QueryResponse<TQueryResult> Query<TQueryResult>(IQuery<TQueryResult> queryObject)
+        public async Task<Result<TQueryResult>> QueryAsync<TQueryResult>(IQuery<TQueryResult> queryModel)
         {
-            var handlerType = _queryHandlerResolver.Get(queryObject.GetType());
+            var handlerType = _queryHandlerResolver.Get(queryModel.GetType());
             var handlerInstance = EngineContext.Current.Resolve(handlerType.GetInterfaces()[0]);
 
-            var handler = DecorateQuery(queryObject, handlerInstance);
-            return handler.Handle((dynamic)queryObject);
+            var handler = DecorateQuery(queryModel, handlerInstance);
+            return await handler.HandleAsync((dynamic)queryModel);
+        }
+
+        public async Task<Result> HandleMessageAsync(IMessage message)
+        {
+            var handlers = _messageHandlerResolver.Get(message.GetType());
+            foreach (var handlerType in handlers)
+            {
+                var handlerInstance = (dynamic)EngineContext.Current.Resolve(handlerType);
+                //TODO log message and status
+                await handlerInstance.HandleAsync((dynamic)message);
+            }
+            return Result.Ok();
         }
 
         public void RegisterCommandHandlerDecorator(Type decorator)
@@ -67,12 +83,12 @@ namespace BinaryOrigin.SeedWork.Application.Messaging
             return handler;
         }
 
-        private dynamic DecorateQuery<TQueryResult>(IQuery<TQueryResult> queryObject, dynamic handler)
+        private dynamic DecorateQuery<TQueryResult>(IQuery<TQueryResult> queryModel, dynamic handler)
         {
             foreach (var decorator in _queryHandlerDecorators)
             {
                 handler = Activator.CreateInstance(
-                    decorator.MakeGenericType(queryObject.GetType(), typeof(TQueryResult)),
+                    decorator.MakeGenericType(queryModel.GetType(), typeof(TQueryResult)),
                     handler
                 );
             }
