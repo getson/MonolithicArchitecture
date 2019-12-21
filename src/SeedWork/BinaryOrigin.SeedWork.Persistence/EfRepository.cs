@@ -32,20 +32,24 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
         /// Gets an entity set
         /// </summary>
         protected virtual DbSet<TEntity> Entities => _entities = _dbContext.Set<TEntity>();
+
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             return await Entities.ToListAsync();
         }
+
         public async Task CreateAsync(TEntity entity)
         {
             Entities.Add(entity);
             await _dbContext.SaveChangesAsync();
         }
+
         public async Task CreateAsync(IEnumerable<TEntity> entities)
         {
             Entities.AddRange(entities);
             await _dbContext.SaveChangesAsync();
         }
+
         public async virtual Task<Maybe<TEntity>> GetByIdAsync(Guid id)
         {
             return Maybe<TEntity>.From(
@@ -61,6 +65,7 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
             Entities.Update(entity);
             await _dbContext.SaveChangesAsync();
         }
+
         public async Task UpdateAsync(IEnumerable<TEntity> entities)
         {
             Entities.UpdateRange(entities);

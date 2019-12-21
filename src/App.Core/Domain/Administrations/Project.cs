@@ -1,6 +1,6 @@
-﻿using System;
-using BinaryOrigin.SeedWork.Core.Domain;
+﻿using BinaryOrigin.SeedWork.Core.Domain;
 using BinaryOrigin.SeedWork.Core.Extensions;
+using System;
 
 namespace App.Core.Domain.ProjectBC
 {
@@ -8,6 +8,7 @@ namespace App.Core.Domain.ProjectBC
     {
         public string name { get; private set; }
         public string Description { get; private set; }
+
         public static Result<Project> Create(Guid id, string name, string description)
         {
             if (id == Guid.Empty)

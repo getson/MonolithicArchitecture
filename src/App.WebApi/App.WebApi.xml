@@ -9,7 +9,7 @@
             This controller contains methods for the admin
             </summary>
         </member>
-        <member name="M:App.WebApi.Controllers.ProjectsController.#ctor(BinaryOrigin.SeedWork.WebApi.Messaging.IBus)">
+        <member name="M:App.WebApi.Controllers.ProjectsController.#ctor(BinaryOrigin.SeedWork.Messages.IBus)">
             <summary>
             the controller cunstructor
             </summary>

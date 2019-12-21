@@ -22,6 +22,5 @@ namespace BinaryOrigin.SeedWork.Persistence.SqlServer
                         .InstancePerLifetimeScope();
             });
         }
-
     }
 }

@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace BinaryOrigin.SeedWork.Queries.Decorators
+namespace BinaryOrigin.SeedWork.Messages.Decorators
 {
     public sealed class ExceptionQueryHandlerDecorator<TQuery, TQueryResult> : BaseQueryHandlerDecorator<TQuery, TQueryResult>
         where TQuery : IQuery<TQueryResult>

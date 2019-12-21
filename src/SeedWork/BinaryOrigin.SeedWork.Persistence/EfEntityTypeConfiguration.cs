@@ -25,7 +25,6 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
         /// <param name="builder">The builder to be used to configure the entity</param>
         public abstract void PostConfigure(EntityTypeBuilder<TEntity> builder);
 
-
         /// <summary>
         /// Configures the entity
         /// </summary>

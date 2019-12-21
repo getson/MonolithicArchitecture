@@ -1,14 +1,14 @@
 ﻿using Autofac;
 using AutoMapper;
-using BinaryOrigin.SeedWork.Commands;
+
 using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Core.Domain;
 using BinaryOrigin.SeedWork.Core.Extensions;
+using BinaryOrigin.SeedWork.Messages;
 using BinaryOrigin.SeedWork.Persistence.Ef;
 using BinaryOrigin.SeedWork.Persistence.SqlServer;
-using BinaryOrigin.SeedWork.Queries;
+
 using BinaryOrigin.SeedWork.WebApi.Mapping;
-using BinaryOrigin.SeedWork.WebApi.Messaging;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -36,6 +36,7 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
                         .InstancePerLifetimeScope();
             });
         }
+
         public static void AddInMemoryDbContext(this IEngine engine)
         {
             var optionsBuilder = new DbContextOptionsBuilder<EfObjectContext>();
@@ -51,6 +52,7 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
                         .InstancePerLifetimeScope();
             });
         }
+
         public static void AddInMemoryBus(this IEngine engine)
         {
             engine.Register(builder =>
@@ -58,6 +60,7 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
                 builder.RegisterType<Bus>().As<IBus>().SingleInstance();
             });
         }
+
         public static void AddCommandHandlers(this IEngine engine)
         {
             engine.Register(builder =>
@@ -73,7 +76,6 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
                                          .AsClosedTypesOf(typeof(ICommandHandler<,>))
                                          .InstancePerLifetimeScope();
                     });
-
                 }
 
                 var queryHandlers = engine.FindClassesOfType(typeof(IQueryHandler<,>))
@@ -87,10 +89,9 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
                             .AsClosedTypesOf(typeof(IQueryHandler<,>))
                             .InstancePerLifetimeScope();
                     });
-
                 }
 
-                var messageHandlers = engine.FindClassesOfType(typeof(IMessageHandler<>))
+                var messageHandlers = engine.FindClassesOfType(typeof(IEventHandler<>))
                       .Where(x => !x.AssemblyQualifiedName.Contains("SeedWork"))
                       .ToList();
                 if (messageHandlers.Any())
@@ -101,7 +102,6 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
                         .AsSelf()
                         .InstancePerLifetimeScope();
                     });
-
                 }
             });
         }

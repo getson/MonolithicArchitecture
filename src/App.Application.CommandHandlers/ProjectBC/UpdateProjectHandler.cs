@@ -1,11 +1,11 @@
-﻿using System;
-using BinaryOrigin.SeedWork.Commands;
-using App.Application.Commands.ProjectBC;
-using App.Core.Domain.ProjectBC;
-using System.Threading.Tasks;
-using BinaryOrigin.SeedWork.Core.Domain;
+﻿using App.Application.Commands.ProjectBC;
 using App.Core;
+using App.Core.Domain.ProjectBC;
+using BinaryOrigin.SeedWork.Core.Domain;
 using BinaryOrigin.SeedWork.Core.Extensions;
+using BinaryOrigin.SeedWork.Messages;
+using System;
+using System.Threading.Tasks;
 
 namespace App.Application.CommandHandlers.ProjectBC
 {
@@ -32,11 +32,6 @@ namespace App.Application.CommandHandlers.ProjectBC
             }
             await _projectRepository.UpdateAsync(projectOrNothing.Value);
             return Result.Ok(true);
-        }
-
-        public bool Validate(UpdateProject command)
-        {
-            return Guid.Empty != command.Id && !command.Name.IsNullOrEmpty();
         }
     }
 }

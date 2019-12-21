@@ -1,12 +1,13 @@
-﻿using BinaryOrigin.SeedWork.Commands.Decorators;
-using BinaryOrigin.SeedWork.Queries.Decorators;
+﻿using BinaryOrigin.SeedWork.Messages.Decorators;
 
-namespace BinaryOrigin.SeedWork.WebApi.Messaging
+namespace BinaryOrigin.SeedWork.Messages
 {
     public sealed class Bus : BaseBus
     {
         public Bus()
-            : base(new CommandHandlerResolver(), new QueryHandlerResolver(), new MessageHandlerResolver())
+            : base(new CommandHandlerResolver(),
+                   new QueryHandlerResolver(),
+                   new EventHandlerResolver())
         {
             RegisterQueryHandlerDecorator(typeof(ExceptionQueryHandlerDecorator<,>));
             RegisterCommandHandlerDecorator(typeof(ExceptionCommandHandlerDecorator<,>));

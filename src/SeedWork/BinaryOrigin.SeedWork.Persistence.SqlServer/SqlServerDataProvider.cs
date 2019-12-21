@@ -36,6 +36,7 @@ namespace BinaryOrigin.SeedWork.Persistence.SqlServer
         {
             return new SqlParameter();
         }
+
         /// <summary>
         /// Gets a path to the file that contains script to create SQL Server indexes
         /// </summary>

@@ -1,12 +1,11 @@
-﻿using BinaryOrigin.SeedWork.Core.Configuration;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using App.WebApi.Extensions;
-using BinaryOrigin.SeedWork.WebApi;
+﻿using App.WebApi.Extensions;
 using BinaryOrigin.SeedWork.Core;
+using BinaryOrigin.SeedWork.Core.Configuration;
+using BinaryOrigin.SeedWork.WebApi;
 using BinaryOrigin.SeedWork.WebApi.Extensions;
-using BinaryOrigin.SeedWork.Persistence.SqlServer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace App.WebApi
 {
@@ -34,19 +33,16 @@ namespace App.WebApi
             }
             else
             {
-             engine.AddSqlDbContext();
+                engine.AddSqlDbContext();
             }
             engine.AddInMemoryBus();
             engine.AddRepositories();
             engine.AddCommandHandlers();
-
-
         }
 
         /// <inheritdoc />
         public void Configure(IApplicationBuilder application, AppConfiguration configuration)
         {
-
             application.UseAppExceptionHandler();
 
             application.UseRouting();

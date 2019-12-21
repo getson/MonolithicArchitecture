@@ -9,6 +9,7 @@ namespace BinaryOrigin.SeedWork.Core.Configuration
         /// put default values
         /// </summary>
         public string DbConnectionString { get; set; }
+
         public string Environment { get; set; }
     }
 }

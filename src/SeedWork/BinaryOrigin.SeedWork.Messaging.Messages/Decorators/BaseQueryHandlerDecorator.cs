@@ -1,7 +1,7 @@
 ﻿using BinaryOrigin.SeedWork.Core.Domain;
 using System.Threading.Tasks;
 
-namespace BinaryOrigin.SeedWork.Queries.Decorators
+namespace BinaryOrigin.SeedWork.Messages.Decorators
 {
     public abstract class BaseQueryHandlerDecorator<TQuery, TQueryResult> : IQueryHandler<TQuery, TQueryResult>
         where TQuery : IQuery<TQueryResult>

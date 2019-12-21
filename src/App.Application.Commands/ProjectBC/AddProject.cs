@@ -1,5 +1,5 @@
-﻿using System;
-using BinaryOrigin.SeedWork.Commands;
+﻿using BinaryOrigin.SeedWork.Messages;
+using System;
 
 namespace App.Application.Commands.ProjectBC
 {

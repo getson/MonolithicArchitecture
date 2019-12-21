@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -23,6 +22,7 @@ namespace App.WebApi.IntegrationTest
             _fixture = fixture;
             Init();
         }
+
         [Fact]
         public async Task Should_return_projects_with_success()
         {
@@ -121,12 +121,14 @@ namespace App.WebApi.IntegrationTest
             var deleteResponse = await DeleteAsync($"{_apiEndpoint}/{Guid.Empty}");
             deleteResponse.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
+
         private async Task<IEnumerable<GetProjectResult>> GetTop100()
         {
             var result = await GetAsync($"{_apiEndpoint}?limit=100");
             result.EnsureSuccessStatusCode();
             return result.GetObject<GetProjectsResult>().Items;
         }
+
         private void Init()
         {
             var project = new AddProject

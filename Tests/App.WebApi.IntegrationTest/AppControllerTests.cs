@@ -1,4 +1,5 @@
-﻿using App.WebApi.IntegrationTest.Infrastructure; 
+﻿using App.WebApi.IntegrationTest.Infrastructure;
+
 namespace App.WebApi.IntegrationTest
 {
     public class AppControllerTests : ControllerTestBase

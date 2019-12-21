@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BinaryOrigin.SeedWork.Core
+﻿namespace BinaryOrigin.SeedWork.Core
 {
     public interface IWorkContext
     {

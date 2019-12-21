@@ -102,13 +102,14 @@ namespace App.WebApi.IntegrationTest.Infrastructure
 
         protected async Task<HttpResponseMessage> DeleteAsync<T>(string url, T @object)
         {
-            var requestMessage = new HttpRequestMessage(HttpMethod.Delete, url+"?" + GetQueryString(@object));
+            var requestMessage = new HttpRequestMessage(HttpMethod.Delete, url + "?" + GetQueryString(@object));
             //{
             //    Content = @object.ToJsonContent()
             //};
 
             return await _fixture.Client.SendAsync(requestMessage);
         }
+
         public string GetQueryString(object obj)
         {
             var properties = from p in obj.GetType().GetProperties()
@@ -117,6 +118,7 @@ namespace App.WebApi.IntegrationTest.Infrastructure
 
             return String.Join("&", properties.ToArray());
         }
+
         protected async Task<HttpResponseMessage> DeleteAsync(string url)
         {
             return await _fixture.Client.DeleteAsync(url);

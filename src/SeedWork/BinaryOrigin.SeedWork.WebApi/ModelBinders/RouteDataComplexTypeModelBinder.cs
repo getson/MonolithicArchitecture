@@ -21,6 +21,7 @@ namespace BinaryOrigin.SeedWork.WebApi.ModelBinders
                 await _complexTypeModelBinder.BindModelAsync(bindingContext);
         }
     }
+
     public class RouteDataComplexTypeModelBinderProvider : IModelBinderProvider
     {
         private readonly IModelBinderProvider _complexTypeModelBinderProvider;
@@ -34,7 +35,6 @@ namespace BinaryOrigin.SeedWork.WebApi.ModelBinders
 
         public IModelBinder GetBinder(ModelBinderProviderContext context)
         {
-
             if (_httpContextAccessor.HttpContext.Request.Method == HttpMethods.Get && !_httpContextAccessor.HttpContext.Request.QueryString.HasValue)
             {
                 if (context.Metadata.IsComplexType && !context.Metadata.IsCollectionType)

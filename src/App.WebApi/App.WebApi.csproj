@@ -31,6 +31,7 @@
     <ProjectReference Include="..\App.Application.QueryHandlers\App.Application.QueryHandlers.csproj" />
     <ProjectReference Include="..\App.Core\App.Core.csproj" />
     <ProjectReference Include="..\App.Infrastructure.Persistence.SqlServer\App.Infrastructure.Persistence.SqlServer.csproj" />
+    <ProjectReference Include="..\SeedWork\BinaryOrigin.SeedWork.Messaging.Messages\BinaryOrigin.SeedWork.Messages.csproj" />
     <ProjectReference Include="..\SeedWork\BinaryOrigin.SeedWork.WebApi\BinaryOrigin.SeedWork.WebApi.csproj" />
   </ItemGroup>
 

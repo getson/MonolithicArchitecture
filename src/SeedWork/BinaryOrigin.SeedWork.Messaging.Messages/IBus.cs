@@ -1,18 +1,19 @@
-﻿using BinaryOrigin.SeedWork.Commands;
-using BinaryOrigin.SeedWork.Core.Domain;
-using BinaryOrigin.SeedWork.Queries;
+﻿using BinaryOrigin.SeedWork.Core.Domain;
 using System;
 using System.Threading.Tasks;
 
-namespace BinaryOrigin.SeedWork.WebApi.Messaging
+namespace BinaryOrigin.SeedWork.Messages
 {
     public interface IBus
     {
         Task<Result<TCommandResult>> ExecuteAsync<TCommandResult>(ICommand<TCommandResult> command);
 
         Task<Result<TQueryResult>> QueryAsync<TQueryResult>(IQuery<TQueryResult> queryModel);
-        Task<Result> HandleMessageAsync(IMessage message);
+
+        Task<Result> HandleMessageAsync(IEvent message);
+
         void RegisterCommandHandlerDecorator(Type decorator);
+
         void RegisterQueryHandlerDecorator(Type decorator);
     }
 }

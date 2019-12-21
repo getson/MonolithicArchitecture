@@ -1,12 +1,10 @@
-﻿using BinaryOrigin.SeedWork.Commands;
-using BinaryOrigin.SeedWork.Core;
+﻿using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Core.Domain;
-using BinaryOrigin.SeedWork.Queries;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BinaryOrigin.SeedWork.WebApi.Messaging
+namespace BinaryOrigin.SeedWork.Messages
 {
     public class BaseBus : IBus
     {
@@ -14,11 +12,11 @@ namespace BinaryOrigin.SeedWork.WebApi.Messaging
         private readonly HashSet<Type> _queryHandlerDecorators = new HashSet<Type>();
         private readonly IHandlerResolver _commandHandlerResolver;
         private readonly IHandlerResolver _queryHandlerResolver;
-        private readonly IMessageHandlerResolver _messageHandlerResolver;
+        private readonly IEventHandlerResolver _messageHandlerResolver;
 
         protected BaseBus(IHandlerResolver commandHandlerResolver,
                           IHandlerResolver queryHandlerResolver,
-                          IMessageHandlerResolver messageHandlerResolver)
+                          IEventHandlerResolver messageHandlerResolver)
         {
             _commandHandlerResolver = commandHandlerResolver;
             _queryHandlerResolver = queryHandlerResolver;
@@ -32,11 +30,12 @@ namespace BinaryOrigin.SeedWork.WebApi.Messaging
 
             var handler = DecorateCommand(command, instance);
 
-            if (handler.Validate((dynamic)command))
-            {
-                return await handler.HandleAsync((dynamic)command);
-            }
-            return Result.Fail<TCommandResult>("Invalid Command");
+            //if (handler.Validate((dynamic)command))
+            //{
+            // TODO add fluent validation
+            return await handler.HandleAsync((dynamic)command);
+            //}
+            // return Result.Fail<TCommandResult>("Invalid Command");
         }
 
         public async Task<Result<TQueryResult>> QueryAsync<TQueryResult>(IQuery<TQueryResult> queryModel)
@@ -48,7 +47,7 @@ namespace BinaryOrigin.SeedWork.WebApi.Messaging
             return await handler.HandleAsync((dynamic)queryModel);
         }
 
-        public async Task<Result> HandleMessageAsync(IMessage message)
+        public async Task<Result> HandleMessageAsync(IEvent message)
         {
             var handlers = _messageHandlerResolver.Get(message.GetType());
             foreach (var handlerType in handlers)

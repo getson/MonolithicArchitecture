@@ -1,5 +1,4 @@
-﻿using System;
-using BinaryOrigin.SeedWork.Core.Domain;
+﻿using BinaryOrigin.SeedWork.Core.Domain;
 
 namespace App.Core.Domain.ProjectBC
 {

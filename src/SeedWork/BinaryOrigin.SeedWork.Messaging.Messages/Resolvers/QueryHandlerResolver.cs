@@ -1,10 +1,9 @@
 ﻿using BinaryOrigin.SeedWork.Core;
-using BinaryOrigin.SeedWork.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BinaryOrigin.SeedWork.WebApi.Messaging
+namespace BinaryOrigin.SeedWork.Messages
 {
     internal sealed class QueryHandlerResolver : IHandlerResolver
     {

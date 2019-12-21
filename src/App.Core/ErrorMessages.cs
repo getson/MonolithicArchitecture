@@ -1,10 +1,4 @@
-﻿using App.Core.Domain.ProjectBC;
-using BinaryOrigin.SeedWork.Core.Domain;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace App.Core
+﻿namespace App.Core
 {
     public static class ErrorMessages
     {

@@ -2,10 +2,11 @@
 using System;
 using System.Threading.Tasks;
 
-namespace BinaryOrigin.SeedWork.Commands.Decorators
+namespace BinaryOrigin.SeedWork.Messages.Decorators
 {
-    public sealed class ExceptionCommandHandlerDecorator<TCommand, TCommandResult> : BaseCommandHandlerDecorator<TCommand, TCommandResult>
-        where TCommand : ICommand<TCommandResult>
+    public sealed class ExceptionCommandHandlerDecorator<TCommand, TCommandResult>
+                : BaseCommandHandlerDecorator<TCommand, TCommandResult>
+                        where TCommand : ICommand<TCommandResult>
     {
         public ExceptionCommandHandlerDecorator(ICommandHandler<TCommand, TCommandResult> handler) : base(handler)
         {
@@ -21,11 +22,6 @@ namespace BinaryOrigin.SeedWork.Commands.Decorators
             {
                 return Result.Fail<TCommandResult>(exception.ToString());
             }
-        }
-
-        public override bool Validate(TCommand command)
-        {
-            return Handler.Validate(command);
         }
     }
 }

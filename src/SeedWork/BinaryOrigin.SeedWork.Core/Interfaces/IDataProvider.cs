@@ -11,11 +11,13 @@ namespace BinaryOrigin.SeedWork.Core
         /// Initialize database
         /// </summary>
         void InitializeDatabase();
+
         /// <summary>
         /// Get a support database parameter object (used by stored procedures)
         /// </summary>
         /// <returns>Parameter</returns>
         DbParameter GetParameter();
+
         void UpdateDatabase();
     }
 }

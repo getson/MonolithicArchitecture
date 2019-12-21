@@ -1,14 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Net.Http;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.PlatformAbstractions;
+using System;
+using System.Net.Http;
 
 namespace App.WebApi.IntegrationTest.Infrastructure
 {
-
-
     public sealed class TestServerFixture : IDisposable
     {
         public HttpClient Client { get; }
@@ -17,20 +13,21 @@ namespace App.WebApi.IntegrationTest.Infrastructure
         static TestServerFixture()
         {
             var builder = new WebHostBuilder()
-               //.UseContentRoot(GetContentRootPath())
+                //.UseContentRoot(GetContentRootPath())
                 .UseEnvironment("Testing")
                 .UseStartup<Startup>();
 
             TestServer = new TestServer(builder);
         }
+
         public TestServerFixture()
         {
             Client = TestServer.CreateClient();
         }
+
         public void Dispose()
         {
             Client.Dispose();
         }
     }
 }
-

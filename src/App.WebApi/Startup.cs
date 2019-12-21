@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using BinaryOrigin.SeedWork.Core;
+using BinaryOrigin.SeedWork.Core.Common;
+using BinaryOrigin.SeedWork.Core.Configuration;
+using BinaryOrigin.SeedWork.Infrastructure;
+using BinaryOrigin.SeedWork.WebApi;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using BinaryOrigin.SeedWork.Core;
-using BinaryOrigin.SeedWork.Core.Common;
-using BinaryOrigin.SeedWork.Core.Configuration;
-using BinaryOrigin.SeedWork.Infrastructure;
-using BinaryOrigin.SeedWork.WebApi;
 
 [assembly: ApiConventionType(typeof(DefaultApiConventions))]
 
@@ -19,7 +19,6 @@ namespace App.WebApi
         private readonly IWebHostEnvironment _environment;
         public IConfigurationRoot Configuration { get; }
 
-
         public Startup(IWebHostEnvironment environment)
         {
             Configuration = new ConfigurationBuilder()
@@ -29,8 +28,6 @@ namespace App.WebApi
                 .Build();
             _environment = environment;
         }
-
-
 
         /// <summary>
         /// Add services to the application and configure service provider
@@ -50,7 +47,7 @@ namespace App.WebApi
             var engine = (AppWebApiEngine)EngineContext.Create<AppWebApiEngine>();
 
             DefaultFileProvider.Instance = new AppFileProvider(AppContext.BaseDirectory);
-           
+
             engine.Initialize(services, DefaultFileProvider.Instance, appConfig);
             var serviceProvider = engine.ConfigureServices(services, appConfig);
 

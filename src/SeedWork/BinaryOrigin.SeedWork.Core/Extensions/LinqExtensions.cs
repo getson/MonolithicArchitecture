@@ -18,5 +18,4 @@ namespace BinaryOrigin.SeedWork.Core.Extensions
             }
         }
     }
-
 }

@@ -6,7 +6,7 @@
   
    <ItemGroup>
      <ProjectReference Include="..\App.Core\App.Core.csproj" />
-     <ProjectReference Include="..\SeedWork\BinaryOrigin.SeedWork.Messaging.Commands\BinaryOrigin.SeedWork.Commands.csproj" />
+     <ProjectReference Include="..\SeedWork\BinaryOrigin.SeedWork.Messaging.Messages\BinaryOrigin.SeedWork.Messages.csproj" />
    </ItemGroup>
 
 </Project>

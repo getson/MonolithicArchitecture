@@ -62,6 +62,7 @@ namespace BinaryOrigin.SeedWork.Core
         object ResolveUnregistered(Type type);
 
         IEnumerable<Type> FindClassesOfType<T>(Assembly assembly, bool onlyConcreteClasses = true);
+
         IEnumerable<Type> FindClassesOfType<T>(bool onlyConcreteClasses = true);
 
         IEnumerable<Type> FindClassesOfType(Type type, bool onlyConcreteClasses = true);

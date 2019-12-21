@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
+﻿using App.Infrastructure.Persistence.SqlServer.Context;
+using Autofac;
+using BinaryOrigin.SeedWork.Core;
+using BinaryOrigin.SeedWork.Persistence.Ef;
+using BinaryOrigin.SeedWork.Persistence.SqlServer;
 using BinaryOrigin.SeedWork.WebApi;
 using Microsoft.AspNetCore.Builder;
-using BinaryOrigin.SeedWork.Core;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using BinaryOrigin.SeedWork.Persistence.SqlServer;
-using Autofac;
-using BinaryOrigin.SeedWork.Persistence.Ef;
-using App.Infrastructure.Persistence.SqlServer.Context;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace App.WebApi.Extensions
 {
@@ -34,6 +33,7 @@ namespace App.WebApi.Extensions
         {
             app.UseMiddleware<ErrorHandlingMiddleware>();
         }
+
         /// <summary>
         /// Add HttpContextAccessor as a service
         /// </summary>
@@ -42,7 +42,5 @@ namespace App.WebApi.Extensions
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
-
-
     }
 }

@@ -1,9 +1,9 @@
-﻿using System;
-using BinaryOrigin.SeedWork.Commands;
-using App.Application.Commands.ProjectBC;
+﻿using App.Application.Commands.ProjectBC;
 using App.Core.Domain.ProjectBC;
-using System.Threading.Tasks;
 using BinaryOrigin.SeedWork.Core.Domain;
+using BinaryOrigin.SeedWork.Messages;
+using System;
+using System.Threading.Tasks;
 
 namespace App.Application.CommandHandlers.ProjectBC
 {
@@ -27,11 +27,6 @@ namespace App.Application.CommandHandlers.ProjectBC
             }
             await _projectRepository.DeleteAsync(projectOrNothing.Value);
             return Result.Ok(true);
-        }
-
-        public bool Validate(DeleteProject command)
-        {
-            return command.Id != Guid.Empty;
         }
     }
 }

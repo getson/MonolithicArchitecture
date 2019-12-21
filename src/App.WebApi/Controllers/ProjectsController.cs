@@ -1,8 +1,8 @@
-﻿using BinaryOrigin.SeedWork.WebApi.Controllers;
-using Microsoft.AspNetCore.Mvc;
-using App.Application.Commands.ProjectBC;
+﻿using App.Application.Commands.ProjectBC;
 using App.Application.Queries.ProjectBC;
-using BinaryOrigin.SeedWork.WebApi.Messaging;
+using BinaryOrigin.SeedWork.Messages;
+using BinaryOrigin.SeedWork.WebApi.Controllers;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace App.WebApi.Controllers
@@ -23,7 +23,6 @@ namespace App.WebApi.Controllers
         {
             _bus = bus;
         }
-
 
         /// <summary>
         /// Get All projects

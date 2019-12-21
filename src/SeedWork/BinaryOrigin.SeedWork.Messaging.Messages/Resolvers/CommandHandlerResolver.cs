@@ -1,10 +1,9 @@
-﻿using BinaryOrigin.SeedWork.Commands;
-using BinaryOrigin.SeedWork.Core;
+﻿using BinaryOrigin.SeedWork.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BinaryOrigin.SeedWork.WebApi.Messaging
+namespace BinaryOrigin.SeedWork.Messages
 {
     internal sealed class CommandHandlerResolver : IHandlerResolver
     {

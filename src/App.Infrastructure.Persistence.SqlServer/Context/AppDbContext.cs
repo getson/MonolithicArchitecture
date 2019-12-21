@@ -1,8 +1,5 @@
 ﻿using BinaryOrigin.SeedWork.Persistence.Ef;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace App.Infrastructure.Persistence.SqlServer.Context
 {

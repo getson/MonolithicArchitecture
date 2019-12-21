@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System;
+using System.IO;
+using System.Linq;
 
 namespace App.WebApi.Extensions
 {
@@ -13,7 +12,6 @@ namespace App.WebApi.Extensions
     {
         public static void UseAppSwagger(this IApplicationBuilder app)
         {
-
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
@@ -21,6 +19,7 @@ namespace App.WebApi.Extensions
                 options.SwaggerEndpoint($"/swagger/v1/swagger.json", "App");
             });
         }
+
         /// <summary>
         /// Configure Swagger
         /// </summary>
@@ -54,6 +53,7 @@ namespace App.WebApi.Extensions
             });
         }
     }
+
     public class SwaggerOperationFilter : IOperationFilter
     {
         /// <summary>
@@ -94,5 +94,4 @@ namespace App.WebApi.Extensions
             }
         }
     }
-
 }

@@ -1,12 +1,9 @@
 ﻿using App.Infrastructure.Persistence.SqlServer.Context;
 using BinaryOrigin.SeedWork.Core.Configuration;
-using BinaryOrigin.SeedWork.Persistence.Ef;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace App.Persistence.Context
 {

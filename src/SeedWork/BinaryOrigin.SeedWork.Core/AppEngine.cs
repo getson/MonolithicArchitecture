@@ -187,10 +187,12 @@ namespace BinaryOrigin.SeedWork.Core
         {
             return _typeFinder.FindClassesOfType<T>(onlyConcreteClasses);
         }
+
         public IEnumerable<Type> FindClassesOfType<T>(Assembly assembly, bool onlyConcreteClasses = true)
         {
             return _typeFinder.FindClassesOfType<T>(new List<Assembly> { assembly }, onlyConcreteClasses);
         }
+
         public IEnumerable<Type> FindClassesOfType(Type type, bool onlyConcreteClasses = true)
         {
             return _typeFinder.FindClassesOfType(type, onlyConcreteClasses);

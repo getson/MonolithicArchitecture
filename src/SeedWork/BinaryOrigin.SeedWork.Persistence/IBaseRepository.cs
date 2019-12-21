@@ -1,6 +1,6 @@
-﻿using System;
+﻿using BinaryOrigin.SeedWork.Core.Domain;
+using System;
 using System.Linq;
-using BinaryOrigin.SeedWork.Core.Domain;
 
 namespace BinaryOrigin.SeedWork.Persistence.Ef
 {

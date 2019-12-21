@@ -1,13 +1,11 @@
-﻿using System.Linq;
-using BinaryOrigin.SeedWork.Persistence.Ef;
-using BinaryOrigin.SeedWork.Queries;
-using App.Application.Queries.ProjectBC;
-using App.Persistence.ProjectBC;
+﻿using App.Application.Queries.ProjectBC;
 using App.Core.Domain.ProjectBC;
-using System.Threading.Tasks;
-using BinaryOrigin.SeedWork.Core.Domain;
-using Microsoft.EntityFrameworkCore;
 using BinaryOrigin.SeedWork.Core;
+using BinaryOrigin.SeedWork.Core.Domain;
+using BinaryOrigin.SeedWork.Messages;
+using BinaryOrigin.SeedWork.Persistence.Ef;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace App.Application.QueryHandlers.ProjectBC
 {

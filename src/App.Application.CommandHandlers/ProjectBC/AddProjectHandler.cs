@@ -1,10 +1,10 @@
 ﻿using App.Application.Commands.ProjectBC;
-using BinaryOrigin.SeedWork.Commands;
 using App.Core.Domain.ProjectBC;
+using BinaryOrigin.SeedWork.Core.Domain;
 using BinaryOrigin.SeedWork.Core.Extensions;
+using BinaryOrigin.SeedWork.Messages;
 using System;
 using System.Threading.Tasks;
-using BinaryOrigin.SeedWork.Core.Domain;
 
 namespace App.Application.CommandHandlers.ProjectBC
 {
@@ -28,11 +28,6 @@ namespace App.Application.CommandHandlers.ProjectBC
             }
             await _projectRepository.CreateAsync(projectResult.Value);
             return Result.Ok(projectResult.Value.Id);
-        }
-
-        public bool Validate(AddProject command)
-        {
-            return !command.Name.IsNullOrEmpty();
         }
     }
 }

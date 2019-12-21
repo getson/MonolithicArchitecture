@@ -6,7 +6,6 @@ namespace App.WebApi.IntegrationTest.Infrastructure
 {
     public static class ClientSerializer
     {
-
         static ClientSerializer()
         {
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
@@ -18,10 +17,8 @@ namespace App.WebApi.IntegrationTest.Infrastructure
 
         public static T Deserialize<T>(string jsonString)
         {
-
             try
             {
-
                 return JsonConvert.DeserializeObject<T>(jsonString);
             }
             catch (Exception)
@@ -30,6 +27,7 @@ namespace App.WebApi.IntegrationTest.Infrastructure
             }
             return default(T);
         }
+
         public static string Serialize<T>(T @object)
         {
             return JsonConvert.SerializeObject(@object);

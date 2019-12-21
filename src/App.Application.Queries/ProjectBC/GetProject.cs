@@ -1,5 +1,5 @@
-﻿using System;
-using BinaryOrigin.SeedWork.Queries;
+﻿using BinaryOrigin.SeedWork.Messages;
+using System;
 
 namespace App.Application.Queries.ProjectBC
 {
@@ -10,7 +10,6 @@ namespace App.Application.Queries.ProjectBC
 
     public sealed class GetProjectResult
     {
-
         public Guid Id { get; set; }
 
         public string Name { get; set; }

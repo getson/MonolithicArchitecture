@@ -1,9 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Security.Claims;
-using BinaryOrigin.SeedWork.Core;
+﻿using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Core.Extensions;
 using Microsoft.AspNetCore.Http;
+using System.Linq;
 
 namespace App.WebApi
 {
@@ -20,6 +18,7 @@ namespace App.WebApi
         {
             _httpContextAccessor = httpContextAccessor;
         }
+
         public string UserId
         {
             get
@@ -64,13 +63,14 @@ namespace App.WebApi
                 return _email;
             }
         }
+
         public string UserName
         {
             get
             {
                 if (_username.IsNullOrEmpty())
                 {
-                   _username = GetClaimValue("username");
+                    _username = GetClaimValue("username");
                 }
 
                 return _username;

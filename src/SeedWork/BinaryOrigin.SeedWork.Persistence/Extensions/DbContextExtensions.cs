@@ -7,7 +7,6 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace BinaryOrigin.SeedWork.Persistence.Ef.Extensions
 {

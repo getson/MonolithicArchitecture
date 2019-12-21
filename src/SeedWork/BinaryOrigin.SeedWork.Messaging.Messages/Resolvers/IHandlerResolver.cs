@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BinaryOrigin.SeedWork.WebApi.Messaging
+namespace BinaryOrigin.SeedWork.Messages
 {
     public interface IHandlerResolver
     {

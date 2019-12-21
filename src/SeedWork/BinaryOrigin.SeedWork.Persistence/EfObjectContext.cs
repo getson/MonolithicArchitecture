@@ -24,7 +24,6 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
 
         public EfObjectContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
         {
-
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -133,6 +132,7 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
         {
             Database.Migrate();
         }
+
         /// <summary>
         /// Executes the given SQL against the database
         /// </summary>
@@ -167,6 +167,7 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
 
             return result;
         }
+
         public virtual int ExecuteSqlCommand(string sql, bool doNotEnsureTransaction = false, int? timeout = null, params object[] parameters)
         {
             //set specific command timeout
@@ -193,6 +194,7 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
 
             return result;
         }
+
         /// <summary>
         /// Detach an entity from the context
         /// </summary>

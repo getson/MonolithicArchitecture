@@ -1,14 +1,13 @@
-﻿using System.Linq;
-using BinaryOrigin.SeedWork.Persistence.Ef;
-using BinaryOrigin.SeedWork.Queries;
-using App.Application.Queries.ProjectBC;
-using App.Persistence.ProjectBC;
-using BinaryOrigin.SeedWork.Core;
-using System.Collections.Generic;
-using BinaryOrigin.SeedWork.Core.Domain;
-using System.Threading.Tasks;
+﻿using App.Application.Queries.ProjectBC;
 using App.Core.Domain.ProjectBC;
+using BinaryOrigin.SeedWork.Core;
+using BinaryOrigin.SeedWork.Core.Domain;
+using BinaryOrigin.SeedWork.Messages;
+using BinaryOrigin.SeedWork.Persistence.Ef;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace App.Application.QueryHandlers.ProjectBC
 {
@@ -27,7 +26,7 @@ namespace App.Application.QueryHandlers.ProjectBC
         {
             var baseQuery = _dbContext.Set<Project>().AsNoTracking();
 
-            var result =await baseQuery.Skip(queryModel.Offset)
+            var result = await baseQuery.Skip(queryModel.Offset)
                                   .Take(queryModel.Limit)
                                   .ToListAsync();
 

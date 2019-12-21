@@ -17,8 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BinaryOrigin.SeedWork.Core\BinaryOrigin.SeedWork.Core.csproj" />
     <ProjectReference Include="..\BinaryOrigin.SeedWork.Infrastructure\BinaryOrigin.SeedWork.Infrastructure.csproj" />
-    <ProjectReference Include="..\BinaryOrigin.SeedWork.Messaging.Commands\BinaryOrigin.SeedWork.Commands.csproj" />
-    <ProjectReference Include="..\BinaryOrigin.SeedWork.Messaging.Queries\BinaryOrigin.SeedWork.Queries.csproj" />
+    <ProjectReference Include="..\BinaryOrigin.SeedWork.Messaging.Messages\BinaryOrigin.SeedWork.Messages.csproj" />
     <ProjectReference Include="..\BinaryOrigin.SeedWork.Persistence.SqlServer\BinaryOrigin.SeedWork.Persistence.SqlServer.csproj" />
     <ProjectReference Include="..\BinaryOrigin.SeedWork.Persistence\BinaryOrigin.SeedWork.Persistence.Ef.csproj" />
   </ItemGroup>

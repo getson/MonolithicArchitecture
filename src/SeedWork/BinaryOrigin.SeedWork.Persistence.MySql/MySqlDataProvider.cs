@@ -2,7 +2,6 @@
 using BinaryOrigin.SeedWork.Persistence.Ef.Extensions;
 using MySql.Data.MySqlClient;
 using System.Data.Common;
-using System.Threading.Tasks;
 
 namespace BinaryOrigin.SeedWork.Persistence.Ef.MySql
 {
@@ -40,7 +39,6 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef.MySql
 
         public void UpdateDatabase()
         {
-
             //update schema
             _dbContext.UpdateDatabase();
 
