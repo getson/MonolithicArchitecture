@@ -35,9 +35,13 @@ namespace BinaryOrigin.SeedWork.WebApi
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             var code = HttpStatusCode.InternalServerError; // 500 if unexpected
-
+            object errorMessage = null;
             switch (exception)
             {
+                case CommandValidationException _:
+                    code = HttpStatusCode.BadRequest;
+                    errorMessage = exception.Data;
+                    break;
                 case EntityDoesNotExistException _:
                     code = HttpStatusCode.NotFound;
                     break;
@@ -65,7 +69,7 @@ namespace BinaryOrigin.SeedWork.WebApi
 
             var result = JsonConvert.SerializeObject(new
             {
-                error = exception.Message
+                error = errorMessage ?? exception.Message
             });
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;

@@ -1,5 +1,7 @@
 ﻿using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Core.Domain;
+using BinaryOrigin.SeedWork.Core.Exceptions;
+using BinaryOrigin.SeedWork.Messages.Validation;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,29 +15,31 @@ namespace BinaryOrigin.SeedWork.Messages
         private readonly IHandlerResolver _commandHandlerResolver;
         private readonly IHandlerResolver _queryHandlerResolver;
         private readonly IEventHandlerResolver _messageHandlerResolver;
+        private readonly IValidationProvider _validationProvider;
 
         protected BaseBus(IHandlerResolver commandHandlerResolver,
                           IHandlerResolver queryHandlerResolver,
-                          IEventHandlerResolver messageHandlerResolver)
+                          IEventHandlerResolver messageHandlerResolver,
+                          IValidationProvider validationProvider)
         {
             _commandHandlerResolver = commandHandlerResolver;
             _queryHandlerResolver = queryHandlerResolver;
             _messageHandlerResolver = messageHandlerResolver;
+            _validationProvider = validationProvider;
         }
 
         public async Task<Result<TCommandResult>> ExecuteAsync<TCommandResult>(ICommand<TCommandResult> command)
         {
             var handlerType = _commandHandlerResolver.Get(command.GetType());
             var instance = EngineContext.Current.Resolve(handlerType.GetInterfaces()[0]);
-
             var handler = DecorateCommand(command, instance);
 
-            //if (handler.Validate((dynamic)command))
-            //{
-            // TODO add fluent validation
-            return await handler.HandleAsync((dynamic)command);
-            //}
-            // return Result.Fail<TCommandResult>("Invalid Command");
+            var validationResult = await _validationProvider.ValidateAsync(command);
+            if (validationResult.IsValid)
+            {
+                return await handler.HandleAsync((dynamic)command);
+            }
+            throw new CommandValidationException(validationResult.Errors);
         }
 
         public async Task<Result<TQueryResult>> QueryAsync<TQueryResult>(IQuery<TQueryResult> queryModel)

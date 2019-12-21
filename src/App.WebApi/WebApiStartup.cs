@@ -37,6 +37,7 @@ namespace App.WebApi
             }
             engine.AddInMemoryBus();
             engine.AddRepositories();
+            engine.AddFluentValidation();
             engine.AddCommandHandlers();
         }
 

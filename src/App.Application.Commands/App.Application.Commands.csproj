@@ -3,6 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.5.1" />
+  </ItemGroup>
   
    <ItemGroup>
      <ProjectReference Include="..\App.Core\App.Core.csproj" />

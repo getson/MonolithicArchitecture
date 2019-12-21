@@ -5,10 +5,13 @@ using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Core.Domain;
 using BinaryOrigin.SeedWork.Core.Extensions;
 using BinaryOrigin.SeedWork.Messages;
+using BinaryOrigin.SeedWork.Messages.Validation;
 using BinaryOrigin.SeedWork.Persistence.Ef;
 using BinaryOrigin.SeedWork.Persistence.SqlServer;
 
 using BinaryOrigin.SeedWork.WebApi.Mapping;
+using BinaryOrigin.SeedWork.WebApi.Validations;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -57,14 +60,37 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
         {
             engine.Register(builder =>
             {
-                builder.RegisterType<Bus>().As<IBus>().SingleInstance();
+                builder.Register(x => new Bus(new FluentValidationProvider()))
+                       .As<IBus>()
+                       .SingleInstance();
             });
         }
+        public static void AddFluentValidation(this IEngine engine)
+        {
+            engine.Register(builder =>
+            {
+                var asmsWithCommandValidator = engine.FindClassesOfType(typeof(IValidator<>))
+                                                    .Where(x => !x.AssemblyQualifiedName.Contains("SeedWork"))
+                                                    .Select(x => x.Assembly)
+                                                    .DistinctBy(x => x.FullName)
+                                                    .ToList();
 
+                foreach (var asm in asmsWithCommandValidator)
+                {
+                    builder.RegisterAssemblyTypes(asm)
+                            .AsClosedTypesOf(typeof(IValidator<>))
+                            .InstancePerLifetimeScope();
+                }
+                builder.RegisterType<FluentValidationProvider>()
+                .As<IValidationProvider>()
+                .InstancePerLifetimeScope();
+            });
+        }
         public static void AddCommandHandlers(this IEngine engine)
         {
             engine.Register(builder =>
             {
+
                 var commandHandlers = engine.FindClassesOfType(typeof(ICommandHandler<,>))
                     .Where(x => !x.AssemblyQualifiedName.Contains("SeedWork"))
                     .ToList();
