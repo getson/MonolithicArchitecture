@@ -38,7 +38,7 @@ namespace BinaryOrigin.SeedWork.Messages
 
         public async Task<Result<TQueryResult>> QueryAsync<TQueryResult>(IQuery<TQueryResult> query)
         {
-            var handlerInstance = _handlerResolver.ResolveQueryHandler(query, typeof(ICommandHandler<,>));
+            var handlerInstance = _handlerResolver.ResolveQueryHandler(query, typeof(IQueryHandler<,>));
             var handler = DecorateQuery(query, handlerInstance);
 
             return await handler.HandleAsync((dynamic)query);
