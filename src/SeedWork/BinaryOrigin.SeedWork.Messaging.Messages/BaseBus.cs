@@ -1,5 +1,4 @@
-﻿using BinaryOrigin.SeedWork.Core;
-using BinaryOrigin.SeedWork.Core.Domain;
+﻿using BinaryOrigin.SeedWork.Core.Domain;
 using BinaryOrigin.SeedWork.Core.Exceptions;
 using BinaryOrigin.SeedWork.Messages.Validation;
 using System;
@@ -24,7 +23,6 @@ namespace BinaryOrigin.SeedWork.Messages
 
         public async Task<Result<TCommandResult>> ExecuteAsync<TCommandResult>(ICommand<TCommandResult> command)
         {
-
             var handlerInstance = _handlerResolver.ResolveCommandHandler(command, typeof(ICommandHandler<,>));
             var handler = DecorateCommand(command, handlerInstance);
 

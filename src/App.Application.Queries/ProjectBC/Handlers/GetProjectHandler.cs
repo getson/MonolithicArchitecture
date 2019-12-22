@@ -1,12 +1,10 @@
 ﻿using App.Core.Domain.ProjectBC;
-using BinaryOrigin.SeedWork.Core.Domain;
 using BinaryOrigin.SeedWork.Core;
+using BinaryOrigin.SeedWork.Core.Domain;
 using BinaryOrigin.SeedWork.Messages;
 using BinaryOrigin.SeedWork.Persistence.Ef;
-using System;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace App.Application.Queries.ProjectBC.Handlers
 {
@@ -29,5 +27,4 @@ namespace App.Application.Queries.ProjectBC.Handlers
             return Result.Ok(_typeAdapter.Adapt<GetProjectResult>(result));
         }
     }
-
 }

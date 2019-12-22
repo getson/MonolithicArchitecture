@@ -129,6 +129,7 @@ namespace BinaryOrigin.SeedWork.Core
         {
             return (T)GetServiceProvider().GetRequiredService(typeof(T));
         }
+
         /// <summary>
         /// Resolve dependency
         /// </summary>
@@ -138,12 +139,14 @@ namespace BinaryOrigin.SeedWork.Core
         {
             return GetServiceProvider().GetRequiredService(type);
         }
+
         public object Resolve(object param, Type type)
         {
             var paramType = param.GetType();
             var genericType = type.MakeGenericType(paramType);
             return GetServiceProvider().GetService(genericType);
         }
+
         /// <summary>
         /// Resolve dependencies
         /// </summary>

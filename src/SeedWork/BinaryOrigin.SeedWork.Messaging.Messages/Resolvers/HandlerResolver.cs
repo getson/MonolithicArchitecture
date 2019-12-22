@@ -12,6 +12,7 @@ namespace BinaryOrigin.SeedWork.Messages
         {
             _engine = engine;
         }
+
         public object ResolveHandler(Type handlerType)
         {
             return _engine.Resolve(handlerType);

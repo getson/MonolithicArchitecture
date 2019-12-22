@@ -1,12 +1,12 @@
 ﻿using App.Core.Domain.ProjectBC;
-using BinaryOrigin.SeedWork.Core.Domain;
 using BinaryOrigin.SeedWork.Core;
+using BinaryOrigin.SeedWork.Core.Domain;
 using BinaryOrigin.SeedWork.Messages;
 using BinaryOrigin.SeedWork.Persistence.Ef;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace App.Application.Queries.ProjectBC.Handlers
 {
@@ -38,5 +38,4 @@ namespace App.Application.Queries.ProjectBC.Handlers
             });
         }
     }
-
 }

@@ -5,7 +5,7 @@
     /// it has only one handler
     /// </summary>
     /// <typeparam name="TCommandResult"></typeparam>
-    public interface ICommand<TCommandResult> 
+    public interface ICommand<TCommandResult>
     {
     }
 }

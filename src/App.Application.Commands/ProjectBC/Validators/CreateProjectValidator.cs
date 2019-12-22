@@ -1,6 +1,4 @@
 ﻿using FluentValidation;
-using System.Collections.Generic;
-using System.Text;
 
 namespace App.Application.Commands.ProjectBC.Validators
 {

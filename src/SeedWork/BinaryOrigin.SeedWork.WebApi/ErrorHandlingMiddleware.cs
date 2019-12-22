@@ -42,6 +42,7 @@ namespace BinaryOrigin.SeedWork.WebApi
                     code = HttpStatusCode.BadRequest;
                     errorMessage = exception.Data;
                     break;
+
                 case UnAuthorizedException _:
                     code = HttpStatusCode.Unauthorized;
                     break;

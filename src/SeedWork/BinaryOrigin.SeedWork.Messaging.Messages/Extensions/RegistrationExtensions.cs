@@ -1,9 +1,6 @@
 ﻿using Autofac;
 using BinaryOrigin.SeedWork.Core;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BinaryOrigin.SeedWork.Messages
 {
@@ -23,11 +20,11 @@ namespace BinaryOrigin.SeedWork.Messages
             });
             engine.AddHandlers();
         }
+
         private static void AddHandlers(this IEngine engine)
         {
             engine.Register(builder =>
             {
-
                 var commandHandlersAsms = engine.FindClassesOfType(typeof(ICommandHandler<,>))
                     .Where(x => !x.AssemblyQualifiedName.Contains("SeedWork"))
                     .Select(x => x.Assembly)
@@ -74,6 +71,5 @@ namespace BinaryOrigin.SeedWork.Messages
                 }
             });
         }
-
     }
 }

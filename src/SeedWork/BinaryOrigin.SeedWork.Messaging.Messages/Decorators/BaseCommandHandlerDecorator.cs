@@ -12,7 +12,7 @@ namespace BinaryOrigin.SeedWork.Messages.Decorators
         {
             Handler = handler;
         }
-        public abstract Task<Result<TCommandResult>> HandleAsync(TCommand command);
 
+        public abstract Task<Result<TCommandResult>> HandleAsync(TCommand command);
     }
 }

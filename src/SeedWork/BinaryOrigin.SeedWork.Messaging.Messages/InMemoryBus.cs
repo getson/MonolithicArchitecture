@@ -7,7 +7,7 @@ namespace BinaryOrigin.SeedWork.Messages
     {
         public InMemoryBus(IHandlerResolver handlerResolver,
                            ICommandValidationProvider validationProvider)
-            : base(handlerResolver,validationProvider)
+            : base(handlerResolver, validationProvider)
         {
             RegisterQueryHandlerDecorator(typeof(ExceptionQueryHandlerDecorator<,>));
             RegisterCommandHandlerDecorator(typeof(ExceptionCommandHandlerDecorator<,>));

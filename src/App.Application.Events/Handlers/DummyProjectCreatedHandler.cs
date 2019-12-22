@@ -1,12 +1,10 @@
 ﻿using BinaryOrigin.SeedWork.Messages;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace App.Application.Events.Handlers
 {
-    class DummyProjectCreatedHandler : IEventHandler<ProjectCreated>
+    internal class DummyProjectCreatedHandler : IEventHandler<ProjectCreated>
     {
         public Task HandleAsync(ProjectCreated message)
         {
@@ -14,7 +12,8 @@ namespace App.Application.Events.Handlers
             return Task.CompletedTask;
         }
     }
-    class Dummy2ProjectCreatedHandler : IEventHandler<ProjectCreated>
+
+    internal class Dummy2ProjectCreatedHandler : IEventHandler<ProjectCreated>
     {
         public Task HandleAsync(ProjectCreated message)
         {

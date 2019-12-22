@@ -4,7 +4,6 @@ using AutoMapper;
 using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Core.Domain;
 using BinaryOrigin.SeedWork.Core.Extensions;
-using BinaryOrigin.SeedWork.Messages;
 using BinaryOrigin.SeedWork.Messages.Validation;
 using BinaryOrigin.SeedWork.Persistence.Ef;
 using BinaryOrigin.SeedWork.Persistence.SqlServer;
@@ -39,6 +38,7 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
                         .InstancePerLifetimeScope();
             });
         }
+
         public static void AddInMemoryDbContext(this IEngine engine)
         {
             var optionsBuilder = new DbContextOptionsBuilder<EfObjectContext>();
@@ -54,6 +54,7 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
                         .InstancePerLifetimeScope();
             });
         }
+
         public static void AddFluentValidation(this IEngine engine)
         {
             engine.Register(builder =>
@@ -75,6 +76,7 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
                        .InstancePerLifetimeScope();
             });
         }
+
         public static void AddRepositories(this IEngine engine)
         {
             engine.Register(builder =>

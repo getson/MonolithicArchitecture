@@ -4,10 +4,7 @@ using BinaryOrigin.SeedWork.Messages;
 using BinaryOrigin.SeedWork.Messages.Validation;
 using FluentValidation;
 using FluentValidation.Results;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,7 +26,6 @@ namespace BinaryOrigin.SeedWork.WebApi.Validations
 
         public async Task<ValidationResponse> ValidateAsync<TCommandResult>(ICommand<TCommandResult> command)
         {
-
             var validator = EngineContext.Current.Resolve(command, typeof(IValidator<>));
             if (validator == null)
             {

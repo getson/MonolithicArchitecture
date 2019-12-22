@@ -13,7 +13,6 @@ namespace App.Application.Commands.ProjectBC.Validators
                 .WithMessage(ErrorMessages.InvalidId);
             RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.Description).NotEmpty();
-
         }
     }
 }

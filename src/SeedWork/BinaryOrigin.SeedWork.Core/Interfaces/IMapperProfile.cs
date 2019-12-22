@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace BinaryOrigin.SeedWork.Core
+﻿namespace BinaryOrigin.SeedWork.Core
 {
     /// <summary>
     /// Mapper profile registrar interface

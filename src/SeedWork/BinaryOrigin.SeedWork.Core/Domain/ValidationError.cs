@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BinaryOrigin.SeedWork.Core.Domain
+﻿namespace BinaryOrigin.SeedWork.Core.Domain
 {
     public class ValidationError
     {
