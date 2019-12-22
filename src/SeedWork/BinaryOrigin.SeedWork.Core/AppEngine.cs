@@ -143,7 +143,7 @@ namespace BinaryOrigin.SeedWork.Core
         {
             var paramType = param.GetType();
             var genericType = type.MakeGenericType(paramType);
-            return GetServiceProvider().GetRequiredService(genericType);
+            return GetServiceProvider().GetService(genericType);
         }
         /// <summary>
         /// Resolve dependencies

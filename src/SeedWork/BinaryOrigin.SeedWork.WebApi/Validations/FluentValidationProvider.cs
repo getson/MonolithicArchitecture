@@ -31,7 +31,11 @@ namespace BinaryOrigin.SeedWork.WebApi.Validations
         {
 
             var validator = EngineContext.Current.Resolve(command, typeof(IValidator<>));
-            
+            if(validator == null)
+            {
+                // No validator found!
+                return new ValidationResponse();
+            }
             var validateMethod = validator.GetType().GetMethod("ValidateAsync", new[] { command.GetType(), typeof(CancellationToken) });
             var validationResult = await (Task<ValidationResult>)validateMethod.Invoke(validator, new object[] { command, default(CancellationToken) });
 

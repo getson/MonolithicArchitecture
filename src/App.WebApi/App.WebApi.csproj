@@ -25,10 +25,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0-rc5" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\App.Application.CommandHandlers\App.Application.CommandHandlers.csproj" />
     <ProjectReference Include="..\App.Application.Commands\App.Application.Commands.csproj" />
     <ProjectReference Include="..\App.Application.Queries\App.Application.Queries.csproj" />
-    <ProjectReference Include="..\App.Application.QueryHandlers\App.Application.QueryHandlers.csproj" />
     <ProjectReference Include="..\App.Core\App.Core.csproj" />
     <ProjectReference Include="..\App.Infrastructure.Persistence.SqlServer\App.Infrastructure.Persistence.SqlServer.csproj" />
     <ProjectReference Include="..\SeedWork\BinaryOrigin.SeedWork.Messaging.Messages\BinaryOrigin.SeedWork.Messages.csproj" />

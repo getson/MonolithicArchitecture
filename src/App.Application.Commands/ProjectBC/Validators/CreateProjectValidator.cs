@@ -1,10 +1,9 @@
-﻿using App.Application.Commands.ProjectBC;
-using FluentValidation;
+﻿using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace App.Application.Commands
+namespace App.Application.Commands.ProjectBC.Validators
 {
     public class CreateProjectValidator : AbstractValidator<AddProject>
     {
@@ -12,6 +11,13 @@ namespace App.Application.Commands
         {
             RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.Description).NotEmpty();
+        }
+    }
+    public class DeleteProductValidator : AbstractValidator<DeleteProject>
+    {
+        public DeleteProductValidator()
+        {
+            RuleFor(x => x.Id).NotEqual(Guid.Empty);
         }
     }
 }

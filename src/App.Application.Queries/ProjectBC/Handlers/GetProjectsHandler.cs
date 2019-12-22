@@ -1,15 +1,14 @@
-﻿using App.Application.Queries.ProjectBC;
-using App.Core.Domain.ProjectBC;
-using BinaryOrigin.SeedWork.Core;
+﻿using App.Core.Domain.ProjectBC;
 using BinaryOrigin.SeedWork.Core.Domain;
+using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Messages;
 using BinaryOrigin.SeedWork.Persistence.Ef;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
-namespace App.Application.QueryHandlers.ProjectBC
+namespace App.Application.Queries.ProjectBC.Handlers
 {
     public class GetProjectsHandler : IQueryHandler<GetProjects, GetProjectsResult>
     {
@@ -39,4 +38,5 @@ namespace App.Application.QueryHandlers.ProjectBC
             });
         }
     }
+
 }
