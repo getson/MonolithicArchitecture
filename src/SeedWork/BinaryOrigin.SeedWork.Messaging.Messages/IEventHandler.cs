@@ -5,6 +5,6 @@ namespace BinaryOrigin.SeedWork.Messages
 {
     public interface IEventHandler<in TMessage> where TMessage : IEvent
     {
-        Task PublishAsync(TMessage message);
+        Task HandleAsync(TMessage message);
     }
 }

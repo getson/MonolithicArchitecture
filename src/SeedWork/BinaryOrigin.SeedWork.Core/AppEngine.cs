@@ -129,7 +129,6 @@ namespace BinaryOrigin.SeedWork.Core
         {
             return (T)GetServiceProvider().GetRequiredService(typeof(T));
         }
-
         /// <summary>
         /// Resolve dependency
         /// </summary>

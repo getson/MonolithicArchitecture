@@ -20,6 +20,7 @@ namespace BinaryOrigin.SeedWork.Core.Exceptions
             : base("validation_Exception")
         {
             ValidationErrors = validationErrors;
+            Data["errors"] = validationErrors;
         }
 
         public ValidationException()

@@ -1,4 +1,5 @@
 ﻿using App.Application.Commands.ProjectBC;
+using App.Application.Events;
 using App.Application.Queries.ProjectBC;
 using BinaryOrigin.SeedWork.Messages;
 using BinaryOrigin.SeedWork.WebApi.Controllers;
@@ -68,6 +69,7 @@ namespace App.WebApi.Controllers
             {
                 return BadRequest(result.Error);
             }
+            await _bus.PublishAsync(new ProjectCreated());
             return Ok(result.Value);
         }
 

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace BinaryOrigin.SeedWork.WebApi.Validations
 {
-    public class FluentValidationProvider : IValidationProvider
+    public class FluentValidationProvider : ICommandValidationProvider
     {
         private static ValidationResponse BuildValidationResponse(ValidationResult validationResult)
         {
@@ -31,7 +31,7 @@ namespace BinaryOrigin.SeedWork.WebApi.Validations
         {
 
             var validator = EngineContext.Current.Resolve(command, typeof(IValidator<>));
-            if(validator == null)
+            if (validator == null)
             {
                 // No validator found!
                 return new ValidationResponse();

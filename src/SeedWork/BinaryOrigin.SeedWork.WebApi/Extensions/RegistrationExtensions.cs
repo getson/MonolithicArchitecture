@@ -39,7 +39,6 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
                         .InstancePerLifetimeScope();
             });
         }
-
         public static void AddInMemoryDbContext(this IEngine engine)
         {
             var optionsBuilder = new DbContextOptionsBuilder<EfObjectContext>();
@@ -55,16 +54,6 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
                         .InstancePerLifetimeScope();
             });
         }
-
-        public static void AddInMemoryBus(this IEngine engine)
-        {
-            engine.Register(builder =>
-            {
-                builder.Register(x => new Bus(new FluentValidationProvider()))
-                       .As<IBus>()
-                       .SingleInstance();
-            });
-        }
         public static void AddFluentValidation(this IEngine engine)
         {
             engine.Register(builder =>
@@ -72,7 +61,7 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
                 var asmsWithCommandValidator = engine.FindClassesOfType(typeof(IValidator<>))
                                                     .Where(x => !x.AssemblyQualifiedName.Contains("SeedWork"))
                                                     .Select(x => x.Assembly)
-                                                    .DistinctBy(x => x.FullName)
+                                                    .Distinct()
                                                     .ToList();
 
                 foreach (var asm in asmsWithCommandValidator)
@@ -82,56 +71,10 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
                             .InstancePerLifetimeScope();
                 }
                 builder.RegisterType<FluentValidationProvider>()
-                .As<IValidationProvider>()
-                .InstancePerLifetimeScope();
+                       .As<ICommandValidationProvider>()
+                       .InstancePerLifetimeScope();
             });
         }
-        public static void AddCommandHandlers(this IEngine engine)
-        {
-            engine.Register(builder =>
-            {
-
-                var commandHandlers = engine.FindClassesOfType(typeof(ICommandHandler<,>))
-                    .Where(x => !x.AssemblyQualifiedName.Contains("SeedWork"))
-                    .ToList();
-                if (commandHandlers.Any())
-                {
-                    commandHandlers.ForEach(commandHandler =>
-                    {
-                        builder.RegisterAssemblyTypes(commandHandler.Assembly)
-                                         .AsClosedTypesOf(typeof(ICommandHandler<,>))
-                                         .InstancePerLifetimeScope();
-                    });
-                }
-
-                var queryHandlers = engine.FindClassesOfType(typeof(IQueryHandler<,>))
-                    .Where(x => !x.AssemblyQualifiedName.Contains("SeedWork"))
-                    .ToList();
-                if (queryHandlers.Any())
-                {
-                    queryHandlers.ForEach(queryHandler =>
-                    {
-                        builder.RegisterAssemblyTypes(queryHandler.Assembly)
-                            .AsClosedTypesOf(typeof(IQueryHandler<,>))
-                            .InstancePerLifetimeScope();
-                    });
-                }
-
-                var messageHandlers = engine.FindClassesOfType(typeof(IEventHandler<>))
-                      .Where(x => !x.AssemblyQualifiedName.Contains("SeedWork"))
-                      .ToList();
-                if (messageHandlers.Any())
-                {
-                    messageHandlers.ForEach(messageHandler =>
-                    {
-                        builder.RegisterType(messageHandler)
-                        .AsSelf()
-                        .InstancePerLifetimeScope();
-                    });
-                }
-            });
-        }
-
         public static void AddRepositories(this IEngine engine)
         {
             engine.Register(builder =>

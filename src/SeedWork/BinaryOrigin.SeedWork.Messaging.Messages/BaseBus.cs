@@ -12,27 +12,21 @@ namespace BinaryOrigin.SeedWork.Messages
     {
         private readonly HashSet<Type> _commandHandlerDecorators = new HashSet<Type>();
         private readonly HashSet<Type> _queryHandlerDecorators = new HashSet<Type>();
-        private readonly IHandlerResolver _commandHandlerResolver;
-        private readonly IHandlerResolver _queryHandlerResolver;
-        private readonly IEventHandlerResolver _messageHandlerResolver;
-        private readonly IValidationProvider _validationProvider;
+        private readonly IHandlerResolver _handlerResolver;
+        private readonly ICommandValidationProvider _validationProvider;
 
-        protected BaseBus(IHandlerResolver commandHandlerResolver,
-                          IHandlerResolver queryHandlerResolver,
-                          IEventHandlerResolver messageHandlerResolver,
-                          IValidationProvider validationProvider)
+        protected BaseBus(IHandlerResolver handlerResolver,
+                          ICommandValidationProvider validationProvider)
         {
-            _commandHandlerResolver = commandHandlerResolver;
-            _queryHandlerResolver = queryHandlerResolver;
-            _messageHandlerResolver = messageHandlerResolver;
+            _handlerResolver = handlerResolver;
             _validationProvider = validationProvider;
         }
 
         public async Task<Result<TCommandResult>> ExecuteAsync<TCommandResult>(ICommand<TCommandResult> command)
         {
-            var handlerType = _commandHandlerResolver.Get(command.GetType());
-            var instance = EngineContext.Current.Resolve(handlerType.GetInterfaces()[0]);
-            var handler = DecorateCommand(command, instance);
+
+            var handlerInstance = _handlerResolver.ResolveCommandHandler(command, typeof(ICommandHandler<,>));
+            var handler = DecorateCommand(command, handlerInstance);
 
             var validationResult = await _validationProvider.ValidateAsync(command);
             if (validationResult.IsValid)
@@ -42,25 +36,21 @@ namespace BinaryOrigin.SeedWork.Messages
             throw new CommandValidationException(validationResult.Errors);
         }
 
-        public async Task<Result<TQueryResult>> QueryAsync<TQueryResult>(IQuery<TQueryResult> queryModel)
+        public async Task<Result<TQueryResult>> QueryAsync<TQueryResult>(IQuery<TQueryResult> query)
         {
-            var handlerType = _queryHandlerResolver.Get(queryModel.GetType());
-            var handlerInstance = EngineContext.Current.Resolve(handlerType.GetInterfaces()[0]);
+            var handlerInstance = _handlerResolver.ResolveQueryHandler(query, typeof(ICommandHandler<,>));
+            var handler = DecorateQuery(query, handlerInstance);
 
-            var handler = DecorateQuery(queryModel, handlerInstance);
-            return await handler.HandleAsync((dynamic)queryModel);
+            return await handler.HandleAsync((dynamic)query);
         }
 
-        public async Task<Result> HandleMessageAsync(IEvent message)
+        public async Task PublishAsync<TEvent>(TEvent @event) where TEvent : IEvent
         {
-            var handlers = _messageHandlerResolver.Get(message.GetType());
-            foreach (var handlerType in handlers)
+            var handlers = _handlerResolver.ResolveEventHandlers<IEventHandler<TEvent>>();
+            foreach (var handler in handlers)
             {
-                var handlerInstance = (dynamic)EngineContext.Current.Resolve(handlerType);
-                //TODO log message and status
-                await handlerInstance.HandleAsync((dynamic)message);
+                await handler.HandleAsync(@event);
             }
-            return Result.Ok();
         }
 
         public void RegisterCommandHandlerDecorator(Type decorator)

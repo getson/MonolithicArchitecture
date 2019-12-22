@@ -1,6 +1,7 @@
 ﻿using App.WebApi.Extensions;
 using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Core.Configuration;
+using BinaryOrigin.SeedWork.Messages;
 using BinaryOrigin.SeedWork.WebApi;
 using BinaryOrigin.SeedWork.WebApi.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -38,7 +39,6 @@ namespace App.WebApi
             engine.AddInMemoryBus();
             engine.AddRepositories();
             engine.AddFluentValidation();
-            engine.AddCommandHandlers();
         }
 
         /// <inheritdoc />

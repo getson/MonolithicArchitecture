@@ -10,7 +10,7 @@ namespace BinaryOrigin.SeedWork.Messages
 
         Task<Result<TQueryResult>> QueryAsync<TQueryResult>(IQuery<TQueryResult> queryModel);
 
-        Task<Result> HandleMessageAsync(IEvent message);
+        Task PublishAsync<TEvent>(TEvent @event) where TEvent : IEvent;
 
         void RegisterCommandHandlerDecorator(Type decorator);
 

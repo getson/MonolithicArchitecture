@@ -42,16 +42,13 @@ namespace BinaryOrigin.SeedWork.WebApi
                     code = HttpStatusCode.BadRequest;
                     errorMessage = exception.Data;
                     break;
-                case EntityDoesNotExistException _:
-                    code = HttpStatusCode.NotFound;
-                    break;
-
                 case UnAuthorizedException _:
                     code = HttpStatusCode.Unauthorized;
                     break;
 
                 case ValidationException _:
                     code = HttpStatusCode.BadRequest;
+                    errorMessage = exception.Data;
                     break;
 
                 case GeneralConflictException _:
