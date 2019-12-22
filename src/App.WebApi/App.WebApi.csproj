@@ -25,7 +25,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0-rc5" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\App.Application.Events\App.Application.Events.csproj" />
+    <ProjectReference Include="..\App.Application.Events\App.Application.Events.csproj" />
     <ProjectReference Include="..\App.Application.Commands\App.Application.Commands.csproj" />
     <ProjectReference Include="..\App.Application.Queries\App.Application.Queries.csproj" />
     <ProjectReference Include="..\App.Core\App.Core.csproj" />

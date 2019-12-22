@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\SeedWork\BinaryOrigin.SeedWork.Messaging.Messages\BinaryOrigin.SeedWork.Messages.csproj" />
+    <ProjectReference Include="..\SeedWork\BinaryOrigin.SeedWork.Messaging.Messages\BinaryOrigin.SeedWork.Messages.csproj" />
   </ItemGroup>
 
 </Project>

@@ -39,7 +39,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.WebApi", "src\App.WebApi\App.WebApi.csproj", "{891B6EF4-09E7-4F00-B79D-0E4B5F3BDBEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Application.Events", "App.Application.Events\App.Application.Events.csproj", "{96681840-6280-426D-8EC1-DDFDC9F28007}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Application.Events", "src\App.Application.Events\App.Application.Events.csproj", "{96681840-6280-426D-8EC1-DDFDC9F28007}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
