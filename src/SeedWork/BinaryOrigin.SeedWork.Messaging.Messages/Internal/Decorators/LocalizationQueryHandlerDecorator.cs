@@ -1,5 +1,4 @@
 ﻿using BinaryOrigin.SeedWork.Core.Domain;
-using System;
 using System.Threading.Tasks;
 
 namespace BinaryOrigin.SeedWork.Messages.Decorators

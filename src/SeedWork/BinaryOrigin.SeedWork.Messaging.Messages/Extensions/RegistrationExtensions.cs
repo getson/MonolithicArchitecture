@@ -2,7 +2,6 @@
 using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Messages.Decorators;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace BinaryOrigin.SeedWork.Messages
