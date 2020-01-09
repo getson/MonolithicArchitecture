@@ -9,22 +9,22 @@ namespace BinaryOrigin.SeedWork.Core.Extensions
     {
         public static void ThrowIfNullOrEmpty(this string value, string argument)
         {
-            if (string.IsNullOrWhiteSpace(value)) throw new ValidationException(argument);
+            if (string.IsNullOrWhiteSpace(value)) throw new GeneralException(argument);
         }
 
         public static void ThrowIfNullOrEmpty(this string value, string argument, string message)
         {
-            if (string.IsNullOrWhiteSpace(value)) throw new ValidationException(argument, message);
+            if (string.IsNullOrWhiteSpace(value)) throw new GeneralException(argument, message);
         }
 
         public static void ThrowIfNull(this object @object, string argument)
         {
-            if (@object == null) throw new ValidationException(argument);
+            if (@object == null) throw new GeneralException(argument);
         }
 
         public static void ThrowIfNull(this object @object, string argument, string message)
         {
-            if (@object == null) throw new ValidationException(argument, message);
+            if (@object == null) throw new GeneralException(argument, message);
         }
 
         public static void ThrowIfNotAllowed<T>(this T @value, T notAllowedValue, string argument, string message)

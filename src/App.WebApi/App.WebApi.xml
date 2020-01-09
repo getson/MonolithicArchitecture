@@ -6,7 +6,7 @@
     <members>
         <member name="T:App.WebApi.Controllers.ProjectsController">
             <summary>
-            This controller contains methods for the admin
+            This controller contains methods for the projects
             </summary>
         </member>
         <member name="M:App.WebApi.Controllers.ProjectsController.#ctor(BinaryOrigin.SeedWork.Messages.IBus)">

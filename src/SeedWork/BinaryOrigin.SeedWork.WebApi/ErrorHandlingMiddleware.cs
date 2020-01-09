@@ -36,30 +36,16 @@ namespace BinaryOrigin.SeedWork.WebApi
         {
             var code = HttpStatusCode.InternalServerError; // 500 if unexpected
             object errorMessage = null;
+
             switch (exception)
             {
+                case GeneralException _:
+                    code = HttpStatusCode.BadRequest;
+                    break;
                 case CommandValidationException _:
                     code = HttpStatusCode.BadRequest;
                     errorMessage = exception.Data;
                     break;
-
-                case UnAuthorizedException _:
-                    code = HttpStatusCode.Unauthorized;
-                    break;
-
-                case ValidationException _:
-                    code = HttpStatusCode.BadRequest;
-                    errorMessage = exception.Data;
-                    break;
-
-                case GeneralConflictException _:
-                    code = HttpStatusCode.Conflict;
-                    break;
-
-                case GeneralException _:
-                    code = HttpStatusCode.BadRequest;
-                    break;
-
                 case ArgumentException _:
                     code = HttpStatusCode.BadRequest;
                     break;

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace App.WebApi.Controllers
 {
     /// <summary>
-    /// This controller contains methods for the admin
+    /// This controller contains methods for the projects
     /// </summary>
     [Route("api/[controller]")]
     public class ProjectsController : AppController
@@ -33,11 +33,7 @@ namespace App.WebApi.Controllers
         public async Task<IActionResult> GetAll([FromQuery]GetProjects queryModel)
         {
             var result = await _bus.QueryAsync(queryModel);
-            if (result.IsFailure)
-            {
-                return BadRequest(result.Error);
-            }
-            return Ok(result.Value);
+            return Ok(result);
         }
 
         /// <summary>
@@ -49,11 +45,8 @@ namespace App.WebApi.Controllers
         public async Task<IActionResult> GetById([FromRoute]GetProject queryModel)
         {
             var result = await _bus.QueryAsync(queryModel);
-            if (result.IsFailure)
-            {
-                return BadRequest(result.Error);
-            }
-            return Ok(result.Value);
+
+            return Ok(result);
         }
 
         /// <summary>
@@ -65,12 +58,11 @@ namespace App.WebApi.Controllers
         public async Task<IActionResult> Post(AddProject command)
         {
             var result = await _bus.ExecuteAsync(command);
-            if (result.IsFailure)
+            await _bus.PublishAsync(new ProjectCreated
             {
-                return BadRequest(result.Error);
-            }
-            await _bus.PublishAsync(new ProjectCreated());
-            return Ok(result.Value);
+                Id = result
+            });
+            return Ok(result);
         }
 
         /// <summary>
@@ -81,11 +73,7 @@ namespace App.WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> Put(UpdateProject command)
         {
-            var result = await _bus.ExecuteAsync(command);
-            if (result.IsFailure)
-            {
-                return BadRequest(result.Error);
-            }
+            _ = await _bus.ExecuteAsync(command);
             return Updated();
         }
 
@@ -97,11 +85,7 @@ namespace App.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute]DeleteProject command)
         {
-            var result = await _bus.ExecuteAsync(command);
-            if (result.IsFailure)
-            {
-                return BadRequest(result.Error);
-            }
+            _ = await _bus.ExecuteAsync(command);
             return Deleted();
         }
     }

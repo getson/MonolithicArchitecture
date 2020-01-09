@@ -87,7 +87,7 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
             return base.Set<TEntity>();
         }
 
-        public new async virtual Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public new async virtual Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             try
             {
@@ -205,7 +205,7 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
         {
             if (entity == null)
             {
-                throw new ValidationException(nameof(entity));
+                throw new GeneralException(nameof(entity));
             }
 
             var entityEntry = Entry(entity);
@@ -242,7 +242,6 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
             }
             // save previous state
             await base.SaveChangesAsync();
-            throw exception;
         }
     }
 }

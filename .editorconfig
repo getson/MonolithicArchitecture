@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# ASP0001: Authorization middleware is incorrectly configured.
+dotnet_diagnostic.ASP0001.severity = error
+
+# EF1001: Internal EF Core API usage.
+dotnet_diagnostic.EF1001.severity = warning

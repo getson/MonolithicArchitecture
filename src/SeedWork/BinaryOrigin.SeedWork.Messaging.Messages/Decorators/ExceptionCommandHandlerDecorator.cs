@@ -8,7 +8,8 @@ namespace BinaryOrigin.SeedWork.Messages.Decorators
                 : BaseCommandHandlerDecorator<TCommand, TCommandResult>
                         where TCommand : ICommand<TCommandResult>
     {
-        public ExceptionCommandHandlerDecorator(ICommandHandler<TCommand, TCommandResult> handler) : base(handler)
+        public ExceptionCommandHandlerDecorator(ICommandHandler<TCommand, TCommandResult> handler)
+            : base(handler)
         {
         }
 

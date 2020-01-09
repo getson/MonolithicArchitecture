@@ -49,8 +49,8 @@ namespace BinaryOrigin.SeedWork.Core.Helpers
         /// <param name="value">The value to set the property to.</param>
         public static void SetProperty(object instance, string propertyName, object value)
         {
-            if (instance == null) throw new ValidationException(nameof(instance));
-            if (propertyName == null) throw new ValidationException(nameof(propertyName));
+            if (instance == null) throw new GeneralException(nameof(instance));
+            if (propertyName == null) throw new GeneralException(nameof(propertyName));
 
             var instanceType = instance.GetType();
             var pi = instanceType.GetProperty(propertyName);
@@ -73,7 +73,7 @@ namespace BinaryOrigin.SeedWork.Core.Helpers
         {
             if (target == null)
             {
-                throw new ValidationException(nameof(target), "The assignment target cannot be null.");
+                throw new GeneralException(nameof(target), "The assignment target cannot be null.");
             }
 
             if (string.IsNullOrEmpty(fieldName))

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BinaryOrigin.SeedWork.Messages
 {
-    public class BaseBus : IBus
+    public class BaseBus
     {
         private readonly HashSet<Type> _commandHandlerDecorators = new HashSet<Type>();
         private readonly HashSet<Type> _queryHandlerDecorators = new HashSet<Type>();
