@@ -1,5 +1,8 @@
 ﻿using Autofac;
 using BinaryOrigin.SeedWork.Core;
+using BinaryOrigin.SeedWork.Messages.Decorators;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BinaryOrigin.SeedWork.Messages
@@ -17,8 +20,49 @@ namespace BinaryOrigin.SeedWork.Messages
                 builder.RegisterType<InMemoryBus>()
                        .As<IBus>()
                        .SingleInstance();
+                builder.RegisterType<NullLocalizerService>()
+                       .As<ILocalizerService>()
+                       .SingleInstance();
             });
             engine.AddHandlers();
+            engine.AddDecorators();
+        }
+        private static void AddDecorators(this IEngine engine)
+        {
+            engine.Register(builder =>
+            {
+                var commandDecorators = engine.FindClassesOfType(typeof(ICommandHandlerDecorator<,>))
+                                              .OrderBy(x => GetDecoratorOrder(x))
+                                              .ToList();
+                if (commandDecorators.Any())
+                {
+                    commandDecorators.ForEach(decorator =>
+                    {
+                        builder.RegisterGenericDecorator(decorator, typeof(ICommandHandler<,>));
+                    });
+                }
+
+                var queryDecorators = engine.FindClassesOfType(typeof(IQueryHandlerDecorator<,>))
+                                            .OrderBy(x => GetDecoratorOrder(x))
+                                            .ToList();
+
+                if (queryDecorators.Any())
+                {
+                    queryDecorators.ForEach(decorator =>
+                    {
+                        builder.RegisterGenericDecorator(decorator, typeof(IQueryHandler<,>));
+                    });
+                }
+            });
+        }
+
+        private static int GetDecoratorOrder(Type x)
+        {
+            var decoratorOrder = x.GetCustomAttributes(typeof(DecoratorOrderAttribute), false)
+                                   .FirstOrDefault();
+            if (decoratorOrder == null)
+                return 1000; // No order is specified
+            return ((DecoratorOrderAttribute)decoratorOrder).Order;
         }
 
         private static void AddHandlers(this IEngine engine)
