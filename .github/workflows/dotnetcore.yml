@@ -21,7 +21,5 @@ jobs:
       run: dotnet pack --configuration Release
     - name: Install Nuget Client
       uses: warrenbuckley/Setup-Nuget@v1
-    - name: Add private GitHub registry to NuGet
-      run: nuget sources add -name "github" -Source https://nuget.pkg.github.com/getson/index.json -Username getson -Password ${{ secrets.GITHUB_TOKEN }}
     - name: Nuget Push
-      run: nuget push *.nupkg -Source "github" -SkipDuplicate
+      run: dotnet nuget push *.nupkg --source "https://nuget.pkg.github.com/getson/index.json" --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate 
