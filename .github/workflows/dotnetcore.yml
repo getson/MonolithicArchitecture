@@ -22,4 +22,4 @@ jobs:
     - name: Install Nuget Client
       uses: warrenbuckley/Setup-Nuget@v1
     - name: Nuget Push
-      run: dotnet nuget push *.nupkg --source "github" --skip-duplicate
+      run: dotnet nuget push *.nupkg --source "https://nuget.pkg.github.com/getson/index.json" --skip-duplicate
