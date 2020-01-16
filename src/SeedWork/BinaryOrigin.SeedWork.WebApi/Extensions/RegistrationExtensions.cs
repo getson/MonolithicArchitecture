@@ -10,8 +10,11 @@ using BinaryOrigin.SeedWork.Persistence.SqlServer;
 
 using BinaryOrigin.SeedWork.WebApi.Mapping;
 using BinaryOrigin.SeedWork.WebApi.Validations;
+using CacheManager.Core;
+using EFSecondLevelCache.Core;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 
@@ -23,6 +26,19 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
 
     public static class RegistrationExtensions
     {
+        public static void AddEfSecondLevelCache(this IServiceCollection services)
+        {
+            services.AddEFSecondLevelCache();
+
+            // Add an in-memory cache service provider
+            services.AddSingleton(typeof(ICacheManager<>), typeof(BaseCacheManager<>));
+            services.AddSingleton(typeof(ICacheManagerConfiguration),
+                                new ConfigurationBuilder()
+                                        .WithJsonSerializer()
+                                        .WithMicrosoftMemoryCacheHandle(instanceName: "MemoryCache1")
+                                        .WithExpiration(ExpirationMode.Absolute, TimeSpan.FromMinutes(10))
+                                        .Build());
+        }
         public static void AddDefaultSqlDbContext(this IEngine engine)
         {
             var optionsBuilder = new DbContextOptionsBuilder<EfObjectContext>();

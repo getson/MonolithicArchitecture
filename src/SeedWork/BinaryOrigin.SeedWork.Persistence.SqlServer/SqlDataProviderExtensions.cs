@@ -22,5 +22,14 @@ namespace BinaryOrigin.SeedWork.Persistence.SqlServer
                         .InstancePerLifetimeScope();
             });
         }
+        public static void AddSqlServerDbExceptionParser(this IEngine engine, DbErrorMessagesConfiguration errorMessagesConfig)
+        {
+            engine.Register(builder =>
+            {
+                builder.Register(x => new SqlServerDbExeptionParser(errorMessagesConfig))
+                       .As<IDbExceptionParser>()
+                       .SingleInstance();
+            });
+        }
     }
 }
