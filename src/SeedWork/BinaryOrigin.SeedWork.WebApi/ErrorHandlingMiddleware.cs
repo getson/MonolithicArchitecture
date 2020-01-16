@@ -26,10 +26,12 @@ namespace BinaryOrigin.SeedWork.WebApi
             {
                 await _next(context);
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
             {
                 await HandleExceptionAsync(context, ex);
             }
+#pragma warning restore CA1031 // Do not catch general exception types
         }
 
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
@@ -53,7 +55,7 @@ namespace BinaryOrigin.SeedWork.WebApi
 
             var result = JsonConvert.SerializeObject(new
             {
-                error = errorMessage ?? exception.Message
+                errors = errorMessage ?? exception.Message
             });
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;

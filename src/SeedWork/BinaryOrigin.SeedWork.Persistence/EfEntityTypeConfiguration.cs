@@ -20,7 +20,7 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
         }
 
         /// <summary>
-        /// Developers can override this method in custom classes in order to add some custom configuration code
+        /// Developers should override this method in custom classes in order to apply their custom configuration code
         /// </summary>
         /// <param name="builder">The builder to be used to configure the entity</param>
         public abstract void PostConfigure(EntityTypeBuilder<TEntity> builder);

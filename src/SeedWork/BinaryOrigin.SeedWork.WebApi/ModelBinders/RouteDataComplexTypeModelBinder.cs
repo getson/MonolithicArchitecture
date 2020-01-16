@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Threading.Tasks;
 
 namespace BinaryOrigin.SeedWork.WebApi.ModelBinders
@@ -19,28 +18,6 @@ namespace BinaryOrigin.SeedWork.WebApi.ModelBinders
                 bindingContext.Result = ModelBindingResult.Success(value);
             else if (_complexTypeModelBinder != null)
                 await _complexTypeModelBinder.BindModelAsync(bindingContext);
-        }
-    }
-
-    public class RouteDataComplexTypeModelBinderProvider : IModelBinderProvider
-    {
-        private readonly IModelBinderProvider _complexTypeModelBinderProvider;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public RouteDataComplexTypeModelBinderProvider(IModelBinderProvider complexTypeModelBinderProvider, IHttpContextAccessor httpContextAccessor)
-        {
-            _httpContextAccessor = httpContextAccessor;
-            _complexTypeModelBinderProvider = complexTypeModelBinderProvider;
-        }
-
-        public IModelBinder GetBinder(ModelBinderProviderContext context)
-        {
-            if (_httpContextAccessor.HttpContext.Request.Method == HttpMethods.Get && !_httpContextAccessor.HttpContext.Request.QueryString.HasValue)
-            {
-                if (context.Metadata.IsComplexType && !context.Metadata.IsCollectionType)
-                    return new RouteDataComplexTypeModelBinder(_complexTypeModelBinderProvider.GetBinder(context));
-            }
-            return null;
         }
     }
 }

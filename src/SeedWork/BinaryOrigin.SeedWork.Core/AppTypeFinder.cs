@@ -11,30 +11,16 @@ namespace BinaryOrigin.SeedWork.Core
     /// </summary>
     public class AppTypeFinder : AppDomainTypeFinder
     {
-        #region Fields
-
         private bool _binFolderAssembliesLoaded;
-
-        #endregion Fields
-
-        #region Ctor
 
         public AppTypeFinder(IAppFileProvider fileProvider) : base(fileProvider)
         {
         }
 
-        #endregion Ctor
-
-        #region Properties
-
         /// <summary>
         /// Gets or sets whether assemblies in the bin folder of the web application should be specifically checked for being loaded on application load. This is need in situations where plugins need to be loaded in the AppDomain after the application been reloaded.
         /// </summary>
         public bool EnsureBinFolderAssembliesLoaded { get; set; } = true;
-
-        #endregion Properties
-
-        #region Methods
 
         /// <summary>
         /// Gets a physical disk path of \Bin directory
@@ -60,7 +46,5 @@ namespace BinaryOrigin.SeedWork.Core
 
             return base.GetAssemblies();
         }
-
-        #endregion Methods
     }
 }

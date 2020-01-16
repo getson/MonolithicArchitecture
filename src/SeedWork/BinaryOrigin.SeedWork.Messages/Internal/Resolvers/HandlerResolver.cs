@@ -1,6 +1,7 @@
 ﻿using BinaryOrigin.SeedWork.Core;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BinaryOrigin.SeedWork.Messages
 {
@@ -21,7 +22,7 @@ namespace BinaryOrigin.SeedWork.Messages
         public object ResolveCommandHandler(object param, Type type)
         {
             var commandType = param.GetType();
-            var commandInterface = commandType.GetInterfaces()[0];
+            var commandInterface = commandType.GetInterfaces().Last();
             var resultType = commandInterface.GetGenericArguments()[0];
             var handlerType = type.MakeGenericType(commandType, resultType);
 

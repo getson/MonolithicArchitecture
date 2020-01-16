@@ -23,7 +23,7 @@ namespace App.WebApi
         {
             get
             {
-                if (_userId == string.Empty)
+                if (string.IsNullOrEmpty(_userId))
                 {
                     _userId = GetClaimValue("user_id");
                 }

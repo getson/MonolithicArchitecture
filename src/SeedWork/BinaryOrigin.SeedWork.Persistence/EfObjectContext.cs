@@ -1,6 +1,8 @@
 using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Core.Domain;
 using BinaryOrigin.SeedWork.Core.Exceptions;
+using EFSecondLevelCache.Core;
+using EFSecondLevelCache.Core.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Data;
@@ -23,10 +25,6 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
         }
 
         public EfObjectContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
-        {
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
         }
 
@@ -91,7 +89,12 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
         {
             try
             {
-                return await base.SaveChangesAsync(cancellationToken);
+                var efCacheServiceProvider = EngineContext.Current.Resolve<IEFCacheServiceProvider>();
+                if (efCacheServiceProvider == null)
+                {
+                    return await base.SaveChangesAsync(cancellationToken);
+                }
+                return await SaveChangesAndCleanCache(efCacheServiceProvider, cancellationToken);
             }
             catch (DbUpdateException ex)
             {
@@ -99,6 +102,21 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
                 await GetFullErrorTextAndRollbackEntityChanges(ex);
                 throw;
             }
+        }
+
+        private async Task<int> SaveChangesAndCleanCache(IEFCacheServiceProvider efCacheServiceProvider, CancellationToken cancellationToken)
+        {
+            var changedEntityNames = this.GetChangedEntityNames()
+                                .Where(x => !x.Contains("SeedWork"))
+                                .ToArray();
+
+            ChangeTracker.AutoDetectChangesEnabled = false; // for performance reasons, to avoid calling DetectChanges() again.
+
+            var result = await base.SaveChangesAsync(cancellationToken);
+
+            ChangeTracker.AutoDetectChangesEnabled = true;
+            efCacheServiceProvider.InvalidateCacheDependencies(changedEntityNames);
+            return result;
         }
 
         /// <summary>
@@ -242,6 +260,12 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
             }
             // save previous state
             await base.SaveChangesAsync();
+            var exceptionParser = EngineContext.Current.Resolve<IDbExceptionParser>();
+            if (exceptionParser != null)
+            {
+                throw new GeneralException(exceptionParser.Parse(exception));
+            };
+            throw exception;
         }
     }
 }

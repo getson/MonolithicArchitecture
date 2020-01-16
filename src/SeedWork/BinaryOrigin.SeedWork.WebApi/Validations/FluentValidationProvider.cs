@@ -1,12 +1,12 @@
-﻿using BinaryOrigin.SeedWork.Core;
+﻿using BinaryOrigin.SeedWork.Messages;
+using BinaryOrigin.SeedWork.Core;
+using System.Threading.Tasks;
+using System.Threading;
 using BinaryOrigin.SeedWork.Core.Domain;
-using BinaryOrigin.SeedWork.Messages;
 using BinaryOrigin.SeedWork.Messages.Validation;
-using FluentValidation;
 using FluentValidation.Results;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using FluentValidation;
 
 namespace BinaryOrigin.SeedWork.WebApi.Validations
 {
@@ -38,4 +38,5 @@ namespace BinaryOrigin.SeedWork.WebApi.Validations
             return BuildValidationResponse(validationResult);
         }
     }
+
 }

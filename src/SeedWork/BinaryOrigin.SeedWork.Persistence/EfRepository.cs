@@ -9,9 +9,8 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
 {
     public class EfRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
     {
-        protected readonly IDbContext _dbContext;
-
         private DbSet<TEntity> _entities;
+        protected readonly IDbContext _dbContext;
 
         public EfRepository(IDbContext dbContext)
         {
@@ -31,7 +30,7 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
         /// <summary>
         /// Gets an entity set
         /// </summary>
-        protected virtual DbSet<TEntity> Entities => _entities = _dbContext.Set<TEntity>();
+        protected virtual DbSet<TEntity> Entities => _entities ?? (_entities = _dbContext.Set<TEntity>());
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {

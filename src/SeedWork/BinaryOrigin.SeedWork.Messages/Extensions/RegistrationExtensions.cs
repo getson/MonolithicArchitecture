@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using BinaryOrigin.SeedWork.Core;
-using BinaryOrigin.SeedWork.Messages.Decorators;
+using BinaryOrigin.SeedWork.Messages.Validation;
 using System;
 using System.Linq;
 
@@ -19,14 +19,15 @@ namespace BinaryOrigin.SeedWork.Messages
                 builder.RegisterType<InMemoryBus>()
                        .As<IBus>()
                        .SingleInstance();
+                builder.RegisterType<DefaultCommandValidationProvider>()
+                       .As<ICommandValidationProvider>()
+                       .SingleInstance();
                 builder.RegisterType<NullLocalizerService>()
                        .As<ILocalizerService>()
                        .SingleInstance();
             });
-            engine.AddHandlers();
-            engine.AddDecorators();
         }
-        private static void AddDecorators(this IEngine engine)
+        public static void AddDefaultDecorators(this IEngine engine)
         {
             engine.Register(builder =>
             {
@@ -63,8 +64,7 @@ namespace BinaryOrigin.SeedWork.Messages
                 return 1000; // No order is specified
             return ((DecoratorOrderAttribute)decoratorOrder).Order;
         }
-
-        private static void AddHandlers(this IEngine engine)
+        public static void AddHandlers(this IEngine engine)
         {
             engine.Register(builder =>
             {
@@ -98,17 +98,31 @@ namespace BinaryOrigin.SeedWork.Messages
                     });
                 }
 
-                var messageHandlersAsms = engine.FindClassesOfType(typeof(IEventHandler<>))
+                var eventHandlersAsms = engine.FindClassesOfType(typeof(IEventHandler<>))
                       .Where(x => !x.AssemblyQualifiedName.Contains("SeedWork"))
                       .Select(x => x.Assembly)
                       .Distinct()
                       .ToList();
-                if (messageHandlersAsms.Any())
+                if (eventHandlersAsms.Any())
                 {
-                    messageHandlersAsms.ForEach(asm =>
+                    eventHandlersAsms.ForEach(asm =>
                     {
                         builder.RegisterAssemblyTypes(asm)
                             .AsClosedTypesOf(typeof(IEventHandler<>))
+                            .InstancePerLifetimeScope();
+                    });
+                }
+                var orderedEventHandlersAsms = engine.FindClassesOfType(typeof(ISequenceEventHandler<>))
+                     .Where(x => !x.AssemblyQualifiedName.Contains("SeedWork"))
+                     .Select(x => x.Assembly)
+                     .Distinct()
+                     .ToList();
+                if (orderedEventHandlersAsms.Any())
+                {
+                    orderedEventHandlersAsms.ForEach(asm =>
+                    {
+                        builder.RegisterAssemblyTypes(asm)
+                            .AsClosedTypesOf(typeof(ISequenceEventHandler<>))
                             .InstancePerLifetimeScope();
                     });
                 }

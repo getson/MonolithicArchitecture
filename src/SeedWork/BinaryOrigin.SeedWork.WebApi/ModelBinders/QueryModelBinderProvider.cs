@@ -19,7 +19,7 @@ namespace BinaryOrigin.SeedWork.WebApi.ModelBinders
                                     .ModelType
                                     .GetInterfaces()
                                     .FirstOrDefault(i => i.Name.StartsWith("IQuery"));
-            if (@interface != null || _httpContextAccessor.HttpContext.Request.Method == HttpMethods.Delete)
+            if (@interface != null)
             {
                 return new QueryModelBinder();
             }

@@ -1,10 +1,12 @@
 ﻿using BinaryOrigin.SeedWork.Core.Domain;
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace BinaryOrigin.SeedWork.Core.Exceptions
 {
+    /// <summary>
+    /// Exception wich can be used  to throw error when command is not valid
+    /// </summary>
     public class CommandValidationException : Exception
     {
         private readonly IEnumerable<ValidationError> _validationErrors;
@@ -16,10 +18,6 @@ namespace BinaryOrigin.SeedWork.Core.Exceptions
             {
                 Data[validationError.PropertyName] = validationError.ErrorMessage;
             }
-        }
-
-        protected CommandValidationException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
         }
     }
 }

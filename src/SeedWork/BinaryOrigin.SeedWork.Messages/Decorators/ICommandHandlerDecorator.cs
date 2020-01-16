@@ -1,4 +1,4 @@
-﻿namespace BinaryOrigin.SeedWork.Messages.Decorators
+﻿namespace BinaryOrigin.SeedWork.Messages
 {
     public interface ICommandHandlerDecorator<TCommand, TCommandResult>
         : ICommandHandler<TCommand, TCommandResult>

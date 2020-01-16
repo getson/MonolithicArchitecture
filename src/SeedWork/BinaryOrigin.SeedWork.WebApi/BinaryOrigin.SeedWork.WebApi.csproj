@@ -4,11 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Version>1.0.4</Version>
   </PropertyGroup>
-
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="8.5.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.0" />
@@ -16,10 +14,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BinaryOrigin.SeedWork.Messages\BinaryOrigin.SeedWork.Messages.csproj" />
     <ProjectReference Include="..\BinaryOrigin.SeedWork.Core\BinaryOrigin.SeedWork.Core.csproj" />
     <ProjectReference Include="..\BinaryOrigin.SeedWork.Infrastructure\BinaryOrigin.SeedWork.Infrastructure.csproj" />
-    <ProjectReference Include="..\BinaryOrigin.SeedWork.Messaging.Messages\BinaryOrigin.SeedWork.Messages.csproj" />
-    <ProjectReference Include="..\BinaryOrigin.SeedWork.Persistence.SqlServer\BinaryOrigin.SeedWork.Persistence.SqlServer.csproj" />
     <ProjectReference Include="..\BinaryOrigin.SeedWork.Persistence\BinaryOrigin.SeedWork.Persistence.Ef.csproj" />
+    <ProjectReference Include="..\BinaryOrigin.SeedWork.Persistence.SqlServer\BinaryOrigin.SeedWork.Persistence.SqlServer.csproj" />
   </ItemGroup>
 </Project>

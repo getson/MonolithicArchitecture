@@ -13,12 +13,18 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef.MySql
 
             engine.Register(builder =>
             {
-                builder.RegisterType<MySqlDataProvider>()
-                        .As<IDataProvider>()
-                        .InstancePerLifetimeScope();
-                builder.Register(instance => new EfObjectContext(optionsBuilder.Options))
-                    .As<IDbContext>()
-                    .InstancePerLifetimeScope();
+                builder.RegisterType<MySqlDataProvider>().As<IDataProvider>().SingleInstance();
+                builder.Register(instance => new EfObjectContext(optionsBuilder.Options)).As<IDbContext>().InstancePerLifetimeScope();
+            });
+        }
+
+        public static void AddMySqlDbExceptionParser(this IEngine engine, DbErrorMessagesConfiguration errorMessagesConfig)
+        {
+            engine.Register(builder =>
+            {
+                builder.Register(x => new MySqlDbExeptionParser(errorMessagesConfig))
+                       .As<IDbExceptionParser>()
+                       .SingleInstance();
             });
         }
     }

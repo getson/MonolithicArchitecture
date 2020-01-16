@@ -44,14 +44,6 @@ namespace BinaryOrigin.SeedWork.Core
         /// <typeparam name="T">Type of resolved service</typeparam>
         /// <returns>Resolved service</returns>
         T Resolve<T>() where T : class;
-
-        /// <summary>
-        /// Resolve dependency
-        /// </summary>
-        /// <param name="type">Type of resolved service</param>
-        /// <returns>Resolved service</returns>
-        object Resolve(Type type);
-
         /// <summary>
         /// Resolve generic type
         /// </summary>
@@ -59,6 +51,13 @@ namespace BinaryOrigin.SeedWork.Core
         /// <param name="type"></param>
         /// <returns></returns>
         object Resolve(object param, Type type);
+
+        /// <summary>
+        /// Resolve dependency
+        /// </summary>
+        /// <param name="type">Type of resolved service</param>
+        /// <returns>Resolved service</returns>
+        object Resolve(Type type);
 
         /// <summary>
         /// Resolve dependencies

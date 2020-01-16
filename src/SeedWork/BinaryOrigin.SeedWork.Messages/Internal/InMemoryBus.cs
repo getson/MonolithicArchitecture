@@ -1,4 +1,6 @@
 ﻿using BinaryOrigin.SeedWork.Core.Exceptions;
+using BinaryOrigin.SeedWork.Core.Extensions;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BinaryOrigin.SeedWork.Messages
@@ -40,6 +42,13 @@ namespace BinaryOrigin.SeedWork.Messages
         public async Task PublishAsync<TEvent>(TEvent @event) where TEvent : IEvent
         {
             var handlers = _handlerResolver.ResolveEventHandlers<IEventHandler<TEvent>>();
+            var orderedHandlers = _handlerResolver.ResolveEventHandlers<ISequenceEventHandler<TEvent>>()
+                                                  .OrderBy(x=>x.Order);
+
+            foreach(var handler in orderedHandlers)
+            {
+                await handler.HandleAsync(@event);
+            }
             foreach (var handler in handlers)
             {
                 await handler.HandleAsync(@event);

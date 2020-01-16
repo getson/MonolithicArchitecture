@@ -16,23 +16,13 @@ namespace BinaryOrigin.SeedWork.Core.Common
     /// </summary>
     public class AppDomainTypeFinder : ITypeFinder
     {
-        #region Fields
-
         protected IAppFileProvider FileProvider;
         private readonly bool _ignoreReflectionErrors = true;
-
-        #endregion Fields
-
-        #region Ctor
 
         public AppDomainTypeFinder(IAppFileProvider fileProvider)
         {
             FileProvider = fileProvider;
         }
-
-        #endregion Ctor
-
-        #region Utilities
 
         /// <summary>
         /// Check if a dll is one of the shipped dlls that we know don't need to be investigated.
@@ -147,10 +137,6 @@ namespace BinaryOrigin.SeedWork.Core.Common
             }
         }
 
-        #endregion Utilities
-
-        #region Methods
-
         /// <summary>
         /// Find classes of type
         /// </summary>
@@ -216,10 +202,6 @@ namespace BinaryOrigin.SeedWork.Core.Common
             return assemblies;
         }
 
-        #endregion Methods
-
-        #region Properties
-
         /// <summary>The app domain to look for types in.</summary>
         public virtual AppDomain App => AppDomain.CurrentDomain;
 
@@ -235,7 +217,5 @@ namespace BinaryOrigin.SeedWork.Core.Common
         /// <summary>Gets or sets the pattern for dll that will be investigated. For ease of use this defaults to match all but to increase performance you might want to configure a pattern that includes assemblies and your own.</summary>
         /// <remarks>If you change this so that AlphaWeb assemblies aren't investigated (e.g. by not including something like "^AlphaWeb|..." you may break core functionality.</remarks>
         public string AssemblyRestrictToLoadingPattern { get; set; } = ".*";
-
-        #endregion Properties
     }
 }

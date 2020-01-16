@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SeedWork", "SeedWork", "{B3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.Core", "src\SeedWork\BinaryOrigin.SeedWork.Core\BinaryOrigin.SeedWork.Core.csproj", "{425BF001-B29F-4AB2-ACFF-12F4FBE855E8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.Messages", "src\SeedWork\BinaryOrigin.SeedWork.Messaging.Messages\BinaryOrigin.SeedWork.Messages.csproj", "{A66C25A0-D998-4979-8432-17F6FE19A205}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.Messages", "src\SeedWork\BinaryOrigin.SeedWork.Messages\BinaryOrigin.SeedWork.Messages.csproj", "{A66C25A0-D998-4979-8432-17F6FE19A205}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.Persistence.Ef", "src\SeedWork\BinaryOrigin.SeedWork.Persistence\BinaryOrigin.SeedWork.Persistence.Ef.csproj", "{D411AFC7-6D05-44CE-B164-A1D4357DAF5E}"
 EndProject
