@@ -39,22 +39,6 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
                                         .WithExpiration(ExpirationMode.Absolute, TimeSpan.FromMinutes(10))
                                         .Build());
         }
-        public static void AddDefaultSqlDbContext(this IEngine engine)
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<EfObjectContext>();
-            optionsBuilder.UseSqlServer(engine.Configuration.DbConnectionString);
-
-            engine.Register(builder =>
-            {
-                builder.RegisterType<SqlServerDataProvider>()
-                        .As<IDataProvider>()
-                        .SingleInstance();
-                builder.Register(instance => new EfObjectContext(optionsBuilder.Options))
-                        .As<IDbContext>()
-                        .InstancePerLifetimeScope();
-            });
-        }
-
         public static void AddInMemoryDbContext(this IEngine engine)
         {
             var optionsBuilder = new DbContextOptionsBuilder<EfObjectContext>();

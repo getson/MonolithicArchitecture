@@ -37,7 +37,7 @@ namespace App.WebApi
             }
             else
             {
-                engine.AddSqlDbContext();
+                engine.AddDefaultSqlDbContext();
             }
             engine.AddSqlServerDbExceptionParser(new DbErrorMessagesConfiguration
             {
