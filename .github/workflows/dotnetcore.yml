@@ -24,4 +24,4 @@ jobs:
     - name: setApiKey
       run: nuget setApiKey ${{ secrets.nuget_key }} -s https://api.nuget.org/v3/index.json
     - name: Push generated package to GitHub registry
-      run: nuget push **.nupkg -Source "https://api.nuget.org/v3/index.json" -SkipDuplicate
+      run: nuget push **.nupkg -Source "https://api.nuget.org/v3/index.json" -SkipDuplicate -NoSymbols  
