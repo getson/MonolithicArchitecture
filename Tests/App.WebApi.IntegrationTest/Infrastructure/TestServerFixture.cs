@@ -13,7 +13,6 @@ namespace App.WebApi.IntegrationTest.Infrastructure
         static TestServerFixture()
         {
             var builder = new WebHostBuilder()
-                //.UseContentRoot(GetContentRootPath())
                 .UseEnvironment("Testing")
                 .UseStartup<Startup>();
 

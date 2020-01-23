@@ -24,7 +24,7 @@ namespace App.WebApi
         public void ConfigureServices(IServiceCollection services, IEngine engine, IConfiguration configuration)
         {
             var connectionString = configuration["Db:ConnectionString"];
-            var environment = configuration["Api:Environment"];
+            var dbType = configuration["Db:Type"];
 
             //add framework services
             services.AddHttpContextAccesor();
@@ -37,7 +37,7 @@ namespace App.WebApi
 
             // add custom services
             engine.AddAutoMapper();
-            if (environment == "Testing")
+            if (dbType == "InMemory")
             {
                 engine.AddInMemoryDbContext();
             }
