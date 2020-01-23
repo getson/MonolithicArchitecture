@@ -23,8 +23,6 @@ namespace App.WebApi
         /// <inheritdoc />
         public void ConfigureServices(IServiceCollection services, IEngine engine, IConfiguration configuration)
         {
-            var connectionString = configuration["Db:ConnectionString"];
-            var dbType = configuration["Db:Type"];
 
             //add framework services
             services.AddHttpContextAccesor();
@@ -33,29 +31,15 @@ namespace App.WebApi
                     .AddNewtonsoftJson()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddAppSwagger();
-
+            services.AddDefaultEfSecondLevelCache();
 
             // add custom services
             engine.AddAutoMapper();
-            if (dbType == "InMemory")
-            {
-                engine.AddInMemoryDbContext();
-            }
-            else
-            {
-                engine.AddDefaultSqlDbContext(connectionString);
-            }
-            engine.AddSqlServerDbExceptionParser(new DbErrorMessagesConfiguration
-            {
-                UniqueErrorTemplate = ErrorMessages.GenericUniqueError,
-                CombinationUniqueErrorTemplate = ErrorMessages.GenericCombinationUniqueError
-            });
+            engine.AddDbServices(configuration);
             engine.AddInMemoryBus();
             engine.AddFluentValidation();
             engine.AddHandlers();
             engine.AddDefaultDecorators();
-            engine.AddRepositories();
-            services.AddDefaultEfSecondLevelCache();
         }
 
         /// <inheritdoc />
