@@ -15,3 +15,7 @@ This repository present an approach how to build a Monolithic architecture using
 | --- | --- |
 | [BinaryOrigin.SeedWork.Persistence.MySql](https://www.nuget.org/packages/BinaryOrigin.SeedWork.Persistence.MySql) | [![Nuget Package](https://img.shields.io/badge/nuget-1.1.0-blue.svg)](https://www.nuget.org/packages/BinaryOrigin.SeedWork.Persistence.MySql) |
 | [BinaryOrigin.SeedWork.Persistence.SqlServer](https://www.nuget.org/packages/BinaryOrigin.SeedWork.Persistence.SqlServer) | [![Nuget Package](https://img.shields.io/badge/nuget-1.1.0-blue.svg)](https://www.nuget.org/packages/BinaryOrigin.SeedWork.Persistence.SqlServer) |
+
+If you want to use these small libraries you can use : https://github.com/getson/Monolith-CQRS-DDD as a quickstart.
+
+Enjoy :)
