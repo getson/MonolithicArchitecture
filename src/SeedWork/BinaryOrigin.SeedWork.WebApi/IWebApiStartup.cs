@@ -1,6 +1,7 @@
 ﻿using BinaryOrigin.SeedWork.Core;
-using BinaryOrigin.SeedWork.Core.Configuration;
+
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 
 namespace BinaryOrigin.SeedWork.WebApi
 {
@@ -15,6 +16,6 @@ namespace BinaryOrigin.SeedWork.WebApi
         /// </summary>
         /// <param name="application">Builder for configuring an application's request pipeline</param>
         /// <param name="configuration"></param>
-        void Configure(IApplicationBuilder application, AppConfiguration configuration);
+        void Configure(IApplicationBuilder application, IConfiguration configuration);
     }
 }

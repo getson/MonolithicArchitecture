@@ -22,16 +22,5 @@ namespace BinaryOrigin.SeedWork.Core.Extensions
         {
             return default(T).Equals(value);
         }
-
-        /// <summary>
-        /// Get element value
-        /// </summary>
-        /// <param name="node">XML node</param>
-        /// <param name="elName">Element name</param>
-        /// <returns>Value (text)</returns>
-        public static string ElText(this XmlNode node, string elName)
-        {
-            return node?.SelectSingleNode(elName)?.InnerText;
-        }
     }
 }

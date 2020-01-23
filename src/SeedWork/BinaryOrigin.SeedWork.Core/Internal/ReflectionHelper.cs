@@ -1,11 +1,12 @@
 ﻿using BinaryOrigin.SeedWork.Core.Exceptions;
+using BinaryOrigin.SeedWork.Core.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
-namespace BinaryOrigin.SeedWork.Core.Helpers
+namespace BinaryOrigin.SeedWork.Core
 {
     public static class ReflectionHelper
     {
@@ -18,7 +19,7 @@ namespace BinaryOrigin.SeedWork.Core.Helpers
         /// <returns></returns>
         public static T[] GetTypesByInterface<T>(Assembly assembly, Func<Type, bool> predicate)
         {
-            if (assembly == null) return new T[0];
+            if (assembly == null) return Array.Empty<T>();
 
             return assembly.GetTypes()
                 .Where(type => type.GetInterfaces().Any(predicate))
@@ -60,7 +61,7 @@ namespace BinaryOrigin.SeedWork.Core.Helpers
                 throw new GeneralException("The property '{0}' on the instance of type '{1}' does not have a setter.", propertyName, instanceType);
             if (value != null && !value.GetType().IsAssignableFrom(pi.PropertyType))
                 value = TypeConverterHelper.To(value, pi.PropertyType);
-            pi.SetValue(instance, value, new object[0]);
+            pi.SetValue(instance, value, Array.Empty<object>());
         }
 
         /// <summary>
@@ -126,7 +127,7 @@ namespace BinaryOrigin.SeedWork.Core.Helpers
             }
             catch (ReflectionTypeLoadException ex)
             {
-                var msg = ex.LoaderExceptions.Aggregate(string.Empty, (current, exception) => current + (exception.Message + Environment.NewLine));
+                var msg = ex.LoaderExceptions.Aggregate(string.Empty, (current, exception) => current + exception.Message + Environment.NewLine);
 
                 var fail = new Exception(msg, ex);
                 Debug.WriteLine(fail.Message, fail);
@@ -163,8 +164,6 @@ namespace BinaryOrigin.SeedWork.Core.Helpers
                 return false;
             }
         }
-
-        #region Private Methods
 
         private static IEnumerable<Type> GetClassesOfType(IEnumerable<Type> types, Type assignTypeFrom, bool onlyConcreteClasses)
         {
@@ -215,6 +214,5 @@ namespace BinaryOrigin.SeedWork.Core.Helpers
             return types;
         }
 
-        #endregion Private Methods
     }
 }

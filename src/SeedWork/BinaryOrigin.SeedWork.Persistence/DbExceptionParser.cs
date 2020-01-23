@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace BinaryOrigin.SeedWork.Persistence.Ef
 {
-    public abstract class DbExceptionParser : IDbExceptionParser
+    public abstract class DbExceptionParser : IDbExceptionParserProvider
     {
         protected virtual Regex UniqueConstraintRegex => new Regex("'([a-zA-Z0-9]*)_([a-zA-Z0-9]*)_([a-zA-Z0-9]*)_?([a-zA-Z0-9]*)?_?([a-zA-Z0-9]*)?_?([a-zA-Z0-9]*)?'", RegexOptions.Compiled);
 

@@ -1,4 +1,4 @@
-﻿using BinaryOrigin.SeedWork.Core.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BinaryOrigin.SeedWork.Core
@@ -19,6 +19,6 @@ namespace BinaryOrigin.SeedWork.Core
         /// <param name="services">Collection of service descriptors</param>
         /// <param name="engine"></param>
         /// <param name="configuration">Configuration root of the application</param>
-        void ConfigureServices(IServiceCollection services, IEngine engine, AppConfiguration configuration);
+        void ConfigureServices(IServiceCollection services, IEngine engine, IConfiguration configuration);
     }
 }

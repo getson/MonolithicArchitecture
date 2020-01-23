@@ -2,7 +2,7 @@
 
 namespace BinaryOrigin.SeedWork.Persistence.Ef
 {
-    public interface IDbExceptionParser
+    public interface IDbExceptionParserProvider
     {
         /// <summary>
         ///  Parse exception raised by DB provider

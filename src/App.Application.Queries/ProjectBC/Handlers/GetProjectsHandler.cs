@@ -23,6 +23,10 @@ namespace App.Application.Queries.ProjectBC.Handlers
 
         public async Task<Result<GetProjectsResult>> HandleAsync(GetProjects queryModel)
         {
+            if (queryModel.Limit == 0)
+            {
+                queryModel.Limit = 20;
+            }
             var baseQuery = _dbContext.Set<Project>().AsNoTracking();
 
             var result = await baseQuery.Skip(queryModel.Offset)

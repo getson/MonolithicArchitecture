@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using BinaryOrigin.SeedWork.Core.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -13,20 +13,13 @@ namespace BinaryOrigin.SeedWork.Core
     /// </summary>
     public interface IEngine
     {
-        IAppFileProvider FileProvider { get; }
-
-        /// <summary>
-        /// Get application configuration
-        /// </summary>
-        AppConfiguration Configuration { get; }
-
         /// <summary>
         /// Initialize engine
         /// </summary>
         /// <param name="services">Collection of service descriptors</param>
         /// <param name="appFileProvider">File provider</param>
-        /// <param name="appConfig"></param>
-        void Initialize(IServiceCollection services, IAppFileProvider appFileProvider, AppConfiguration appConfig);
+        /// <param name="configuration"></param>
+        void Initialize(IAppFileProvider appFileProvider, IConfiguration configuration);
 
         /// <summary>
         /// Add and configure services
@@ -34,7 +27,7 @@ namespace BinaryOrigin.SeedWork.Core
         /// <param name="services">Collection of service descriptors</param>
         /// <param name="configuration">Configuration root of the application</param>
         /// <returns>Service provider</returns>
-        IServiceProvider ConfigureServices(IServiceCollection services, AppConfiguration configuration);
+        IServiceProvider ConfigureServices(IServiceCollection services);
 
         void Register(Action<ContainerBuilder> registerAction);
 
@@ -44,6 +37,7 @@ namespace BinaryOrigin.SeedWork.Core
         /// <typeparam name="T">Type of resolved service</typeparam>
         /// <returns>Resolved service</returns>
         T Resolve<T>() where T : class;
+
         /// <summary>
         /// Resolve generic type
         /// </summary>
@@ -60,14 +54,12 @@ namespace BinaryOrigin.SeedWork.Core
         object Resolve(Type type);
 
         /// <summary>
-        /// Resolve dependencies
+        /// Resolve all the concrete implementation of type t
         /// </summary>
         /// <typeparam name="T">Type of resolved services</typeparam>
         /// <returns>Collection of resolved services</returns>
         IEnumerable<T> ResolveAll<T>();
-
-        object ResolveUnregistered(Type type);
-
+    
         IEnumerable<Type> FindClassesOfType<T>(Assembly assembly, bool onlyConcreteClasses = true);
 
         IEnumerable<Type> FindClassesOfType<T>(bool onlyConcreteClasses = true);

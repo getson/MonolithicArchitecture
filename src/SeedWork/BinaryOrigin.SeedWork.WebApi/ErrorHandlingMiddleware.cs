@@ -1,4 +1,5 @@
-﻿using BinaryOrigin.SeedWork.Core.Exceptions;
+﻿using BinaryOrigin.SeedWork.Core;
+using BinaryOrigin.SeedWork.Core.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;

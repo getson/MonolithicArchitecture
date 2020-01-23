@@ -1,6 +1,6 @@
 ﻿using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Core.Common;
-using BinaryOrigin.SeedWork.Core.Configuration;
+
 using BinaryOrigin.SeedWork.Infrastructure;
 using BinaryOrigin.SeedWork.WebApi;
 using Microsoft.AspNetCore.Builder;
@@ -16,7 +16,6 @@ namespace App.WebApi
 {
     public class Startup
     {
-        private readonly IWebHostEnvironment _environment;
         public IConfigurationRoot Configuration { get; }
 
         public Startup(IWebHostEnvironment environment)
@@ -26,7 +25,6 @@ namespace App.WebApi
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddEnvironmentVariables()
                 .Build();
-            _environment = environment;
         }
 
         /// <summary>
@@ -35,23 +33,13 @@ namespace App.WebApi
         /// <param name="services">Collection of service descriptors</param>
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            //create instance of config
-            var appConfig = new AppConfiguration();
-
-            //bind it to the appropriate section of configuration
-            Configuration.GetSection("App").Bind(appConfig);
-            appConfig.Environment = _environment.EnvironmentName;
-            //and register it as a service
-            services.AddSingleton(appConfig);
 
             var engine = (AppWebApiEngine)EngineContext.Create<AppWebApiEngine>();
 
-            DefaultFileProvider.Instance = new AppFileProvider(AppContext.BaseDirectory);
+            engine.Initialize(Configuration);
 
-            engine.Initialize(services, DefaultFileProvider.Instance, appConfig);
-            var serviceProvider = engine.ConfigureServices(services, appConfig);
+            return engine.ConfigureServices(services);
 
-            return serviceProvider;
         }
 
         /// <summary>

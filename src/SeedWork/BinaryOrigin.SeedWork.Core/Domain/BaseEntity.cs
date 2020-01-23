@@ -5,18 +5,8 @@ namespace BinaryOrigin.SeedWork.Core.Domain
     /// <summary>
     /// Base class for entities
     /// </summary>
-    public abstract class BaseEntity : IEquatable<BaseEntity>, IProjectable
+    public abstract class BaseEntity : IEquatable<BaseEntity>
     {
-        protected BaseEntity()
-                    : this(Guid.NewGuid())
-        {
-        }
-
-        protected BaseEntity(Guid id)
-        {
-            Id = id;
-        }
-
         /// <summary>
         /// get or set the identifier
         /// </summary>
@@ -24,7 +14,7 @@ namespace BinaryOrigin.SeedWork.Core.Domain
 
         public bool IsTransient()
         {
-            return Id == default(Guid);
+            return Id == default;
         }
 
         /// <summary>

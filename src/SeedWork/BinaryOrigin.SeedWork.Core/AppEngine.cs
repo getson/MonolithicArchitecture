@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using BinaryOrigin.SeedWork.Core.Configuration;
 using BinaryOrigin.SeedWork.Core.Exceptions;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -16,71 +16,17 @@ namespace BinaryOrigin.SeedWork.Core
     /// </summary>
     public class AppEngine : IEngine
     {
-        #region Properties
 
         /// <summary>
         /// Gets or sets service provider
         /// </summary>
         private IServiceProvider _serviceProvider;
 
-        private ContainerBuilder _containerBuilder;
-        private ITypeFinder _typeFinder;
-
-        /// <summary>
-        /// Gets or sets the default file provider
-        /// </summary>
-        public IAppFileProvider FileProvider { get; private set; }
-
-        public AppConfiguration Configuration { get; set; }
-
-        #endregion Properties
-
-        #region Utilities
-
-        /// <summary>
-        /// Get IServiceProvider
-        /// </summary>
-        /// <returns>IServiceProvider</returns>
-        protected virtual IServiceProvider GetServiceProvider()
-        {
-            return ServiceProvider;
-        }
-
-        /// <summary>
-        /// Register dependencies using Autofac
-        /// </summary>
-        /// <param name="appConfig">Startup App configuration parameters</param>
-        /// <param name="services">Collection of service descriptors</param>
-        /// <param name="typeFinder">Type finder</param>
-        protected virtual IServiceProvider RegisterDependencies(AppConfiguration appConfig, IServiceCollection services, ITypeFinder typeFinder)
-        {
-            //register type finder
-            _containerBuilder.RegisterInstance(typeFinder).As<ITypeFinder>().SingleInstance();
-            _containerBuilder.RegisterInstance(FileProvider).As<IAppFileProvider>().SingleInstance();
-
-            //find dependency registrars provided by other assemblies
-            var dependencyRegistrars = typeFinder.FindClassesOfType<IDependencyRegistration>();
-
-            //create and sort instances of dependency registrars
-            var instances = dependencyRegistrars
-                .Select(dependencyRegistrar => (IDependencyRegistration)Activator.CreateInstance(dependencyRegistrar))
-                .OrderBy(dependencyRegistrar => dependencyRegistrar.Order);
-
-            //register all provided dependencies
-            foreach (var dependencyRegistrar in instances)
-                dependencyRegistrar.Register(_containerBuilder, typeFinder, appConfig);
-
-            //populate Autofac container builder with the set of registered service descriptors
-            _containerBuilder.Populate(services);
-
-            //create service provider
-            _serviceProvider = new AutofacServiceProvider(_containerBuilder.Build());
-            return _serviceProvider;
-        }
-
-        #endregion Utilities
-
-        #region Methods
+        
+        protected ContainerBuilder ContainerBuilder { get; private set; }
+        protected ITypeFinder TypeFinder { get; private set; }
+        protected IAppFileProvider FileProvider { get; private set; }
+        protected IConfiguration Configuration { get; private set; }
 
         /// <summary>
         /// Initialize engine
@@ -88,14 +34,18 @@ namespace BinaryOrigin.SeedWork.Core
         /// <param name="services">Collection of service descriptors</param>
         /// <param name="appFileProvider"></param>
         /// <param name="notificationProvider"></param>
-        /// <param name="appConfig"></param>
-        public void Initialize(IServiceCollection services, IAppFileProvider appFileProvider, AppConfiguration appConfig)
+        /// <param name="configuration"></param>
+        public void Initialize(IAppFileProvider appFileProvider, IConfiguration configuration)
         {
-            Configuration = appConfig;
+            Configuration = configuration;
             FileProvider = appFileProvider;
-            _containerBuilder = new ContainerBuilder();
-            //find startup configurations provided by other assemblies
-            _typeFinder = new AppTypeFinder(FileProvider);
+            ContainerBuilder = new ContainerBuilder();
+            TypeFinder = new AppTypeFinder(FileProvider);
+
+            //register the instances to be available where are required
+            ContainerBuilder.RegisterInstance(TypeFinder).As<ITypeFinder>().SingleInstance();
+            ContainerBuilder.RegisterInstance(FileProvider).As<IAppFileProvider>().SingleInstance();
+
         }
 
         /// <summary>
@@ -104,20 +54,20 @@ namespace BinaryOrigin.SeedWork.Core
         /// <param name="services">Collection of service descriptors</param>
         /// <param name="configuration">Configuration root of the application</param>
         /// <returns>Service provider</returns>
-        public IServiceProvider ConfigureServices(IServiceCollection services, AppConfiguration configuration)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             //add all services defined in Startup classes
-            ConfigureStartupServices(services, configuration, _typeFinder);
+            ConfigureStartupServices(services);
 
             //register dependencies
-            _serviceProvider = RegisterDependencies(configuration, services, _typeFinder);
+            _serviceProvider = RegisterDependencies(services);
 
             return _serviceProvider;
         }
 
         public void Register(Action<ContainerBuilder> registerAction)
         {
-            registerAction(_containerBuilder);
+            registerAction(ContainerBuilder);
         }
 
         /// <summary>
@@ -146,9 +96,8 @@ namespace BinaryOrigin.SeedWork.Core
             var genericType = type.MakeGenericType(paramType);
             return GetServiceProvider().GetService(genericType);
         }
-
         /// <summary>
-        /// Resolve dependencies
+        /// Resolve all the concrete implementation of type t
         /// </summary>
         /// <typeparam name="T">Type of resolved services</typeparam>
         /// <returns>Collection of resolved services</returns>
@@ -156,53 +105,19 @@ namespace BinaryOrigin.SeedWork.Core
         {
             return (IEnumerable<T>)GetServiceProvider().GetServices(typeof(T));
         }
-
-        /// <summary>
-        /// Resolve unregistered service
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public virtual object ResolveUnregistered(Type type)
-        {
-            Exception innerException = null;
-            foreach (var constructor in type.GetConstructors())
-            {
-                try
-                {
-                    //try to resolve constructor parameters
-                    var parameters = constructor.GetParameters().Select(parameter =>
-                    {
-                        var service = Resolve(parameter.ParameterType);
-                        if (service == null)
-                            throw new GeneralException("Unknown dependency");
-                        return service;
-                    });
-
-                    //all is ok, so create instance
-                    return Activator.CreateInstance(type, parameters.ToArray());
-                }
-                catch (Exception ex)
-                {
-                    innerException = ex;
-                }
-            }
-
-            throw new GeneralException("No constructor was found that had all the dependencies satisfied.", innerException);
-        }
-
         public IEnumerable<Type> FindClassesOfType<T>(bool onlyConcreteClasses = true)
         {
-            return _typeFinder.FindClassesOfType<T>(onlyConcreteClasses);
+            return TypeFinder.FindClassesOfType<T>(onlyConcreteClasses);
         }
 
         public IEnumerable<Type> FindClassesOfType<T>(Assembly assembly, bool onlyConcreteClasses = true)
         {
-            return _typeFinder.FindClassesOfType<T>(new List<Assembly> { assembly }, onlyConcreteClasses);
+            return TypeFinder.FindClassesOfType<T>(new List<Assembly> { assembly }, onlyConcreteClasses);
         }
 
         public IEnumerable<Type> FindClassesOfType(Type type, bool onlyConcreteClasses = true)
         {
-            return _typeFinder.FindClassesOfType(type, onlyConcreteClasses);
+            return TypeFinder.FindClassesOfType(type, onlyConcreteClasses);
         }
 
         /// <summary>
@@ -211,9 +126,9 @@ namespace BinaryOrigin.SeedWork.Core
         /// <param name="services"></param>
         /// <param name="configuration"></param>
         /// <param name="typeFinder"></param>
-        protected virtual void ConfigureStartupServices(IServiceCollection services, AppConfiguration configuration, ITypeFinder typeFinder)
+        protected virtual void ConfigureStartupServices(IServiceCollection services)
         {
-            var startupConfigurations = typeFinder.FindClassesOfType<IAppStartup>();
+            var startupConfigurations = TypeFinder.FindClassesOfType<IAppStartup>();
             //create and sort instances of startup configurations
             var instances = startupConfigurations
                 .Select(startup => (IAppStartup)Activator.CreateInstance(startup))
@@ -222,19 +137,51 @@ namespace BinaryOrigin.SeedWork.Core
             //configure services
             foreach (var instance in instances)
             {
-                instance.ConfigureServices(services, this, configuration);
+                instance.ConfigureServices(services, this, Configuration);
             }
         }
-
-        #endregion Methods
-
-        #region Properties
 
         /// <summary>
         /// Service provider
         /// </summary>
         public virtual IServiceProvider ServiceProvider => _serviceProvider;
+        /// <summary>
+        /// Get IServiceProvider
+        /// </summary>
+        /// <returns>IServiceProvider</returns>
+        protected virtual IServiceProvider GetServiceProvider()
+        {
+            return ServiceProvider;
+        }
 
-        #endregion Properties
+        /// <summary>
+        /// Register dependencies using Autofac
+        /// </summary>
+        /// <param name="configuration">Startup App configuration parameters</param>
+        /// <param name="services">Collection of service descriptors</param>
+        /// <param name="typeFinder">Type finder</param>
+        protected virtual IServiceProvider RegisterDependencies(IServiceCollection services)
+        {
+
+            //find dependency registrars provided by other assemblies
+            var dependencyRegistrars = TypeFinder.FindClassesOfType<IDependencyRegistration>();
+
+            //create and sort instances of dependency registrars
+            var instances = dependencyRegistrars
+                .Select(dependencyRegistrar => (IDependencyRegistration)Activator.CreateInstance(dependencyRegistrar))
+                .OrderBy(dependencyRegistrar => dependencyRegistrar.Order);
+
+            //register all provided dependencies
+            foreach (var dependencyRegistrar in instances)
+                dependencyRegistrar.Register(ContainerBuilder, TypeFinder, Configuration);
+
+            //populate Autofac container builder with the set of registered service descriptors
+            ContainerBuilder.Populate(services);
+
+            //create service provider
+            _serviceProvider = new AutofacServiceProvider(ContainerBuilder.Build());
+            return _serviceProvider;
+        }
+
     }
 }

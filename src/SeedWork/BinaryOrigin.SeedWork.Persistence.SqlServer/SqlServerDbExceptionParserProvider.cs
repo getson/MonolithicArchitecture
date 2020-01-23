@@ -7,13 +7,13 @@ using System.Text;
 
 namespace BinaryOrigin.SeedWork.Persistence.SqlServer
 {
-    public class SqlServerDbExeptionParser : DbExceptionParser, IDbExceptionParser
+    public class SqlServerDbExceptionParserProvider : DbExceptionParser, IDbExceptionParserProvider
     {
         public const int SqlServerViolationOfUniqueIndex = 2601;
         public const int SqlServerViolationOfUniqueConstraint = 2627;
         private readonly DbErrorMessagesConfiguration _errorMessages;
 
-        public SqlServerDbExeptionParser(DbErrorMessagesConfiguration errorMessages)
+        public SqlServerDbExceptionParserProvider(DbErrorMessagesConfiguration errorMessages)
         {
             _errorMessages = errorMessages ?? throw new ArgumentNullException(nameof(errorMessages));
         }

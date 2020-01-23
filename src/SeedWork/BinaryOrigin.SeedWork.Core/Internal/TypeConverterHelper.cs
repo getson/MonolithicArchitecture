@@ -1,11 +1,12 @@
+using BinaryOrigin.SeedWork.Core.Extensions;
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using System.Text;
+using System.Linq;
 
-namespace BinaryOrigin.SeedWork.Core.Common
+namespace BinaryOrigin.SeedWork.Core.Helpers
 {
-    public static class AppTypeConverter
+    public static class TypeConverterHelper
     {
         /// <summary>
         /// Converts a value to a destination type.
@@ -40,8 +41,8 @@ namespace BinaryOrigin.SeedWork.Core.Common
             if (sourceConverter.CanConvertTo(destinationType))
                 return sourceConverter.ConvertTo(null, culture, value, destinationType);
 
-            if (destinationType.IsEnum && value is int i)
-                return Enum.ToObject(destinationType, i);
+            if (destinationType.IsEnum && value is int)
+                return Enum.ToObject(destinationType, (int)value);
 
             if (!destinationType.IsInstanceOfType(value))
                 return Convert.ChangeType(value, destinationType, culture);
@@ -61,24 +62,21 @@ namespace BinaryOrigin.SeedWork.Core.Common
         }
 
         /// <summary>
-        /// Convert enum for front-end
+        /// Convert enum string to Enum Type
         /// </summary>
-        /// <param name="str">Input string</param>
-        /// <returns>Converted string</returns>
-        public static string ConvertEnum(string str)
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumName"></param>
+        /// <returns></returns>
+        public static T GetEnumValue<T>(string enumName)
         {
-            if (string.IsNullOrEmpty(str)) return string.Empty;
-            var bld = new StringBuilder();
-            foreach (var c in str)
-                if (c.ToString() != c.ToString().ToLower())
-                    bld.Append(" " + c);
-                else
-                    bld.Append(c.ToString());
-            var result = bld.ToString();
+            var values = Enum.GetNames(typeof(T));
 
-            //ensure no spaces (e.g. when the first letter is upper case)
-            result = result.TrimStart();
-            return result;
+            var selected = values.FirstOrDefault(value => value.EqualsIgnoreCase(enumName));
+
+            if (selected == null)
+                throw new ArgumentException($"Cannot parse value '{enumName}' in {typeof(T).FullName} ");
+
+            return (T)Enum.Parse(typeof(T), selected);
         }
     }
 }

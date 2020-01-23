@@ -1,5 +1,5 @@
 ﻿using App.Infrastructure.Persistence.SqlServer.Context;
-using BinaryOrigin.SeedWork.Core.Configuration;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -21,12 +21,7 @@ namespace App.Persistence.Context
                 .SetBasePath(AppContext.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
-            //create instance of config
-            var appConfig = new AppConfiguration();
-
-            //bind it to the appropriate section of configuration
-            configuration.GetSection("App").Bind(appConfig);
-            optionsBuilder.UseSqlServer(appConfig.DbConnectionString, x =>
+            optionsBuilder.UseSqlServer(configuration["Db:ConnectionString"], x =>
             {
                 x.MigrationsAssembly("App.Infrastructure.Persistence.SqlServer");
                 x.MigrationsHistoryTable("MigrationHistory");

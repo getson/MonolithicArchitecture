@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace BinaryOrigin.SeedWork.Core.Exceptions
 {
@@ -19,6 +20,11 @@ namespace BinaryOrigin.SeedWork.Core.Exceptions
 
         public GeneralException(string messageFormat, params object[] args)
             : this(string.Format(messageFormat, args))
+        {
+        }
+
+        protected GeneralException(SerializationInfo serializationInfo, StreamingContext streamingContext)
+            :base(serializationInfo,streamingContext)
         {
         }
     }

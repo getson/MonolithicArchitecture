@@ -260,7 +260,7 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
             }
             // save previous state
             await base.SaveChangesAsync();
-            var exceptionParser = EngineContext.Current.Resolve<IDbExceptionParser>();
+            var exceptionParser = EngineContext.Current.Resolve<IDbExceptionParserProvider>();
             if (exceptionParser != null)
             {
                 throw new GeneralException(exceptionParser.Parse(exception));

@@ -1,7 +1,8 @@
 ﻿using BinaryOrigin.SeedWork.Core;
-using BinaryOrigin.SeedWork.Core.Configuration;
+using BinaryOrigin.SeedWork.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
@@ -25,13 +26,20 @@ namespace BinaryOrigin.SeedWork.WebApi
                 .Select(startup => (IWebAppStartup)Activator.CreateInstance(startup))
                 .OrderBy(startup => startup.Order);
 
-            var configuration = Resolve<AppConfiguration>();
-
             //configure request pipeline
             foreach (var instance in instances)
             {
-                instance.Configure(application, configuration);
+                instance.Configure(application, Configuration);
             }
+        }
+        /// <summary>
+        /// Initialize WebApiEngine
+        /// </summary>
+        /// <param name="configuration"></param>
+        public void Initialize(IConfiguration configuration)
+        {
+            var fileProvider = new AppFileProvider(AppContext.BaseDirectory);
+            Initialize(fileProvider, configuration);
         }
 
         protected override IServiceProvider GetServiceProvider()

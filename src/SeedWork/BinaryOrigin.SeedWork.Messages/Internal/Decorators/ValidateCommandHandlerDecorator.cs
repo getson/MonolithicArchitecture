@@ -1,5 +1,5 @@
-﻿using BinaryOrigin.SeedWork.Core.Domain;
-using BinaryOrigin.SeedWork.Core.Exceptions;
+﻿using BinaryOrigin.SeedWork.Core;
+using BinaryOrigin.SeedWork.Core.Domain;
 using BinaryOrigin.SeedWork.Messages.Validation;
 using System.Threading.Tasks;
 

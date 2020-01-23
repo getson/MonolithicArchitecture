@@ -436,7 +436,7 @@ namespace BinaryOrigin.SeedWork.Infrastructure
         /// <returns>A byte array containing the contents of the file</returns>
         public virtual byte[] ReadAllBytes(string filePath)
         {
-            return File.Exists(filePath) ? File.ReadAllBytes(filePath) : new byte[0];
+            return File.Exists(filePath) ? File.ReadAllBytes(filePath) : Array.Empty<byte>();
         }
 
         /// <summary>

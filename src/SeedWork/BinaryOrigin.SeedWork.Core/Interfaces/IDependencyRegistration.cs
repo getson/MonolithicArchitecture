@@ -1,5 +1,6 @@
 ﻿using Autofac;
-using BinaryOrigin.SeedWork.Core.Configuration;
+
+using Microsoft.Extensions.Configuration;
 
 namespace BinaryOrigin.SeedWork.Core
 {
@@ -19,6 +20,6 @@ namespace BinaryOrigin.SeedWork.Core
         /// <param name="builder"></param>
         /// <param name="typeFinder">Type finder</param>
         /// <param name="config">Config</param>
-        void Register(ContainerBuilder builder, ITypeFinder typeFinder, AppConfiguration config);
+        void Register(ContainerBuilder builder, ITypeFinder typeFinder, IConfiguration config);
     }
 }

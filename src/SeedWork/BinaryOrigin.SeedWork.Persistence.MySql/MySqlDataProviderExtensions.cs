@@ -6,10 +6,10 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef.MySql
 {
     public static class MySqlDataProviderExtensions
     {
-        public static void AddDefaultMySqlDbContext(this IEngine engine)
+        public static void AddDefaultMySqlDbContext(this IEngine engine, string connectionString)
         {
             var optionsBuilder = new DbContextOptionsBuilder<EfObjectContext>();
-            optionsBuilder.UseMySQL(engine.Configuration.DbConnectionString);
+            optionsBuilder.UseMySQL(connectionString);
 
             engine.Register(builder =>
             {
@@ -22,8 +22,8 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef.MySql
         {
             engine.Register(builder =>
             {
-                builder.Register(x => new MySqlDbExeptionParser(errorMessagesConfig))
-                       .As<IDbExceptionParser>()
+                builder.Register(x => new MySqlDbExeptionParserProvider(errorMessagesConfig))
+                       .As<IDbExceptionParserProvider>()
                        .SingleInstance();
             });
         }

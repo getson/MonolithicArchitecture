@@ -4,12 +4,12 @@ using System;
 
 namespace BinaryOrigin.SeedWork.Persistence.Ef.MySql
 {
-    public class MySqlDbExeptionParser : DbExceptionParser, IDbExceptionParser
+    public class MySqlDbExeptionParserProvider : DbExceptionParser, IDbExceptionParserProvider
     {
         public const int MySqlViolationOfUniqueIndex = 1062;
         private readonly DbErrorMessagesConfiguration _errorMessages;
 
-        public MySqlDbExeptionParser(DbErrorMessagesConfiguration errorMessages)
+        public MySqlDbExeptionParserProvider(DbErrorMessagesConfiguration errorMessages)
         {
             _errorMessages = errorMessages ?? throw new ArgumentNullException(nameof(errorMessages));
         }

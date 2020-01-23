@@ -49,7 +49,7 @@
             <param name="command"></param>
             <returns></returns>
         </member>
-        <member name="M:App.WebApi.Extensions.RegistrationExtensions.AddHttpContextAccesor(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:App.WebApi.Extensions.ServicesExtensions.AddHttpContextAccesor(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             Add HttpContextAccessor as a service
             </summary>
@@ -86,10 +86,10 @@
         <member name="P:App.WebApi.WebApiStartup.Order">
             <inheritdoc />
         </member>
-        <member name="M:App.WebApi.WebApiStartup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,BinaryOrigin.SeedWork.Core.IEngine,BinaryOrigin.SeedWork.Core.Configuration.AppConfiguration)">
+        <member name="M:App.WebApi.WebApiStartup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,BinaryOrigin.SeedWork.Core.IEngine,Microsoft.Extensions.Configuration.IConfiguration)">
             <inheritdoc />
         </member>
-        <member name="M:App.WebApi.WebApiStartup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,BinaryOrigin.SeedWork.Core.Configuration.AppConfiguration)">
+        <member name="M:App.WebApi.WebApiStartup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Configuration.IConfiguration)">
             <inheritdoc />
         </member>
     </members>
