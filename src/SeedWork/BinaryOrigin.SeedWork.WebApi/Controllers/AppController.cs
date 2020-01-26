@@ -33,7 +33,11 @@ namespace BinaryOrigin.SeedWork.WebApi.Controllers
         [ProducesResponseType(201)]
         protected IActionResult Created(Guid resourceId)
         {
-            return base.Created(new Uri($"{Request.Host}{Request.Path}/{resourceId}"), resourceId);
+            if(Uri.TryCreate($"{Request.Host}{Request.Path}/{resourceId}", UriKind.RelativeOrAbsolute, out var uri))
+            {
+                return base.Created(uri, resourceId);
+            }
+            return base.Created("", resourceId);
         }
     }
 }

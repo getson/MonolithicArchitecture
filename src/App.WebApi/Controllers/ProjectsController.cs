@@ -62,7 +62,7 @@ namespace App.WebApi.Controllers
             {
                 Id = result
             });
-            return Ok(result);
+            return Created(result);
         }
 
         /// <summary>

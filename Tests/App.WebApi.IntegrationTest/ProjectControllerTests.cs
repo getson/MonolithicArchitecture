@@ -58,7 +58,7 @@ namespace App.WebApi.IntegrationTest
 
             var response = await PostAsync(_apiEndpoint, addProject);
 
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
             var createdProject = response.GetObject<Guid>();
 
             createdProject.Should().NotBe(Guid.Empty);
@@ -107,7 +107,7 @@ namespace App.WebApi.IntegrationTest
             };
 
             var response = await PostAsync(_apiEndpoint, project);
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
             var projectId = response.GetObject<Guid>();
 
             var deleteCommand = new DeleteProject(projectId);
@@ -138,7 +138,7 @@ namespace App.WebApi.IntegrationTest
             };
 
             var response = PostAsync(_apiEndpoint, project).Result;
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
     }
 }
