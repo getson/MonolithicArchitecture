@@ -1,8 +1,8 @@
 ﻿using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Persistence.Ef;
 using BinaryOrigin.SeedWork.Persistence.Ef.Extensions;
+using Microsoft.Data.SqlClient;
 using System.Data.Common;
-using System.Data.SqlClient;
 
 namespace BinaryOrigin.SeedWork.Persistence.SqlServer
 {

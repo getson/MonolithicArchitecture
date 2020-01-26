@@ -6,7 +6,7 @@ namespace App.Core.Domain.ProjectBC
 {
     public sealed class Project : BaseEntity
     {
-        public string name { get; private set; }
+        public string Name { get; private set; }
         public string Description { get; private set; }
 
         public static Result<Project> Create(Guid id, string name, string description)
@@ -22,7 +22,7 @@ namespace App.Core.Domain.ProjectBC
             var project = new Project
             {
                 Id = id,
-                name = name,
+                Name = name,
                 Description = description
             };
             return Result.Ok(project);
@@ -34,7 +34,7 @@ namespace App.Core.Domain.ProjectBC
             {
                 return Result.Fail(ErrorMessages.NameShouldNotBeEmpty);
             }
-            this.name = name;
+            this.Name = name;
             Description = description;
 
             return Result.Ok();

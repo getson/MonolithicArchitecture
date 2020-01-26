@@ -9,8 +9,10 @@ namespace App.Persistence.ProjectBC.Configurations
         public override void PostConfigure(EntityTypeBuilder<Project> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.name).HasMaxLength(300).IsRequired();
+            builder.Property(x => x.Name).HasMaxLength(300).IsRequired();
             builder.Property(x => x.Description).HasMaxLength(500);
+
+            builder.HasIndex(x => x.Name).IsUnique();
         }
     }
 }

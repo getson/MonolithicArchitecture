@@ -1,9 +1,7 @@
 ﻿using BinaryOrigin.SeedWork.Persistence.Ef;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
 using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Text;
 
 namespace BinaryOrigin.SeedWork.Persistence.SqlServer
 {
@@ -26,7 +24,7 @@ namespace BinaryOrigin.SeedWork.Persistence.SqlServer
             {
                 //This is a DbUpdateException on a SQL database
 
-                if (sqlEx.Number == SqlServerViolationOfUniqueConstraint 
+                if (sqlEx.Number == SqlServerViolationOfUniqueConstraint
                     || sqlEx.Number == SqlServerViolationOfUniqueIndex)
                 {
                     //We have an error we can process
@@ -42,5 +40,4 @@ namespace BinaryOrigin.SeedWork.Persistence.SqlServer
             return null;
         }
     }
-
 }
