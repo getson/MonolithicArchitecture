@@ -4,8 +4,6 @@ using BinaryOrigin.SeedWork.Core.Domain;
 using BinaryOrigin.SeedWork.Messages;
 using BinaryOrigin.SeedWork.Persistence.Ef;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace App.Application.Queries.ProjectBC.Handlers
@@ -14,7 +12,6 @@ namespace App.Application.Queries.ProjectBC.Handlers
     {
         private readonly IDbContext _dbContext;
         private readonly IPaginationService _paginationService;
-        private readonly ITypeAdapter _typeAdapter;
 
         public GetProjectsHandler(IDbContext dbContext,
                                   IPaginationService paginationService)
