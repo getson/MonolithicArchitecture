@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
     <RepositoryUrl>https://github.com/getson/MonolithicArchitecture</RepositoryUrl>
     <PackageProjectUrl>https://github.com/getson/MonolithicArchitecture</PackageProjectUrl>
     <RepositoryType>CQRS,DDD</RepositoryType>
