@@ -1,4 +1,4 @@
-name: .NET Core Test Code
+name: Build Status
 
 on: [push]
 
