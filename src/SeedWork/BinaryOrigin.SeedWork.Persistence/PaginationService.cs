@@ -1,23 +1,25 @@
 ﻿using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Core.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace BinaryOrigin.SeedWork.Persistence.Ef
 {
     public class PaginationService : IPaginationService
     {
-        private static readonly int _maxPageSize = 20;
         private readonly ITypeAdapter _typeAdapter;
+        private readonly PaginationOptions _options;
 
-        public PaginationService(ITypeAdapter typeAdapter)
+        public PaginationService(ITypeAdapter typeAdapter, PaginationOptions options)
         {
             _typeAdapter = typeAdapter;
+            _options = options;
         }
+
+
 
         public async Task<PaginatedItemsResult<BaseEntity>> PaginateAsync
             (
@@ -31,7 +33,7 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
                 pageIndex = 0;
             }
 
-            pageSize = pageSize == 0 ? _maxPageSize : Math.Min(pageSize, _maxPageSize);
+            pageSize = pageSize == 0 ? _options.DefaultPageSize : Math.Min(pageSize, _options.MaxPageSizeAllowed);
 
             var count = await source.LongCountAsync();
 
@@ -63,5 +65,13 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
                     paginatedResult.Count
                 );
         }
+    }
+    public class PaginationOptions
+    {
+        /// <summary>
+        /// Default is 20
+        /// </summary>
+        public int MaxPageSizeAllowed { get; set; } = 20;
+        public int DefaultPageSize { get; set; } = 20;
     }
 }

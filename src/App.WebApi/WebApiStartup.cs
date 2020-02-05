@@ -34,7 +34,10 @@ namespace App.WebApi
             engine.AddFluentValidation();
             engine.AddHandlers();
             engine.AddDefaultDecorators();
-            engine.AddDefaultPagination();
+            engine.AddDefaultPagination(c =>
+            {
+                c.MaxPageSizeAllowed = 100;
+            });
         }
 
         /// <inheritdoc />
