@@ -1,8 +1,9 @@
 ﻿using Autofac;
-using BinaryOrigin.SeedWork.Core;
+using BinaryOrigin.SeedWork.Persistence.Ef;
+using BinaryOrigin.SeedWork.Persistence.Ef.MySql;
 using Microsoft.EntityFrameworkCore;
 
-namespace BinaryOrigin.SeedWork.Persistence.Ef.MySql
+namespace BinaryOrigin.SeedWork.Core
 {
     public static class MySqlDataProviderExtensions
     {

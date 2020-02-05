@@ -8,10 +8,15 @@ using System.Threading.Tasks;
 
 namespace App.WebApi.Controllers
 {
+
+    /// [FromRoute] and [FromQuery] is added in order to generate swagger documentaion correctly until it will be fixed 
+    /// in swagger configuration
+
+
     /// <summary>
     /// This controller contains methods for the projects
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/projects")]
     public class ProjectsController : AppController
     {
         private readonly IBus _bus;
@@ -76,7 +81,6 @@ namespace App.WebApi.Controllers
             _ = await _bus.ExecuteAsync(command);
             return Updated();
         }
-
         /// <summary>
         /// Delete a project
         /// </summary>

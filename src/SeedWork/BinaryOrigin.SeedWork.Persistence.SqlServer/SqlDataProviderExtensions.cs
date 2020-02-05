@@ -1,9 +1,9 @@
 ﻿using Autofac;
-using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Persistence.Ef;
+using BinaryOrigin.SeedWork.Persistence.SqlServer;
 using Microsoft.EntityFrameworkCore;
 
-namespace BinaryOrigin.SeedWork.Persistence.SqlServer
+namespace BinaryOrigin.SeedWork.Core
 {
     public static class SqlDataProviderExtensions
     {
