@@ -1,6 +1,6 @@
-name: .NET Core
+name: .NET Core deploy
 
-on: [push]
+on: [push].[master]
 
 jobs:
   build:
