@@ -7,7 +7,7 @@ This repository present an approach how to build a Monolithic architecture using
 | [BinaryOrigin.SeedWork.Core](https://www.nuget.org/packages/BinaryOrigin.SeedWork.Core) | [![Nuget Package](https://img.shields.io/badge/nuget-1.1.1-blue.svg)](https://www.nuget.org/packages/BinaryOrigin.SeedWork.Core) |
 | [BinaryOrigin.SeedWork.Infrastructure](https://www.nuget.org/packages/BinaryOrigin.SeedWork.Infrastructure) | [![Nuget Package](https://img.shields.io/badge/nuget-1.1.0-blue.svg)](https://www.nuget.org/packages/BinaryOrigin.SeedWork.Infrastructure) |
 | [BinaryOrigin.SeedWork.Messages](https://www.nuget.org/packages/BinaryOrigin.SeedWork.Messages) | [![Nuget Package](https://img.shields.io/badge/nuget-1.1.0-blue.svg)](https://www.nuget.org/packages/BinaryOrigin.SeedWork.Messages) |
-| [BinaryOrigin.SeedWork.Persistence.Ef](https://www.nuget.org/packages/BinaryOrigin.SeedWork.Persistence.Ef) | [![Nuget Package](https://img.shields.io/badge/nuget-1.1.1-blue.svg)](https://www.nuget.org/packages/BinaryOrigin.SeedWork.Persistence.Ef) |
+| [BinaryOrigin.SeedWork.Persistence.Ef](https://www.nuget.org/packages/BinaryOrigin.SeedWork.Persistence.Ef) | [![Nuget Package](https://img.shields.io/badge/nuget-1.1.2-blue.svg)](https://www.nuget.org/packages/BinaryOrigin.SeedWork.Persistence.Ef) |
 | [BinaryOrigin.SeedWork.WebApi](https://www.nuget.org/packages/BinaryOrigin.SeedWork.WebApi) | [![Nuget Package](https://img.shields.io/badge/nuget-1.1.2-blue.svg)](https://www.nuget.org/packages/BinaryOrigin.SeedWork.WebApi) |
 
 ## Providers
