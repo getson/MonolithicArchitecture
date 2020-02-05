@@ -2,6 +2,7 @@
 using BinaryOrigin.SeedWork.Core.Domain;
 using BinaryOrigin.SeedWork.Core.Extensions;
 using BinaryOrigin.SeedWork.Persistence.Ef;
+using System;
 using System.Linq;
 
 namespace BinaryOrigin.SeedWork.Core
@@ -9,11 +10,14 @@ namespace BinaryOrigin.SeedWork.Core
     public static class EngineExtensions
     {
 
-        public static void AddDefaultPagination(this IEngine engine)
+        public static void AddDefaultPagination(this IEngine engine, Action<PaginationOptions> option)
         {
+            var paginationOptions = new PaginationOptions();
+            option.Invoke(paginationOptions);
+
             engine.Register(builder =>
             {
-                builder.RegisterType<PaginationService>()
+                builder.Register(c => new PaginationService(c.Resolve<ITypeAdapter>(), paginationOptions))
                        .As<IPaginationService>()
                        .SingleInstance();
             });
