@@ -19,8 +19,6 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
             _options = options;
         }
 
-
-
         public async Task<PaginatedItemsResult<BaseEntity>> PaginateAsync
             (
                 IQueryable<BaseEntity> source,
@@ -66,12 +64,14 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
                 );
         }
     }
+
     public class PaginationOptions
     {
         /// <summary>
         /// Default is 20
         /// </summary>
         public int MaxPageSizeAllowed { get; set; } = 20;
+
         public int DefaultPageSize { get; set; } = 20;
     }
 }
