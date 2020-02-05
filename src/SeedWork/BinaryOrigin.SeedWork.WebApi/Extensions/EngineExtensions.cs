@@ -1,8 +1,5 @@
 ﻿using Autofac;
 using AutoMapper;
-using BinaryOrigin.SeedWork.Core;
-using BinaryOrigin.SeedWork.Core.Domain;
-using BinaryOrigin.SeedWork.Core.Extensions;
 using BinaryOrigin.SeedWork.Messages.Validation;
 using BinaryOrigin.SeedWork.Persistence.Ef;
 using BinaryOrigin.SeedWork.Persistence.SqlServer;
@@ -13,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
-namespace BinaryOrigin.SeedWork.WebApi.Extensions
+namespace  BinaryOrigin.SeedWork.Core
 {
     /// <summary>
     /// Register application dependencies
@@ -56,35 +53,6 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
                 builder.RegisterType<FluentValidationProvider>()
                        .As<ICommandValidationProvider>()
                        .InstancePerLifetimeScope();
-            });
-        }
-
-        public static void AddRepositories(this IEngine engine)
-        {
-            engine.Register(builder =>
-            {
-                var assembliesWithRepositories = engine.FindClassesOfType(typeof(IRepository<>))
-                                                        .Where(x => !x.AssemblyQualifiedName.Contains("SeedWork"))
-                                                        .Select(x => x.Assembly)
-                                                        .DistinctBy(x => x.FullName)
-                                                        .ToList();
-
-                foreach (var asm in assembliesWithRepositories)
-                {
-                    builder.RegisterAssemblyTypes(asm)
-                            .AsClosedTypesOf(typeof(IRepository<>))
-                            .InstancePerLifetimeScope();
-                }
-            });
-        }
-
-        public static void AddDefaultPagination(this IEngine engine)
-        {
-            engine.Register(builder =>
-            {
-                builder.RegisterType<PaginationService>()
-                       .As<IPaginationService>()
-                       .SingleInstance();
             });
         }
         public static void AddAutoMapper(this IEngine engine)

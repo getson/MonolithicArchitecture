@@ -5,7 +5,6 @@ using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Persistence.Ef;
 using BinaryOrigin.SeedWork.Persistence.SqlServer;
 using BinaryOrigin.SeedWork.WebApi;
-using BinaryOrigin.SeedWork.WebApi.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
