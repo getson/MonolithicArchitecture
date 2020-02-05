@@ -1,10 +1,6 @@
 name: .NET Core Test Code
 
-on:
-  push:
-    # Sequence of patterns matched against refs/heads
-    branches-ignore:
-      - 'master' 
+on: [push]
 
 jobs:
   build:
