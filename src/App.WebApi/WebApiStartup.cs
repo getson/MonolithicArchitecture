@@ -40,6 +40,7 @@ namespace App.WebApi
             engine.AddFluentValidation();
             engine.AddHandlers();
             engine.AddDefaultDecorators();
+            engine.AddDefaultPagination();
         }
 
         /// <inheritdoc />

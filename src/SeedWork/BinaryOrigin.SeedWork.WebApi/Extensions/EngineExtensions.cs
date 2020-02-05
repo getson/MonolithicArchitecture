@@ -78,6 +78,15 @@ namespace BinaryOrigin.SeedWork.WebApi.Extensions
             });
         }
 
+        public static void AddDefaultPagination(this IEngine engine)
+        {
+            engine.Register(builder =>
+            {
+                builder.RegisterType<PaginationService>()
+                       .As<IPaginationService>()
+                       .SingleInstance();
+            });
+        }
         public static void AddAutoMapper(this IEngine engine)
         {
             //find mapper configurations provided by other assemblies
