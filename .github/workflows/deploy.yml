@@ -1,6 +1,10 @@
 name: .NET Core deploy
 
-on: [push].[master]
+on:   
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:    
+      - master         # Push events on master branch
 
 jobs:
   build:
