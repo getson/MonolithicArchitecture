@@ -10,36 +10,31 @@ using System.Threading.Tasks;
 
 namespace App.Application.Queries.ProjectBC.Handlers
 {
-    public class GetProjectsHandler : IQueryHandler<GetProjects, GetProjectsResult>
+    public class GetProjectsHandler : IQueryHandler<GetProjects, PaginatedItemsResult<GetProjectResult>>
     {
         private readonly IDbContext _dbContext;
+        private readonly IPaginationService _paginationService;
         private readonly ITypeAdapter _typeAdapter;
 
-        public GetProjectsHandler(IDbContext dbContext, ITypeAdapter typeAdapter)
+        public GetProjectsHandler(IDbContext dbContext,
+                                  IPaginationService paginationService)
         {
             _dbContext = dbContext;
-            _typeAdapter = typeAdapter;
+            _paginationService = paginationService;
         }
 
-        public async Task<Result<GetProjectsResult>> HandleAsync(GetProjects queryModel)
+        public async Task<Result<PaginatedItemsResult<GetProjectResult>>> HandleAsync(GetProjects queryModel)
         {
-            if (queryModel.Limit == 0)
-            {
-                queryModel.Limit = 20;
-            }
             var baseQuery = _dbContext.Set<Project>().AsNoTracking();
 
-            var result = await baseQuery.Skip(queryModel.Offset)
-                                  .Take(queryModel.Limit)
-                                  .ToListAsync();
+            var result = await _paginationService.PaginateAsync<GetProjectResult>
+                                (
+                                    baseQuery,
+                                    queryModel.PageIndex,
+                                    queryModel.PageSize
+                                );
 
-            var count = await baseQuery.CountAsync();
-
-            return Result.Ok(new GetProjectsResult
-            {
-                Total = count,
-                Items = _typeAdapter.Adapt<IEnumerable<GetProjectResult>>(result)
-            });
+            return Result.Ok(result);
         }
     }
 }

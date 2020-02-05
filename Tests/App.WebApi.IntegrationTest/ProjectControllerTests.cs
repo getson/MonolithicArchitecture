@@ -1,6 +1,7 @@
 ﻿using App.Application.Commands.ProjectBC;
 using App.Application.Queries.ProjectBC;
 using App.WebApi.IntegrationTest.Infrastructure;
+using BinaryOrigin.SeedWork.Core;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
@@ -26,14 +27,14 @@ namespace App.WebApi.IntegrationTest
         [Fact]
         public async Task Should_return_projects_with_success()
         {
-            var projects = await GetTop100();
+            var projects = await GetTop20();
             projects.Should().NotBeNull();
         }
 
         [Fact]
         public async Task Should_return_project_by_id_with_success()
         {
-            var projects = await GetTop100();
+            var projects = await GetTop20();
             var firstProject = projects.FirstOrDefault();
 
             var response = await GetAsync($"{_apiEndpoint}/{firstProject.Id}");
@@ -67,7 +68,7 @@ namespace App.WebApi.IntegrationTest
         [Fact]
         public async Task Project_Should_Be_Updated()
         {
-            var project = (await GetTop100()).First();
+            var project = (await GetTop20()).First();
             var updateProjectCommand = new UpdateProject
             {
                 Id = project.Id,
@@ -77,7 +78,7 @@ namespace App.WebApi.IntegrationTest
             var response = await PutAsync(_apiEndpoint, updateProjectCommand);
             response.EnsureSuccessStatusCode();
 
-            var updatedProject = (await GetTop100()).FirstOrDefault(x => x.Id == project.Id);
+            var updatedProject = (await GetTop20()).FirstOrDefault(x => x.Id == project.Id);
 
             updatedProject.Description.Should().Be(updateProjectCommand.Description);
             updatedProject.Name.Should().Be(updateProjectCommand.Name);
@@ -122,11 +123,11 @@ namespace App.WebApi.IntegrationTest
             deleteResponse.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
-        private async Task<IEnumerable<GetProjectResult>> GetTop100()
+        private async Task<IEnumerable<GetProjectResult>> GetTop20()
         {
-            var result = await GetAsync($"{_apiEndpoint}?limit=100");
+            var result = await GetAsync($"{_apiEndpoint}?pageSize=20");
             result.EnsureSuccessStatusCode();
-            return result.GetObject<GetProjectsResult>().Items;
+            return result.GetObject<PaginatedItemsResult<GetProjectResult>>().Data;
         }
 
         private void Init()

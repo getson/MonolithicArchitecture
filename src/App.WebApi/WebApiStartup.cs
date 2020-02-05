@@ -1,12 +1,7 @@
-﻿using App.Core;
-using App.WebApi.Extensions;
+﻿using App.WebApi.Extensions;
 using BinaryOrigin.SeedWork.Core;
-
 using BinaryOrigin.SeedWork.Messages;
-using BinaryOrigin.SeedWork.Persistence.Ef;
-using BinaryOrigin.SeedWork.Persistence.SqlServer;
 using BinaryOrigin.SeedWork.WebApi;
-using BinaryOrigin.SeedWork.WebApi.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +18,6 @@ namespace App.WebApi
         /// <inheritdoc />
         public void ConfigureServices(IServiceCollection services, IEngine engine, IConfiguration configuration)
         {
-
             //add framework services
             services.AddHttpContextAccesor();
             services.AddCors();
@@ -40,6 +34,7 @@ namespace App.WebApi
             engine.AddFluentValidation();
             engine.AddHandlers();
             engine.AddDefaultDecorators();
+            engine.AddDefaultPagination();
         }
 
         /// <inheritdoc />

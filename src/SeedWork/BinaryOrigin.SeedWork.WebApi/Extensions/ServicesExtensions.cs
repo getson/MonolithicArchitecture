@@ -1,9 +1,8 @@
 ﻿using CacheManager.Core;
 using EFSecondLevelCache.Core;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace BinaryOrigin.SeedWork.WebApi.Extensions
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServicesExtensions
     {
