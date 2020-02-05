@@ -1,6 +1,8 @@
 # Monolithic architecture based on CQRS and DDD principles 
 This repository present an approach how to build a Monolithic architecture using AspNet.core, EntityFrameworkCore, DDD , IdentityServer etc.
 
+![Build Status](https://github.com/getson/MonolithicArchitecture/workflows/Build%20Status/badge.svg?branch=master)
+
 ## Packages
 | Package | Latest Stable |
 | --- | --- |
