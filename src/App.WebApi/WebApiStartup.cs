@@ -18,7 +18,6 @@ namespace App.WebApi
         /// <inheritdoc />
         public void ConfigureServices(IServiceCollection services, IEngine engine, IConfiguration configuration)
         {
-
             //add framework services
             services.AddHttpContextAccesor();
             services.AddCors();

@@ -1,13 +1,9 @@
 ﻿using App.Core;
-using App.Infrastructure.Persistence.SqlServer.Context;
-using Autofac;
 using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Persistence.Ef;
-using BinaryOrigin.SeedWork.Persistence.SqlServer;
 using BinaryOrigin.SeedWork.WebApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -40,7 +36,6 @@ namespace App.WebApi.Extensions
             });
             engine.AddRepositories();
             engine.AddRepositories();
-
         }
 
         public static void UseAppExceptionHandler(this IApplicationBuilder app)

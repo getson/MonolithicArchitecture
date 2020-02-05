@@ -5,7 +5,7 @@
     </assembly>
     <members>
         <member name="T:App.WebApi.Controllers.ProjectsController">
-            [FromRoute] is added in order to generate swagger documentaion correctly until it will be fixed 
+            [FromRoute] and [FromQuery] is added in order to generate swagger documentaion correctly until it will be fixed 
             in swagger configuration
             <summary>
             This controller contains methods for the projects
