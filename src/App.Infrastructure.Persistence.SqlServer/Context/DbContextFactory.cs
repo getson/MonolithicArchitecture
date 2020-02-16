@@ -1,11 +1,10 @@
-﻿using App.Infrastructure.Persistence.SqlServer.Context;
-
+﻿using BinaryOrigin.SeedWork.Persistence.Ef;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System;
 
-namespace App.Persistence.Context
+namespace App.Infrastructure.Persistence.SqlServer.Context
 {
     public class AppObjectContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {

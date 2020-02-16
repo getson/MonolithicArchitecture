@@ -2,22 +2,21 @@
 using BinaryOrigin.SeedWork.Persistence.Ef;
 using BinaryOrigin.SeedWork.Persistence.SqlServer;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace BinaryOrigin.SeedWork.Core
 {
     public static class SqlDataProviderExtensions
     {
-        public static void AddDefaultSqlDbContext(this IEngine engine, string connectionString)
+        public static void AddDbContext<TContext>(this IEngine engine, TContext context)
+            where TContext : IDbContext
         {
-            var optionsBuilder = new DbContextOptionsBuilder<EfObjectContext>();
-            optionsBuilder.UseSqlServer(connectionString);
-
             engine.Register(builder =>
             {
                 builder.RegisterType<SqlServerDataProvider>()
                         .As<IDataProvider>()
                         .SingleInstance();
-                builder.Register(instance => new EfObjectContext(optionsBuilder.Options))
+                builder.Register(instance => context)
                         .As<IDbContext>()
                         .InstancePerLifetimeScope();
             });

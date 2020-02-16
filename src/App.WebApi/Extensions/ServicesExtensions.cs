@@ -1,9 +1,11 @@
 ﻿using App.Core;
+using App.Infrastructure.Persistence.SqlServer.Context;
 using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Persistence.Ef;
 using BinaryOrigin.SeedWork.WebApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,14 +29,16 @@ namespace App.WebApi.Extensions
             }
             else
             {
-                engine.AddDefaultSqlDbContext(connectionString);
+                var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+                optionsBuilder.UseSqlServer(connectionString);
+
+                engine.AddDbContext(new AppDbContext(optionsBuilder.Options));
             }
             engine.AddSqlServerDbExceptionParser(new DbErrorMessagesConfiguration
             {
                 UniqueErrorTemplate = ErrorMessages.GenericUniqueError,
                 CombinationUniqueErrorTemplate = ErrorMessages.GenericCombinationUniqueError
             });
-            engine.AddRepositories();
             engine.AddRepositories();
         }
 
