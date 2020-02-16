@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace App.Persistence.Migrations
+namespace App.Infrastructure.Persistence.SqlServer.Migrations
 {
     public partial class initial : Migration
     {
@@ -12,13 +12,19 @@ namespace App.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    name = table.Column<string>(maxLength: 300, nullable: false),
+                    Name = table.Column<string>(maxLength: 300, nullable: false),
                     Description = table.Column<string>(maxLength: 500, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Projects", x => x.Id);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Projects_Name",
+                table: "Projects",
+                column: "Name",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

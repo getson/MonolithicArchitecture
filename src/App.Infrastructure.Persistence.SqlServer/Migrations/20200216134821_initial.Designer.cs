@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace App.Persistence.Migrations
+namespace App.Infrastructure.Persistence.SqlServer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191218171810_initial")]
+    [Migration("20200216134821_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,12 +31,15 @@ namespace App.Persistence.Migrations
                         .HasColumnType("nvarchar(500)")
                         .HasMaxLength(500);
 
-                    b.Property<string>("name")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(300)")
                         .HasMaxLength(300);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Projects");
                 });
