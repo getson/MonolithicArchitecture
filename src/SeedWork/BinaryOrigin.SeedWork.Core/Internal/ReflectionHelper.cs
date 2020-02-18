@@ -41,12 +41,12 @@ namespace BinaryOrigin.SeedWork.Core
                            .Select(type => (T)Activator.CreateInstance(type))
                            .ToArray();
         }
-        public static IEnumerable<T> GetConstants<T>(Type t)
-            where T : class
+        public static IEnumerable<string> GetConstants<TInput>()
+            where TInput : class
         {
-            return t.GetType().GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
+            return typeof(TInput).GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
                         .Where(fi => fi.IsLiteral && !fi.IsInitOnly)
-                        .Select(fi => TypeConverterHelper.To<T>(fi.GetRawConstantValue()))
+                        .Select(fi => TypeConverterHelper.To<string>(fi.GetRawConstantValue()))
                         .ToList();
         }
         /// <summary>

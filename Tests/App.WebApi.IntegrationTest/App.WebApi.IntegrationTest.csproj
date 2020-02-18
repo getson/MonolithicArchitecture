@@ -42,4 +42,10 @@
     <ProjectReference Include="..\..\src\App.WebApi\App.WebApi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
