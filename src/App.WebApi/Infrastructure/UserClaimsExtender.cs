@@ -15,7 +15,7 @@ namespace App.WebApi
             _authority = authority;
         }
 
-        public async Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal)
+        public Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal)
         {
             // Here you can extend claims
 
@@ -35,7 +35,7 @@ namespace App.WebApi
             var claimsIdentity = new ClaimsIdentity(claims, identity.AuthenticationType);
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
-            return claimsPrincipal;
+            return Task.FromResult(claimsPrincipal);
         }
     }
 }
