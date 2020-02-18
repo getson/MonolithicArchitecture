@@ -28,7 +28,7 @@ namespace App.WebApi
                     .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddAppSwagger();
             services.AddDefaultEfSecondLevelCache();
-
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddAuth(configuration);
 
             // add custom services

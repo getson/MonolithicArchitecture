@@ -1,5 +1,7 @@
-﻿using Autofac;
+﻿using App.WebApi.Localization;
+using Autofac;
 using BinaryOrigin.SeedWork.Core;
+using BinaryOrigin.SeedWork.Messages;
 using BinaryOrigin.SeedWork.WebApi.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -27,6 +29,9 @@ namespace App.WebApi.Infrastructure
             builder.RegisterInstance(new HasScopeHandler(config["Auth:Authority"]))
                    .As<IAuthorizationHandler>()
                    .SingleInstance();
+            builder.RegisterType<LocalizerService>()
+                   .As<ILocalizerService>()
+                   .InstancePerLifetimeScope();
 
 
         }
