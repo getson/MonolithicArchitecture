@@ -2,11 +2,8 @@
 using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Messages;
 using BinaryOrigin.SeedWork.WebApi;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -54,7 +51,7 @@ namespace App.WebApi
             application.UseRouting();
 
             application.UseAuthorization();
-            
+
             application.UseEndpoints(cfg =>
             {
                 cfg.MapControllers();
