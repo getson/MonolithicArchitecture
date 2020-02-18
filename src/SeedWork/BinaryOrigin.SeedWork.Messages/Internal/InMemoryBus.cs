@@ -1,5 +1,4 @@
 ﻿using BinaryOrigin.SeedWork.Core.Exceptions;
-using BinaryOrigin.SeedWork.Core.Extensions;
 using System.Linq;
 using System.Threading.Tasks;
 

@@ -1,5 +1,5 @@
-﻿using BinaryOrigin.SeedWork.Core;
-using BinaryOrigin.SeedWork.Core.Extensions;
+﻿using App.Core;
+using BinaryOrigin.SeedWork.Core;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
 

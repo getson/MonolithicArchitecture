@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+using System.Reflection;
 
 namespace App.WebApi.Extensions
 {
@@ -28,70 +28,39 @@ namespace App.WebApi.Extensions
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My App", Version = "v1" });
-
-                // add a custom operation filter which sets default values
-                c.OperationFilter<SwaggerOperationFilter>();
-
-                // Set the comments path for the Swagger JSON and UI.
-                var basePath = AppContext.BaseDirectory;
-                var xmlPath = Path.Combine(basePath, "App.WebApi.xml");
-                c.IncludeXmlComments(xmlPath);
-            });
-            services.ConfigureSwaggerGen(cfg =>
-            {
-                cfg.DescribeAllParametersInCamelCase();
-                cfg.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Description = "Authorization header using the Bearer scheme",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey
+                    Title = "My App",
+                    Version = "v1"
+                });
+                c.DescribeAllParametersInCamelCase();
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Bearer",
+                    Description = "Please enter your token access token",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    In = ParameterLocation.Header
                 });
 
-                cfg.AddSecurityRequirement(new OpenApiSecurityRequirement());
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference 
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"                               
+                            },
+                        }, new List<string>()
+                    }
+                });
+                // Set the comments path for the Swagger JSON and UI.
+                var basePath = AppContext.BaseDirectory;
+                var xmlPath = Path.Combine(basePath, $"{Assembly.GetEntryAssembly().GetName().Name}.xml");
+                c.IncludeXmlComments(xmlPath);
             });
-        }
-    }
-
-    public class SwaggerOperationFilter : IOperationFilter
-    {
-        /// <summary>
-        /// Applies the filter to the specified operation using the given context.
-        /// </summary>
-        /// <param name="operation">The operation to apply the filter to.</param>
-        /// <param name="context">The current operation filter context.</param>
-        public void Apply(OpenApiOperation operation, OperationFilterContext context)
-        {
-            if (operation.Parameters == null)
-            {
-                return;
-            }
-
-            // REF: https://github.com/domaindrivendev/Swashbuckle.AspNetCore/issues/412
-            // REF: https://github.com/domaindrivendev/Swashbuckle.AspNetCore/pull/413
-            foreach (var parameter in operation.Parameters)
-            {
-                var description = context.ApiDescription.ParameterDescriptions.First(p => string.Compare(p.Name, parameter.Name, true) == 0);
-                var routeInfo = description.RouteInfo;
-
-                if (parameter.Description == null)
-                {
-                    parameter.Description = description.ModelMetadata?.Description;
-                }
-
-                if (routeInfo == null)
-                {
-                    continue;
-                }
-
-                //if (parameter..Default == null)
-                //{
-                //    parameter.Default = routeInfo.DefaultValue;
-                //}
-
-                parameter.Required |= !routeInfo.IsOptional;
-            }
         }
     }
 }

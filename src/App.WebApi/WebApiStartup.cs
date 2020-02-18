@@ -2,8 +2,11 @@
 using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Messages;
 using BinaryOrigin.SeedWork.WebApi;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,13 +22,14 @@ namespace App.WebApi
         public void ConfigureServices(IServiceCollection services, IEngine engine, IConfiguration configuration)
         {
             //add framework services
-            services.AddHttpContextAccesor();
             services.AddCors();
             services.AddControllers()
                     .AddNewtonsoftJson()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddAppSwagger();
             services.AddDefaultEfSecondLevelCache();
+
+            services.AddAuth(configuration);
 
             // add custom services
             engine.AddAutoMapper();
@@ -45,8 +49,12 @@ namespace App.WebApi
         {
             application.UseAppExceptionHandler();
 
+            application.UseAuthentication();
+
             application.UseRouting();
 
+            application.UseAuthorization();
+            
             application.UseEndpoints(cfg =>
             {
                 cfg.MapControllers();

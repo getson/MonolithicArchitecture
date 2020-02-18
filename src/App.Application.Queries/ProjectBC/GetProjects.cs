@@ -1,6 +1,5 @@
 ﻿using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Messages;
-using System.Collections.Generic;
 
 namespace App.Application.Queries.ProjectBC
 {

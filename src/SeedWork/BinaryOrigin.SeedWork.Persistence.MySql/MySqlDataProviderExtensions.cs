@@ -2,20 +2,53 @@
 using BinaryOrigin.SeedWork.Persistence.Ef;
 using BinaryOrigin.SeedWork.Persistence.Ef.MySql;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace BinaryOrigin.SeedWork.Core
 {
     public static class MySqlDataProviderExtensions
     {
-        public static void AddDefaultMySqlDbContext(this IEngine engine, string connectionString)
+        public static void AddDbContext<TContext>(this IEngine engine, Func<TContext> @delegate)
+            where TContext : IDbContext
         {
-            var optionsBuilder = new DbContextOptionsBuilder<EfObjectContext>();
+            engine.Register(builder =>
+            {
+                builder.RegisterType<MySqlDataProvider>()
+                        .As<IDataProvider>()
+                        .SingleInstance();
+                builder.Register(instance => @delegate.Invoke())
+                        .As<IDbContext>()
+                        .InstancePerLifetimeScope();
+            });
+        }
+        public static void AddDbContext<TContext>(this IEngine engine, string connectionString)
+                 where TContext : EfObjectContext
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<TContext>();
             optionsBuilder.UseMySQL(connectionString);
 
             engine.Register(builder =>
             {
-                builder.RegisterType<MySqlDataProvider>().As<IDataProvider>().SingleInstance();
-                builder.Register(instance => new EfObjectContext(optionsBuilder.Options)).As<IDbContext>().InstancePerLifetimeScope();
+                builder.RegisterType<MySqlDataProvider>()
+                        .As<IDataProvider>()
+                        .SingleInstance();
+                builder.Register(instance => Activator.CreateInstance(typeof(TContext), new object[] { optionsBuilder.Options }))
+                        .As<IDbContext>()
+                        .InstancePerLifetimeScope();
+            });
+        }
+
+        public static void AddDbContext<TContext>(this IEngine engine, DbContextOptions<TContext> options)
+                where TContext : EfObjectContext
+        {
+            engine.Register(builder =>
+            {
+                builder.RegisterType<MySqlDataProvider>()
+                        .As<IDataProvider>()
+                        .SingleInstance();
+                builder.Register(instance => Activator.CreateInstance(typeof(TContext), new object[] { options }))
+                        .As<IDbContext>()
+                        .InstancePerLifetimeScope();
             });
         }
 

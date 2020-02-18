@@ -25,6 +25,7 @@ namespace App.Application.Commands.ProjectBC.Handlers
                 return Result.Fail<Guid>(projectResult.Error);
             }
             await _projectRepository.CreateAsync(projectResult.Value);
+
             return Result.Ok(projectResult.Value.Id);
         }
     }

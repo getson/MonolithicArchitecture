@@ -3,6 +3,7 @@ using App.Application.Events;
 using App.Application.Queries.ProjectBC;
 using BinaryOrigin.SeedWork.Messages;
 using BinaryOrigin.SeedWork.WebApi.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -60,6 +61,7 @@ namespace App.WebApi.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize(Scopes.CreateProject)]
         public async Task<IActionResult> Post(AddProject command)
         {
             var result = await _bus.ExecuteAsync(command);
@@ -76,6 +78,7 @@ namespace App.WebApi.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut]
+        [Authorize(Scopes.UpdateProject)]
         public async Task<IActionResult> Put(UpdateProject command)
         {
             _ = await _bus.ExecuteAsync(command);
@@ -87,6 +90,7 @@ namespace App.WebApi.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
+        [Authorize(Scopes.DeleteProject)]
         public async Task<IActionResult> Delete([FromRoute]DeleteProject command)
         {
             _ = await _bus.ExecuteAsync(command);

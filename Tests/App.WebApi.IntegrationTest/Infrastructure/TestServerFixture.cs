@@ -13,7 +13,6 @@ namespace App.WebApi.IntegrationTest.Infrastructure
         static TestServerFixture()
         {
             var builder = new WebHostBuilder()
-                .UseEnvironment("Testing")
                 .UseStartup<Startup>();
 
             TestServer = new TestServer(builder);

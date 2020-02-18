@@ -25,7 +25,7 @@ namespace MyApp.IdentityServer
         {
             return new List<ApiResource>
             {
-                new ApiResource("myApp", "My API")
+                new ApiResource("myApi", "My API")
             };
         }
 
@@ -38,7 +38,7 @@ namespace MyApp.IdentityServer
                 // OpenID Connect hybrid flow and client credentials client (MVC)
                 new Client
                 {
-                    ClientId = "myAppClient",
+                    ClientId = "clientId",
                     ClientName = "Sample client",
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     ClientSecrets =
@@ -50,7 +50,7 @@ namespace MyApp.IdentityServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "myApp"
+                        "myApi"
                     },
                     AllowOfflineAccess = true
                 }

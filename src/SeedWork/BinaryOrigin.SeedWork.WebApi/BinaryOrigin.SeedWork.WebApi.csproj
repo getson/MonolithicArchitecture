@@ -2,10 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>1.1.2</Version>
+    <Version>1.1.3</Version>
     <RepositoryUrl>https://github.com/getson/MonolithicArchitecture</RepositoryUrl>
     <PackageProjectUrl>https://github.com/getson/MonolithicArchitecture</PackageProjectUrl>
     <RepositoryType>CQRS,DDD</RepositoryType>
+    <Authors>Getson Cela</Authors>
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />

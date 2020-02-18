@@ -1,7 +1,4 @@
 ﻿using BinaryOrigin.SeedWork.Core;
-using BinaryOrigin.SeedWork.Core.Common;
-
-using BinaryOrigin.SeedWork.Infrastructure;
 using BinaryOrigin.SeedWork.WebApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

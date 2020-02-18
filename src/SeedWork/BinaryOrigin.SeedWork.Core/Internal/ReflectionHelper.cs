@@ -41,7 +41,22 @@ namespace BinaryOrigin.SeedWork.Core
                            .Select(type => (T)Activator.CreateInstance(type))
                            .ToArray();
         }
-
+        public static IEnumerable<object> GetConstants<T>() where T : class
+        {
+            return typeof(T).GetType()
+                        .GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
+                        .Where(fi => fi.IsLiteral && !fi.IsInitOnly)
+                        .Select(fi => fi.GetRawConstantValue())
+                        .ToList();
+        }
+        public static IEnumerable<TOutput> GetConstants<TInput, TOutput>()
+            where TInput : class
+        {
+            return typeof(TInput).GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
+                        .Where(fi => fi.IsLiteral && !fi.IsInitOnly)
+                        .Select(fi => TypeConverterHelper.To<TOutput>(fi.GetRawConstantValue()))
+                        .ToList();
+        }
         /// <summary>
         /// Sets a property on an object to a value.
         /// </summary>

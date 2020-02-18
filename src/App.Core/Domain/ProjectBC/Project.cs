@@ -1,5 +1,5 @@
-﻿using BinaryOrigin.SeedWork.Core.Domain;
-using BinaryOrigin.SeedWork.Core.Extensions;
+﻿using BinaryOrigin.SeedWork.Core;
+using BinaryOrigin.SeedWork.Core.Domain;
 using System;
 
 namespace App.Core.Domain.ProjectBC
