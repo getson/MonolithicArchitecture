@@ -61,7 +61,7 @@ namespace App.WebApi.Extensions
                     options.DefaultChallengeScheme = "Test Scheme";
                 }).AddTestAuth(options =>
                 {
-                    options.Scopes = ReflectionHelper.GetConstants<Scopes,string>();
+                    options.Scopes = ReflectionHelper.GetConstants<string>(typeof(Scopes));
                     options.Authority = authConfig["Authority"];
                 });
             }

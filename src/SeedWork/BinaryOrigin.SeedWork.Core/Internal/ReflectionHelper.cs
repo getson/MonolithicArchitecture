@@ -41,20 +41,12 @@ namespace BinaryOrigin.SeedWork.Core
                            .Select(type => (T)Activator.CreateInstance(type))
                            .ToArray();
         }
-        public static IEnumerable<object> GetConstants<T>() where T : class
+        public static IEnumerable<T> GetConstants<T>(Type t)
+            where T : class
         {
-            return typeof(T).GetType()
-                        .GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
+            return t.GetType().GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
                         .Where(fi => fi.IsLiteral && !fi.IsInitOnly)
-                        .Select(fi => fi.GetRawConstantValue())
-                        .ToList();
-        }
-        public static IEnumerable<TOutput> GetConstants<TInput, TOutput>()
-            where TInput : class
-        {
-            return typeof(TInput).GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
-                        .Where(fi => fi.IsLiteral && !fi.IsInitOnly)
-                        .Select(fi => TypeConverterHelper.To<TOutput>(fi.GetRawConstantValue()))
+                        .Select(fi => TypeConverterHelper.To<T>(fi.GetRawConstantValue()))
                         .ToList();
         }
         /// <summary>
@@ -174,10 +166,12 @@ namespace BinaryOrigin.SeedWork.Core
 
                 return false;
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch
             {
                 return false;
             }
+#pragma warning restore CA1031 // Do not catch general exception types
         }
 
         private static IEnumerable<Type> GetClassesOfType(IEnumerable<Type> types, Type assignTypeFrom, bool onlyConcreteClasses)

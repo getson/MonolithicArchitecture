@@ -9,7 +9,7 @@ using System.Security.Claims;
 
 namespace MyApp.IdentityServer
 {
-    public class Config
+    public static class Config
     {
         // scopes define the resources in your system
         public static IEnumerable<IdentityResource> GetIdentityResources()

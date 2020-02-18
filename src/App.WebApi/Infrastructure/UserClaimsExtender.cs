@@ -26,7 +26,7 @@ namespace App.WebApi
             }
             // actually all the scopes will be provided to every user
             // but normally this is not a real world example
-            var claims = ReflectionHelper.GetConstants<Scopes, string>()
+            var claims = ReflectionHelper.GetConstants<string>(typeof(Scopes))
                             .Select(x => new Claim("scope", x, ClaimValueTypes.String, _authority))
                             .ToList();
 
