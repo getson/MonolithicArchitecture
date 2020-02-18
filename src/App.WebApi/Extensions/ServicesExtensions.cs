@@ -1,5 +1,6 @@
 ﻿using App.Core;
 using App.Infrastructure.Persistence.SqlServer.Context;
+using Autofac;
 using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Persistence.Ef;
 using BinaryOrigin.SeedWork.WebApi;
@@ -29,10 +30,14 @@ namespace App.WebApi.Extensions
             }
             else
             {
-                var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-                optionsBuilder.UseSqlServer(connectionString);
+                //var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+                //optionsBuilder.UseSqlServer(connectionString);
 
-                engine.AddDbContext(new AppDbContext(optionsBuilder.Options));
+                //engine.AddDbContext(() => new AppDbContext(optionsBuilder.Options));
+
+                engine.AddDbContext<AppDbContext>(connectionString);
+
+             //   engine.AddDbContext<AppDbContext>(optionsBuilder.Options);
             }
             engine.AddSqlServerDbExceptionParser(new DbErrorMessagesConfiguration
             {

@@ -8,7 +8,7 @@ namespace BinaryOrigin.SeedWork.Core
 {
     public static class SqlDataProviderExtensions
     {
-        public static void AddDbContext<TContext>(this IEngine engine, TContext context)
+        public static void AddDbContext<TContext>(this IEngine engine, Func<TContext> @delegate)
             where TContext : IDbContext
         {
             engine.Register(builder =>
@@ -16,7 +16,37 @@ namespace BinaryOrigin.SeedWork.Core
                 builder.RegisterType<SqlServerDataProvider>()
                         .As<IDataProvider>()
                         .SingleInstance();
-                builder.Register(instance => context)
+                builder.Register(instance => @delegate.Invoke())
+                        .As<IDbContext>()
+                        .InstancePerLifetimeScope();
+            });
+        }
+        public static void AddDbContext<TContext>(this IEngine engine, string connectionString)
+                 where TContext : EfObjectContext
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<TContext>();
+            optionsBuilder.UseSqlServer(connectionString);
+
+            engine.Register(builder =>
+            {
+                builder.RegisterType<SqlServerDataProvider>()
+                        .As<IDataProvider>()
+                        .SingleInstance();
+                builder.Register(instance => Activator.CreateInstance(typeof(TContext), new object[] { optionsBuilder.Options }))
+                        .As<IDbContext>()
+                        .InstancePerLifetimeScope();
+            });
+        }
+
+        public static void AddDbContext<TContext>(this IEngine engine, DbContextOptions<TContext> options)
+                where TContext : EfObjectContext
+        {
+            engine.Register(builder =>
+            {
+                builder.RegisterType<SqlServerDataProvider>()
+                        .As<IDataProvider>()
+                        .SingleInstance();
+                builder.Register(instance => Activator.CreateInstance(typeof(TContext), new object[] { options }))
                         .As<IDbContext>()
                         .InstancePerLifetimeScope();
             });

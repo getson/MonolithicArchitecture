@@ -1,4 +1,5 @@
-﻿using App.Core.Domain.ProjectBC;
+﻿using App.Core;
+using App.Core.Domain.ProjectBC;
 using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Core.Domain;
 using BinaryOrigin.SeedWork.Messages;
@@ -23,6 +24,11 @@ namespace App.Application.Queries.ProjectBC.Handlers
         {
             var result = await _dbContext.Set<Project>()
                 .SingleOrDefaultAsync(p => p.Id == queryModel.Id);
+
+            if (result == null)
+            {
+                return Result.Fail<GetProjectResult>(ErrorMessages.ProjectNotFound);
+            }
 
             return Result.Ok(_typeAdapter.Adapt<GetProjectResult>(result));
         }

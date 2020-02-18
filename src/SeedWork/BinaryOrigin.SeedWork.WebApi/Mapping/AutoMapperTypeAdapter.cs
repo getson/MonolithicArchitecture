@@ -20,12 +20,20 @@ namespace BinaryOrigin.SeedWork.WebApi.Mapping
             where TSource : class
             where TTarget : class
         {
+            if (source == null)
+            {
+                return default;
+            }
             return _mapper.Map<TSource, TTarget>(source);
         }
 
         public TTarget Adapt<TTarget>(object source)
             where TTarget : class
         {
+            if(source == null)
+            {
+                return default;
+            }
             return _mapper.Map<TTarget>(source);
         }
     }

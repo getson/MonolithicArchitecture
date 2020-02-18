@@ -24,7 +24,7 @@ namespace BinaryOrigin.SeedWork.Messages
                        .SingleInstance();
                 builder.RegisterType<NullLocalizerService>()
                        .As<ILocalizerService>()
-                       .SingleInstance();
+                       .InstancePerLifetimeScope();
             });
         }
         public static void AddDefaultDecorators(this IEngine engine)
