@@ -1,5 +1,4 @@
-﻿using BinaryOrigin.SeedWork.Persistence.Ef;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -22,7 +21,7 @@ namespace App.Infrastructure.Persistence.SqlServer.Context
                 .Build();
             optionsBuilder.UseSqlServer(configuration["Db:ConnectionString"], x =>
             {
-                x.MigrationsAssembly("App.Infrastructure.Persistence.SqlServer");
+                x.MigrationsAssembly(this.GetType().Assembly.GetName().Name);
                 x.MigrationsHistoryTable("MigrationHistory");
             });
             return new AppDbContext(optionsBuilder.Options);

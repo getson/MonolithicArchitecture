@@ -1,4 +1,5 @@
-﻿using BinaryOrigin.SeedWork.Core.Domain;
+﻿using BinaryOrigin.SeedWork.Core;
+using BinaryOrigin.SeedWork.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -81,5 +82,6 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
         {
             return (await Entities.SingleOrDefaultAsync(x => x.Id == id)) != null;
         }
+        public IUnitOfWork UnitOfWork => _dbContext;
     }
 }

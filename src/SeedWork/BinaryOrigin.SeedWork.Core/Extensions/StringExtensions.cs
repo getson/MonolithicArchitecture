@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace BinaryOrigin.SeedWork.Core.Extensions
+namespace BinaryOrigin.SeedWork.Core
 {
     public static class StringExtensions
     {

@@ -1,4 +1,4 @@
-﻿namespace BinaryOrigin.SeedWork.Core
+﻿namespace App.Core
 {
     public interface IWorkContext
     {

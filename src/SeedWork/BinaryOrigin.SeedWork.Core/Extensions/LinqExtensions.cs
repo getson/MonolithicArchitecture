@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace BinaryOrigin.SeedWork.Core.Extensions
+namespace System.Linq
 {
     public static class LinqExtensions
     {

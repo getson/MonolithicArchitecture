@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using BinaryOrigin.SeedWork.Core.Domain;
-using BinaryOrigin.SeedWork.Core.Extensions;
 using BinaryOrigin.SeedWork.Persistence.Ef;
 using System;
 using System.Linq;

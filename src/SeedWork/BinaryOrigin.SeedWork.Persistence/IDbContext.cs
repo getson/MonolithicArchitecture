@@ -1,4 +1,5 @@
-﻿using BinaryOrigin.SeedWork.Core.Domain;
+﻿using BinaryOrigin.SeedWork.Core;
+using BinaryOrigin.SeedWork.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,19 +9,13 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef
     /// <summary>
     /// Represents DB context
     /// </summary>
-    public interface IDbContext
+    public interface IDbContext : IUnitOfWork
     {
         /// <summary>
         /// Creates a DbSet that can be used to query and save instances of entity
         /// </summary>
         /// <returns>A set for the given entity type</returns>
         DbSet<TEntity> Set<TEntity>() where TEntity : BaseEntity;
-
-        /// <summary>
-        /// Saves all changes made in this context to the database
-        /// </summary>
-        /// <returns>The number of state entries written to the database</returns>
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Generate a script to create all tables for the current model

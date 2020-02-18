@@ -19,5 +19,7 @@ namespace BinaryOrigin.SeedWork.Core.Domain
         Task<Maybe<TEntity>> GetByIdAsync(Guid id);
 
         Task<bool> ExistsAsync(Guid id);
+
+        IUnitOfWork UnitOfWork { get; }
     }
 }

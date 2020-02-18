@@ -31,6 +31,7 @@ namespace BinaryOrigin.SeedWork.Core
 
         void Register(Action<ContainerBuilder> registerAction);
 
+
         /// <summary>
         /// Resolve dependency
         /// </summary>

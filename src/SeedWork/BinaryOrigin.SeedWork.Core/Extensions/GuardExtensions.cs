@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics;
 
-namespace BinaryOrigin.SeedWork.Core.Extensions
+namespace BinaryOrigin.SeedWork.Core
 {
     [DebuggerStepThrough]
     public static class GuardExtensions
