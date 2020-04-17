@@ -8,8 +8,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace App.WebApi.Extensions
@@ -20,26 +18,18 @@ namespace App.WebApi.Extensions
         /// Add entity framework services
         /// </summary>
         /// <param name="engine"></param>
-        /// <param name="configuration"></param>
-        public static void AddDbServices(this IEngine engine, IConfiguration configuration)
+        /// <param name="dbConfig"></param>
+        public static void AddDbServices(this IEngine engine, DbConfig dbConfig)
         {
-            var connectionString = configuration["Db:ConnectionString"];
-            var dbType = configuration["Db:Type"];
-
-            if (dbType == "InMemory")
+            if (dbConfig.ProviderType == DataProviderType.InMemory)
             {
                 engine.AddInMemoryDbContext();
             }
             else
             {
-                // 1
-                engine.AddDbContext<AppDbContext>(connectionString);
-                //var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-                //optionsBuilder.UseSqlServer(connectionString);
-                // 2 - engine.AddDbContext(() => new AppDbContext(optionsBuilder.Options));
-
-                // 3 -  engine.AddDbContext<AppDbContext>(optionsBuilder.Options);
+                engine.AddDbContext<AppDbContext>(dbConfig.ConnectionString);
             }
+
             engine.AddSqlServerDbExceptionParser(new DbErrorMessagesConfiguration
             {
                 UniqueErrorTemplate = ErrorMessages.GenericUniqueError,
@@ -48,12 +38,10 @@ namespace App.WebApi.Extensions
             engine.AddRepositories();
         }
 
-        public static void AddAuth(this IServiceCollection services, IConfiguration configuration)
-        
-        {
-            var authConfig = configuration.GetSection("Auth");
+        public static void AddAuth(this IServiceCollection services, AuthConfig authConfig)
 
-            if (configuration.GetValue<bool>("IsTesting"))
+        {
+            if (authConfig.ByPass)
             {
                 services.AddAuthentication(options =>
                 {
@@ -62,7 +50,7 @@ namespace App.WebApi.Extensions
                 }).AddTestAuth(options =>
                 {
                     options.Scopes = ReflectionHelper.GetConstants<Scopes>();
-                    options.Authority = authConfig["Authority"];
+                    options.Authority = authConfig.Authority;
                 });
             }
             else
@@ -73,15 +61,18 @@ namespace App.WebApi.Extensions
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 }).AddJwtBearer(options =>
                 {
-                    options.Authority = authConfig["Authority"];
-                    options.RequireHttpsMetadata = authConfig.GetValue<bool>("RequireHttps");
-                    options.Audience = authConfig["Audience"];
+                    options.Authority = authConfig.Authority;
+                    options.RequireHttpsMetadata = authConfig.RequireHttps;
+                    options.Audience = authConfig.Audience;
                 });
             }
             services.AddAuthorization();
             services.AddSingleton<IAuthorizationPolicyProvider, ScopeAuthorizationPolicyProvider>();
-            services.AddTransient<IClaimsTransformation, UserClaimsExtender>(x=>new UserClaimsExtender(authConfig["Authority"]));
+            services.AddTransient<IClaimsTransformation, UserClaimsExtender>(
+                x => new UserClaimsExtender(authConfig.Authority)
+            );
         }
+
         public static void UseAppExceptionHandler(this IApplicationBuilder app)
         {
             app.UseMiddleware<ErrorHandlingMiddleware>();

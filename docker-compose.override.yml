@@ -1,0 +1,17 @@
+version: '3.4'
+services:
+  postgres:
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=App
+      - PGDATA:/tmp
+
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    #   - ${DATA_PATH:-./data}:/var/lib/postgresql/data
+volumes:
+  postgres_data:
+    external: false

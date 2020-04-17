@@ -1,6 +1,6 @@
 ﻿using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Persistence.Ef.Extensions;
-using MySql.Data.MySqlClient;
+using Npgsql;
 using System.Data.Common;
 
 namespace BinaryOrigin.SeedWork.Persistence.Ef.MySql
@@ -8,7 +8,7 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef.MySql
     /// <summary>
     /// Represents My Sql data provider
     /// </summary>
-    public class MySqlDataProvider : IDataProvider
+    public class NpgSqlDataProvider : IDataProvider
     {
         /// <summary>
         /// Initialize database
@@ -16,7 +16,6 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef.MySql
         public virtual void InitializeDatabase()
         {
             var context = EngineContext.Current.Resolve<IDbContext>();
-
             context.CreateDatabase();
         }
 
@@ -26,7 +25,7 @@ namespace BinaryOrigin.SeedWork.Persistence.Ef.MySql
         /// <returns>Parameter</returns>
         public virtual DbParameter GetParameter()
         {
-            return new MySqlParameter();
+            return new NpgsqlParameter();
         }
 
         /// <summary>

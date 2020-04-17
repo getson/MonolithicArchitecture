@@ -55,9 +55,6 @@ namespace BinaryOrigin.SeedWork.Core
         /// <returns>Service provider</returns>
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            //add all services defined in Startup classes
-            ConfigureStartupServices(services);
-
             //register dependencies
             _serviceProvider = RegisterDependencies(services);
 
@@ -117,27 +114,6 @@ namespace BinaryOrigin.SeedWork.Core
         public IEnumerable<Type> FindClassesOfType(Type type, bool onlyConcreteClasses = true)
         {
             return TypeFinder.FindClassesOfType(type, onlyConcreteClasses);
-        }
-
-        /// <summary>
-        /// create an instance per each Startup class that implements IAppStartup and then call ConfigureServices
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="configuration"></param>
-        /// <param name="typeFinder"></param>
-        protected virtual void ConfigureStartupServices(IServiceCollection services)
-        {
-            var startupConfigurations = TypeFinder.FindClassesOfType<IAppStartup>();
-            //create and sort instances of startup configurations
-            var instances = startupConfigurations
-                .Select(startup => (IAppStartup)Activator.CreateInstance(startup))
-                .OrderBy(startup => startup.Order);
-
-            //configure services
-            foreach (var instance in instances)
-            {
-                instance.ConfigureServices(services, this, Configuration);
-            }
         }
 
         /// <summary>

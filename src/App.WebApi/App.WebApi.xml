@@ -51,12 +51,12 @@
             <param name="command"></param>
             <returns></returns>
         </member>
-        <member name="M:App.WebApi.Extensions.ServicesExtensions.AddDbServices(BinaryOrigin.SeedWork.Core.IEngine,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:App.WebApi.Extensions.ServicesExtensions.AddDbServices(BinaryOrigin.SeedWork.Core.IEngine,App.Core.DbConfig)">
             <summary>
             Add entity framework services
             </summary>
             <param name="engine"></param>
-            <param name="configuration"></param>
+            <param name="dbConfig"></param>
         </member>
         <member name="M:App.WebApi.Extensions.SwaggerExtensions.AddAppSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
@@ -74,19 +74,7 @@
             <summary>
             Configure the application HTTP request pipeline
             </summary>
-            <param name="application"></param>
-        </member>
-        <member name="T:App.WebApi.WebApiStartup">
-            <inheritdoc />
-        </member>
-        <member name="P:App.WebApi.WebApiStartup.Order">
-            <inheritdoc />
-        </member>
-        <member name="M:App.WebApi.WebApiStartup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,BinaryOrigin.SeedWork.Core.IEngine,Microsoft.Extensions.Configuration.IConfiguration)">
-            <inheritdoc />
-        </member>
-        <member name="M:App.WebApi.WebApiStartup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Configuration.IConfiguration)">
-            <inheritdoc />
+            <param name="app"></param>
         </member>
     </members>
 </doc>
