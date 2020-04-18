@@ -12,6 +12,13 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     #   - ${DATA_PATH:-./data}:/var/lib/postgresql/data
+  App-WebApi:
+    environment:
+    - ASPNETCORE_ENVIRONMENT=Development
+    - ASPNETCORE_URLS=https://+:443;http://+:80
+    - ASPNETCORE_HTTPS_PORT=443
+    ports:
+     - "7501:80"
 volumes:
   postgres_data:
     external: false

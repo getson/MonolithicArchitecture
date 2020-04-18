@@ -2,3 +2,10 @@ version: '3.4'
 services:
   postgres:
     image: postgres:12.2
+  App-WebApi:
+    image: app.api:${PLATFORM:-linux}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: src/App.WebApi/Dockerfile
+    depends_on:
+      - postgres
