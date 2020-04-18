@@ -2,6 +2,7 @@
 using App.WebApi.Extensions;
 using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Messages;
+using BinaryOrigin.SeedWork.Persistence.Ef;
 using BinaryOrigin.SeedWork.WebApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -90,7 +91,8 @@ namespace App.WebApi
             {
                 cfg.MapControllers();
             });
-
+            app.ApplicationServices.GetRequiredService<IDbContext>()
+                .CreateDatabase();
             app.UseAppSwagger();
         }
     }

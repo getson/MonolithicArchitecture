@@ -33,7 +33,7 @@ namespace App.Infrastructure.Persistence.Context
                 optionsBuilder.UseNpgsql(dbConfig.ConnectionString, x =>
                 {
                     x.MigrationsAssembly(GetType().Assembly.GetName().Name);
-                    x.MigrationsHistoryTable("MigrationHistory");
+                    x.MigrationsHistoryTable("__EFMigrationsHistory");
                 });
             }
 

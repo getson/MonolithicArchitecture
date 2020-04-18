@@ -17,6 +17,7 @@ services:
     - ASPNETCORE_ENVIRONMENT=Development
     - ASPNETCORE_URLS=https://+:443;http://+:80
     - ASPNETCORE_HTTPS_PORT=443
+    - DbConfig__ConnectionString=Server=postgres;Port=5432;Database=App;User Id=admin;Password=admin;
     ports:
      - "7501:80"
 volumes:
