@@ -8,7 +8,7 @@ using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
-namespace BinaryOrigin.SeedWork.WebApi.Authorization
+namespace App.WebApi.Infrastructure.Authorization
 {
     public class TestAuthenticationHandler : AuthenticationHandler<TestAuthenticationOptions>
     {
@@ -42,15 +42,15 @@ namespace BinaryOrigin.SeedWork.WebApi.Authorization
         public IEnumerable<string> Scopes { get; set; }
         public string Authority { get; set; }
         public virtual ClaimsIdentity Identity => new ClaimsIdentity(GetScopes());
-      
+
         private IEnumerable<Claim> GetScopes()
         {
-            var scopes = Scopes.Select(s => 
-                           new Claim("scope",s, ClaimValueTypes.String, Authority)
+            var scopes = Scopes.Select(s =>
+                           new Claim("scope", s, ClaimValueTypes.String, Authority)
                          ).ToList();
 
             scopes.Add(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", Guid.NewGuid().ToString()));
-           
+
             return scopes;
         }
 

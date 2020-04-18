@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\App.Core\App.Core.csproj" />
-    <ProjectReference Include="..\App.Infrastructure.Persistence.SqlServer\App.Infrastructure.Persistence.SqlServer.csproj" />
+    <ProjectReference Include="..\App.Infrastructure.Persistence\App.Infrastructure.Persistence.csproj" />
     <ProjectReference Include="..\SeedWork\BinaryOrigin.SeedWork.Core\BinaryOrigin.SeedWork.Core.csproj" />
     <ProjectReference Include="..\SeedWork\BinaryOrigin.SeedWork.Messages\BinaryOrigin.SeedWork.Messages.csproj" />
   </ItemGroup>

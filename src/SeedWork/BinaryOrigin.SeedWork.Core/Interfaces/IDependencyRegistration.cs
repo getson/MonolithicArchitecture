@@ -19,7 +19,6 @@ namespace BinaryOrigin.SeedWork.Core
         /// </summary>
         /// <param name="builder"></param>
         /// <param name="typeFinder">Type finder</param>
-        /// <param name="config">Config</param>
-        void Register(ContainerBuilder builder, ITypeFinder typeFinder, IConfiguration config);
+        void Register(ContainerBuilder builder, ITypeFinder typeFinder);
     }
 }

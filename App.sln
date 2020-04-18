@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryOrigin.SeedWork.Persi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.IdentityServer", "src\MyApp.IdentityServer\MyApp.IdentityServer.csproj", "{AAFEFB87-E362-4D59-A1DD-02547079B78A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Infrastructure.Persistence.SqlServer", "src\App.Infrastructure.Persistence.SqlServer\App.Infrastructure.Persistence.SqlServer.csproj", "{CBF0F58C-8DAC-4BC7-9946-5179BE862DE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Infrastructure.Persistence", "src\App.Infrastructure.Persistence\App.Infrastructure.Persistence.csproj", "{CBF0F58C-8DAC-4BC7-9946-5179BE862DE5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{BD38DB82-C3D4-4EC7-9F6B-610F43F52F85}"
 EndProject

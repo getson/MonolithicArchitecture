@@ -25,7 +25,6 @@ namespace BinaryOrigin.SeedWork.Core
         protected ContainerBuilder ContainerBuilder { get; private set; }
         protected ITypeFinder TypeFinder { get; private set; }
         protected IAppFileProvider FileProvider { get; private set; }
-        protected IConfiguration Configuration { get; private set; }
 
         /// <summary>
         /// Initialize engine
@@ -36,7 +35,6 @@ namespace BinaryOrigin.SeedWork.Core
         /// <param name="configuration"></param>
         public void Initialize(IAppFileProvider appFileProvider, IConfiguration configuration)
         {
-            Configuration = configuration;
             FileProvider = appFileProvider;
             ContainerBuilder = new ContainerBuilder();
             TypeFinder = new AppTypeFinder(FileProvider);
@@ -148,7 +146,7 @@ namespace BinaryOrigin.SeedWork.Core
 
             //register all provided dependencies
             foreach (var dependencyRegistrar in instances)
-                dependencyRegistrar.Register(ContainerBuilder, TypeFinder, Configuration);
+                dependencyRegistrar.Register(ContainerBuilder, TypeFinder);
 
             //populate Autofac container builder with the set of registered service descriptors
             ContainerBuilder.Populate(services);

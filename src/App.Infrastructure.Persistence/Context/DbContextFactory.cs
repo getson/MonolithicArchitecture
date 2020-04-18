@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using App.Core;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System;
 
-namespace App.Infrastructure.Persistence.SqlServer.Context
+namespace App.Infrastructure.Persistence.Context
 {
     public class AppObjectContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
@@ -19,11 +20,23 @@ namespace App.Infrastructure.Persistence.SqlServer.Context
                 .SetBasePath(AppContext.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
-            optionsBuilder.UseSqlServer(configuration["Db:ConnectionString"], x =>
+
+            var dbConfig = new DbConfig();
+
+            configuration.GetSection(nameof(DbConfig)).Bind(dbConfig);
+            if (dbConfig.ProviderType == DataProviderType.InMemory)
             {
-                x.MigrationsAssembly(this.GetType().Assembly.GetName().Name);
-                x.MigrationsHistoryTable("MigrationHistory");
-            });
+                optionsBuilder.UseInMemoryDatabase("InMemoryDb");
+            }
+            else
+            {
+                optionsBuilder.UseNpgsql(dbConfig.ConnectionString, x =>
+                {
+                    x.MigrationsAssembly(GetType().Assembly.GetName().Name);
+                    x.MigrationsHistoryTable("MigrationHistory");
+                });
+            }
+
             return new AppDbContext(optionsBuilder.Options);
         }
     }

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 
-namespace BinaryOrigin.SeedWork.WebApi.Authorization
+namespace App.WebApi.Infrastructure.Authorization
 {
     /// <summary>
     /// Authorization policy provider to automatically turn all permissions of a user into a ASP.NET Core authorization policy

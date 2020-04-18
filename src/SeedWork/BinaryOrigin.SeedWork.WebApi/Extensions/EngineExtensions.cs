@@ -2,7 +2,6 @@
 using AutoMapper;
 using BinaryOrigin.SeedWork.Messages.Validation;
 using BinaryOrigin.SeedWork.Persistence.Ef;
-using BinaryOrigin.SeedWork.Persistence.SqlServer;
 using BinaryOrigin.SeedWork.WebApi.Mapping;
 using BinaryOrigin.SeedWork.WebApi.Validations;
 using FluentValidation;
@@ -25,9 +24,6 @@ namespace  BinaryOrigin.SeedWork.Core
 
             engine.Register(builder =>
             {
-                builder.RegisterType<SqlServerDataProvider>()
-                        .As<IDataProvider>()
-                        .SingleInstance();
                 builder.Register(instance => new EfObjectContext(optionsBuilder.Options))
                         .As<IDbContext>()
                         .InstancePerLifetimeScope();

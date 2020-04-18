@@ -52,7 +52,7 @@ namespace BinaryOrigin.SeedWork.Core
             });
         }
 
-        public static void AddMySqlDbExceptionParser(this IEngine engine, DbErrorMessagesConfiguration errorMessagesConfig)
+        public static void AddPgSqlDbExceptionParser(this IEngine engine, DbErrorMessagesConfiguration errorMessagesConfig)
         {
             engine.Register(builder =>
             {

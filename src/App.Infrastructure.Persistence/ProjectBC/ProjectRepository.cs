@@ -1,7 +1,7 @@
 ﻿using App.Core.Domain.ProjectBC;
 using BinaryOrigin.SeedWork.Persistence.Ef;
 
-namespace App.Infrastructure.Persistence.SqlServer.ProjectBC
+namespace App.Infrastructure.Persistence.ProjectBC
 {
     public sealed class ProjectRepository : EfRepository<Project>, IProjectRepository
     {

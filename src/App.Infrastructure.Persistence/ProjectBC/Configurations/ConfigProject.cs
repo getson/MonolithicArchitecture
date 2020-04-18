@@ -2,7 +2,7 @@
 using BinaryOrigin.SeedWork.Persistence.Ef;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace App.Infrastructure.Persistence.SqlServer.ProjectBC.Configurations
+namespace App.Infrastructure.Persistence.ProjectBC.Configurations
 {
     internal class ConfigProject : EfEntityTypeConfiguration<Project>
     {

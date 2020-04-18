@@ -1,9 +1,9 @@
 ﻿using App.Core;
-using App.Infrastructure.Persistence.SqlServer.Context;
+using App.Infrastructure.Persistence.Context;
+using App.WebApi.Infrastructure.Authorization;
 using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Persistence.Ef;
 using BinaryOrigin.SeedWork.WebApi;
-using BinaryOrigin.SeedWork.WebApi.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -30,7 +30,7 @@ namespace App.WebApi.Extensions
                 engine.AddDbContext<AppDbContext>(dbConfig.ConnectionString);
             }
 
-            engine.AddSqlServerDbExceptionParser(new DbErrorMessagesConfiguration
+            engine.AddPgSqlDbExceptionParser(new DbErrorMessagesConfiguration
             {
                 UniqueErrorTemplate = ErrorMessages.GenericUniqueError,
                 CombinationUniqueErrorTemplate = ErrorMessages.GenericCombinationUniqueError

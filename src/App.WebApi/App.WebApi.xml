@@ -64,6 +64,48 @@
             </summary>
             <param name="services"></param>
         </member>
+        <member name="T:App.WebApi.Infrastructure.Authorization.HasScopeHandler">
+            <summary>
+            This handler will be called for evaluating if the user has the specific
+            scope(permission) in its claims
+            </summary>
+        </member>
+        <member name="M:App.WebApi.Infrastructure.Authorization.HasScopeHandler.#ctor(Microsoft.Extensions.Options.IOptions{App.Core.AuthConfig})">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="M:App.WebApi.Infrastructure.Authorization.HasScopeHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,App.WebApi.Infrastructure.Authorization.HasScopeRequirement)">
+            <inheritdoc/>
+        </member>
+        <member name="M:App.WebApi.Infrastructure.Authorization.HasScopeRequirement.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="scope"></param>
+        </member>
+        <member name="T:App.WebApi.Infrastructure.Authorization.ScopeAuthorizationPolicyProvider">
+            <summary>
+            Authorization policy provider to automatically turn all permissions of a user into a ASP.NET Core authorization policy
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Authorization.DefaultAuthorizationPolicyProvider" />
+        </member>
+        <member name="M:App.WebApi.Infrastructure.Authorization.ScopeAuthorizationPolicyProvider.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Authorization.AuthorizationOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.WebApi.Infrastructure.Authorization.ScopeAuthorizationPolicyProvider"/> class.
+            </summary>
+            <param name="options">The options.</param>
+        </member>
+        <member name="M:App.WebApi.Infrastructure.Authorization.ScopeAuthorizationPolicyProvider.GetPolicyAsync(System.String)">
+            <summary>
+            Gets a <see cref="T:Microsoft.AspNetCore.Authorization.AuthorizationPolicy" /> from the given <paramref name="policyName" />
+            </summary>
+            <param name="policyName">The policy name to retrieve.</param>
+            <returns>
+            The named <see cref="T:Microsoft.AspNetCore.Authorization.AuthorizationPolicy" />.
+            </returns>
+        </member>
         <member name="M:App.WebApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             Add services to the application and configure service provider

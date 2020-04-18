@@ -1,16 +1,13 @@
-﻿using App.WebApi.Localization;
+﻿using App.Core;
+using App.WebApi.Infrastructure.Authorization;
+using App.WebApi.Localization;
 using Autofac;
 using BinaryOrigin.SeedWork.Core;
 using BinaryOrigin.SeedWork.Messages;
-using BinaryOrigin.SeedWork.WebApi.Authorization;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
 namespace App.WebApi.Infrastructure
 {
@@ -18,7 +15,7 @@ namespace App.WebApi.Infrastructure
     {
         public int Order => 2;
 
-        public void Register(ContainerBuilder builder, ITypeFinder typeFinder, IConfiguration config)
+        public void Register(ContainerBuilder builder, ITypeFinder typeFinder)
         {
             builder.RegisterType<HttpContextAccessor>()
                    .As<IHttpContextAccessor>()
@@ -26,14 +23,12 @@ namespace App.WebApi.Infrastructure
             builder.RegisterType<ScopeAuthorizationPolicyProvider>()
                    .As<IAuthorizationPolicyProvider>()
                    .SingleInstance();
-            builder.RegisterInstance(new HasScopeHandler(config["Auth:Authority"]))
+            builder.RegisterType<HasScopeHandler>()
                    .As<IAuthorizationHandler>()
                    .SingleInstance();
             builder.RegisterType<LocalizerService>()
                    .As<ILocalizerService>()
                    .InstancePerLifetimeScope();
-
-
         }
     }
 }

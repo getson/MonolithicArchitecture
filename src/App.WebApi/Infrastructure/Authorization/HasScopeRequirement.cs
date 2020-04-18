@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using System;
 
-namespace BinaryOrigin.SeedWork.WebApi.Authorization
+namespace App.WebApi.Infrastructure.Authorization
 {
     public class HasScopeRequirement : IAuthorizationRequirement
     {
@@ -13,7 +13,7 @@ namespace BinaryOrigin.SeedWork.WebApi.Authorization
         /// <param name="scope"></param>
         public HasScopeRequirement(string scope)
         {
-           Scope = scope ?? throw new ArgumentNullException(nameof(scope));
+            Scope = scope ?? throw new ArgumentNullException(nameof(scope));
         }
     }
 }
