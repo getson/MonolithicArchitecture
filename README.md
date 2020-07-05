@@ -33,5 +33,3 @@ This repository presents an approach on how to build an application using Monoli
 > 4 - Enjoy debugging.  
 
 ## Your feedback is welcomed :)  
-
-If you want to use these small libraries you can use : https://github.com/getson/Monolith-CQRS-DDD as a quickstart.
